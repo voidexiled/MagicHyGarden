@@ -235,7 +235,7 @@ public final class MghgHarvestUtil {
     }
 
     @Nullable
-    private static MghgCropData tryGetCropData(@Nonnull World world, @Nonnull Vector3i blockPosition) {
+    public static MghgCropData tryGetCropData(@Nonnull World world, @Nonnull Vector3i blockPosition) {
         ChunkStore chunkStore = world.getChunkStore();
         Store<ChunkStore> cs = chunkStore.getStore();
 
@@ -263,7 +263,25 @@ public final class MghgHarvestUtil {
 
         // 2) Persistido: entity holder (aún no rehidratado)
         Holder<ChunkStore> holder = blockComponentChunk.getEntityHolder(blockIndexColumn);
-        return holder == null ? null : holder.getComponent(MghgCropData.getComponentType());
+        if (holder != null) {
+            MghgCropData data = holder.getComponent(MghgCropData.getComponentType());
+            if (data != null) {
+                return data;
+            }
+        }
+
+        // 3) Holder en WorldChunk (set via worldChunk.setState)
+        WorldChunk worldChunk = cs.getComponent(chunkRef, WorldChunk.getComponentType());
+        if (worldChunk != null) {
+            Holder<ChunkStore> stateHolder = worldChunk.getBlockComponentHolder(
+                    blockPosition.x, blockPosition.y, blockPosition.z
+            );
+            if (stateHolder != null) {
+                return stateHolder.getComponent(MghgCropData.getComponentType());
+            }
+        }
+
+        return null;
     }
 
     /**

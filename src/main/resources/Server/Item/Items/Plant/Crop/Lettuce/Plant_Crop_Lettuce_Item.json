@@ -46,7 +46,13 @@
       "Soft": {}
     },
     "BlockSoundSetId": "Plant",
-    "InteractionSoundEventId": "SFX_Plant_Break"
+    "InteractionSoundEventId": "SFX_Plant_Break",
+    "Interactions": {
+      "Primary": "MGHG_Root_HarvestCrop",
+      "Secondary": "MGHG_Root_HarvestCrop",
+      "Use": "MGHG_Root_HarvestCrop",
+      "Pick": "MGHG_Root_HarvestCrop"
+    }
   },
   "DropOnDeath": true,
   "State": {
@@ -67,7 +73,13 @@
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
           }
-        ]
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
       },
       "TranslationProperties": {
         "Name": "server.items.Plant.Plant_Crop_Lettuce_Wet.name",
@@ -87,10 +99,37 @@
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
           }
-        ]
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
       }
     },
-    "mghg_rain_snow": {}
+    "mghg_rain_snow": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    }
   },
   "Tags": {
     "Type": [

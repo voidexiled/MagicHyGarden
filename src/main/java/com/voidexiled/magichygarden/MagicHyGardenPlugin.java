@@ -13,6 +13,7 @@ import com.voidexiled.magichygarden.commands.crop.CropCommand;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.interactions.MghgHarvestCropInteraction;
 import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
+import com.voidexiled.magichygarden.features.farming.systems.MghgPreserveCropMetaOnBreakSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgMatureCropMutationTickingSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgOnFarmBlockAddedSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgRehydrateCropDataOnPlaceSystem;
@@ -76,6 +77,11 @@ public class MagicHyGardenPlugin extends JavaPlugin {
 
         // 2) 🔥 IMPORTANT: rehydrate MGHG_Crop metadata onto placed blocks (decorative crop items)
         this.getEntityStoreRegistry().registerSystem(new MghgRehydrateCropDataOnPlaceSystem(
+                this.mghgCropDataComponentType
+        ));
+
+        // Preserve MGHG metadata when breaking placed blocks (decorative crop items)
+        this.getEntityStoreRegistry().registerSystem(new MghgPreserveCropMetaOnBreakSystem(
                 this.mghgCropDataComponentType
         ));
 

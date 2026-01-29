@@ -57,7 +57,13 @@
     "BlockParticleSetId": "Flower",
     "RandomRotation": "YawStep1",
     "HitboxType": "Plant_Tall_Large",
-    "BlockSoundSetId": "Plant"
+    "BlockSoundSetId": "Plant",
+    "Interactions": {
+      "Primary": "MGHG_Root_HarvestCrop",
+      "Secondary": "MGHG_Root_HarvestCrop",
+      "Use": "MGHG_Root_HarvestCrop",
+      "Pick": "MGHG_Root_HarvestCrop"
+    }
   },
   "Interactions": {
     "Primary": "Block_Primary",

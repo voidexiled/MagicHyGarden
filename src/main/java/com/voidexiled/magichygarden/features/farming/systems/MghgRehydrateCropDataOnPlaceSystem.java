@@ -3,6 +3,7 @@ package com.voidexiled.magichygarden.features.farming.systems;
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.ComponentType;
+import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.EntityEventSystem;
@@ -11,8 +12,10 @@ import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.modules.block.BlockModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
@@ -21,6 +24,7 @@ import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
 import com.voidexiled.magichygarden.features.farming.state.RarityMutation;
 import org.bson.BsonDocument;
 import org.bson.BsonValue;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -122,11 +126,12 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             return;
         }
 
-        // Debug: qué bloque hay realmente ya colocado
+        // Debug + validation: qué bloque hay realmente ya colocado
         String actualBlockId = null;
+        BlockType actualBlockType = null;
         try {
-            var blockType = worldChunk.getBlockType(pos.x, pos.y, pos.z);
-            actualBlockId = (blockType != null ? blockType.getId() : null);
+            actualBlockType = worldChunk.getBlockType(pos.x, pos.y, pos.z);
+            actualBlockId = (actualBlockType != null ? actualBlockType.getId() : null);
         } catch (Throwable ignored) {
             // getBlockType existe pero está deprecado; si algo revienta, no tumbamos el sistema.
         }
@@ -138,7 +143,53 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             );
         }
 
-        // Holder actual (si existía) o uno nuevo
+        if (actualBlockType == null) {
+            return;
+        }
+
+        boolean matchesExpected =
+                expectedBlockTypeKey != null && expectedBlockTypeKey.equals(actualBlockType.getId());
+        boolean matchesItem =
+                actualBlockType.getItem() != null && itemId.equals(actualBlockType.getItem().getId());
+
+        if (!matchesExpected && !matchesItem) {
+            if (DEBUG) {
+                LOGGER.at(Level.WARNING).log(
+                        "[MGHG|PLACE] skip: expected=%s actual=%s item=%s pos=%d,%d,%d (by=%s)",
+                        expectedBlockTypeKey, actualBlockType.getId(), itemId, pos.x, pos.y, pos.z, who
+                );
+            }
+            return;
+        }
+
+        ChunkStore chunkStore = world.getChunkStore();
+        Store<ChunkStore> chunkStoreStore = chunkStore.getStore();
+        Ref<ChunkStore> chunkRef = chunkStore.getChunkReference(chunkIndex);
+        BlockComponentChunk blockComponentChunk =
+                (chunkRef != null) ? chunkStoreStore.getComponent(chunkRef, BlockComponentChunk.getComponentType()) : null;
+
+        int blockIndex = ChunkUtil.indexBlockInColumn(pos.x, pos.y, pos.z);
+        Ref<ChunkStore> blockRef =
+                (blockComponentChunk != null) ? blockComponentChunk.getEntityReference(blockIndex) : null;
+
+        if (blockRef != null && blockRef.isValid()) {
+            // If entity exists, write directly onto it
+            MghgCropData data = chunkStoreStore.ensureAndGetComponent(blockRef, cropDataType);
+            data.setSize(size);
+            data.setClimate(climate);
+            data.setRarity(rarity);
+            data.setLastMutationRoll(null);
+
+            if (DEBUG) {
+                LOGGER.at(Level.INFO).log(
+                        "[MGHG|PLACE] applied MghgCropData to entity pos=%d,%d,%d (by=%s item=%s size=%d climate=%s rarity=%s)",
+                        pos.x, pos.y, pos.z, who, itemId, size, climate, rarity
+                );
+            }
+            return;
+        }
+
+        // Fallback: holder on block state
         var holder = worldChunk.getBlockComponentHolder(pos.x, pos.y, pos.z);
         boolean hadHolder = (holder != null);
 
@@ -146,7 +197,23 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             holder = ChunkStore.REGISTRY.newHolder();
         }
 
-        // Set/overwrite tu componente
+        if (chunkRef == null) {
+            if (DEBUG) {
+                LOGGER.at(Level.WARNING).log(
+                        "[MGHG|PLACE] missing chunkRef for pos=%d,%d,%d (by=%s item=%s) - cannot persist holder",
+                        pos.x, pos.y, pos.z, who, itemId
+                );
+            }
+            return;
+        }
+
+        if (holder.getComponent(BlockModule.BlockStateInfo.getComponentType()) == null) {
+            holder.putComponent(
+                    BlockModule.BlockStateInfo.getComponentType(),
+                    new BlockModule.BlockStateInfo(blockIndex, chunkRef)
+            );
+        }
+
         MghgCropData data = holder.getComponent(cropDataType);
         if (data == null) {
             data = new MghgCropData();
@@ -156,9 +223,9 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
         data.setSize(size);
         data.setClimate(climate);
         data.setRarity(rarity);
-        data.setLastMutationRoll(null); // consistente con tu flow actual (y deja reroll/updates)
+        data.setLastMutationRoll(null);
 
-        // Esto adjunta el holder al bloque (persistente en el chunk store)
+        // Attach the holder to the block
         worldChunk.setState(pos.x, pos.y, pos.z, holder);
 
         if (DEBUG) {

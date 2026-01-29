@@ -1,0 +1,20 @@
+{
+  "Interactions": [
+    "MGHG_Interaction_PlaceBlock"
+  ],
+  "Settings": {
+    "Adventure": {
+      "Cooldown": {
+        "Id": "BlockInteraction",
+        "Cooldown": 0.278
+      }
+    },
+    "Creative": {
+      "AllowSkipChainOnClick": true,
+      "Cooldown": {
+        "Id": "BlockInteraction_Creative",
+        "ClickBypass": true
+      }
+    }
+  }
+}

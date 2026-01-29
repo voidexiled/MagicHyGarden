@@ -1,0 +1,104 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Plant_Crop_Lettuce.name",
+    "Description": "server.items.Plant_Crop_Lettuce_Item.description"
+  },
+  "Quality": "Common",
+  "Parent": "Mghg_Template_Crop_Item",
+  "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Item.png",
+  "IconProperties": {
+    "Scale": 0.7,
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Translation": [
+      1.2,
+      -4.2
+    ]
+  },
+  "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+  "Model": "Resources/Ingredients/Cabbage.blockymodel",
+  "BlockType": {
+    "Material": "Solid",
+    "DrawType": "Model",
+    "HitboxType": "Food_Medium",
+    "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+    "CustomModelScale": 0.7,
+    "CustomModelTexture": [
+      {
+        "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+        "Weight": 1
+      }
+    ],
+    "Support": {
+      "Down": [
+        {
+          "FaceType": "Full"
+        }
+      ]
+    },
+    "ParticleColor": "#cabc3f",
+    "RandomRotation": "YawStep1",
+    "Gathering": {
+      "Harvest": {},
+      "Soft": {}
+    },
+    "BlockSoundSetId": "Plant",
+    "InteractionSoundEventId": "SFX_Plant_Break"
+  },
+  "DropOnDeath": true,
+  "State": {
+    "mghg_none": {
+      "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Item.png",
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
+    },
+    "mghg_rain": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ]
+      },
+      "TranslationProperties": {
+        "Name": "server.items.Plant.Plant_Crop_Lettuce_Wet.name",
+        "Description": "server.items.Plant.Plant_Crop_Lettuce_Wet.description"
+      }
+    },
+    "mghg_snow": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ]
+      }
+    },
+    "mghg_rain_snow": {}
+  },
+  "Tags": {
+    "Type": [
+      "Plant"
+    ],
+    "Family": [
+      "Crop"
+    ]
+  },
+  "UsePlayerAnimations": false
+}

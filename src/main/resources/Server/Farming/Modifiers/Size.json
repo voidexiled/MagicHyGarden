@@ -1,0 +1,13 @@
+{
+  "Type": "MGHG_CropGrowth",
+  "Modifier": 1,
+  "RainWeathers": [
+    "Zone1_Rain"
+  ],
+  "SnowWeathers": [
+    "Zone3_Snow"
+  ],
+  "MutationChanceSnow": 1,
+  "MutationRollCooldownSeconds": 1,
+  "MutationChanceRain": 1
+}

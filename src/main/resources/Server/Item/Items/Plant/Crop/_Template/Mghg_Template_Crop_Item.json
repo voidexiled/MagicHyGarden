@@ -1,0 +1,70 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Template_Crop.name"
+  },
+  "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce.png",
+  "IconProperties": {
+    "Scale": 0.7,
+    "Translation": [
+      -3,
+      -7.8
+    ],
+    "Rotation": [
+      42.8,
+      29.3,
+      0
+    ]
+  },
+  "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+  "Model": "Resources/Ingredients/Cabbage.blockymodel",
+  "Quality": "Template",
+  "Categories": [
+    "Blocks.Plants"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Vegetables"
+    }
+  ],
+  "Tags": {
+    "Type": [
+      "Plant"
+    ],
+    "Family": [
+      "Flower"
+    ]
+  },
+  "ItemEntity": {
+    "ParticleSystemId": null
+  },
+  "ItemSoundSetId": "ISS_Items_Foliage",
+  "PlayerAnimationsId": "Item",
+  "BlockType": {
+    "Group": "Plant",
+    "Material": "Empty",
+    "DrawType": "Model",
+    "CustomModelTexture": [
+      {
+        "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+        "Weight": 1
+      }
+    ],
+    "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+    "Opacity": "Transparent",
+    "Effect": [
+      "WindFractal"
+    ],
+    "BlockParticleSetId": "Flower",
+    "RandomRotation": "YawStep1",
+    "HitboxType": "Plant_Tall_Large",
+    "BlockSoundSetId": "Plant"
+  },
+  "Interactions": {
+    "Primary": "Block_Primary",
+    "Secondary": "Block_Secondary"
+  },
+  "InteractionConfig": {
+    "DisplayOutlines": false,
+    "DebugOutlines": false
+  }
+}

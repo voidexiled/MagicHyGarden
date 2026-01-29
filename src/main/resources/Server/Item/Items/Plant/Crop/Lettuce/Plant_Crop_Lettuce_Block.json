@@ -1,0 +1,1490 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Plant_Crop_Lettuce_StageFinal.name"
+  },
+  "Parent": "Mghg_Template_Crop_Block",
+  "BlockType": {
+    "CustomModelTexture": [
+      {
+        "Texture": "Resources/Plants/Seeds_Textures/SmallGrey.png",
+        "Weight": 1
+      }
+    ],
+    "State": {
+      "Definitions": {
+        "Stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "Stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "StageFinal": {
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          }
+        },
+        "mghg_none_stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_none_stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_none_stagefinal": {
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          },
+          "Material": "Solid"
+        },
+        "mghg_rain_stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_rain_stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_rain_stagefinal": {
+          "Material": "Solid",
+          "Opacity": "Solid",
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          },
+          "CubeShadingMode": "Standard"
+        },
+        "mghg_snow_stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_snow_stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_snow_stagefinal": {
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          },
+          "Material": "Solid"
+        },
+        "mghg_rain_snow_stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_rain_snow_stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_rain_snow_stagefinal": {
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          },
+          "Material": "Solid"
+        },
+        "mghg_gold_none_stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_gold_none_stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_gold_none_stagefinal": {
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          },
+          "Material": "Solid"
+        },
+        "mghg_gold_rain_stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_gold_rain_stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_gold_rain_stagefinal": {
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          },
+          "Material": "Solid"
+        },
+        "mghg_gold_snow_stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_gold_snow_stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_gold_snow_stagefinal": {
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          },
+          "Material": "Solid"
+        },
+        "mghg_gold_rain_snow_stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_gold_rain_snow_stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_gold_rain_snow_stagefinal": {
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          },
+          "Material": "Solid"
+        },
+        "mghg_rainbow_none_stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_rainbow_none_stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_rainbow_none_stagefinal": {
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          },
+          "Material": "Solid"
+        },
+        "mghg_rainbow_rain_stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_rainbow_rain_stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_rainbow_rain_stagefinal": {
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          },
+          "Material": "Solid"
+        },
+        "mghg_rainbow_snow_stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_rainbow_snow_stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_rainbow_snow_stagefinal": {
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          },
+          "Material": "Solid"
+        },
+        "mghg_rainbow_rain_snow_stage1": {
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Small",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_rainbow_rain_snow_stage2": {
+          "Material": "Solid",
+          "Opacity": "Semitransparent",
+          "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "HitboxType": "Plant_Medium",
+          "Gathering": {
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_Stage2"
+            }
+          },
+          "BlockParticleSetId": "Flower",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#8bc752"
+        },
+        "mghg_rainbow_rain_snow_stagefinal": {
+          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModelTexture": [
+            {
+              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Weight": 1
+            }
+          ],
+          "CustomModelScale": 0.7,
+          "HitboxType": "Plant_Medium",
+          "InteractionHint": "server.interactionHints.harvest",
+          "Gathering": {
+            "Harvest": {
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+            },
+            "Soft": {
+              "IsWeaponBreakable": false,
+              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+            }
+          },
+          "BlockParticleSetId": "Grass",
+          "BlockSoundSetId": "Plant",
+          "ParticleColor": "#1e951c",
+          "Interactions": {
+            "Primary": "MGHG_Root_HarvestCrop",
+            "Secondary": "MGHG_Root_HarvestCrop",
+            "Use": "MGHG_Root_HarvestCrop",
+            "Pick": "MGHG_Root_HarvestCrop"
+          },
+          "Material": "Solid"
+        }
+      }
+    },
+    "Farming": {
+      "Stages": {
+        "Default": [
+          {
+            "Duration": {
+              "Min": 1050,
+              "Max": 1050
+            },
+            "Type": "BlockState",
+            "State": "default"
+          },
+          {
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "State": "Stage1"
+          },
+          {
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "State": "Stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "State": "StageFinal"
+          }
+        ],
+        "Harvested": [
+          {
+            "Duration": {
+              "Min": 60,
+              "Max": 60
+            },
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "State": "Stage1"
+          },
+          {
+            "Duration": {
+              "Min": 60,
+              "Max": 60
+            },
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "State": "Stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "State": "StageFinal"
+          }
+        ],
+        "mghg_none": [
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 1500,
+              "Max": 1500
+            },
+            "State": "default"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "State": "mghg_none_stage1"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "State": "mghg_none_stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "State": "mghg_none_stagefinal"
+          }
+        ],
+        "mghg_rain": [
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 1500,
+              "Max": 1500
+            },
+            "State": "default"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "State": "mghg_rain_stage1"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "State": "mghg_rain_stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "State": "mghg_rain_stagefinal"
+          }
+        ],
+        "mghg_snow": [
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 1500,
+              "Max": 1500
+            },
+            "State": "default"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "State": "mghg_snow_stage1"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "State": "mghg_snow_stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "State": "mghg_snow_stagefinal"
+          }
+        ],
+        "mghg_rain_snow": [
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 1500,
+              "Max": 1500
+            },
+            "State": "default"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "State": "mghg_rain_snow_stage1"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "State": "mghg_rain_snow_stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "Duration": {
+              "Min": 0,
+              "Max": 0
+            },
+            "State": "mghg_rain_snow_stagefinal"
+          }
+        ],
+        "mghg_gold_none": [
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 1500,
+              "Max": 1500
+            },
+            "State": "default"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "State": "mghg_gold_none_stage1"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "State": "mghg_gold_none_stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "Duration": {
+              "Min": 0,
+              "Max": 0
+            },
+            "State": "mghg_gold_none_stagefinal"
+          }
+        ],
+        "mghg_gold_rain": [
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 1500,
+              "Max": 1500
+            },
+            "State": "default"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "State": "mghg_gold_rain_stage1"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "State": "mghg_gold_rain_stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "Duration": {
+              "Min": 0,
+              "Max": 0
+            },
+            "State": "mghg_gold_rain_stagefinal"
+          }
+        ],
+        "mghg_gold_snow": [
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 1500,
+              "Max": 1500
+            },
+            "State": "default"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "State": "mghg_gold_snow_stage1"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "State": "mghg_gold_snow_stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "Duration": {
+              "Min": 0,
+              "Max": 0
+            },
+            "State": "mghg_gold_snow_stagefinal"
+          }
+        ],
+        "mghg_gold_rain_snow": [
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 1500,
+              "Max": 1500
+            },
+            "State": "default"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "State": "mghg_gold_rain_snow_stage1"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "State": "mghg_gold_rain_snow_stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "Duration": {
+              "Min": 0,
+              "Max": 0
+            },
+            "State": "mghg_gold_rain_snow_stagefinal"
+          }
+        ],
+        "mghg_rainbow_none": [
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 1500,
+              "Max": 1500
+            },
+            "State": "default"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "State": "mghg_rainbow_none_stage1"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "State": "mghg_rainbow_none_stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "Duration": {
+              "Min": 0,
+              "Max": 0
+            },
+            "State": "mghg_rainbow_none_stagefinal"
+          }
+        ],
+        "mghg_rainbow_rain": [
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 1500,
+              "Max": 1500
+            },
+            "State": "default"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "State": "mghg_rainbow_rain_stage1"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "State": "mghg_rainbow_rain_stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "Duration": {
+              "Min": 0,
+              "Max": 0
+            },
+            "State": "mghg_rainbow_rain_stagefinal"
+          }
+        ],
+        "mghg_rainbow_snow": [
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 1500,
+              "Max": 1500
+            },
+            "State": "default"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "State": "mghg_rainbow_snow_stage1"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "State": "mghg_rainbow_snow_stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "Duration": {
+              "Min": 0,
+              "Max": 0
+            },
+            "State": "mghg_rainbow_snow_stagefinal"
+          }
+        ],
+        "mghg_rainbow_rain_snow": [
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 1500,
+              "Max": 1500
+            },
+            "State": "default"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 3000,
+              "Max": 3000
+            },
+            "State": "mghg_rainbow_rain_snow_stage1"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow",
+            "Duration": {
+              "Min": 6000,
+              "Max": 6000
+            },
+            "State": "mghg_rainbow_rain_snow_stage2"
+          },
+          {
+            "Type": "BlockState",
+            "SoundEventId": "SFX_Crops_Grow_Stage_Complete",
+            "Duration": {
+              "Min": 0,
+              "Max": 0
+            },
+            "State": "mghg_rainbow_rain_snow_stagefinal"
+          }
+        ]
+      },
+      "StartingStageSet": "mghg_none",
+      "ActiveGrowthModifiers": [
+        "Fertilizer",
+        "Water",
+        "LightLevel",
+        "Size"
+      ],
+      "StageSetAfterHarvest": "mghg_none"
+    },
+    "Gathering": {
+      "Soft": {
+        "IsWeaponBreakable": false,
+        "DropList": "Plant_Crop_Lettuce_Block"
+      }
+    },
+    "CustomModelScale": 0.9,
+    "ParticleColor": "#aa946e"
+  },
+  "IconProperties": {
+    "Scale": 1.115,
+    "Rotation": [
+      22.5,
+      45.0,
+      22.5
+    ],
+    "Translation": [
+      1.2,
+      -4.2
+    ]
+  },
+  "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Block.png"
+}

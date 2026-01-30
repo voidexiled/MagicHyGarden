@@ -13,6 +13,7 @@ import com.voidexiled.magichygarden.commands.crop.CropCommand;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.interactions.MghgHarvestCropInteraction;
 import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
+import com.voidexiled.magichygarden.features.farming.systems.MghgApplyCropMetaOnItemSpawnSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgPreserveCropMetaOnBreakSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgMatureCropMutationTickingSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgOnFarmBlockAddedSystem;
@@ -69,9 +70,7 @@ public class MagicHyGardenPlugin extends JavaPlugin {
         this.getChunkStoreRegistry().registerSystem(
                 new MghgOnFarmBlockAddedSystem(
                         farmingBlockType,
-                        this.mghgCropDataComponentType,
-                        50, 100,
-                        0.005f, 0.0005f
+                        this.mghgCropDataComponentType
                 )
         );
 
@@ -85,17 +84,13 @@ public class MagicHyGardenPlugin extends JavaPlugin {
                 this.mghgCropDataComponentType
         ));
 
+        // Apply MGHG metadata to item entities spawned by physics (support breaks, etc.)
+        this.getEntityStoreRegistry().registerSystem(new MghgApplyCropMetaOnItemSpawnSystem());
+
         this.getChunkStoreRegistry().registerSystem(
                 new MghgMatureCropMutationTickingSystem(
                         farmingBlockType,
-                        this.mghgCropDataComponentType,
-                        5,          // cooldown seconds (ejemplo)
-                        0.50,       // rain chance
-                        0.50,       // snow chance
-                        0.50,       // frozen chance
-                        new String[]{"Zone1_Rain"},
-                        new String[]{"Zone1_Snow"},
-                        new String[]{"Zone1_Rain_Snow"}
+                        this.mghgCropDataComponentType
                 )
         );
 

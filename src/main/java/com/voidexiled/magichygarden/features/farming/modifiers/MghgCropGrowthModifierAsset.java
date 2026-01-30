@@ -1,16 +1,13 @@
 package com.voidexiled.magichygarden.features.farming.modifiers;
 
 import com.hypixel.hytale.builtin.adventure.farming.states.FarmingBlock;
-import com.hypixel.hytale.builtin.weather.resources.WeatherResource;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
-import com.hypixel.hytale.server.core.asset.type.blocktype.config.farming.FarmingData;
-import com.hypixel.hytale.server.core.asset.type.blocktype.config.farming.FarmingStageData;
+import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.farming.GrowthModifierAsset;
 import com.hypixel.hytale.server.core.asset.type.weather.config.Weather;
 import com.hypixel.hytale.server.core.modules.time.WorldTimeResource;
@@ -21,14 +18,16 @@ import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
-import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
+import com.voidexiled.magichygarden.features.farming.state.MghgClimateMutationLogic;
+import com.voidexiled.magichygarden.features.farming.state.MghgWeatherUtil;
+import com.voidexiled.magichygarden.features.farming.visuals.MghgCropStageSync;
+import it.unimi.dsi.fastutil.ints.IntSet;
 
 import javax.annotation.Nullable;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * GrowthModifier para MagicHyGarden:
@@ -37,6 +36,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * - Sincroniza FarmingBlock.currentStageSet con StageSets mghg_* y fuerza refresh visual del stage actual.
  */
 public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
+
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+    private static volatile MghgCropGrowthModifierAsset LAST_LOADED;
 
     public static final BuilderCodec<MghgCropGrowthModifierAsset> CODEC =
             BuilderCodec.builder(MghgCropGrowthModifierAsset.class, MghgCropGrowthModifierAsset::new, ABSTRACT_CODEC)
@@ -54,6 +56,16 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
                     .<Double>append(new KeyedCodec<>("MinGrowthMultiplierAtMaxSize", Codec.DOUBLE),
                             (a, v) -> a.minGrowthMultiplierAtMaxSize = v,
                             a -> a.minGrowthMultiplierAtMaxSize)
+                    .add()
+
+                    // --- initial seed tuning ---
+                    .<Float>append(new KeyedCodec<>("InitialRarityGoldChance", Codec.FLOAT),
+                            (a, v) -> a.initialRarityGoldChance = v,
+                            a -> a.initialRarityGoldChance)
+                    .add()
+                    .<Float>append(new KeyedCodec<>("InitialRarityRainbowChance", Codec.FLOAT),
+                            (a, v) -> a.initialRarityRainbowChance = v,
+                            a -> a.initialRarityRainbowChance)
                     .add()
 
                     // --- mutation tuning ---
@@ -91,7 +103,29 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
                     .addValidator(Weather.VALIDATOR_CACHE.getArrayValidator())
                     .add()
 
-                    .afterDecode(MghgCropGrowthModifierAsset::buildWeatherCaches)
+                    // --- droplist overrides + extras ---
+                    .<String[]>append(new KeyedCodec<>("DropListOverrideFrom", Codec.STRING_ARRAY),
+                            (a, v) -> a.dropListOverrideFrom = v,
+                            a -> a.dropListOverrideFrom)
+                    .add()
+                    .<String[]>append(new KeyedCodec<>("DropListOverrideTo", Codec.STRING_ARRAY),
+                            (a, v) -> a.dropListOverrideTo = v,
+                            a -> a.dropListOverrideTo)
+                    .add()
+                    .<String[]>append(new KeyedCodec<>("ExtraDropListsAll", Codec.STRING_ARRAY),
+                            (a, v) -> a.extraDropListsAll = v,
+                            a -> a.extraDropListsAll)
+                    .add()
+                    .<String[]>append(new KeyedCodec<>("ExtraDropListsGold", Codec.STRING_ARRAY),
+                            (a, v) -> a.extraDropListsGold = v,
+                            a -> a.extraDropListsGold)
+                    .add()
+                    .<String[]>append(new KeyedCodec<>("ExtraDropListsRainbow", Codec.STRING_ARRAY),
+                            (a, v) -> a.extraDropListsRainbow = v,
+                            a -> a.extraDropListsRainbow)
+                    .add()
+
+                    .afterDecode(MghgCropGrowthModifierAsset::buildCaches)
                     .build();
 
     // ---------- Config fields ----------
@@ -100,6 +134,9 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
 
     /** Multiplier mínimo cuando size == sizeMax (clamp 0.01..1.0). */
     protected double minGrowthMultiplierAtMaxSize = 0.65;
+
+    protected float initialRarityGoldChance = 0.005f;
+    protected float initialRarityRainbowChance = 0.0005f;
 
     protected int mutationRollCooldownSeconds = 300;
     protected double mutationChanceRain = 0.12;
@@ -110,9 +147,17 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
     @Nullable protected String[] snowWeathers;
     @Nullable protected String[] frozenWeathers;
 
-    @Nullable protected Set<Integer> rainWeatherIds;
-    @Nullable protected Set<Integer> snowWeatherIds;
-    @Nullable protected Set<Integer> frozenWeatherIds;
+    @Nullable protected IntSet rainWeatherIds;
+    @Nullable protected IntSet snowWeatherIds;
+    @Nullable protected IntSet frozenWeatherIds;
+
+    @Nullable protected String[] dropListOverrideFrom;
+    @Nullable protected String[] dropListOverrideTo;
+    @Nullable protected String[] extraDropListsAll;
+    @Nullable protected String[] extraDropListsGold;
+    @Nullable protected String[] extraDropListsRainbow;
+
+    @Nullable protected Map<String, String> dropListOverrideMap;
 
     // ---------- GrowthModifierAsset ----------
     @Override
@@ -137,13 +182,20 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
 
         boolean dirty = false;
 
-        // 1) mutación climática progresiva
-        dirty |= maybeRollClimateMutation(commandBuffer, chunkColRef, blockChunk, data, x, y, z);
+        // 1) stage-set sync + refresh visual
+        FarmingBlock farmingBlock = commandBuffer.getComponent(blockRef, FarmingBlock.getComponentType());
+        dirty |= MghgCropStageSync.syncStageSetAndRefresh(
+                commandBuffer,
+                sectionRef,
+                blockRef,
+                chunkColRef,
+                blockChunk,
+                data,
+                farmingBlock,
+                x, y, z
+        );
 
-        // 2) stage-set sync + refresh visual
-        dirty |= syncStageSetAndRefresh(commandBuffer, sectionRef, blockRef, chunkColRef, blockChunk, data, x, y, z);
-
-        // 3) slowdown por size
+        // 2) slowdown por size
         double sizeMultiplier = computeSizeMultiplier(data.getSize());
 
         if (dirty) {
@@ -155,22 +207,115 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
     }
 
     // ---------- Decode helpers ----------
-    private static void buildWeatherCaches(MghgCropGrowthModifierAsset a) {
-        a.rainWeatherIds = toWeatherIds(a.rainWeathers);
-        a.snowWeatherIds = toWeatherIds(a.snowWeathers);
-        a.frozenWeatherIds = toWeatherIds(a.frozenWeathers);
+    private static void buildCaches(MghgCropGrowthModifierAsset a) {
+        a.rainWeatherIds = MghgWeatherUtil.toWeatherIdSet(a.rainWeathers);
+        a.snowWeatherIds = MghgWeatherUtil.toWeatherIdSet(a.snowWeathers);
+        a.frozenWeatherIds = MghgWeatherUtil.toWeatherIdSet(a.frozenWeathers);
+        a.dropListOverrideMap = buildDropListOverrideMap(a.dropListOverrideFrom, a.dropListOverrideTo);
+        LAST_LOADED = a;
     }
 
-    @Nullable
-    private static Set<Integer> toWeatherIds(@Nullable String[] ids) {
-        if (ids == null || ids.length == 0) return null;
-
-        HashSet<Integer> set = new HashSet<>(ids.length * 2);
-        for (String id : ids) {
-            int idx = Weather.getAssetMap().getIndex(id);
-            if (idx != Weather.UNKNOWN_ID) set.add(idx);
+    private static @Nullable Map<String, String> buildDropListOverrideMap(
+            @Nullable String[] from,
+            @Nullable String[] to
+    ) {
+        if (from == null || to == null) {
+            return null;
         }
-        return set.isEmpty() ? null : set;
+        if (from.length != to.length) {
+            LOGGER.atWarning().log(
+                    "DropListOverrideFrom/To length mismatch: from=%d to=%d (extra entries ignored)",
+                    from.length,
+                    to.length
+            );
+        }
+
+        int count = Math.min(from.length, to.length);
+        if (count == 0) {
+            return null;
+        }
+
+        Map<String, String> map = new HashMap<>();
+        for (int i = 0; i < count; i++) {
+            String key = from[i];
+            String value = to[i];
+            if (key == null || key.isBlank() || value == null || value.isBlank()) {
+                continue;
+            }
+            map.put(key, value);
+        }
+
+        return map.isEmpty() ? null : map;
+    }
+
+    public static @Nullable MghgCropGrowthModifierAsset getLastLoaded() {
+        return LAST_LOADED;
+    }
+
+    public int getMutationRollCooldownSeconds() {
+        return mutationRollCooldownSeconds;
+    }
+
+    public double getMutationChanceRain() {
+        return mutationChanceRain;
+    }
+
+    public double getMutationChanceSnow() {
+        return mutationChanceSnow;
+    }
+
+    public double getMutationChanceFrozen() {
+        return mutationChanceFrozen;
+    }
+
+    public @Nullable IntSet getRainWeatherIds() {
+        return rainWeatherIds;
+    }
+
+    public @Nullable IntSet getSnowWeatherIds() {
+        return snowWeatherIds;
+    }
+
+    public @Nullable IntSet getFrozenWeatherIds() {
+        return frozenWeatherIds;
+    }
+
+    public int getSizeMin() {
+        return sizeMin;
+    }
+
+    public int getSizeMax() {
+        return sizeMax;
+    }
+
+    public float getInitialRarityGoldChance() {
+        return initialRarityGoldChance;
+    }
+
+    public float getInitialRarityRainbowChance() {
+        return initialRarityRainbowChance;
+    }
+
+    public @Nullable String resolveDropListId(@Nullable String dropListId) {
+        if (dropListId == null) {
+            return null;
+        }
+        if (dropListOverrideMap == null) {
+            return dropListId;
+        }
+        return dropListOverrideMap.getOrDefault(dropListId, dropListId);
+    }
+
+    public @Nullable String[] getExtraDropListsAll() {
+        return extraDropListsAll;
+    }
+
+    public @Nullable String[] getExtraDropListsGold() {
+        return extraDropListsGold;
+    }
+
+    public @Nullable String[] getExtraDropListsRainbow() {
+        return extraDropListsRainbow;
     }
 
     // ---------- Size slowdown ----------
@@ -212,9 +357,10 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
         WorldTimeResource time = store.getResource(WorldTimeResource.getResourceType());
         Instant now = time.getGameTime();
 
-        int weatherMask = getWeatherMask(store, blockChunk, x, y, z);
-        boolean raining = (weatherMask & 1) != 0;
-        boolean snowing = (weatherMask & 2) != 0;
+        int weatherMask = MghgWeatherUtil.getWeatherMask(store, blockChunk, x, y, z,
+                rainWeatherIds, snowWeatherIds, frozenWeatherIds);
+        boolean raining = (weatherMask & MghgWeatherUtil.MASK_RAIN) != 0;
+        boolean snowing = (weatherMask & MghgWeatherUtil.MASK_SNOW) != 0;
 
         // si no llueve ni nieva, no “gastamos” cooldown
         if (!raining && !snowing) {
@@ -233,7 +379,14 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
         data.setLastMutationRoll(now);
 
         ClimateMutation before = data.getClimate();
-        ClimateMutation after = computeNextClimate(before, raining, snowing);
+        ClimateMutation after = MghgClimateMutationLogic.computeNext(
+                before,
+                raining,
+                snowing,
+                mutationChanceRain,
+                mutationChanceSnow,
+                mutationChanceFrozen
+        );
 
         if (after != before) {
             data.setClimate(after);
@@ -243,134 +396,4 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
         return true;
     }
 
-    /**
-     * Retorna bitmask:
-     *  - bit 0 (1): raining
-     *  - bit 1 (2): snowing
-     *
-     * frozenWeathers se interpreta como "raining+snowing" simultáneo.
-     */
-    private int getWeatherMask(Store<EntityStore> store, BlockChunk blockChunk, int x, int y, int z) {
-        WeatherResource weatherResource = store.getResource(WeatherResource.getResourceType());
-        int environment = blockChunk.getEnvironment(x, y, z);
-
-        int forced = weatherResource.getForcedWeatherIndex();
-        int weatherId = forced != Weather.UNKNOWN_ID ? forced : weatherResource.getWeatherIndexForEnvironment(environment);
-        if (weatherId == Weather.UNKNOWN_ID) {
-            return 0;
-        }
-
-        // sky-check (idéntico al que ya tenías)
-        int cropId = blockChunk.getBlock(x, y, z);
-        for (int searchY = y + 1; searchY < 320; searchY++) {
-            int block = blockChunk.getBlock(x, searchY, z);
-            if (block != 0 && block != cropId) {
-                return 0;
-            }
-        }
-
-        boolean isRain = rainWeatherIds != null && rainWeatherIds.contains(weatherId);
-        boolean isSnow = snowWeatherIds != null && snowWeatherIds.contains(weatherId);
-        boolean isFrozen = frozenWeatherIds != null && frozenWeatherIds.contains(weatherId);
-
-        boolean raining = isRain || isFrozen;
-        boolean snowing = isSnow || isFrozen;
-
-        int mask = 0;
-        if (raining) mask |= 1;
-        if (snowing) mask |= 2;
-        return mask;
-    }
-
-    private ClimateMutation computeNextClimate(ClimateMutation current, boolean raining, boolean snowing) {
-        if (current == null) current = ClimateMutation.NONE;
-        if (current == ClimateMutation.FROZEN) return ClimateMutation.FROZEN;
-
-        ThreadLocalRandom rnd = ThreadLocalRandom.current();
-
-        // Upgrade path: RAIN/SNOW -> FROZEN cuando llega el complemento
-        if (current == ClimateMutation.RAIN) {
-            if (snowing && mutationChanceFrozen > 0.0 && rnd.nextDouble() <= mutationChanceFrozen) {
-                return ClimateMutation.FROZEN;
-            }
-            return ClimateMutation.RAIN;
-        }
-
-        if (current == ClimateMutation.SNOW) {
-            if (raining && mutationChanceFrozen > 0.0 && rnd.nextDouble() <= mutationChanceFrozen) {
-                return ClimateMutation.FROZEN;
-            }
-            return ClimateMutation.SNOW;
-        }
-
-        // current == NONE: adquirir RAIN o SNOW según clima (sin upgrade a FROZEN en el mismo tick)
-        if (current == ClimateMutation.NONE) {
-            if (raining && !snowing) {
-                if (mutationChanceRain > 0.0 && rnd.nextDouble() <= mutationChanceRain) return ClimateMutation.RAIN;
-                return ClimateMutation.NONE;
-            }
-
-            if (snowing && !raining) {
-                if (mutationChanceSnow > 0.0 && rnd.nextDouble() <= mutationChanceSnow) return ClimateMutation.SNOW;
-                return ClimateMutation.NONE;
-            }
-
-            if (raining && snowing) {
-                // intentar ambos, orden aleatorio
-                boolean firstRain = rnd.nextBoolean();
-                if (firstRain) {
-                    if (mutationChanceRain > 0.0 && rnd.nextDouble() <= mutationChanceRain) return ClimateMutation.RAIN;
-                    if (mutationChanceSnow > 0.0 && rnd.nextDouble() <= mutationChanceSnow) return ClimateMutation.SNOW;
-                } else {
-                    if (mutationChanceSnow > 0.0 && rnd.nextDouble() <= mutationChanceSnow) return ClimateMutation.SNOW;
-                    if (mutationChanceRain > 0.0 && rnd.nextDouble() <= mutationChanceRain) return ClimateMutation.RAIN;
-                }
-                return ClimateMutation.NONE;
-            }
-        }
-
-        return current;
-    }
-
-    // ---------- StageSet sync + visual refresh ----------
-    private boolean syncStageSetAndRefresh(
-            CommandBuffer<ChunkStore> commandBuffer,
-            Ref<ChunkStore> sectionRef,
-            Ref<ChunkStore> blockRef,
-            @Nullable Ref<ChunkStore> chunkColRef,
-            @Nullable BlockChunk blockChunk,
-            MghgCropData data,
-            int x, int y, int z
-    ) {
-        FarmingBlock farmingBlock = commandBuffer.getComponent(blockRef, FarmingBlock.getComponentType());
-        if (farmingBlock == null) return false;
-        if (chunkColRef == null || blockChunk == null) return false;
-
-        int blockId = blockChunk.getBlock(x, y, z);
-        if (blockId == 0) return false;
-
-        BlockType blockType = BlockType.getAssetMap().getAsset(blockId);
-        if (blockType == null) return false;
-
-        FarmingData farming = blockType.getFarming();
-        if (farming == null || farming.getStages() == null) return false;
-
-        String desiredStageSet = MghgCropVisualStateResolver.resolveBlockStageSet(data);
-        if (desiredStageSet == null) return false;
-
-        FarmingStageData[] stages = farming.getStages().get(desiredStageSet);
-        if (stages == null || stages.length == 0) return false;
-
-        String currentStageSet = farmingBlock.getCurrentStageSet();
-        if (desiredStageSet.equals(currentStageSet)) return false;
-
-        farmingBlock.setCurrentStageSet(desiredStageSet);
-
-        int stageIndex = (int) farmingBlock.getGrowthProgress();
-        if (stageIndex < 0) stageIndex = 0;
-        if (stageIndex >= stages.length) stageIndex = stages.length - 1;
-
-        stages[stageIndex].apply(commandBuffer, sectionRef, blockRef, x, y, z, null);
-        return true;
-    }
 }

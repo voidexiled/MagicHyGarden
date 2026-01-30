@@ -1,11 +1,6 @@
 package com.voidexiled.magichygarden.features.farming.systems;
 
-import com.hypixel.hytale.component.ArchetypeChunk;
-import com.hypixel.hytale.component.CommandBuffer;
-import com.hypixel.hytale.component.ComponentType;
-import com.hypixel.hytale.component.Holder;
-import com.hypixel.hytale.component.Ref;
-import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.EntityEventSystem;
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -13,12 +8,9 @@ import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
-import com.hypixel.hytale.server.core.asset.type.blocktype.config.HarvestingDropType;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
-import com.hypixel.hytale.server.core.entity.ItemUtils;
 import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
-import com.hypixel.hytale.server.core.modules.interaction.BlockHarvestUtils;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
@@ -27,6 +19,8 @@ import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
+import com.voidexiled.magichygarden.features.farming.logic.MghgItemDropUtil;
+import com.voidexiled.magichygarden.features.farming.logic.MghgSupportDropMetaCache;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
 
 import javax.annotation.Nonnull;
@@ -61,6 +55,7 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
 
         final BlockType blockType = event.getBlockType();
         final Vector3i pos = event.getTargetBlock();
+
         PlayerRef playerRef = archetypeChunk.getComponent(index, PlayerRef.getComponentType());
         String who = (playerRef != null ? playerRef.getUsername() : "?");
 
@@ -76,14 +71,10 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
 
         final World world = store.getExternalData().getWorld();
 
-        // Si el jugador rompió el bloque de soporte, intenta preservar el bloque encima (decorativo).
-        // Esto se ejecuta aunque el bloque roto NO tenga MGHG data.
+        // Si el jugador rompió el bloque de soporte, intentamos preservar el crop encima y mantener vanilla feel.
         Ref<EntityStore> breakerRef = archetypeChunk.getReferenceTo(index);
         if (breakerRef != null && breakerRef.isValid()) {
-            if (handleSupportBreak(world, breakerRef, commandBuffer, blockType, pos.x, pos.y, pos.z)) {
-                event.setCancelled(true);
-                return;
-            }
+            handleSupportBreak(world, pos.x, pos.y, pos.z);
         }
 
         // IMPORTANTE: esto es para el caso “bloque colocado” (sin FarmingData).
@@ -137,18 +128,17 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
             return;
         }
 
-        Vector3d origin = new Vector3d(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5);
-
         LOGGER.atInfo().log(
-                "[MGHG|BREAK] cancel vanilla, give item={} meta(size={} climate={} rarity={}) pos={},{},{}",
-                out.getItem().getId(),
-                cropData.getSize(),
+            "[MGHG|BREAK] cancel vanilla, give item={} meta(size={} climate={} rarity={}) pos={},{},{}",
+            out.getItem().getId(),
+            cropData.getSize(),
                 cropData.getClimate(),
                 cropData.getRarity(),
                 pos.x, pos.y, pos.z
         );
 
-        ItemUtils.interactivelyPickupItem(breakerRef, out, origin, commandBuffer);
+        Vector3d origin = new Vector3d(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5);
+        MghgItemDropUtil.dropAt(breakerRef, out, origin, commandBuffer);
 
         // 4) romper el bloque manualmente (en world thread)
         long chunkIndex = ChunkUtil.indexChunkFromBlock(pos.x, pos.z);
@@ -170,9 +160,6 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
 
     private boolean handleSupportBreak(
             @Nonnull World world,
-            @Nonnull Ref<EntityStore> breakerRef,
-            @Nonnull CommandBuffer<EntityStore> commandBuffer,
-            @Nonnull BlockType supportBlockType,
             int x,
             int y,
             int z
@@ -184,8 +171,8 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
             return false;
         }
 
-        BlockType aboveBlockType = worldChunk.getBlockType(x, y + 1, z);
-        if (aboveBlockType == null) {
+        BlockType cropBlockType = worldChunk.getBlockType(x, y + 1, z);
+        if (cropBlockType == null) {
             return false;
         }
 
@@ -194,116 +181,41 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
             return false;
         }
 
-        // 1) Drop del crop (con metadata)
-        Vector3d cropOrigin = new Vector3d(x + 0.5, (y + 1) + 0.5, z + 0.5);
-        HarvestingDropType harvest =
-                aboveBlockType.getGathering() != null ? aboveBlockType.getGathering().getHarvest() : null;
-        String itemId = harvest != null ? harvest.getItemId() : null;
-        String dropListId = harvest != null ? harvest.getDropListId() : null;
-        if (harvest != null && (itemId != null || dropListId != null)) {
-            for (ItemStack stack : BlockHarvestUtils.getDrops(aboveBlockType, 1, itemId, dropListId)) {
-                ItemStack out = stack;
-
-                MghgCropMeta meta = MghgCropMeta.fromCropData(
-                        cropData.getSize(),
-                        cropData.getClimate().name(),
-                        cropData.getRarity().name()
-                );
-                out = out.withMetadata(MghgCropMeta.KEY, meta);
-
-                String resolvedState = MghgCropVisualStateResolver.resolveItemState(cropData);
-                if (resolvedState != null && out.getItem().getItemIdForState(resolvedState) != null) {
-                    out = out.withState(resolvedState);
-                }
-
-                ItemUtils.interactivelyPickupItem(breakerRef, out, cropOrigin, commandBuffer);
-            }
-        } else {
-            Item item = aboveBlockType.getItem();
-            if (item == null) {
-                return false;
-            }
-
-            ItemStack out = new ItemStack(item.getId(), 1);
-            MghgCropMeta meta = MghgCropMeta.fromCropData(
-                    cropData.getSize(),
-                    cropData.getClimate().name(),
-                    cropData.getRarity().name()
-            );
-            out = out.withMetadata(MghgCropMeta.KEY, meta);
-
-            String resolvedState = MghgCropVisualStateResolver.resolveItemState(cropData);
-            if (resolvedState != null && out.getItem().getItemIdForState(resolvedState) != null) {
-                out = out.withState(resolvedState);
-            }
-
-            ItemUtils.interactivelyPickupItem(breakerRef, out, cropOrigin, commandBuffer);
-        }
-
-        // 2) Limpia holder/estado y elimina el crop sin drops vanilla
-        ChunkStore chunkStore = world.getChunkStore();
-        Store<ChunkStore> cs = chunkStore.getStore();
-        Ref<ChunkStore> chunkRef = chunkStore.getChunkReference(chunkIndex);
-        if (chunkRef != null && chunkRef.isValid()) {
-            BlockComponentChunk componentChunk = cs.getComponent(chunkRef, BlockComponentChunk.getComponentType());
-            if (componentChunk != null) {
-                int blockIndexColumn = ChunkUtil.indexBlockInColumn(x, y + 1, z);
-                componentChunk.removeEntityHolder(blockIndexColumn);
-            }
-        }
-
-        world.execute(() -> {
-            WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-            if (chunk == null) return;
-
-            try {
-                chunk.setState(
-                        x, y + 1, z,
-                        (Holder<ChunkStore>) null
-                );
-            } catch (Throwable ignored) {
-                // ignore if not supported
-            }
-
-            BlockType emptyType = BlockType.getAssetMap().getAsset("Empty");
-            int emptyId = emptyType != null ? BlockType.getAssetMap().getIndex(emptyType.getId()) : 0;
-            try {
-                chunk.setBlock(x, y + 1, z, emptyId, emptyType, 0, 0, 2);
-            } catch (Throwable ignored) {
-                chunk.breakBlock(x, y + 1, z);
-            }
-
-            // 3) Elimina el bloque de soporte manualmente (sin evento vanilla)
-            try {
-                chunk.setBlock(x, y, z, emptyId, emptyType, 0, 0, 2);
-            } catch (Throwable ignored) {
-                chunk.breakBlock(x, y, z);
-            }
-        });
-
-        // 4) Drop del bloque de soporte (vanilla-ish)
-        Vector3d supportOrigin = new Vector3d(x + 0.5, y + 0.5, z + 0.5);
-        HarvestingDropType supportHarvest =
-                supportBlockType.getGathering() != null ? supportBlockType.getGathering().getHarvest() : null;
-        if (supportHarvest != null) {
-            String supportItemId = supportHarvest.getItemId();
-            String supportDropListId = supportHarvest.getDropListId();
-            for (ItemStack stack : BlockHarvestUtils.getDrops(supportBlockType, 1, supportItemId, supportDropListId)) {
-                ItemUtils.interactivelyPickupItem(breakerRef, stack, supportOrigin, commandBuffer);
-            }
-        } else {
-            Item supportItem = supportBlockType.getItem();
-            if (supportItem != null) {
-                ItemUtils.interactivelyPickupItem(
-                        breakerRef,
-                        new ItemStack(supportItem.getId(), 1),
-                        supportOrigin,
-                        commandBuffer
-                );
-            }
-        }
+        String expectedItemId = resolvePhysicsDropItemId(cropBlockType);
+        MghgSupportDropMetaCache.queue(x, y + 1, z, cropData, expectedItemId);
 
         return true;
+    }
+
+    @Nullable
+    private String resolvePhysicsDropItemId(@Nonnull BlockType cropBlockType) {
+        if (cropBlockType.getGathering() == null) {
+            return null;
+        }
+
+        if (cropBlockType.getGathering().getPhysics() != null) {
+            String itemId = cropBlockType.getGathering().getPhysics().getItemId();
+            if (itemId != null) {
+                return itemId;
+            }
+        }
+        if (cropBlockType.getGathering().getBreaking() != null) {
+            String itemId = cropBlockType.getGathering().getBreaking().getItemId();
+            if (itemId != null) {
+                return itemId;
+            }
+        }
+        if (cropBlockType.getGathering().getSoft() != null) {
+            String itemId = cropBlockType.getGathering().getSoft().getItemId();
+            if (itemId != null) {
+                return itemId;
+            }
+        }
+        if (cropBlockType.getGathering().getHarvest() != null) {
+            return cropBlockType.getGathering().getHarvest().getItemId();
+        }
+
+        return null;
     }
 
     @Nullable

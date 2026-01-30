@@ -13,9 +13,9 @@ import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.HarvestingDropType;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.farming.FarmingData;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.farming.FarmingStageData;
-import com.hypixel.hytale.server.core.entity.ItemUtils;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.block.BlockModule;
+import com.hypixel.hytale.server.core.entity.ItemUtils;
 import com.hypixel.hytale.server.core.modules.interaction.BlockHarvestUtils;
 import com.hypixel.hytale.server.core.modules.time.WorldTimeResource;
 import com.hypixel.hytale.server.core.universe.world.World;
@@ -26,18 +26,16 @@ import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
-import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
-import com.voidexiled.magichygarden.features.farming.state.RarityMutation;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 public final class MghgHarvestUtil {
-
     private MghgHarvestUtil() {
     }
 
@@ -175,7 +173,7 @@ public final class MghgHarvestUtil {
         farmingBlock.setPreviousBlockType(null);
 
         // ✅ REROLL MGHG data (porque esto es “replant after harvest”)
-        rerollOnReplant(chunkStore, blockRef, now);
+        rerollOnReplant(chunkStore, blockRef);
 
         Ref<ChunkStore> sectionRef = world.getChunkStore().getChunkSectionReference(
                 ChunkUtil.chunkCoordinate(blockPosition.x),
@@ -205,17 +203,21 @@ public final class MghgHarvestUtil {
     ) {
         HarvestingDropType harvest = blockType.getGathering().getHarvest();
         String itemId = harvest.getItemId();
-        String dropListId = harvest.getDropListId();
+        String dropListId = MghgDropListResolver.resolveDropListId(harvest.getDropListId());
 
         World world = store.getExternalData().getWorld();
         @Nullable MghgCropData cropData = tryGetCropData(world, blockPosition);
 
-        for (ItemStack stack : BlockHarvestUtils.getDrops(blockType, 1, itemId, dropListId)) {
+        List<ItemStack> baseDrops = new ArrayList<>(
+                BlockHarvestUtils.getDrops(blockType, 1, itemId, dropListId)
+        );
+        List<ItemStack> extraDrops = MghgDropListResolver.collectExtraDrops(blockType, cropData);
+
+        for (ItemStack stack : baseDrops) {
             ItemStack out = stack;
 
-
-            if (cropData != null) {
-                // 1) metadata SIEMPRE
+            if (cropData != null && shouldApplyMghgMeta(out, cropData, itemId)) {
+                // 1) metadata SOLO para el item del crop
                 MghgCropMeta meta = MghgCropMeta.fromCropData(
                         cropData.getSize(),
                         cropData.getClimate().name(),
@@ -232,6 +234,52 @@ public final class MghgHarvestUtil {
 
             ItemUtils.interactivelyPickupItem(playerRef, out, origin, store);
         }
+
+        if (!extraDrops.isEmpty()) {
+            for (ItemStack stack : extraDrops) {
+                ItemStack out = stack;
+
+                if (cropData != null && shouldApplyMghgMeta(out, cropData, itemId)) {
+                    MghgCropMeta meta = MghgCropMeta.fromCropData(
+                            cropData.getSize(),
+                            cropData.getClimate().name(),
+                            cropData.getRarity().name()
+                    );
+                    out = out.withMetadata(MghgCropMeta.KEY, meta);
+
+                    String resolvedState = MghgCropVisualStateResolver.resolveItemState(cropData);
+                    if (resolvedState != null && out.getItem().getItemIdForState(resolvedState) != null) {
+                        out = out.withState(resolvedState);
+                    }
+                }
+
+                ItemUtils.interactivelyPickupItem(playerRef, out, origin, store);
+            }
+        }
+    }
+
+    /**
+     * Decide si un drop debe recibir metadata MGHG.
+     * Regla:
+     * - Debe ser el item principal del harvest (itemId del Harvest config), o
+     * - Debe soportar estados MGHG (mghg_*).
+     */
+    public static boolean shouldApplyMghgMeta(@Nonnull ItemStack stack,
+                                              @Nonnull MghgCropData cropData,
+                                              @Nullable String harvestItemId) {
+        if (stack.getItem() != null && harvestItemId != null) {
+            String baseId = stack.getItem().getId();
+            if (harvestItemId.equals(baseId)) {
+                return true;
+            }
+        }
+
+        String resolvedState = MghgCropVisualStateResolver.resolveItemState(cropData);
+        if (resolvedState != null && stack.getItem() != null) {
+            return stack.getItem().getItemIdForState(resolvedState) != null;
+        }
+
+        return false;
     }
 
     @Nullable
@@ -286,30 +334,13 @@ public final class MghgHarvestUtil {
 
     /**
      * Reroll básico para “auto-replant”.
-     * (Luego aquí mismo enchufas clima por WeatherResource y rarity por tus reglas reales)
+     * Usa el seeder unificado para mantener el mismo comportamiento que en plantado inicial.
      */
     private static void rerollOnReplant(
             @Nonnull Store<ChunkStore> chunkStore,
-            @Nonnull Ref<ChunkStore> blockRef,
-            @Nonnull Instant now
+            @Nonnull Ref<ChunkStore> blockRef
     ) {
         MghgCropData data = chunkStore.ensureAndGetComponent(blockRef, MghgCropData.getComponentType());
-
-        // Size 50..100
-        data.setSize(ThreadLocalRandom.current().nextInt(50, 101));
-
-        // Climate default (por ahora; luego lo ligas a weather)
-        data.setClimate(ClimateMutation.NONE);
-
-        // Rarity (mutuamente excluyente)
-        float r = ThreadLocalRandom.current().nextFloat();
-        float rainbowChance = 0.0005f;
-        float goldChance = 0.005f;
-
-        if (r < rainbowChance) data.setRarity(RarityMutation.RAINBOW);
-        else if (r < rainbowChance + goldChance) data.setRarity(RarityMutation.GOLD);
-        else data.setRarity(RarityMutation.NONE);
-
-        data.setLastMutationRoll(now);
+        MghgCropDataSeeder.seedReplant(data);
     }
 }

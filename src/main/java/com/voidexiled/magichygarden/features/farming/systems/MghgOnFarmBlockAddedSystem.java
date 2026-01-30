@@ -11,12 +11,10 @@ import com.hypixel.hytale.server.core.modules.block.BlockModule;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
-import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
-import com.voidexiled.magichygarden.features.farming.state.RarityMutation;
+import com.voidexiled.magichygarden.features.farming.logic.MghgCropDataSeeder;
 import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nonnull;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
     private final Query<ChunkStore> query;
@@ -24,25 +22,12 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
     private final ComponentType<ChunkStore, FarmingBlock> farmingBlockType;
     private final ComponentType<ChunkStore, MghgCropData> cropDataType;
 
-    private final int minSize;
-    private final int maxSize;
-    private final float goldChance;
-    private final float rainbowChance;
-
     public MghgOnFarmBlockAddedSystem(
             ComponentType<ChunkStore, FarmingBlock> farmingBlockType,
-            ComponentType<ChunkStore, MghgCropData> cropDataType,
-            int minSize,
-            int maxSize,
-            float goldChance,
-            float rainbowChance
+            ComponentType<ChunkStore, MghgCropData> cropDataType
     ) {
         this.farmingBlockType = farmingBlockType;
         this.cropDataType = cropDataType;
-        this.minSize = minSize;
-        this.maxSize = maxSize;
-        this.goldChance = goldChance;
-        this.rainbowChance = rainbowChance;
 
         this.query = Query.and(
                 BlockModule.BlockStateInfo.getComponentType(),
@@ -62,6 +47,7 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
             @Nonnull Store<ChunkStore> store,
             @Nonnull CommandBuffer<ChunkStore> commandBuffer
     ) {
+        // Se ejecuta cuando la entidad FarmingBlock aparece (crop nuevo o rehidratado).
         FarmingBlock farmingBlock = commandBuffer.getComponent(ref, farmingBlockType);
         if (farmingBlock == null) return;
 
@@ -82,16 +68,8 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
         MghgCropData data = commandBuffer.ensureAndGetComponent(ref, cropDataType);
         if (data.getSize() != 0) return;
 
-        data.setSize(ThreadLocalRandom.current().nextInt(minSize, maxSize + 1));
-        data.setClimate(ClimateMutation.NONE);
-
-        // Rarity mutuamente exclusivo
-        float r = ThreadLocalRandom.current().nextFloat();
-        if (r < rainbowChance) data.setRarity(RarityMutation.RAINBOW);
-        else if (r < rainbowChance + goldChance) data.setRarity(RarityMutation.GOLD);
-        else data.setRarity(RarityMutation.NONE);
-
-        data.setLastMutationRoll(null);
+        // Seed unificado (size/rarity/climate) desde GrowthModifier config.
+        MghgCropDataSeeder.seedNew(data);
     }
 
     @Override

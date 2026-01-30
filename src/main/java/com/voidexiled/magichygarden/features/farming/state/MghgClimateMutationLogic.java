@@ -13,8 +13,8 @@ public final class MghgClimateMutationLogic {
      * SNOW + raining -> FROZEN
      * sin downgrade
      *
-     * Nota: si raining && snowing y current==NONE, primero adquiere RAIN o SNOW (random order),
-     * y luego puede intentar upgrade a FROZEN en el mismo tick si aplica.
+     * Nota: si raining && snowing y current==NONE, primero adquiere RAIN o SNOW (random order).
+     * No salta directo a FROZEN desde NONE.
      */
     public static ClimateMutation computeNext(
             ClimateMutation current,
@@ -28,33 +28,79 @@ public final class MghgClimateMutationLogic {
         if (current == ClimateMutation.FROZEN) return ClimateMutation.FROZEN;
 
         ThreadLocalRandom rnd = ThreadLocalRandom.current();
-        ClimateMutation next = current;
 
-        // 1) Adquirir primera mutación desde NONE
-        if (next == ClimateMutation.NONE) {
-            if (raining && snowing) {
-                // orden aleatorio para no sesgar siempre a rain o snow
-                if (rnd.nextBoolean()) {
-                    if (raining && rnd.nextDouble() < chanceRain) next = ClimateMutation.RAIN;
-                    if (next == ClimateMutation.NONE && snowing && rnd.nextDouble() < chanceSnow) next = ClimateMutation.SNOW;
-                } else {
-                    if (snowing && rnd.nextDouble() < chanceSnow) next = ClimateMutation.SNOW;
-                    if (next == ClimateMutation.NONE && raining && rnd.nextDouble() < chanceRain) next = ClimateMutation.RAIN;
-                }
-            } else if (raining) {
-                if (rnd.nextDouble() < chanceRain) next = ClimateMutation.RAIN;
-            } else if (snowing) {
-                if (rnd.nextDouble() < chanceSnow) next = ClimateMutation.SNOW;
+        if (current == ClimateMutation.RAIN) {
+            if (snowing && rnd.nextDouble() < chanceFrozen) return ClimateMutation.FROZEN;
+            return ClimateMutation.RAIN;
+        }
+
+        if (current == ClimateMutation.SNOW) {
+            if (raining && rnd.nextDouble() < chanceFrozen) return ClimateMutation.FROZEN;
+            return ClimateMutation.SNOW;
+        }
+
+        // current == NONE: adquirir RAIN o SNOW según clima
+        if (raining && snowing) {
+            // orden aleatorio para no sesgar siempre a rain o snow
+            if (rnd.nextBoolean()) {
+                if (rnd.nextDouble() < chanceRain) return ClimateMutation.RAIN;
+                if (rnd.nextDouble() < chanceSnow) return ClimateMutation.SNOW;
+            } else {
+                if (rnd.nextDouble() < chanceSnow) return ClimateMutation.SNOW;
+                if (rnd.nextDouble() < chanceRain) return ClimateMutation.RAIN;
             }
+            return ClimateMutation.NONE;
         }
 
-        // 2) Upgrade a FROZEN cuando llega el clima complementario
-        if (next == ClimateMutation.RAIN && snowing) {
-            if (rnd.nextDouble() < chanceFrozen) next = ClimateMutation.FROZEN;
-        } else if (next == ClimateMutation.SNOW && raining) {
-            if (rnd.nextDouble() < chanceFrozen) next = ClimateMutation.FROZEN;
+        if (raining) {
+            if (rnd.nextDouble() < chanceRain) return ClimateMutation.RAIN;
+            return ClimateMutation.NONE;
         }
 
-        return next;
+        if (snowing) {
+            if (rnd.nextDouble() < chanceSnow) return ClimateMutation.SNOW;
+            return ClimateMutation.NONE;
+        }
+
+        return ClimateMutation.NONE;
+    }
+
+    /**
+     * Aplica una mutación manual "add" (debug):
+     * - NONE + RAIN/SNOW => RAIN/SNOW
+     * - RAIN + SNOW => FROZEN
+     * - SNOW + RAIN => FROZEN
+     * - FROZEN nunca baja
+     * - add=NONE resetea a NONE
+     *
+     * No usa RNG: es determinístico.
+     */
+    public static ClimateMutation applyManualAdd(ClimateMutation current, ClimateMutation add) {
+        if (current == null) current = ClimateMutation.NONE;
+        if (add == null) add = ClimateMutation.NONE;
+
+        if (add == ClimateMutation.NONE) {
+            return ClimateMutation.NONE;
+        }
+
+        if (current == ClimateMutation.FROZEN) {
+            return ClimateMutation.FROZEN;
+        }
+
+        if (add == ClimateMutation.FROZEN) {
+            return ClimateMutation.FROZEN;
+        }
+
+        if (add == ClimateMutation.RAIN) {
+            if (current == ClimateMutation.SNOW) return ClimateMutation.FROZEN;
+            return (current == ClimateMutation.NONE) ? ClimateMutation.RAIN : current;
+        }
+
+        if (add == ClimateMutation.SNOW) {
+            if (current == ClimateMutation.RAIN) return ClimateMutation.FROZEN;
+            return (current == ClimateMutation.NONE) ? ClimateMutation.SNOW : current;
+        }
+
+        return current;
     }
 }

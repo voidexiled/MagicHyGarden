@@ -9,5 +9,13 @@
   ],
   "MutationChanceSnow": 1,
   "MutationRollCooldownSeconds": 1,
-  "MutationChanceRain": 1
+  "MutationChanceRain": 1,
+  "DropListOverrideFrom": [],
+  "DropListOverrideTo": [],
+  "ExtraDropListsGold": [
+    "MGHG_Drops_Lettuce_Gold_Bonus"
+  ],
+  "ExtraDropListsRainbow": [
+    "MGHG_Drops_Lettuce_Rainbow_Bonus"
+  ]
 }

@@ -1,7 +1,6 @@
 package com.voidexiled.magichygarden.features.farming.systems;
 
 import com.hypixel.hytale.builtin.adventure.farming.states.FarmingBlock;
-import com.hypixel.hytale.builtin.weather.resources.WeatherResource;
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.ComponentType;
@@ -11,24 +10,25 @@ import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
-import com.hypixel.hytale.server.core.asset.type.weather.config.Weather;
 import com.hypixel.hytale.server.core.modules.block.BlockModule;
 import com.hypixel.hytale.server.core.modules.time.WorldTimeResource;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
-import com.hypixel.hytale.server.core.universe.world.chunk.section.BlockSection;
 import com.hypixel.hytale.server.core.universe.world.meta.BlockState;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
+import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
 import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
+import com.voidexiled.magichygarden.features.farming.state.MghgClimateMutationLogic;
+import com.voidexiled.magichygarden.features.farming.state.MghgWeatherUtil;
+import com.voidexiled.magichygarden.features.farming.visuals.MghgCropStageSync;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<ChunkStore> {
 
@@ -37,43 +37,12 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
     private final ComponentType<ChunkStore, FarmingBlock> farmingBlockType;
     private final ComponentType<ChunkStore, MghgCropData> cropDataType;
 
-    private final int mutationRollCooldownSeconds;
-    private final double mutationChanceRain;
-    private final double mutationChanceSnow;
-    private final double mutationChanceFrozen;
-
-    private final IntOpenHashSet rainWeatherIds = new IntOpenHashSet();
-    private final IntOpenHashSet snowWeatherIds = new IntOpenHashSet();
-    private final IntOpenHashSet frozenWeatherIds = new IntOpenHashSet();
-
     public MghgMatureCropMutationTickingSystem(
             ComponentType<ChunkStore, FarmingBlock> farmingBlockType,
-            ComponentType<ChunkStore, MghgCropData> cropDataType,
-            int mutationRollCooldownSeconds,
-            double mutationChanceRain,
-            double mutationChanceSnow,
-            double mutationChanceFrozen,
-            String[] rainWeatherIds,
-            String[] snowWeatherIds,
-            String[] frozenWeatherIds
+            ComponentType<ChunkStore, MghgCropData> cropDataType
     ) {
         this.farmingBlockType = farmingBlockType;
         this.cropDataType = cropDataType;
-
-        this.mutationRollCooldownSeconds = mutationRollCooldownSeconds;
-        this.mutationChanceRain = mutationChanceRain;
-        this.mutationChanceSnow = mutationChanceSnow;
-        this.mutationChanceFrozen = mutationChanceFrozen;
-
-        if (rainWeatherIds != null) {
-            for (String id : rainWeatherIds) this.rainWeatherIds.add(Weather.getAssetMap().getIndex(id));
-        }
-        if (snowWeatherIds != null) {
-            for (String id : snowWeatherIds) this.snowWeatherIds.add(Weather.getAssetMap().getIndex(id));
-        }
-        if (frozenWeatherIds != null) {
-            for (String id : frozenWeatherIds) this.frozenWeatherIds.add(Weather.getAssetMap().getIndex(id));
-        }
 
         this.query = Query.and(
                 BlockModule.BlockStateInfo.getComponentType(),
@@ -89,11 +58,6 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
     @Override
     public void tick(float dt, int index, ArchetypeChunk<ChunkStore> archetypeChunk, Store<ChunkStore> store, CommandBuffer<ChunkStore> commandBuffer) {
         Ref<ChunkStore> ref = archetypeChunk.getReferenceTo(index);
-
-        // solo maduros persistentes: si aún existe FarmingBlock, lo maneja el GrowthModifier
-        if (commandBuffer.getComponent(ref, farmingBlockType) != null) {
-            return;
-        }
 
         MghgCropData data = archetypeChunk.getComponent(index, cropDataType);
         BlockModule.BlockStateInfo info = archetypeChunk.getComponent(index, BlockModule.BlockStateInfo.getComponentType());
@@ -115,126 +79,122 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
         Store<EntityStore> entityStore = commandBuffer.getExternalData().getWorld().getEntityStore().getStore();
         Instant now = entityStore.getResource(WorldTimeResource.getResourceType()).getGameTime();
 
-        // siempre “sync visual” (corrige mismatch aunque no haya cooldown)
+        FarmingBlock farmingBlock = commandBuffer.getComponent(ref, farmingBlockType);
+
+        // Config dinámica: el GrowthModifier decodificado es la fuente de verdad.
+        MghgCropGrowthModifierAsset cfg = MghgCropGrowthModifierAsset.getLastLoaded();
+        if (cfg == null) {
+            applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
+            return;
+        }
+
+        int cooldownSeconds = cfg.getMutationRollCooldownSeconds();
+        double chanceRain = cfg.getMutationChanceRain();
+        double chanceSnow = cfg.getMutationChanceSnow();
+        double chanceFrozen = cfg.getMutationChanceFrozen();
+        IntSet rainIds = cfg.getRainWeatherIds();
+        IntSet snowIds = cfg.getSnowWeatherIds();
+        IntSet frozenIds = cfg.getFrozenWeatherIds();
+
+        // Sin weathers configurados => no se muta, pero sí se asegura visual.
+        if (rainIds == null && snowIds == null && frozenIds == null) {
+            applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
+            return;
+        }
+
+        // Chances en 0 => no hay mutación, solo visual.
+        if (chanceRain <= 0.0 && chanceSnow <= 0.0 && chanceFrozen <= 0.0) {
+            applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
+            return;
+        }
+
+        // Siempre “sync visual” (corrige mismatch aunque no haya cooldown).
         Instant last = data.getLastMutationRoll();
-        if (last != null && mutationRollCooldownSeconds > 0) {
+        if (last != null && cooldownSeconds > 0) {
             Duration since = Duration.between(last, now);
-            if (since.getSeconds() < mutationRollCooldownSeconds) {
-                applyFinalVisual(store, commandBuffer, chunkRef, blockChunk, x, y, z, data);
+            if (since.getSeconds() < cooldownSeconds) {
+                applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
                 return;
             }
         }
 
-        int weatherMask = getWeatherMask(entityStore, blockChunk, x, y, z);
-        boolean raining = (weatherMask & 1) != 0;
-        boolean snowing = (weatherMask & 2) != 0;
+        int weatherMask = MghgWeatherUtil.getWeatherMask(entityStore, blockChunk, x, y, z,
+                rainIds, snowIds, frozenIds);
+        boolean raining = (weatherMask & MghgWeatherUtil.MASK_RAIN) != 0;
+        boolean snowing = (weatherMask & MghgWeatherUtil.MASK_SNOW) != 0;
 
-        // si no llueve ni nieva, no “gastamos” cooldown, pero sí aseguramos visual
+        // Si no llueve ni nieva, no “gastamos” cooldown, pero sí aseguramos visual.
         if (!raining && !snowing) {
-            applyFinalVisual(store, commandBuffer, chunkRef, blockChunk, x, y, z, data);
+            applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
             return;
         }
 
         boolean dirty = false;
 
+        // marcamos intento de mutación
         data.setLastMutationRoll(now);
         dirty = true;
 
         ClimateMutation before = data.getClimate();
-        ClimateMutation after = computeNextClimate(before, raining, snowing);
+        ClimateMutation after = MghgClimateMutationLogic.computeNext(
+                before,
+                raining,
+                snowing,
+                chanceRain,
+                chanceSnow,
+                chanceFrozen
+        );
 
         if (after != before) {
             data.setClimate(after);
             dirty = true;
         }
 
-        if (dirty) {
+        boolean visualsChanged = applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
+
+        if (dirty || visualsChanged) {
             if (blockComponentChunk != null) blockComponentChunk.markNeedsSaving();
             blockChunk.markNeedsSaving();
         }
+    }
+
+    /**
+     * Aplica visual inmediato:
+     * - Si el crop tiene FarmingBlock: usa stageSet MGHG y aplica state actual.
+     * - Si es bloque persistido sin FarmingBlock: usa variante stagefinal.
+     */
+    private boolean applyVisuals(Store<ChunkStore> store,
+                                 CommandBuffer<ChunkStore> commandBuffer,
+                                 Ref<ChunkStore> chunkRef,
+                                 BlockChunk blockChunk,
+                                 Ref<ChunkStore> blockRef,
+                                 FarmingBlock farmingBlock,
+                                 int x, int y, int z,
+                                 MghgCropData data) {
+        if (farmingBlock != null) {
+            Ref<ChunkStore> sectionRef = commandBuffer.getExternalData().getWorld()
+                    .getChunkStore()
+                    .getChunkSectionReference(
+                            ChunkUtil.chunkCoordinate(x),
+                            ChunkUtil.chunkCoordinate(y),
+                            ChunkUtil.chunkCoordinate(z)
+                    );
+            if (sectionRef == null) return false;
+
+            return MghgCropStageSync.syncStageSetAndRefresh(
+                    commandBuffer,
+                    sectionRef,
+                    blockRef,
+                    chunkRef,
+                    blockChunk,
+                    data,
+                    farmingBlock,
+                    x, y, z
+            );
+        }
 
         applyFinalVisual(store, commandBuffer, chunkRef, blockChunk, x, y, z, data);
-    }
-
-    private int getWeatherMask(Store<EntityStore> entityStore, BlockChunk blockChunk, int x, int y, int z) {
-        // sky-check similar al del GrowthModifier
-        int cropId = blockChunk.getBlock(x, y, z);
-        for (int ay = y + 1; ay < 320; ay++) {
-            int above = blockChunk.getBlock(x, ay, z);
-            if (above != 0 && above != cropId) {
-                return 0;
-            }
-        }
-
-        WeatherResource weatherResource = entityStore.getResource(WeatherResource.getResourceType());
-
-        int forced = weatherResource.getForcedWeatherIndex();
-        int weatherId;
-        if (forced != Weather.UNKNOWN_ID) {
-            weatherId = forced;
-        } else {
-            int envId = blockChunk.getEnvironment(x, y, z);
-            weatherId = weatherResource.getWeatherIndexForEnvironment(envId);
-        }
-
-        if (weatherId == Weather.UNKNOWN_ID) return 0;
-
-        boolean isRain = rainWeatherIds.contains(weatherId);
-        boolean isSnow = snowWeatherIds.contains(weatherId);
-        boolean isFrozen = frozenWeatherIds.contains(weatherId);
-
-        boolean raining = isRain || isFrozen;
-        boolean snowing = isSnow || isFrozen;
-
-        int mask = 0;
-        if (raining) mask |= 1;
-        if (snowing) mask |= 2;
-        return mask;
-    }
-
-    private ClimateMutation computeNextClimate(ClimateMutation current, boolean raining, boolean snowing) {
-        if (current == null) current = ClimateMutation.NONE;
-        if (current == ClimateMutation.FROZEN) return ClimateMutation.FROZEN;
-
-        ThreadLocalRandom rnd = ThreadLocalRandom.current();
-
-        if (current == ClimateMutation.RAIN) {
-            if (snowing && mutationChanceFrozen > 0.0 && rnd.nextDouble() <= mutationChanceFrozen) {
-                return ClimateMutation.FROZEN;
-            }
-            return ClimateMutation.RAIN;
-        }
-
-        if (current == ClimateMutation.SNOW) {
-            if (raining && mutationChanceFrozen > 0.0 && rnd.nextDouble() <= mutationChanceFrozen) {
-                return ClimateMutation.FROZEN;
-            }
-            return ClimateMutation.SNOW;
-        }
-
-        // current == NONE
-        if (raining && !snowing) {
-            if (mutationChanceRain > 0.0 && rnd.nextDouble() <= mutationChanceRain) return ClimateMutation.RAIN;
-            return ClimateMutation.NONE;
-        }
-
-        if (snowing && !raining) {
-            if (mutationChanceSnow > 0.0 && rnd.nextDouble() <= mutationChanceSnow) return ClimateMutation.SNOW;
-            return ClimateMutation.NONE;
-        }
-
-        if (raining && snowing) {
-            boolean firstRain = rnd.nextBoolean();
-            if (firstRain) {
-                if (mutationChanceRain > 0.0 && rnd.nextDouble() <= mutationChanceRain) return ClimateMutation.RAIN;
-                if (mutationChanceSnow > 0.0 && rnd.nextDouble() <= mutationChanceSnow) return ClimateMutation.SNOW;
-            } else {
-                if (mutationChanceSnow > 0.0 && rnd.nextDouble() <= mutationChanceSnow) return ClimateMutation.SNOW;
-                if (mutationChanceRain > 0.0 && rnd.nextDouble() <= mutationChanceRain) return ClimateMutation.RAIN;
-            }
-        }
-
-        return ClimateMutation.NONE;
+        return false;
     }
 
     private void applyFinalVisual(Store<ChunkStore> store,

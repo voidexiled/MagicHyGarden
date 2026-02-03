@@ -26,7 +26,7 @@ public class MghgCropVisualStateResolver {
         String climate = switch (data.getClimate()) {
             case RAIN -> "rain";
             case SNOW -> "snow";
-            case FROZEN -> "rain_snow";
+            case FROZEN -> "frozen";
             case NONE -> "none";
         };
 

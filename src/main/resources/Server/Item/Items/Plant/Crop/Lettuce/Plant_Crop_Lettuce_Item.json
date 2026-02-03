@@ -8,15 +8,8 @@
   "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Item.png",
   "IconProperties": {
     "Scale": 0.7,
-    "Rotation": [
-      22.5,
-      45,
-      22.5
-    ],
-    "Translation": [
-      1.2,
-      -4.2
-    ]
+    "Rotation": [22.5, 45, 22.5],
+    "Translation": [1.2, -4.2]
   },
   "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
   "Model": "Resources/Ingredients/Cabbage.blockymodel",
@@ -52,7 +45,38 @@
       "Secondary": "MGHG_Root_HarvestCrop",
       "Use": "MGHG_Root_HarvestCrop",
       "Pick": "MGHG_Root_HarvestCrop"
-    }
+    },
+    "BlockEntity": {
+      "Components": {
+        "MGHG_CropData": {
+          "Size": 50,
+          "Climate": "None",
+          "Rarity": "None"
+        }
+      }
+    },
+    "Particles": [
+      {
+        "SystemId": "Custom_Sparks_ParticleSystem",
+        "Color": "#beb518",
+        "Scale": 1.2,
+        "PositionOffset": {
+          "Y": 1
+        }
+      },
+      {
+        "SystemId": "Block_Gem_Sparks",
+        "Scale": 1.2,
+        "Color": "#c0951b",
+        "PositionOffset": {
+          "Y": 1
+        }
+      },
+      {
+        "SystemId": "Plant_Glow_ParticleSystem",
+        "Color": "#beac11"
+      }
+    ]
   },
   "DropOnDeath": true,
   "State": {
@@ -108,8 +132,8 @@
         }
       }
     },
-    "mghg_rain_snow": {
-      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+    "mghg_frozen": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
       "BlockType": {
         "CustomModelTexture": [
           {
@@ -132,15 +156,9 @@
     }
   },
   "Tags": {
-    "Type": [
-      "Plant"
-    ],
-    "Family": [
-      "Crop"
-    ],
-    "MGHG": [
-      "CropItem"
-    ]
+    "Type": ["Plant"],
+    "Family": ["Crop"],
+    "MGHG": ["CropItem"]
   },
   "UsePlayerAnimations": false
 }

@@ -18,9 +18,6 @@
         "Weight": 1
       }
     ],
-    "Flags": {
-      "IsStackable": false
-    },
     "State": {
       "Definitions": {
         "Stage1": {
@@ -186,7 +183,10 @@
       "Components": {
         "FarmingBlock": {}
       }
-    }
+    },
+    "Effect": [
+      "WindRandom"
+    ]
   },
   "PlayerAnimationsId": "Item",
   "Categories": [

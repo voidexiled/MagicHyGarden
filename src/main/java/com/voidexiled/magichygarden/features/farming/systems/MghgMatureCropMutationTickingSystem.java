@@ -8,6 +8,7 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
+import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.modules.block.BlockModule;
@@ -20,9 +21,9 @@ import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
-import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
-import com.voidexiled.magichygarden.features.farming.state.MghgClimateMutationLogic;
-import com.voidexiled.magichygarden.features.farming.state.MghgWeatherUtil;
+import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
+import com.voidexiled.magichygarden.features.farming.state.MghgMutationEngine;
+import com.voidexiled.magichygarden.features.farming.state.MghgWeatherResolver;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropStageSync;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
 import it.unimi.dsi.fastutil.ints.IntSet;
@@ -31,6 +32,8 @@ import java.time.Duration;
 import java.time.Instant;
 
 public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<ChunkStore> {
+
+        private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private final Query<ChunkStore> query;
 
@@ -76,6 +79,14 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
         int y = com.hypixel.hytale.math.util.ChunkUtil.yFromBlockInColumn(idx);
         int z = com.hypixel.hytale.math.util.ChunkUtil.zFromBlockInColumn(idx);
 
+        WorldChunk worldChunk = store.getComponent(chunkRef, WorldChunk.getComponentType());
+        if (worldChunk == null) return;
+
+        BlockType blockType = BlockType.getAssetMap().getAsset(blockChunk.getBlock(x, y, z));
+        if (!MghgCropRegistry.isMghgCropBlock(blockType)) {
+            return;
+        }
+
         Store<EntityStore> entityStore = commandBuffer.getExternalData().getWorld().getEntityStore().getStore();
         Instant now = entityStore.getResource(WorldTimeResource.getResourceType()).getGameTime();
 
@@ -118,37 +129,25 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
             }
         }
 
-        int weatherMask = MghgWeatherUtil.getWeatherMask(entityStore, blockChunk, x, y, z,
-                rainIds, snowIds, frozenIds);
-        boolean raining = (weatherMask & MghgWeatherUtil.MASK_RAIN) != 0;
-        boolean snowing = (weatherMask & MghgWeatherUtil.MASK_SNOW) != 0;
+        MghgWeatherResolver.WeatherSnapshot weather = MghgWeatherResolver.resolveSnapshot(
+                entityStore, blockChunk, x, y, z, rainIds, snowIds, frozenIds
+        );
 
         // Si no llueve ni nieva, no “gastamos” cooldown, pero sí aseguramos visual.
-        if (!raining && !snowing) {
+        if (!weather.hasAny()) {
             applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
             return;
         }
 
-        boolean dirty = false;
-
-        // marcamos intento de mutación
-        data.setLastMutationRoll(now);
-        dirty = true;
-
-        ClimateMutation before = data.getClimate();
-        ClimateMutation after = MghgClimateMutationLogic.computeNext(
-                before,
-                raining,
-                snowing,
+        boolean dirty = MghgMutationEngine.tryMutate(
+                data,
+                now,
+                weather,
+                cooldownSeconds,
                 chanceRain,
                 chanceSnow,
                 chanceFrozen
         );
-
-        if (after != before) {
-            data.setClimate(after);
-            dirty = true;
-        }
 
         boolean visualsChanged = applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
 
@@ -172,6 +171,8 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
                                  int x, int y, int z,
                                  MghgCropData data) {
         if (farmingBlock != null) {
+
+            //LOGGER.atInfo().log("not farming block");
             Ref<ChunkStore> sectionRef = commandBuffer.getExternalData().getWorld()
                     .getChunkStore()
                     .getChunkSectionReference(
@@ -204,6 +205,9 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
                                   int x, int y, int z,
                                   MghgCropData data) {
 
+        WorldChunk worldChunk = store.getComponent(chunkRef, WorldChunk.getComponentType());
+        if (worldChunk == null) return;
+
         int currentId = blockChunk.getBlock(x, y, z);
         if (currentId == 0) return;
 
@@ -217,9 +221,6 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
 
         int targetId = BlockType.getAssetMap().getIndex(targetType.getId());
         if (targetId == BlockType.UNKNOWN_ID || targetId == currentId) return;
-
-        WorldChunk worldChunk = store.getComponent(chunkRef, WorldChunk.getComponentType());
-        if (worldChunk == null) return;
 
         // ✅ evitar deprecated getRotationIndex(x,y,z)
         //int indexBlock = ChunkUtil.indexBlock(x, y, z);

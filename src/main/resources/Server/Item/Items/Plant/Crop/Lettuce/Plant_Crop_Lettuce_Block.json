@@ -301,12 +301,12 @@
           },
           "Material": "Solid"
         },
-        "mghg_rain_snow_stage1": {
+        "mghg_frozen_stage1": {
           "Opacity": "Semitransparent",
           "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
               "Weight": 1
             }
           ],
@@ -321,13 +321,13 @@
           "BlockSoundSetId": "Plant",
           "ParticleColor": "#8bc752"
         },
-        "mghg_rain_snow_stage2": {
+        "mghg_frozen_stage2": {
           "Material": "Solid",
           "Opacity": "Semitransparent",
           "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
               "Weight": 1
             }
           ],
@@ -342,11 +342,11 @@
           "BlockSoundSetId": "Plant",
           "ParticleColor": "#8bc752"
         },
-        "mghg_rain_snow_stagefinal": {
+        "mghg_frozen_stagefinal": {
           "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
               "Weight": 1
             }
           ],
@@ -378,7 +378,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
               "Weight": 1
             }
           ],
@@ -399,7 +399,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
               "Weight": 1
             }
           ],
@@ -415,10 +415,10 @@
           "ParticleColor": "#8bc752"
         },
         "mghg_gold_none_stagefinal": {
-          "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+          "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
               "Weight": 1
             }
           ],
@@ -434,7 +434,7 @@
               "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
-          "BlockParticleSetId": "Grass",
+          "BlockParticleSetId": "Flower",
           "BlockSoundSetId": "Plant",
           "ParticleColor": "#1e951c",
           "Interactions": {
@@ -443,14 +443,36 @@
             "Use": "MGHG_Root_HarvestCrop",
             "Pick": "MGHG_Root_HarvestCrop"
           },
-          "Material": "Solid"
+          "Material": "Solid",
+          "Particles": [
+            {
+              "SystemId": "Custom_Sparks_ParticleSystem",
+              "Color": "#beb518",
+              "Scale": 1.2,
+              "PositionOffset": {
+                "Y": 1
+              }
+            },
+            {
+              "SystemId": "Block_Gem_Sparks",
+              "Scale": 1.2,
+              "Color": "#c0951b",
+              "PositionOffset": {
+                "Y": 1
+              }
+            },
+            {
+              "SystemId": "Plant_Glow_ParticleSystem",
+              "Color": "#beac11"
+            }
+          ]
         },
         "mghg_gold_rain_stage1": {
           "Opacity": "Semitransparent",
           "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
               "Weight": 1
             }
           ],
@@ -471,7 +493,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
               "Weight": 1
             }
           ],
@@ -490,7 +512,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
               "Weight": 1
             }
           ],
@@ -522,7 +544,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
               "Weight": 1
             }
           ],
@@ -543,7 +565,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
               "Weight": 1
             }
           ],
@@ -562,7 +584,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
               "Weight": 1
             }
           ],
@@ -589,12 +611,12 @@
           },
           "Material": "Solid"
         },
-        "mghg_gold_rain_snow_stage1": {
+        "mghg_gold_frozen_stage1": {
           "Opacity": "Semitransparent",
           "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
               "Weight": 1
             }
           ],
@@ -609,13 +631,13 @@
           "BlockSoundSetId": "Plant",
           "ParticleColor": "#8bc752"
         },
-        "mghg_gold_rain_snow_stage2": {
+        "mghg_gold_frozen_stage2": {
           "Material": "Solid",
           "Opacity": "Semitransparent",
           "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
               "Weight": 1
             }
           ],
@@ -630,11 +652,11 @@
           "BlockSoundSetId": "Plant",
           "ParticleColor": "#8bc752"
         },
-        "mghg_gold_rain_snow_stagefinal": {
+        "mghg_gold_frozen_stagefinal": {
           "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
               "Weight": 1
             }
           ],
@@ -666,7 +688,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
               "Weight": 1
             }
           ],
@@ -687,7 +709,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
               "Weight": 1
             }
           ],
@@ -706,7 +728,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
               "Weight": 1
             }
           ],
@@ -738,7 +760,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
               "Weight": 1
             }
           ],
@@ -759,7 +781,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
               "Weight": 1
             }
           ],
@@ -778,7 +800,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
               "Weight": 1
             }
           ],
@@ -810,7 +832,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
               "Weight": 1
             }
           ],
@@ -831,7 +853,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
               "Weight": 1
             }
           ],
@@ -850,7 +872,7 @@
           "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
               "Weight": 1
             }
           ],
@@ -877,12 +899,12 @@
           },
           "Material": "Solid"
         },
-        "mghg_rainbow_rain_snow_stage1": {
+        "mghg_rainbow_frozen_stage1": {
           "Opacity": "Semitransparent",
           "CustomModel": "Resources/Ingredients/Cabbage_01.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
               "Weight": 1
             }
           ],
@@ -897,13 +919,13 @@
           "BlockSoundSetId": "Plant",
           "ParticleColor": "#8bc752"
         },
-        "mghg_rainbow_rain_snow_stage2": {
+        "mghg_rainbow_frozen_stage2": {
           "Material": "Solid",
           "Opacity": "Semitransparent",
           "CustomModel": "Resources/Ingredients/Cabbage_02.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
               "Weight": 1
             }
           ],
@@ -918,11 +940,11 @@
           "BlockSoundSetId": "Plant",
           "ParticleColor": "#8bc752"
         },
-        "mghg_rainbow_rain_snow_stagefinal": {
+        "mghg_rainbow_frozen_stagefinal": {
           "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
           "CustomModelTexture": [
             {
-              "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+              "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
               "Weight": 1
             }
           ],
@@ -1113,7 +1135,7 @@
             "State": "mghg_snow_stagefinal"
           }
         ],
-        "mghg_rain_snow": [
+        "mghg_frozen": [
           {
             "Type": "BlockState",
             "SoundEventId": "SFX_Crops_Grow",
@@ -1130,7 +1152,7 @@
               "Min": 3000,
               "Max": 3000
             },
-            "State": "mghg_rain_snow_stage1"
+            "State": "mghg_frozen_stage1"
           },
           {
             "Type": "BlockState",
@@ -1139,7 +1161,7 @@
               "Min": 6000,
               "Max": 6000
             },
-            "State": "mghg_rain_snow_stage2"
+            "State": "mghg_frozen_stage2"
           },
           {
             "Type": "BlockState",
@@ -1148,7 +1170,7 @@
               "Min": 0,
               "Max": 0
             },
-            "State": "mghg_rain_snow_stagefinal"
+            "State": "mghg_frozen_stagefinal"
           }
         ],
         "mghg_gold_none": [
@@ -1265,7 +1287,7 @@
             "State": "mghg_gold_snow_stagefinal"
           }
         ],
-        "mghg_gold_rain_snow": [
+        "mghg_gold_frozen": [
           {
             "Type": "BlockState",
             "SoundEventId": "SFX_Crops_Grow",
@@ -1282,7 +1304,7 @@
               "Min": 3000,
               "Max": 3000
             },
-            "State": "mghg_gold_rain_snow_stage1"
+            "State": "mghg_gold_frozen_stage1"
           },
           {
             "Type": "BlockState",
@@ -1291,7 +1313,7 @@
               "Min": 6000,
               "Max": 6000
             },
-            "State": "mghg_gold_rain_snow_stage2"
+            "State": "mghg_gold_frozen_stage2"
           },
           {
             "Type": "BlockState",
@@ -1300,7 +1322,7 @@
               "Min": 0,
               "Max": 0
             },
-            "State": "mghg_gold_rain_snow_stagefinal"
+            "State": "mghg_gold_frozen_stagefinal"
           }
         ],
         "mghg_rainbow_none": [
@@ -1417,7 +1439,7 @@
             "State": "mghg_rainbow_snow_stagefinal"
           }
         ],
-        "mghg_rainbow_rain_snow": [
+        "mghg_rainbow_frozen": [
           {
             "Type": "BlockState",
             "SoundEventId": "SFX_Crops_Grow",
@@ -1434,7 +1456,7 @@
               "Min": 3000,
               "Max": 3000
             },
-            "State": "mghg_rainbow_rain_snow_stage1"
+            "State": "mghg_rainbow_frozen_stage1"
           },
           {
             "Type": "BlockState",
@@ -1443,7 +1465,7 @@
               "Min": 6000,
               "Max": 6000
             },
-            "State": "mghg_rainbow_rain_snow_stage2"
+            "State": "mghg_rainbow_frozen_stage2"
           },
           {
             "Type": "BlockState",
@@ -1452,17 +1474,12 @@
               "Min": 0,
               "Max": 0
             },
-            "State": "mghg_rainbow_rain_snow_stagefinal"
+            "State": "mghg_rainbow_frozen_stagefinal"
           }
         ]
       },
       "StartingStageSet": "mghg_none",
-      "ActiveGrowthModifiers": [
-        "Fertilizer",
-        "Water",
-        "LightLevel",
-        "Size"
-      ],
+      "ActiveGrowthModifiers": ["Fertilizer", "Water", "LightLevel", "Size"],
       "StageSetAfterHarvest": "mghg_none"
     },
     "Gathering": {
@@ -1472,19 +1489,14 @@
       }
     },
     "CustomModelScale": 0.9,
-    "ParticleColor": "#aa946e"
+    "ParticleColor": "#aa946e",
+    "Material": "Solid",
+    "HitboxType": "Block_One_Eighth"
   },
   "IconProperties": {
     "Scale": 1.115,
-    "Rotation": [
-      22.5,
-      45.0,
-      22.5
-    ],
-    "Translation": [
-      1.2,
-      -4.2
-    ]
+    "Rotation": [22.5, 45.0, 22.5],
+    "Translation": [1.2, -4.2]
   },
   "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Block.png"
 }

@@ -9,6 +9,7 @@ import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Int
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.commands.crop.CropCommand;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.interactions.MghgHarvestCropInteraction;
@@ -18,6 +19,7 @@ import com.voidexiled.magichygarden.features.farming.systems.MghgPreserveCropMet
 import com.voidexiled.magichygarden.features.farming.systems.MghgMatureCropMutationTickingSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgOnFarmBlockAddedSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgRehydrateCropDataOnPlaceSystem;
+import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 
 public class MagicHyGardenPlugin extends JavaPlugin {
     private static MagicHyGardenPlugin INSTANCE;
@@ -26,7 +28,6 @@ public class MagicHyGardenPlugin extends JavaPlugin {
 
     // Component Types
     private ComponentType<ChunkStore, MghgCropData> mghgCropDataComponentType;
-
     // Constructors
     public MagicHyGardenPlugin(JavaPluginInit init) {
         super(init);
@@ -46,7 +47,6 @@ public class MagicHyGardenPlugin extends JavaPlugin {
         // Register Component Codecs
         this.mghgCropDataComponentType = this.getChunkStoreRegistry()
                 .registerComponent(MghgCropData.class, "MGHG_CropData", MghgCropData.CODEC);
-
         getCodecRegistry(GrowthModifierAsset.CODEC)
                 .register("MGHG_CropGrowth", MghgCropGrowthModifierAsset.class, MghgCropGrowthModifierAsset.CODEC);
     }
@@ -63,6 +63,8 @@ public class MagicHyGardenPlugin extends JavaPlugin {
 
         ComponentType<ChunkStore, FarmingBlock> farmingBlockType =
                 farmingPlugin.getFarmingBlockComponentType();
+
+        MghgCropRegistry.reload();
 
         // Farm Block Added System ChunkStore
         // minSize, maxSize, goldChance, rainbowChance

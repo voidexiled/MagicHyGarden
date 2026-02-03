@@ -25,6 +25,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.logic.MghgHarvestUtil;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
+import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
 
 import javax.annotation.Nonnull;
@@ -81,19 +82,27 @@ public class MghgHarvestCropInteraction extends SimpleBlockInteraction {
         if (blockType == null) {
             return;
         }
-
+        if (!MghgCropRegistry.isMghgCropBlock(blockType)) {
+            return;
+        }
         // Decorative placed blocks (no farming data) -> pickup with metadata
         if (blockType.getFarming() == null) {
             if (playerRef == null || !playerRef.isValid()) {
                 return;
             }
 
-            Item item = blockType.getItem();
-            if (item == null) {
+            String itemId = null;
+            var def = MghgCropRegistry.getDefinition(blockType);
+            if (def != null && def.getItemId() != null && !def.getItemId().isBlank()) {
+                itemId = def.getItemId();
+            } else if (blockType.getItem() != null) {
+                itemId = blockType.getItem().getId();
+            }
+            if (itemId == null) {
                 return;
             }
 
-            ItemStack out = new ItemStack(item.getId(), 1);
+            ItemStack out = new ItemStack(itemId, 1);
             MghgCropData cropData = MghgHarvestUtil.tryGetCropData(world, targetBlock);
             if (cropData != null) {
                 MghgCropMeta meta = MghgCropMeta.fromCropData(

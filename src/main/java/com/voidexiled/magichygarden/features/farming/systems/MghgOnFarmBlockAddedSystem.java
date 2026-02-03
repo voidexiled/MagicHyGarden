@@ -1,17 +1,24 @@
 package com.voidexiled.magichygarden.features.farming.systems;
 
 import com.hypixel.hytale.builtin.adventure.farming.states.FarmingBlock;
+import com.hypixel.hytale.builtin.asseteditor.util.AssetStoreUtil;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.RefSystem;
 import com.hypixel.hytale.math.util.ChunkUtil;
+import com.hypixel.hytale.protocol.ItemUtility;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.farming.FarmingData;
+import com.hypixel.hytale.server.core.asset.type.model.config.Model;
+import com.hypixel.hytale.server.core.asset.type.model.config.ModelAsset;
 import com.hypixel.hytale.server.core.modules.block.BlockModule;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockChunk;
+import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
+import com.hypixel.hytale.server.core.util.AssetUtil;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.logic.MghgCropDataSeeder;
+import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nonnull;
@@ -47,6 +54,7 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
             @Nonnull Store<ChunkStore> store,
             @Nonnull CommandBuffer<ChunkStore> commandBuffer
     ) {
+
         // Se ejecuta cuando la entidad FarmingBlock aparece (crop nuevo o rehidratado).
         FarmingBlock farmingBlock = commandBuffer.getComponent(ref, farmingBlockType);
         if (farmingBlock == null) return;
@@ -63,6 +71,7 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
 
         BlockType blockType = BlockType.getAssetMap().getAsset(blockChunk.getBlock(lx, ly, lz));
         if (blockType == null || blockType.getFarming() == null) return;
+        if (!MghgCropRegistry.isMghgCropBlock(blockType)) return;
 
         // ✅ asegura tu data SOLO una vez
         MghgCropData data = commandBuffer.ensureAndGetComponent(ref, cropDataType);
@@ -70,6 +79,7 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
 
         // Seed unificado (size/rarity/climate) desde GrowthModifier config.
         MghgCropDataSeeder.seedNew(data);
+
     }
 
     @Override
@@ -115,6 +125,9 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
         if (blockType == null) {
             return;
         }
+        if (!MghgCropRegistry.isMghgCropBlock(blockType)) {
+            return;
+        }
 
         // Seguridad anti-leaks:
         // si el bloque ya no es farming (por ejemplo lo rompieron y ahora es aire), NO recreamos nada.
@@ -141,6 +154,8 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
 
         persistent.addComponent(cropDataType, copy);
 
+
+        //persistent.replaceComponent(ref, BlockComponentChunk.getComponentType(), new BlockComponentChunk());
         commandBuffer.addEntity(persistent, AddReason.SPAWN);
     }
 

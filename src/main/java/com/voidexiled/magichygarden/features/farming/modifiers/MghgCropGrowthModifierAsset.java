@@ -6,26 +6,19 @@ import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
-import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.farming.GrowthModifierAsset;
 import com.hypixel.hytale.server.core.asset.type.weather.config.Weather;
-import com.hypixel.hytale.server.core.modules.time.WorldTimeResource;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.section.ChunkSection;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
-import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
-import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
-import com.voidexiled.magichygarden.features.farming.state.MghgClimateMutationLogic;
-import com.voidexiled.magichygarden.features.farming.state.MghgWeatherUtil;
+import com.voidexiled.magichygarden.features.farming.state.MghgWeatherResolver;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropStageSync;
 import it.unimi.dsi.fastutil.ints.IntSet;
 
 import javax.annotation.Nullable;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -208,9 +201,9 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
 
     // ---------- Decode helpers ----------
     private static void buildCaches(MghgCropGrowthModifierAsset a) {
-        a.rainWeatherIds = MghgWeatherUtil.toWeatherIdSet(a.rainWeathers);
-        a.snowWeatherIds = MghgWeatherUtil.toWeatherIdSet(a.snowWeathers);
-        a.frozenWeatherIds = MghgWeatherUtil.toWeatherIdSet(a.frozenWeathers);
+        a.rainWeatherIds = MghgWeatherResolver.toWeatherIdSet(a.rainWeathers);
+        a.snowWeatherIds = MghgWeatherResolver.toWeatherIdSet(a.snowWeathers);
+        a.frozenWeatherIds = MghgWeatherResolver.toWeatherIdSet(a.frozenWeathers);
         a.dropListOverrideMap = buildDropListOverrideMap(a.dropListOverrideFrom, a.dropListOverrideTo);
         LAST_LOADED = a;
     }
@@ -334,66 +327,6 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
         else if (minMul > 1.0) minMul = 1.0;
 
         return (1.0 * (1.0 - t)) + (minMul * t);
-    }
-
-    // ---------- Climate mutation (progresiva / compuesta) ----------
-    private boolean maybeRollClimateMutation(
-            CommandBuffer<ChunkStore> commandBuffer,
-            @Nullable Ref<ChunkStore> chunkColRef,
-            @Nullable BlockChunk blockChunk,
-            MghgCropData data,
-            int x, int y, int z
-    ) {
-        // Si no configuraste weathers, no hacemos nada
-        if (rainWeatherIds == null && snowWeatherIds == null && frozenWeatherIds == null) {
-            return false;
-        }
-
-        if (blockChunk == null || chunkColRef == null) {
-            return false;
-        }
-
-        Store<EntityStore> store = commandBuffer.getExternalData().getWorld().getEntityStore().getStore();
-        WorldTimeResource time = store.getResource(WorldTimeResource.getResourceType());
-        Instant now = time.getGameTime();
-
-        int weatherMask = MghgWeatherUtil.getWeatherMask(store, blockChunk, x, y, z,
-                rainWeatherIds, snowWeatherIds, frozenWeatherIds);
-        boolean raining = (weatherMask & MghgWeatherUtil.MASK_RAIN) != 0;
-        boolean snowing = (weatherMask & MghgWeatherUtil.MASK_SNOW) != 0;
-
-        // si no llueve ni nieva, no “gastamos” cooldown
-        if (!raining && !snowing) {
-            return false;
-        }
-
-        Instant last = data.getLastMutationRoll();
-        if (last != null && mutationRollCooldownSeconds > 0) {
-            long elapsed = Duration.between(last, now).getSeconds();
-            if (elapsed < mutationRollCooldownSeconds) {
-                return false;
-            }
-        }
-
-        // marcamos intento
-        data.setLastMutationRoll(now);
-
-        ClimateMutation before = data.getClimate();
-        ClimateMutation after = MghgClimateMutationLogic.computeNext(
-                before,
-                raining,
-                snowing,
-                mutationChanceRain,
-                mutationChanceSnow,
-                mutationChanceFrozen
-        );
-
-        if (after != before) {
-            data.setClimate(after);
-        }
-
-        // dirty porque al menos lastMutationRoll cambió
-        return true;
     }
 
 }

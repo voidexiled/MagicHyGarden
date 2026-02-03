@@ -1,5 +1,7 @@
 package com.voidexiled.magichygarden.features.farming.systems;
 
+import com.hypixel.hytale.assetstore.AssetRegistry;
+import com.hypixel.hytale.builtin.buildertools.tooloperations.transform.Translate;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.EntityEventSystem;
@@ -7,21 +9,30 @@ import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3i;
+import com.hypixel.hytale.protocol.packets.interface_.Notification;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.asset.AssetRegistryLoader;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.modules.i18n.generator.TranslationMap;
+import com.hypixel.hytale.server.core.modules.i18n.parser.LangFileParser;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.util.AssetUtil;
+import com.hypixel.hytale.server.core.util.NotificationUtil;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
 import com.voidexiled.magichygarden.features.farming.logic.MghgItemDropUtil;
 import com.voidexiled.magichygarden.features.farming.logic.MghgSupportDropMetaCache;
+import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
+import com.voidexiled.magichygarden.utils.NotificationUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -55,7 +66,7 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
 
         final BlockType blockType = event.getBlockType();
         final Vector3i pos = event.getTargetBlock();
-
+        // Always clear any visual overlay for this position to avoid ghost visuals.
         PlayerRef playerRef = archetypeChunk.getComponent(index, PlayerRef.getComponentType());
         String who = (playerRef != null ? playerRef.getUsername() : "?");
 
@@ -74,7 +85,7 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
         // Si el jugador rompió el bloque de soporte, intentamos preservar el crop encima y mantener vanilla feel.
         Ref<EntityStore> breakerRef = archetypeChunk.getReferenceTo(index);
         if (breakerRef != null && breakerRef.isValid()) {
-            handleSupportBreak(world, pos.x, pos.y, pos.z);
+            handleSupportBreak(playerRef, world, pos.x, pos.y, pos.z);
         }
 
         // IMPORTANTE: esto es para el caso “bloque colocado” (sin FarmingData).
@@ -102,12 +113,18 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
         }
 
         // 2) construir ítem a devolver
-        final Item item = blockType.getItem();
-        if (item == null) {
+        String itemId = null;
+        var def = MghgCropRegistry.getDefinition(blockType);
+        if (def != null && def.getItemId() != null && !def.getItemId().isBlank()) {
+            itemId = def.getItemId();
+        } else if (blockType.getItem() != null) {
+            itemId = blockType.getItem().getId();
+        }
+        if (itemId == null) {
             return; // sin item asociado -> deja vanilla
         }
 
-        ItemStack out = new ItemStack(item.getId(), 1);
+        ItemStack out = new ItemStack(itemId, 1);
 
         MghgCropMeta meta = MghgCropMeta.fromCropData(
                 cropData.getSize(),
@@ -129,9 +146,9 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
         }
 
         LOGGER.atInfo().log(
-            "[MGHG|BREAK] cancel vanilla, give item={} meta(size={} climate={} rarity={}) pos={},{},{}",
-            out.getItem().getId(),
-            cropData.getSize(),
+                "[MGHG|BREAK] cancel vanilla, give item={} meta(size={} climate={} rarity={}) pos={},{},{}",
+                out.getItem().getId(),
+                cropData.getSize(),
                 cropData.getClimate(),
                 cropData.getRarity(),
                 pos.x, pos.y, pos.z
@@ -159,6 +176,7 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
     }
 
     private boolean handleSupportBreak(
+            @Nonnull PlayerRef playerRef,
             @Nonnull World world,
             int x,
             int y,
@@ -183,7 +201,14 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
 
         String expectedItemId = resolvePhysicsDropItemId(cropBlockType);
         MghgSupportDropMetaCache.queue(x, y + 1, z, cropData, expectedItemId);
+        // Resolve Notifications
 
+        LOGGER.atInfo().log("MghgPreserveCropMetaOnBreakSystem: sending support break notification for cropBlockType=%s at pos=%d,%d,%d, itemId=%s",cropBlockType.getId(), x, y + 1, z, expectedItemId);
+
+        NotificationUtils.sendNotification(playerRef,
+                cropBlockType.getId(),
+                cropData,
+                new ItemStack(cropBlockType.getId(), 1).toPacket());
         return true;
     }
 

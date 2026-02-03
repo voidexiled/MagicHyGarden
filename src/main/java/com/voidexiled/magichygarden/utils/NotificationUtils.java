@@ -76,12 +76,14 @@ public class NotificationUtils {
         // Ej: "Giant • Wet • Rainbow • Size 100"
         String sizeTier = resolveSizeTierLabel(cropData.getSize());
         String climateLabel = resolveClimateLabel(cropData);
+        String lunarLabel = resolveLunarLabel(cropData);
         String rarityLabel = resolveRarityLabel(cropData);
 
         StringBuilder sb = new StringBuilder();
 
         if (!sizeTier.isBlank()) sb.append(sizeTier);
         if (!climateLabel.isBlank()) appendBullet(sb, climateLabel);
+        if (!lunarLabel.isBlank()) appendBullet(sb, lunarLabel);
         if (!rarityLabel.isBlank()) appendBullet(sb, rarityLabel);
 
         appendBullet(sb, "Size " + cropData.getSize());
@@ -120,6 +122,12 @@ public class NotificationUtils {
         if (raw.equalsIgnoreCase("SNOW")) return "Chilled";
         if (raw.equalsIgnoreCase("FROZEN")) return "Frozen";
 
+        return raw;
+    }
+
+    private static String resolveLunarLabel(@NotNull MghgCropData cropData) {
+        String raw = String.valueOf(cropData.getLunar()).trim();
+        if (raw.equalsIgnoreCase("NONE")) return "";
         return raw;
     }
 

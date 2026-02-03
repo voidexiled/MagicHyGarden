@@ -21,6 +21,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
+import com.voidexiled.magichygarden.features.farming.state.LunarMutation;
 import com.voidexiled.magichygarden.features.farming.state.RarityMutation;
 import org.bson.BsonDocument;
 import org.bson.BsonValue;
@@ -76,9 +77,11 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
 
         int size = getInt(mghgDoc, "Size", 0);
         String climateStr = getString(mghgDoc, "Climate", "NONE");
+        String lunarStr = getString(mghgDoc, "Lunar", "NONE");
         String rarityStr = getString(mghgDoc, "Rarity", "NONE");
 
         ClimateMutation climate = parseClimate(climateStr);
+        LunarMutation lunar = parseLunar(lunarStr);
         RarityMutation rarity = parseRarity(rarityStr);
 
         Vector3i pos = event.getTargetBlock().clone();
@@ -90,8 +93,8 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
 
         if (DEBUG) {
             LOGGER.at(Level.INFO).log(
-                    "[MGHG|PLACE] pre-place by=%s item=%s blockTypeKey=%s pos=%d,%d,%d meta(size=%d climate=%s rarity=%s)",
-                    who, itemId, expectedBlockTypeKey, pos.x, pos.y, pos.z, size, climate, rarity
+                    "[MGHG|PLACE] pre-place by=%s item=%s blockTypeKey=%s pos=%d,%d,%d meta(size=%d climate=%s lunar=%s rarity=%s)",
+                    who, itemId, expectedBlockTypeKey, pos.x, pos.y, pos.z, size, climate, lunar, rarity
             );
         }
 
@@ -100,7 +103,7 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
         // IMPORTANTE:
         // PlaceBlockEvent se dispara ANTES de colocar. Para no pelear con vanilla,
         // aplicamos en el siguiente tick del World thread.
-        world.execute(() -> applyToPlacedBlock(world, who, itemId, expectedBlockTypeKey, pos, size, climate, rarity));
+        world.execute(() -> applyToPlacedBlock(world, who, itemId, expectedBlockTypeKey, pos, size, climate, lunar, rarity));
     }
 
     private void applyToPlacedBlock(
@@ -111,6 +114,7 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             @Nonnull Vector3i pos,
             int size,
             @Nonnull ClimateMutation climate,
+            @Nonnull LunarMutation lunar,
             @Nonnull RarityMutation rarity
     ) {
         long chunkIndex = ChunkUtil.indexChunkFromBlock(pos.x, pos.z);
@@ -177,13 +181,17 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             MghgCropData data = chunkStoreStore.ensureAndGetComponent(blockRef, cropDataType);
             data.setSize(size);
             data.setClimate(climate);
+            data.setLunar(lunar);
             data.setRarity(rarity);
+            data.setLastRegularRoll(null);
+            data.setLastLunarRoll(null);
+            data.setLastSpecialRoll(null);
             data.setLastMutationRoll(null);
 
             if (DEBUG) {
                 LOGGER.at(Level.INFO).log(
-                        "[MGHG|PLACE] applied MghgCropData to entity pos=%d,%d,%d (by=%s item=%s size=%d climate=%s rarity=%s)",
-                        pos.x, pos.y, pos.z, who, itemId, size, climate, rarity
+                        "[MGHG|PLACE] applied MghgCropData to entity pos=%d,%d,%d (by=%s item=%s size=%d climate=%s lunar=%s rarity=%s)",
+                        pos.x, pos.y, pos.z, who, itemId, size, climate, lunar, rarity
                 );
             }
             return;
@@ -222,7 +230,11 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
 
         data.setSize(size);
         data.setClimate(climate);
+        data.setLunar(lunar);
         data.setRarity(rarity);
+        data.setLastRegularRoll(null);
+        data.setLastLunarRoll(null);
+        data.setLastSpecialRoll(null);
         data.setLastMutationRoll(null);
 
         // Attach the holder to the block
@@ -230,8 +242,8 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
 
         if (DEBUG) {
             LOGGER.at(Level.INFO).log(
-                    "[MGHG|PLACE] applied MghgCropData ok hadHolder=%s pos=%d,%d,%d (by=%s item=%s size=%d climate=%s rarity=%s)",
-                    hadHolder, pos.x, pos.y, pos.z, who, itemId, size, climate, rarity
+                    "[MGHG|PLACE] applied MghgCropData ok hadHolder=%s pos=%d,%d,%d (by=%s item=%s size=%d climate=%s lunar=%s rarity=%s)",
+                    hadHolder, pos.x, pos.y, pos.z, who, itemId, size, climate, lunar, rarity
             );
         }
     }
@@ -251,6 +263,15 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             return RarityMutation.valueOf(s);
         } catch (IllegalArgumentException ignored) {
             return RarityMutation.NONE;
+        }
+    }
+
+    private static LunarMutation parseLunar(@Nullable String s) {
+        if (s == null) return LunarMutation.NONE;
+        try {
+            return LunarMutation.valueOf(s);
+        } catch (IllegalArgumentException ignored) {
+            return LunarMutation.NONE;
         }
     }
 

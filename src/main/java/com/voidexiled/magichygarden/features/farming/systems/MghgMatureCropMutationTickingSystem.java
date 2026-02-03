@@ -11,6 +11,9 @@ import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.farming.FarmingData;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.farming.FarmingStageData;
+import com.hypixel.hytale.server.core.asset.type.weather.config.Weather;
 import com.hypixel.hytale.server.core.modules.block.BlockModule;
 import com.hypixel.hytale.server.core.modules.time.WorldTimeResource;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockChunk;
@@ -22,14 +25,19 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
+import com.voidexiled.magichygarden.features.farming.state.MghgMutationContext;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationEngine;
+import com.voidexiled.magichygarden.features.farming.state.MghgMutationRuleSet;
+import com.voidexiled.magichygarden.features.farming.state.MghgMutationRules;
 import com.voidexiled.magichygarden.features.farming.state.MghgWeatherResolver;
+import com.voidexiled.magichygarden.features.farming.state.MutationEventType;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropStageSync;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
-import it.unimi.dsi.fastutil.ints.IntSet;
 
-import java.time.Duration;
 import java.time.Instant;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<ChunkStore> {
 
@@ -100,53 +108,35 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
         }
 
         int cooldownSeconds = cfg.getMutationRollCooldownSeconds();
-        double chanceRain = cfg.getMutationChanceRain();
-        double chanceSnow = cfg.getMutationChanceSnow();
-        double chanceFrozen = cfg.getMutationChanceFrozen();
-        IntSet rainIds = cfg.getRainWeatherIds();
-        IntSet snowIds = cfg.getSnowWeatherIds();
-        IntSet frozenIds = cfg.getFrozenWeatherIds();
-
-        // Sin weathers configurados => no se muta, pero sí se asegura visual.
-        if (rainIds == null && snowIds == null && frozenIds == null) {
+        MghgMutationRuleSet rules = MghgMutationRules.getActive(cfg);
+        if (rules == null || rules.isEmpty()) {
             applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
             return;
         }
 
-        // Chances en 0 => no hay mutación, solo visual.
-        if (chanceRain <= 0.0 && chanceSnow <= 0.0 && chanceFrozen <= 0.0) {
+        int weatherId = MghgWeatherResolver.resolveWeatherId(entityStore, blockChunk, x, y, z);
+        if (weatherId == Weather.UNKNOWN_ID) {
             applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
             return;
         }
 
-        // Siempre “sync visual” (corrige mismatch aunque no haya cooldown).
-        Instant last = data.getLastMutationRoll();
-        if (last != null && cooldownSeconds > 0) {
-            Duration since = Duration.between(last, now);
-            if (since.getSeconds() < cooldownSeconds) {
-                applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
-                return;
-            }
-        }
+        boolean mature = isMature(blockType, farmingBlock);
+        Set<String> adjacent = resolveAdjacentIds(rules, blockChunk, x, y, z);
 
-        MghgWeatherResolver.WeatherSnapshot weather = MghgWeatherResolver.resolveSnapshot(
-                entityStore, blockChunk, x, y, z, rainIds, snowIds, frozenIds
+        MghgMutationContext ctx = new MghgMutationContext(
+                now,
+                MutationEventType.WEATHER,
+                weatherId,
+                mature,
+                true,
+                adjacent
         );
 
-        // Si no llueve ni nieva, no “gastamos” cooldown, pero sí aseguramos visual.
-        if (!weather.hasAny()) {
-            applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
-            return;
-        }
-
-        boolean dirty = MghgMutationEngine.tryMutate(
+        boolean dirty = MghgMutationEngine.applyRules(
                 data,
-                now,
-                weather,
-                cooldownSeconds,
-                chanceRain,
-                chanceSnow,
-                chanceFrozen
+                ctx,
+                rules,
+                cooldownSeconds
         );
 
         boolean visualsChanged = applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
@@ -233,5 +223,67 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
         commandBuffer.getExternalData().getWorld().execute(() ->
                 worldChunk.setBlock(x, y, z, targetId, targetType, rotation, 0, 2)
         );
+    }
+
+    private static boolean isMature(BlockType blockType, FarmingBlock farmingBlock) {
+        if (blockType == null || farmingBlock == null) return false;
+        BlockType base = resolveBaseBlockType(blockType);
+        FarmingData farming = base != null ? base.getFarming() : null;
+        if (farming == null || farming.getStages() == null) return false;
+        String stageSet = farmingBlock.getCurrentStageSet();
+        if (stageSet == null) return false;
+        FarmingStageData[] stages = farming.getStages().get(stageSet);
+        if (stages == null || stages.length == 0) return false;
+        int stageIndex = (int) farmingBlock.getGrowthProgress();
+        return stageIndex >= stages.length - 1;
+    }
+
+    private static BlockType resolveBaseBlockType(BlockType current) {
+        if (current == null) return null;
+        String id = current.getId();
+        if (id == null || id.isEmpty()) return current;
+        if (id.charAt(0) == '*') {
+            int idx = id.indexOf("_State_");
+            if (idx > 1) {
+                String baseId = id.substring(1, idx);
+                BlockType base = BlockType.getAssetMap().getAsset(baseId);
+                if (base != null) return base;
+            }
+        }
+        return current;
+    }
+
+    private static Set<String> resolveAdjacentIds(MghgMutationRuleSet rules, BlockChunk blockChunk, int x, int y, int z) {
+        if (rules == null || rules.getRequiredAdjacentBlockIds().isEmpty()) {
+            return Collections.emptySet();
+        }
+
+        Set<String> required = rules.getRequiredAdjacentBlockIds();
+        Set<String> found = new HashSet<>();
+        checkNeighbor(blockChunk, x + 1, y, z, required, found);
+        checkNeighbor(blockChunk, x - 1, y, z, required, found);
+        checkNeighbor(blockChunk, x, y, z + 1, required, found);
+        checkNeighbor(blockChunk, x, y, z - 1, required, found);
+        checkNeighbor(blockChunk, x, y + 1, z, required, found);
+        checkNeighbor(blockChunk, x, y - 1, z, required, found);
+        return found.isEmpty() ? Collections.emptySet() : found;
+    }
+
+    private static void checkNeighbor(
+            BlockChunk blockChunk,
+            int x, int y, int z,
+            Set<String> required,
+            Set<String> found
+    ) {
+        int id = blockChunk.getBlock(x, y, z);
+        if (id == 0) return;
+        BlockType type = BlockType.getAssetMap().getAsset(id);
+        if (type == null) return;
+        BlockType base = resolveBaseBlockType(type);
+        String blockId = base != null ? base.getId() : type.getId();
+        if (blockId == null) return;
+        if (required.contains(blockId)) {
+            found.add(blockId);
+        }
     }
 }

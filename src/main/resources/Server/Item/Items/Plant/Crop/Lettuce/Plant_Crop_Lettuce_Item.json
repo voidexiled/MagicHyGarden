@@ -153,8 +153,1239 @@
           "Pick": "MGHG_Root_HarvestCrop"
         }
       }
-    }
-  },
+    },
+    "mghg_none_dawnlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_none_dawnbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_none_amberlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_none_amberbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rain_dawnlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rain_dawnbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rain_amberlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rain_amberbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_snow_dawnlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_snow_dawnbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_snow_amberlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_snow_amberbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_frozen_dawnlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_frozen_dawnbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_frozen_amberlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_frozen_amberbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_none": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_none_dawnlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_none_dawnbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_none_amberlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_none_amberbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_rain": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_rain_dawnlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_rain_dawnbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_rain_amberlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_rain_amberbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_snow": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_snow_dawnlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_snow_dawnbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_snow_amberlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_snow_amberbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_frozen": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_frozen_dawnlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_frozen_dawnbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_frozen_amberlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_gold_frozen_amberbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_none": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_none_dawnlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_none_dawnbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_none_amberlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_none_amberbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_rain": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_rain_dawnlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_rain_dawnbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_rain_amberlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_rain_amberbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_snow": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_snow_dawnlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_snow_dawnbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_snow_amberlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_snow_amberbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_frozen": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_frozen_dawnlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_frozen_dawnbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_frozen_amberlit": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    },
+    "mghg_rainbow_frozen_amberbound": {
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
+      "BlockType": {
+        "CustomModelTexture": [
+          {
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
+            "Weight": 1
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
+          }
+        ],
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        }
+      }
+    }},
   "Tags": {
     "Type": ["Plant"],
     "Family": ["Crop"],
@@ -162,3 +1393,5 @@
   },
   "UsePlayerAnimations": false
 }
+
+

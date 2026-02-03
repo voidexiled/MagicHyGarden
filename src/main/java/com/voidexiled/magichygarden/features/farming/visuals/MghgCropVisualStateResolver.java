@@ -30,7 +30,20 @@ public class MghgCropVisualStateResolver {
             case NONE -> "none";
         };
 
-        return prefix + climate;
+        String base = prefix + climate;
+
+        String lunar = switch (data.getLunar()) {
+            case DAWNLIT -> "dawnlit";
+            case DAWNBOUND -> "dawnbound";
+            case AMBERLIT -> "amberlit";
+            case AMBERBOUND -> "amberbound";
+            case NONE -> null;
+        };
+
+        if (lunar == null || lunar.isBlank()) {
+            return base;
+        }
+        return base + "_" + lunar;
     }
 
     // Mantén tu API previa para items

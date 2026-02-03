@@ -20,8 +20,6 @@ import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.commands.shared.Targeting;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
-import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
-import com.voidexiled.magichygarden.features.farming.state.MghgClimateMutationLogic;
 import com.voidexiled.magichygarden.features.farming.state.RarityMutation;
 import org.jspecify.annotations.NonNull;
 
@@ -126,6 +124,18 @@ public class CropAddRarityCommand extends AbstractPlayerCommand {
 
         RarityMutation before = data.getRarity();
         data.setRarity(add);
+        WorldTimeResource time = store.getResource(WorldTimeResource.getResourceType());
+        if (time != null) {
+            Instant now = time.getGameTime();
+            data.setLastSpecialRoll(now);
+        }
+
+        if (blockComponentChunk != null) blockComponentChunk.markNeedsSaving();
+        if (blockChunk != null) blockChunk.markNeedsSaving();
+
+        if (fromStateHolder && stateHolder != null) {
+            worldChunk.setState(x, y, z, stateHolder);
+        }
 
         ctx.sendMessage(Message.raw(
                 "Rarity: " + before.name() + " -> " + add.name() + " (add=" + add.name() + ")"

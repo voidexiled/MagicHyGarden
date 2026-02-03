@@ -149,7 +149,11 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
         MghgCropData copy = new MghgCropData();
         copy.setSize(cropData.getSize());
         copy.setClimate(cropData.getClimate());
+        copy.setLunar(cropData.getLunar());
         copy.setRarity(cropData.getRarity());
+        copy.setLastRegularRoll(cropData.getLastRegularRoll());
+        copy.setLastLunarRoll(cropData.getLastLunarRoll());
+        copy.setLastSpecialRoll(cropData.getLastSpecialRoll());
         copy.setLastMutationRoll(cropData.getLastMutationRoll());
 
         persistent.addComponent(cropDataType, copy);

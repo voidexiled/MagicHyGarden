@@ -221,6 +221,7 @@ public final class MghgHarvestUtil {
                 MghgCropMeta meta = MghgCropMeta.fromCropData(
                         cropData.getSize(),
                         cropData.getClimate().name(),
+                        cropData.getLunar().name(),
                         cropData.getRarity().name()
                 );
                 out = out.withMetadata(MghgCropMeta.KEY, meta);
@@ -243,6 +244,7 @@ public final class MghgHarvestUtil {
                     MghgCropMeta meta = MghgCropMeta.fromCropData(
                             cropData.getSize(),
                             cropData.getClimate().name(),
+                            cropData.getLunar().name(),
                             cropData.getRarity().name()
                     );
                     out = out.withMetadata(MghgCropMeta.KEY, meta);

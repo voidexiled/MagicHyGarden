@@ -190,8 +190,11 @@ public class CropDebugTargetCommand extends AbstractPlayerCommand {
             msg.insert(Message.raw("MGHG Data: ").color(Color.GRAY))
                     .insert(Message.raw("size=").color(Color.GRAY)).insert(Message.raw(Integer.toString(cropData.getSize())).color(Color.MAGENTA))
                     .insert(Message.raw(" | climate=").color(Color.GRAY)).insert(Message.raw(cropData.getClimate().name()).color(Color.MAGENTA))
+                    .insert(Message.raw(" | lunar=").color(Color.GRAY)).insert(Message.raw(cropData.getLunar().name()).color(Color.MAGENTA))
                     .insert(Message.raw(" | rarity=").color(Color.GRAY)).insert(Message.raw(cropData.getRarity().name()).color(Color.MAGENTA))
-                    .insert(Message.raw(" | lastRoll=").color(Color.GRAY)).insert(Message.raw(String.valueOf(cropData.getLastMutationRoll()) + "\n").color(Color.MAGENTA));
+                    .insert(Message.raw(" | lastRegular=").color(Color.GRAY)).insert(Message.raw(String.valueOf(cropData.getLastRegularRoll())).color(Color.MAGENTA))
+                    .insert(Message.raw(" | lastLunar=").color(Color.GRAY)).insert(Message.raw(String.valueOf(cropData.getLastLunarRoll())).color(Color.MAGENTA))
+                    .insert(Message.raw(" | lastSpecial=").color(Color.GRAY)).insert(Message.raw(String.valueOf(cropData.getLastSpecialRoll()) + "\n").color(Color.MAGENTA));
         } else {
             msg.insert(Message.raw("MGHG Data: ").color(Color.GRAY))
                     .insert(Message.raw("NO\n").color(Color.YELLOW));

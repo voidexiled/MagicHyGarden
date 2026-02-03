@@ -10,6 +10,8 @@ public final class MghgCropMeta {
             .add()
             .append(new KeyedCodec<>("Climate", Codec.STRING), (o, v) -> o.climate = v, o -> o.climate)
             .add()
+            .append(new KeyedCodec<>("Lunar", Codec.STRING, true), (o, v) -> o.lunar = v, o -> o.lunar)
+            .add()
             .append(new KeyedCodec<>("Rarity", Codec.STRING), (o, v) -> o.rarity = v, o -> o.rarity)
             .add()
             .build();
@@ -18,19 +20,26 @@ public final class MghgCropMeta {
 
     private int size;
     private String climate;
+    private String lunar;
     private String rarity;
 
     public MghgCropMeta() {}
 
     public static MghgCropMeta fromCropData(int size, String climate, String rarity) {
+        return fromCropData(size, climate, "NONE", rarity);
+    }
+
+    public static MghgCropMeta fromCropData(int size, String climate, String lunar, String rarity) {
         MghgCropMeta meta = new MghgCropMeta();
         meta.size = size;
         meta.climate = climate;
+        meta.lunar = lunar;
         meta.rarity = rarity;
         return meta;
     }
 
     public int getSize() { return size; }
     public String getClimate() { return climate; }
+    public String getLunar() { return lunar == null ? "NONE" : lunar; }
     public String getRarity() { return rarity; }
 }

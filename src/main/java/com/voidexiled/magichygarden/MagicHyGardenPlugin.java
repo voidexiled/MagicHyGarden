@@ -20,6 +20,7 @@ import com.voidexiled.magichygarden.features.farming.systems.MghgMatureCropMutat
 import com.voidexiled.magichygarden.features.farming.systems.MghgOnFarmBlockAddedSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgRehydrateCropDataOnPlaceSystem;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
+import com.voidexiled.magichygarden.features.farming.state.MghgMutationRules;
 
 public class MagicHyGardenPlugin extends JavaPlugin {
     private static MagicHyGardenPlugin INSTANCE;
@@ -65,6 +66,7 @@ public class MagicHyGardenPlugin extends JavaPlugin {
                 farmingPlugin.getFarmingBlockComponentType();
 
         MghgCropRegistry.reload();
+        MghgMutationRules.reload();
 
         // Farm Block Added System ChunkStore
         // minSize, maxSize, goldChance, rainbowChance

@@ -8,8 +8,15 @@
   "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Item.png",
   "IconProperties": {
     "Scale": 0.7,
-    "Rotation": [22.5, 45, 22.5],
-    "Translation": [1.2, -4.2]
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Translation": [
+      1.2,
+      -4.2
+    ]
   },
   "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
   "Model": "Resources/Ingredients/Cabbage.blockymodel",
@@ -82,28 +89,144 @@
   "State": {
     "mghg_none": {
       "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Item.png",
-      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+      "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
+        "CustomModelTexture": [
+          {
+            "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+            "Weight": 1
+          }
+        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
+        "Interactions": {
+          "Primary": "MGHG_Root_HarvestCrop",
+          "Secondary": "MGHG_Root_HarvestCrop",
+          "Use": "MGHG_Root_HarvestCrop",
+          "Pick": "MGHG_Root_HarvestCrop"
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ]
+      }
     },
     "mghg_rain": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#6fb8ff",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ]
       },
       "TranslationProperties": {
         "Name": "server.items.Plant.Plant_Crop_Lettuce_Wet.name",
@@ -113,1285 +236,4248 @@
     "mghg_snow": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#ffffff",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ]
       }
     },
     "mghg_frozen": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#9fe7ff",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ]
       }
     },
     "mghg_none_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
+          }
+        ]
       }
     },
     "mghg_none_dawnbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
+          }
+        ]
       }
     },
     "mghg_none_amberlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
+          }
+        ]
       }
     },
     "mghg_none_amberbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
+          }
+        ]
       }
     },
     "mghg_rain_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ]
       }
     },
     "mghg_rain_dawnbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ]
       }
     },
     "mghg_rain_amberlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ]
       }
     },
     "mghg_rain_amberbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
+          }
+        ]
       }
     },
     "mghg_snow_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
+          }
+        ]
       }
     },
     "mghg_snow_dawnbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
+          }
+        ]
       }
     },
     "mghg_snow_amberlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
+          }
+        ]
       }
     },
     "mghg_snow_amberbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
+          }
+        ]
       }
     },
     "mghg_frozen_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
+          }
+        ]
       }
     },
     "mghg_frozen_dawnbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
+          }
+        ]
       }
     },
     "mghg_frozen_amberlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
+          }
+        ]
       }
     },
     "mghg_frozen_amberbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
+          }
+        ]
       }
     },
     "mghg_gold_none": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
+          }
+        ]
       }
     },
     "mghg_gold_none_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
+          }
+        ]
       }
     },
     "mghg_gold_none_dawnbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
+          }
+        ]
       }
     },
     "mghg_gold_none_amberlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
+          }
+        ]
       }
     },
     "mghg_gold_none_amberbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
+          }
+        ]
       }
     },
     "mghg_gold_rain": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
+          }
+        ]
       }
     },
     "mghg_gold_rain_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
+          }
+        ]
       }
     },
     "mghg_gold_rain_dawnbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
+          }
+        ]
       }
     },
     "mghg_gold_rain_amberlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
+          }
+        ]
       }
     },
     "mghg_gold_rain_amberbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
+          }
+        ]
       }
     },
     "mghg_gold_snow": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
+          }
+        ]
       }
     },
     "mghg_gold_snow_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
+          }
+        ]
       }
     },
     "mghg_gold_snow_dawnbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
+          }
+        ]
       }
     },
     "mghg_gold_snow_amberlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
+          }
+        ]
       }
     },
     "mghg_gold_snow_amberbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
+          }
+        ]
       }
     },
     "mghg_gold_frozen": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
+          }
+        ]
       }
     },
     "mghg_gold_frozen_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
+          }
+        ]
       }
     },
     "mghg_gold_frozen_dawnbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
+          }
+        ]
       }
     },
     "mghg_gold_frozen_amberlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
+          }
+        ]
       }
     },
     "mghg_gold_frozen_amberbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_none": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_none_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_none_dawnbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_none_amberlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_none_amberbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_rain": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_rain_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_rain_dawnbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_rain_amberlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_rain_amberbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_snow": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_snow_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_snow_dawnbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_snow_amberlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_snow_amberbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_frozen": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_frozen_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_frozen_dawnbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_frozen_amberlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
+          }
+        ]
       }
     },
     "mghg_rainbow_frozen_amberbound": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
       "BlockType": {
+        "Material": "Solid",
+        "DrawType": "Model",
+        "HitboxType": "Food_Medium",
+        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
             "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png",
             "Weight": 1
           }
         ],
-        "Textures": [
-          {
-            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
-          }
-        ],
+        "Support": {
+          "Down": [
+            {
+              "FaceType": "Full"
+            }
+          ]
+        },
+        "ParticleColor": "#cabc3f",
+        "RandomRotation": "YawStep1",
+        "Gathering": {
+          "Harvest": {},
+          "Soft": {}
+        },
+        "BlockSoundSetId": "Plant",
+        "InteractionSoundEventId": "SFX_Plant_Break",
         "Interactions": {
           "Primary": "MGHG_Root_HarvestCrop",
           "Secondary": "MGHG_Root_HarvestCrop",
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
-        }
+        },
+        "BlockEntity": {
+          "Components": {
+            "MGHG_CropData": {
+              "Size": 50,
+              "Climate": "None",
+              "Rarity": "None"
+            }
+          }
+        },
+        "Particles": [
+          {
+            "SystemId": "Custom_Sparks_ParticleSystem",
+            "Color": "#beb518",
+            "Scale": 1.2,
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Block_Gem_Sparks",
+            "Scale": 1.2,
+            "Color": "#c0951b",
+            "PositionOffset": {
+              "Y": 1
+            }
+          },
+          {
+            "SystemId": "Plant_Glow_ParticleSystem",
+            "Color": "#beac11"
+          }
+        ],
+        "Textures": [
+          {
+            "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
+          }
+        ]
       }
-    }},
+    }
+  },
   "Tags": {
-    "Type": ["Plant"],
-    "Family": ["Crop"],
-    "MGHG": ["CropItem"]
+    "Type": [
+      "Plant"
+    ],
+    "Family": [
+      "Crop"
+    ],
+    "MGHG": [
+      "CropItem"
+    ]
   },
   "UsePlayerAnimations": false
 }
-
-

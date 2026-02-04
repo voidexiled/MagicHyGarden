@@ -1,11 +1,7 @@
 package com.voidexiled.magichygarden.features.farming.logic;
 
 import com.hypixel.hytale.builtin.adventure.farming.states.FarmingBlock;
-import com.hypixel.hytale.component.AddReason;
-import com.hypixel.hytale.component.ComponentAccessor;
-import com.hypixel.hytale.component.Holder;
-import com.hypixel.hytale.component.Ref;
-import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3i;
@@ -286,52 +282,7 @@ public final class MghgHarvestUtil {
 
     @Nullable
     public static MghgCropData tryGetCropData(@Nonnull World world, @Nonnull Vector3i blockPosition) {
-        ChunkStore chunkStore = world.getChunkStore();
-        Store<ChunkStore> cs = chunkStore.getStore();
-
-        long chunkIndex = ChunkUtil.indexChunkFromBlock(blockPosition.x, blockPosition.z);
-        Ref<ChunkStore> chunkRef = chunkStore.getChunkReference(chunkIndex);
-        if (chunkRef == null || !chunkRef.isValid()) {
-            return null;
-        }
-
-        BlockComponentChunk blockComponentChunk = cs.getComponent(chunkRef, BlockComponentChunk.getComponentType());
-        if (blockComponentChunk == null) {
-            return null;
-        }
-
-        int blockIndexColumn = ChunkUtil.indexBlockInColumn(blockPosition.x, blockPosition.y, blockPosition.z);
-
-        // 1) Normal: entity reference
-        Ref<ChunkStore> blockRef = blockComponentChunk.getEntityReference(blockIndexColumn);
-        if (blockRef != null && blockRef.isValid()) {
-            MghgCropData data = cs.getComponent(blockRef, MghgCropData.getComponentType());
-            if (data != null) {
-                return data;
-            }
-        }
-
-        // 2) Persistido: entity holder (aún no rehidratado)
-        Holder<ChunkStore> holder = blockComponentChunk.getEntityHolder(blockIndexColumn);
-        if (holder != null) {
-            MghgCropData data = holder.getComponent(MghgCropData.getComponentType());
-            if (data != null) {
-                return data;
-            }
-        }
-
-        // 3) Holder en WorldChunk (set via worldChunk.setState)
-        WorldChunk worldChunk = cs.getComponent(chunkRef, WorldChunk.getComponentType());
-        if (worldChunk != null) {
-            Holder<ChunkStore> stateHolder = worldChunk.getBlockComponentHolder(
-                    blockPosition.x, blockPosition.y, blockPosition.z
-            );
-            if (stateHolder != null) {
-                return stateHolder.getComponent(MghgCropData.getComponentType());
-            }
-        }
-
-        return null;
+        return MghgCropDataAccess.tryGetCropData(world, blockPosition);
     }
 
     /**

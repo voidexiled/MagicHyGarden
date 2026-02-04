@@ -30,6 +30,9 @@ import com.voidexiled.magichygarden.features.farming.state.MghgMutationEngine;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationRuleSet;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationRules;
 import com.voidexiled.magichygarden.features.farming.state.MghgWeatherResolver;
+import com.voidexiled.magichygarden.features.farming.state.MghgAdjacencyScanner;
+import com.voidexiled.magichygarden.features.farming.state.MghgBlockIdUtil;
+import com.voidexiled.magichygarden.features.farming.state.CooldownClock;
 import com.voidexiled.magichygarden.features.farming.state.MutationEventType;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropStageSync;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
@@ -95,8 +98,8 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
             return;
         }
 
-        Store<EntityStore> entityStore = commandBuffer.getExternalData().getWorld().getEntityStore().getStore();
-        Instant now = entityStore.getResource(WorldTimeResource.getResourceType()).getGameTime();
+        var world = commandBuffer.getExternalData().getWorld();
+        Store<EntityStore> entityStore = world.getEntityStore().getStore();
 
         FarmingBlock farmingBlock = commandBuffer.getComponent(ref, farmingBlockType);
 
@@ -114,22 +117,87 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
             return;
         }
 
-        int weatherId = MghgWeatherResolver.resolveWeatherId(entityStore, blockChunk, x, y, z);
-        if (weatherId == Weather.UNKNOWN_ID) {
+        Instant now = resolveNow(entityStore, rules.getCooldownClock());
+
+        boolean needsAdjacency = rules.needsAdjacentItems() || rules.needsAdjacentParticles();
+        boolean ignoreSkyCheck = false;
+        boolean hasNonWeatherRule = false;
+        if (!needsAdjacency || !ignoreSkyCheck || !hasNonWeatherRule) {
+            for (var rule : rules.getRules()) {
+                if (rule == null) continue;
+                if (!needsAdjacency) {
+                    var reqs = rule.getRequiresAdjacentItems();
+                    if (reqs != null && reqs.length > 0) {
+                        needsAdjacency = true;
+                    }
+                    var particleReqs = rule.getRequiresAdjacentParticles();
+                    if (!needsAdjacency && particleReqs != null && particleReqs.length > 0) {
+                        needsAdjacency = true;
+                    }
+                }
+                if (!ignoreSkyCheck && rule.isIgnoreSkyCheck()) {
+                    ignoreSkyCheck = true;
+                }
+                if (!hasNonWeatherRule && rule.getEventType() != MutationEventType.WEATHER) {
+                    hasNonWeatherRule = true;
+                }
+                if (needsAdjacency && ignoreSkyCheck && hasNonWeatherRule) break;
+            }
+        }
+
+        int weatherId = MghgWeatherResolver.resolveWeatherId(entityStore, blockChunk, x, y, z, false);
+        int weatherIdIgnoreSky = ignoreSkyCheck
+                ? MghgWeatherResolver.resolveWeatherId(entityStore, blockChunk, x, y, z, true)
+                : weatherId;
+        if (weatherId == Weather.UNKNOWN_ID && !ignoreSkyCheck && !hasNonWeatherRule) {
             applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
             return;
         }
 
         boolean mature = isMature(blockType, farmingBlock);
         Set<String> adjacent = resolveAdjacentIds(rules, blockChunk, x, y, z);
+        MghgAdjacencyScanner adjacencyScanner = needsAdjacency
+                ? new MghgAdjacencyScanner(store, commandBuffer.getExternalData().getWorld().getChunkStore())
+                : null;
+        int worldX = ChunkUtil.worldCoordFromLocalCoord(worldChunk.getX(), x);
+        int worldZ = ChunkUtil.worldCoordFromLocalCoord(worldChunk.getZ(), z);
+        int lightSky = Byte.toUnsignedInt(blockChunk.getSkyLight(x, y, z));
+        int lightBlock = Short.toUnsignedInt(blockChunk.getBlockLight(x, y, z));
+        int lightBlockIntensity = Byte.toUnsignedInt(blockChunk.getBlockLightIntensity(x, y, z));
+        int lightRed = Byte.toUnsignedInt(blockChunk.getRedBlockLight(x, y, z));
+        int lightGreen = Byte.toUnsignedInt(blockChunk.getGreenBlockLight(x, y, z));
+        int lightBlue = Byte.toUnsignedInt(blockChunk.getBlueBlockLight(x, y, z));
+
+        WorldTimeResource time = entityStore.getResource(WorldTimeResource.getResourceType());
+        int currentHour = time != null ? time.getCurrentHour() : -1;
+        double sunlightFactor = time != null ? time.getSunlightFactor() : -1.0;
+
+        StageInfo stageInfo = resolveStageInfo(blockType, farmingBlock);
+        String soilBlockId = resolveSoilBlockId(blockChunk, x, y, z);
 
         MghgMutationContext ctx = new MghgMutationContext(
                 now,
                 MutationEventType.WEATHER,
                 weatherId,
+                weatherIdIgnoreSky,
                 mature,
                 true,
-                adjacent
+                adjacent,
+                adjacencyScanner,
+                world.getWorldConfig().getUuid(),
+                worldX, y, worldZ,
+                lightSky,
+                lightBlock,
+                lightBlockIntensity,
+                lightRed,
+                lightGreen,
+                lightBlue,
+                currentHour,
+                sunlightFactor,
+                stageInfo.stageIndex,
+                stageInfo.stageCount,
+                stageInfo.stageSet,
+                soilBlockId
         );
 
         boolean dirty = MghgMutationEngine.applyRules(
@@ -226,31 +294,77 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
     }
 
     private static boolean isMature(BlockType blockType, FarmingBlock farmingBlock) {
-        if (blockType == null || farmingBlock == null) return false;
-        BlockType base = resolveBaseBlockType(blockType);
-        FarmingData farming = base != null ? base.getFarming() : null;
-        if (farming == null || farming.getStages() == null) return false;
-        String stageSet = farmingBlock.getCurrentStageSet();
-        if (stageSet == null) return false;
-        FarmingStageData[] stages = farming.getStages().get(stageSet);
-        if (stages == null || stages.length == 0) return false;
-        int stageIndex = (int) farmingBlock.getGrowthProgress();
-        return stageIndex >= stages.length - 1;
+        if (blockType == null) return false;
+
+        if (farmingBlock != null) {
+            BlockType base = MghgBlockIdUtil.resolveBaseBlockType(blockType);
+            FarmingData farming = base != null ? base.getFarming() : null;
+            if (farming == null || farming.getStages() == null) return false;
+            String stageSet = farmingBlock.getCurrentStageSet();
+            if (stageSet == null) return false;
+            FarmingStageData[] stages = farming.getStages().get(stageSet);
+            if (stages == null || stages.length == 0) return false;
+            int stageIndex = (int) farmingBlock.getGrowthProgress();
+            return stageIndex >= stages.length - 1;
+        }
+
+        String id = blockType.getId();
+        if (id == null || id.isBlank()) return false;
+        return id.toLowerCase().contains("_stagefinal");
     }
 
-    private static BlockType resolveBaseBlockType(BlockType current) {
-        if (current == null) return null;
-        String id = current.getId();
-        if (id == null || id.isEmpty()) return current;
-        if (id.charAt(0) == '*') {
-            int idx = id.indexOf("_State_");
-            if (idx > 1) {
-                String baseId = id.substring(1, idx);
-                BlockType base = BlockType.getAssetMap().getAsset(baseId);
-                if (base != null) return base;
-            }
+    private static StageInfo resolveStageInfo(BlockType blockType, FarmingBlock farmingBlock) {
+        if (blockType == null) {
+            return new StageInfo(-1, -1, null);
         }
-        return current;
+
+        BlockType base = MghgBlockIdUtil.resolveBaseBlockType(blockType);
+        FarmingData farming = base != null ? base.getFarming() : null;
+
+        if (farmingBlock != null && farming != null && farming.getStages() != null) {
+            String stageSet = farmingBlock.getCurrentStageSet();
+            FarmingStageData[] stages = stageSet != null ? farming.getStages().get(stageSet) : null;
+            int stageCount = stages == null ? -1 : stages.length;
+            int stageIndex = (int) farmingBlock.getGrowthProgress();
+            return new StageInfo(stageIndex, stageCount, stageSet);
+        }
+
+        if (farming != null && farming.getStages() != null) {
+            String stageSet = "Default";
+            FarmingStageData[] stages = farming.getStages().get(stageSet);
+            int stageCount = stages == null ? -1 : stages.length;
+            int stageIndex = -1;
+            String id = blockType.getId();
+            if (id != null && id.toLowerCase().contains("_stagefinal") && stageCount > 0) {
+                stageIndex = stageCount - 1;
+            }
+            return new StageInfo(stageIndex, stageCount, stageSet);
+        }
+
+        return new StageInfo(-1, -1, null);
+    }
+
+    private static String resolveSoilBlockId(BlockChunk blockChunk, int x, int y, int z) {
+        if (blockChunk == null || y <= 0) return null;
+        int soilId = blockChunk.getBlock(x, y - 1, z);
+        if (soilId == 0) return null;
+        BlockType soilType = BlockType.getAssetMap().getAsset(soilId);
+        if (soilType == null) return null;
+        BlockType base = MghgBlockIdUtil.resolveBaseBlockType(soilType);
+        String id = base != null ? base.getId() : soilType.getId();
+        return MghgBlockIdUtil.normalizeId(id);
+    }
+
+    private static final class StageInfo {
+        final int stageIndex;
+        final int stageCount;
+        final String stageSet;
+
+        private StageInfo(int stageIndex, int stageCount, String stageSet) {
+            this.stageIndex = stageIndex;
+            this.stageCount = stageCount;
+            this.stageSet = stageSet;
+        }
     }
 
     private static Set<String> resolveAdjacentIds(MghgMutationRuleSet rules, BlockChunk blockChunk, int x, int y, int z) {
@@ -279,11 +393,19 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
         if (id == 0) return;
         BlockType type = BlockType.getAssetMap().getAsset(id);
         if (type == null) return;
-        BlockType base = resolveBaseBlockType(type);
+        BlockType base = MghgBlockIdUtil.resolveBaseBlockType(type);
         String blockId = base != null ? base.getId() : type.getId();
         if (blockId == null) return;
-        if (required.contains(blockId)) {
-            found.add(blockId);
+        String normalized = MghgBlockIdUtil.normalizeId(blockId);
+        if (normalized != null && required.contains(normalized)) {
+            found.add(normalized);
         }
+    }
+
+    private static Instant resolveNow(Store<EntityStore> entityStore, CooldownClock clock) {
+        if (clock == CooldownClock.GAME_TIME) {
+            return entityStore.getResource(WorldTimeResource.getResourceType()).getGameTime();
+        }
+        return Instant.now();
     }
 }

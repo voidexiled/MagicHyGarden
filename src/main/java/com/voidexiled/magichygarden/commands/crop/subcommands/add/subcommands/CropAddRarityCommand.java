@@ -1,11 +1,11 @@
 package com.voidexiled.magichygarden.commands.crop.subcommands.add.subcommands;
 
-import com.hypixel.hytale.component.Holder;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.DefaultArg;
 import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
@@ -20,6 +20,8 @@ import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.commands.shared.Targeting;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
+import com.voidexiled.magichygarden.features.farming.logic.MghgCropDataAccess;
+import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.state.RarityMutation;
 import org.jspecify.annotations.NonNull;
 
@@ -89,33 +91,22 @@ public class CropAddRarityCommand extends AbstractPlayerCommand {
             return;
         }
 
-        BlockChunk blockChunk = cs.getComponent(chunkRef, BlockChunk.getComponentType());
+        BlockType blockType = worldChunk.getBlockType(x, y, z);
+        if (blockType == null) {
+            ctx.sendMessage(Message.raw("No pude obtener BlockType del bloque objetivo."));
+            return;
+        }
+        if (!MghgCropRegistry.isMghgCropBlock(blockType)) {
+            ctx.sendMessage(Message.raw("Ese bloque no es un crop MGHG."));
+            return;
+        }
+
         BlockComponentChunk blockComponentChunk = cs.getComponent(chunkRef, BlockComponentChunk.getComponentType());
 
-        int blockIndex = ChunkUtil.indexBlockInColumn(x, y, z);
-        Ref<ChunkStore> blockRef = blockComponentChunk != null ? blockComponentChunk.getEntityReference(blockIndex) : null;
-        Holder<ChunkStore> blockHolder = blockComponentChunk != null ? blockComponentChunk.getEntityHolder(blockIndex) : null;
-        Holder<ChunkStore> stateHolder = worldChunk.getBlockComponentHolder(x, y, z);
-
-        MghgCropData data = null;
-        boolean fromStateHolder = false;
-
-        if (blockRef != null && blockRef.isValid()) {
-            data = cs.ensureAndGetComponent(blockRef, MghgCropData.getComponentType());
-        } else if (blockHolder != null) {
-            data = blockHolder.getComponent(MghgCropData.getComponentType());
-            if (data == null) {
-                data = new MghgCropData();
-                blockHolder.putComponent(MghgCropData.getComponentType(), data);
-            }
-        } else if (stateHolder != null) {
-            data = stateHolder.getComponent(MghgCropData.getComponentType());
-            if (data == null) {
-                data = new MghgCropData();
-                stateHolder.putComponent(MghgCropData.getComponentType(), data);
-            }
-            fromStateHolder = true;
-        }
+        BlockChunk blockChunk = cs.getComponent(chunkRef, BlockChunk.getComponentType());
+        MghgCropDataAccess.CropDataHandle handle =
+                MghgCropDataAccess.getOrCreateCropData(cs, worldChunk, blockComponentChunk, x, y, z);
+        MghgCropData data = handle != null ? handle.data() : null;
 
         if (data == null) {
             ctx.sendMessage(Message.raw("El bloque objetivo no tiene MGHG data."));
@@ -133,8 +124,8 @@ public class CropAddRarityCommand extends AbstractPlayerCommand {
         if (blockComponentChunk != null) blockComponentChunk.markNeedsSaving();
         if (blockChunk != null) blockChunk.markNeedsSaving();
 
-        if (fromStateHolder && stateHolder != null) {
-            worldChunk.setState(x, y, z, stateHolder);
+        if (handle != null && handle.fromStateHolder() && handle.stateHolder() != null) {
+            worldChunk.setState(x, y, z, handle.stateHolder());
         }
 
         ctx.sendMessage(Message.raw(

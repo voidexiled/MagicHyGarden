@@ -25,6 +25,7 @@ import com.hypixel.hytale.server.core.universe.world.chunk.section.BlockSection;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.TargetUtil;
+import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import org.jspecify.annotations.NonNull;
 
 public class CropGrowCommand extends AbstractPlayerCommand {
@@ -86,6 +87,10 @@ public class CropGrowCommand extends AbstractPlayerCommand {
         BlockType blockType = worldChunk.getBlockType(x, y, z);
         if (blockType == null) {
             commandContext.sendMessage(Message.raw("No pude obtener BlockType del bloque objetivo."));
+            return;
+        }
+        if (!MghgCropRegistry.isMghgCropBlock(blockType)) {
+            commandContext.sendMessage(Message.raw("Ese bloque no es un crop MGHG."));
             return;
         }
 

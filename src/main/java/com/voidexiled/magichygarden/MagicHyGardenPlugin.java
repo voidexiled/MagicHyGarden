@@ -1,10 +1,13 @@
 package com.voidexiled.magichygarden;
 
+import com.hypixel.hytale.assetstore.map.DefaultAssetMap;
 import com.hypixel.hytale.builtin.adventure.farming.FarmingPlugin;
 import com.hypixel.hytale.builtin.adventure.farming.states.FarmingBlock;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.logger.HytaleLogger;
+import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.farming.GrowthModifierAsset;
+import com.hypixel.hytale.server.core.asset.type.weather.config.Weather;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
@@ -21,6 +24,8 @@ import com.voidexiled.magichygarden.features.farming.systems.MghgOnFarmBlockAdde
 import com.voidexiled.magichygarden.features.farming.systems.MghgRehydrateCropDataOnPlaceSystem;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationRules;
+import com.voidexiled.magichygarden.features.farming.state.MghgMutationRulesAsset;
+import com.voidexiled.magichygarden.features.farming.state.MghgParticleTracker;
 
 public class MagicHyGardenPlugin extends JavaPlugin {
     private static MagicHyGardenPlugin INSTANCE;
@@ -41,6 +46,15 @@ public class MagicHyGardenPlugin extends JavaPlugin {
     protected void setup() {
         this.getCodecRegistry(Interaction.CODEC)
                 .register("MGHG_HarvestCrop", MghgHarvestCropInteraction.class, MghgHarvestCropInteraction.CODEC);
+
+        this.getAssetRegistry().register(
+                HytaleAssetStore.builder(MghgMutationRulesAsset.class, new DefaultAssetMap<>())
+                        .setPath("Farming/Mutations")
+                        .setCodec(MghgMutationRulesAsset.CODEC)
+                        .setKeyFunction(MghgMutationRulesAsset::getId)
+                        .loadsAfter(Weather.class)
+                        .build()
+        );
 
         // Register Commands
         this.getCommandRegistry().registerCommand(new CropCommand());
@@ -66,6 +80,7 @@ public class MagicHyGardenPlugin extends JavaPlugin {
                 farmingPlugin.getFarmingBlockComponentType();
 
         MghgCropRegistry.reload();
+        MghgCropGrowthModifierAsset.reloadFromDisk();
         MghgMutationRules.reload();
 
         // Farm Block Added System ChunkStore
@@ -98,7 +113,14 @@ public class MagicHyGardenPlugin extends JavaPlugin {
                 )
         );
 
+        // Track runtime particles via outbound packets (for mutation rules).
+        MghgParticleTracker.start();
 
+    }
+
+    @Override
+    protected void shutdown() {
+        MghgParticleTracker.stop();
     }
 
 

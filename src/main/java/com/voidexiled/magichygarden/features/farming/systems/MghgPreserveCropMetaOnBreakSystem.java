@@ -28,6 +28,7 @@ import com.hypixel.hytale.server.core.util.AssetUtil;
 import com.hypixel.hytale.server.core.util.NotificationUtil;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
+import com.voidexiled.magichygarden.features.farming.logic.MghgCropDataAccess;
 import com.voidexiled.magichygarden.features.farming.logic.MghgItemDropUtil;
 import com.voidexiled.magichygarden.features.farming.logic.MghgSupportDropMetaCache;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
@@ -39,7 +40,7 @@ import javax.annotation.Nullable;
 
 public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<EntityStore, BreakBlockEvent> {
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     private final ComponentType<ChunkStore, MghgCropData> cropDataType;
 
@@ -69,6 +70,7 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
         // Always clear any visual overlay for this position to avoid ghost visuals.
         PlayerRef playerRef = archetypeChunk.getComponent(index, PlayerRef.getComponentType());
         String who = (playerRef != null ? playerRef.getUsername() : "?");
+        boolean isMghg = blockType != null && MghgCropRegistry.isMghgCropBlock(blockType);
 
         if (DEBUG) {
             LOGGER.atInfo().log(
@@ -88,6 +90,10 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
             handleSupportBreak(playerRef, world, pos.x, pos.y, pos.z);
         }
 
+        if (!isMghg) {
+            return;
+        }
+
         // IMPORTANTE: esto es para el caso “bloque colocado” (sin FarmingData).
         // Si lo aplicas a farming blocks también, podrías cambiar drops vanilla (semillas, etc).
         if (blockType.getFarming() != null) {
@@ -101,7 +107,7 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
         }
 
         // 1) leer MGHG data del bloque (ref o holder)
-        final MghgCropData cropData = tryGetCropData(world, pos);
+        final MghgCropData cropData = MghgCropDataAccess.tryGetCropData(world, pos);
         if (cropData == null) {
             if (DEBUG) {
                 LOGGER.atInfo().log(
@@ -194,8 +200,11 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
         if (cropBlockType == null) {
             return false;
         }
+        if (!MghgCropRegistry.isMghgCropBlock(cropBlockType)) {
+            return false;
+        }
 
-        MghgCropData cropData = tryGetCropData(world, new Vector3i(x, y + 1, z));
+        MghgCropData cropData = MghgCropDataAccess.tryGetCropData(world, new Vector3i(x, y + 1, z));
         if (cropData == null) {
             return false;
         }
@@ -244,93 +253,5 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
         return null;
     }
 
-    @Nullable
-    private MghgCropData tryGetCropData(@Nonnull World world, @Nonnull Vector3i blockPosition) {
-        ChunkStore chunkStore = world.getChunkStore();
-        Store<ChunkStore> cs = chunkStore.getStore();
-
-        long chunkIndex = ChunkUtil.indexChunkFromBlock(blockPosition.x, blockPosition.z);
-        Ref<ChunkStore> chunkRef = chunkStore.getChunkReference(chunkIndex);
-        if (chunkRef == null || !chunkRef.isValid()) {
-            if (DEBUG) {
-                LOGGER.atInfo().log(
-                        "[MGHG|BREAK] tryGetCropData: invalid chunkRef pos=%d,%d,%d",
-                        blockPosition.x, blockPosition.y, blockPosition.z
-                );
-            }
-            return null;
-        }
-
-        BlockComponentChunk blockComponentChunk = cs.getComponent(chunkRef, BlockComponentChunk.getComponentType());
-        if (blockComponentChunk == null) {
-            if (DEBUG) {
-                LOGGER.atInfo().log(
-                        "[MGHG|BREAK] tryGetCropData: no BlockComponentChunk pos=%d,%d,%d",
-                        blockPosition.x, blockPosition.y, blockPosition.z
-                );
-            }
-            return null;
-        }
-
-        int blockIndexColumn = ChunkUtil.indexBlockInColumn(blockPosition.x, blockPosition.y, blockPosition.z);
-
-        // 1) entity reference (rehidratado)
-        Ref<ChunkStore> blockRef = blockComponentChunk.getEntityReference(blockIndexColumn);
-        if (blockRef != null && blockRef.isValid()) {
-            MghgCropData data = cs.getComponent(blockRef, this.cropDataType);
-            if (data != null) {
-                if (DEBUG) {
-                    LOGGER.atInfo().log(
-                            "[MGHG|BREAK] tryGetCropData: found on entity ref pos=%d,%d,%d",
-                            blockPosition.x, blockPosition.y, blockPosition.z
-                    );
-                }
-                return data;
-            }
-        }
-
-        // 2) holder persistente (aún no rehidratado)
-        Holder<ChunkStore> holder = blockComponentChunk.getEntityHolder(blockIndexColumn);
-        if (holder != null) {
-            MghgCropData data = holder.getComponent(this.cropDataType);
-            if (data != null) {
-                if (DEBUG) {
-                    LOGGER.atInfo().log(
-                            "[MGHG|BREAK] tryGetCropData: found on BlockComponentChunk holder pos=%d,%d,%d",
-                            blockPosition.x, blockPosition.y, blockPosition.z
-                    );
-                }
-                return data;
-            }
-        }
-
-        // 3) worldChunk holder (set via worldChunk.setState)
-        WorldChunk worldChunk = cs.getComponent(chunkRef, WorldChunk.getComponentType());
-        if (worldChunk != null) {
-            Holder<ChunkStore> stateHolder = worldChunk.getBlockComponentHolder(
-                    blockPosition.x, blockPosition.y, blockPosition.z
-            );
-            if (stateHolder != null) {
-                MghgCropData data = stateHolder.getComponent(this.cropDataType);
-                if (data != null) {
-                    if (DEBUG) {
-                        LOGGER.atInfo().log(
-                                "[MGHG|BREAK] tryGetCropData: found on WorldChunk holder pos=%d,%d,%d",
-                                blockPosition.x, blockPosition.y, blockPosition.z
-                        );
-                    }
-                    return data;
-                }
-            }
-        }
-
-        if (DEBUG) {
-            LOGGER.atInfo().log(
-                    "[MGHG|BREAK] tryGetCropData: none found pos=%d,%d,%d",
-                    blockPosition.x, blockPosition.y, blockPosition.z
-            );
-        }
-
-        return null;
-    }
+    // tryGetCropData moved to MghgCropDataAccess
 }

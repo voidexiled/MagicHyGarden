@@ -20,6 +20,7 @@ import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
+import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
 import com.voidexiled.magichygarden.features.farming.state.LunarMutation;
 import com.voidexiled.magichygarden.features.farming.state.RarityMutation;
@@ -35,8 +36,8 @@ import java.util.logging.Level;
 public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<EntityStore, PlaceBlockEvent> {
     private static final HytaleLogger LOGGER = HytaleLogger.getLogger();
 
-    // Cámbialo a false cuando termines de debuguear.
-    private static final boolean DEBUG = true;
+    // Cámbialo a true si necesitas trazas de depuración.
+    private static final boolean DEBUG = false;
 
     private final ComponentType<ChunkStore, MghgCropData> cropDataType;
 
@@ -61,6 +62,16 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
     ) {
         ItemStack item = event.getItemInHand();
         if (item == null) {
+            return;
+        }
+
+        String itemId = item.getItem() != null ? item.getItem().getId() : null;
+        String rawItemId = itemId;
+        String baseItemId = normalizeStateAssetId(itemId);
+        if (baseItemId != null) {
+            itemId = baseItemId;
+        }
+        if (itemId == null || !MghgCropRegistry.isMghgCropItem(itemId)) {
             return;
         }
 
@@ -89,12 +100,11 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
 
         PlayerRef player = chunk.getComponent(index, PlayerRef.getComponentType());
         String who = (player != null ? player.getUsername() : "?");
-        String itemId = item.getItem().getId();
 
         if (DEBUG) {
             LOGGER.at(Level.INFO).log(
-                    "[MGHG|PLACE] pre-place by=%s item=%s blockTypeKey=%s pos=%d,%d,%d meta(size=%d climate=%s lunar=%s rarity=%s)",
-                    who, itemId, expectedBlockTypeKey, pos.x, pos.y, pos.z, size, climate, lunar, rarity
+                    "[MGHG|PLACE] pre-place by=%s item=%s rawItem=%s blockTypeKey=%s pos=%d,%d,%d meta(size=%d climate=%s lunar=%s rarity=%s)",
+                    who, itemId, rawItemId, expectedBlockTypeKey, pos.x, pos.y, pos.z, size, climate, lunar, rarity
             );
         }
 
@@ -103,7 +113,10 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
         // IMPORTANTE:
         // PlaceBlockEvent se dispara ANTES de colocar. Para no pelear con vanilla,
         // aplicamos en el siguiente tick del World thread.
-        world.execute(() -> applyToPlacedBlock(world, who, itemId, expectedBlockTypeKey, pos, size, climate, lunar, rarity));
+        final String finalItemId = itemId;
+        final String finalExpectedBlockTypeKey = expectedBlockTypeKey;
+        final Vector3i finalPos = pos;
+        world.execute(() -> applyToPlacedBlock(world, who, finalItemId, finalExpectedBlockTypeKey, finalPos, size, climate, lunar, rarity));
     }
 
     private void applyToPlacedBlock(
@@ -150,17 +163,29 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
         if (actualBlockType == null) {
             return;
         }
+        if (!MghgCropRegistry.isMghgCropBlock(actualBlockType)) {
+            if (DEBUG) {
+                LOGGER.at(Level.WARNING).log(
+                        "[MGHG|PLACE] skip: blockType not MGHG actual=%s pos=%d,%d,%d (by=%s item=%s)",
+                        actualBlockType.getId(), pos.x, pos.y, pos.z, who, itemId
+                );
+            }
+            return;
+        }
 
         boolean matchesExpected =
                 expectedBlockTypeKey != null && expectedBlockTypeKey.equals(actualBlockType.getId());
         boolean matchesItem =
                 actualBlockType.getItem() != null && itemId.equals(actualBlockType.getItem().getId());
+        String actualBaseItemId = normalizeStateAssetId(actualBlockType.getId());
+        boolean matchesBaseItem =
+                actualBaseItemId != null && actualBaseItemId.equals(itemId);
 
-        if (!matchesExpected && !matchesItem) {
+        if (!matchesExpected && !matchesItem && !matchesBaseItem) {
             if (DEBUG) {
                 LOGGER.at(Level.WARNING).log(
-                        "[MGHG|PLACE] skip: expected=%s actual=%s item=%s pos=%d,%d,%d (by=%s)",
-                        expectedBlockTypeKey, actualBlockType.getId(), itemId, pos.x, pos.y, pos.z, who
+                        "[MGHG|PLACE] skip: expected=%s actual=%s item=%s base=%s pos=%d,%d,%d (by=%s)",
+                        expectedBlockTypeKey, actualBlockType.getId(), itemId, actualBaseItemId, pos.x, pos.y, pos.z, who
                 );
             }
             return;
@@ -291,5 +316,20 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
     private static @Nonnull String getString(@Nonnull BsonDocument doc, @Nonnull String key, @Nonnull String def) {
         BsonValue v = doc.get(key);
         return (v != null && v.isString()) ? v.asString().getValue() : def;
+    }
+
+    @Nullable
+    private static String normalizeStateAssetId(@Nullable String id) {
+        if (id == null || id.isEmpty()) {
+            return null;
+        }
+        int idx = id.indexOf("_State_");
+        if (idx <= 0) {
+            return null;
+        }
+        if (id.charAt(0) == '*') {
+            return idx > 1 ? id.substring(1, idx) : null;
+        }
+        return id.substring(0, idx);
     }
 }

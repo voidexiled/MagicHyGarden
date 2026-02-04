@@ -213,12 +213,5 @@
       "Crop"
     ]
   },
-  "ItemSoundSetId": "ISS_Items_Foliage",
-  "InteractionConfig": {
-    "Priorities": {
-      "Secondary": {
-        "MainHand": 1
-      }
-    }
-  }
+  "ItemSoundSetId": "ISS_Items_Foliage"
 }

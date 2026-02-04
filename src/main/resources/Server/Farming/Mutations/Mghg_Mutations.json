@@ -1,0 +1,232 @@
+{
+  "CooldownClock": "RealTime",
+  "Rules": [
+    {
+      "Id": "generator_none",
+      "Chance": 1,
+      "CooldownSeconds": 1,
+      "Slot": "Rarity",
+      "Set": "NONE",
+      "Priority": 10,
+      "RequiresMature": true,
+      "IgnoreSkyCheck": false,
+      "EventType": "Any",
+      "SkipInitialCooldown": true,
+      "RequiresAdjacentItems": [
+        {
+          "Ids": [
+            "Cloth_Block_Wool_Black"
+          ],
+          "RadiusX": 0,
+          "RadiusY": 0,
+          "RadiusZ": 1
+        }
+      ]
+    },
+    {
+      "Id": "generator_gold",
+      "Chance": 1,
+      "CooldownSeconds": 1,
+      "Slot": "Rarity",
+      "Set": "GOLD",
+      "Priority": 10,
+      "RequiresMature": true,
+      "IgnoreSkyCheck": false,
+      "EventType": "Any",
+      "SkipInitialCooldown": true,
+      "RequiresAdjacentItems": [
+        {
+          "Ids": [
+            "Cloth_Block_Wool_Yellow"
+          ],
+          "RadiusX": 0,
+          "RadiusY": 0,
+          "RadiusZ": 1
+        }
+      ]
+    },
+    {
+      "Id": "generator_rainbow",
+      "Chance": 1,
+      "CooldownSeconds": 1,
+      "Slot": "Rarity",
+      "Set": "RAINBOW",
+      "Priority": 10,
+      "RequiresMature": true,
+      "IgnoreSkyCheck": false,
+      "EventType": "Any",
+      "SkipInitialCooldown": true,
+      "RequiresAdjacentItems": [
+        {
+          "Ids": [
+            "Cloth_Block_Wool_White"
+          ],
+          "RadiusX": 0,
+          "RadiusY": 0,
+          "RadiusZ": 1
+        }
+      ]
+    },
+    {
+      "Id": "generator_rain",
+      "Chance": 1,
+      "CooldownSeconds": 1,
+      "Slot": "Climate",
+      "Set": "RAIN",
+      "Priority": 10,
+      "RequiresMature": true,
+      "IgnoreSkyCheck": false,
+      "EventType": "Any",
+      "SkipInitialCooldown": true,
+      "RequiresAdjacentItems": [
+        {
+          "Ids": [
+            "Mutation_Block_Generator_Rain"
+          ],
+          "RadiusX": 1,
+          "RadiusY": 0,
+          "RadiusZ": 0,
+          "OffsetZ": 0
+        }
+      ]
+    },
+    {
+      "Id": "generator_snow",
+      "Chance": 1,
+      "CooldownSeconds": 1,
+      "Slot": "Climate",
+      "Set": "SNOW",
+      "Priority": 10,
+      "RequiresMature": true,
+      "IgnoreSkyCheck": false,
+      "EventType": "Any",
+      "SkipInitialCooldown": true,
+      "RequiresAdjacentItems": [
+        {
+          "Ids": [
+            "Mutation_Block_Generator_Snow"
+          ],
+          "RadiusX": 1,
+          "RadiusY": 0,
+          "RadiusZ": 0,
+          "OffsetZ": 0
+        }
+      ]
+    },
+    {
+      "Id": "generator_frozen",
+      "Chance": 1,
+      "CooldownSeconds": 1,
+      "Slot": "Climate",
+      "Set": "FROZEN",
+      "Priority": 10,
+      "RequiresMature": true,
+      "IgnoreSkyCheck": false,
+      "EventType": "Any",
+      "SkipInitialCooldown": true,
+      "RequiresAdjacentItems": [
+        {
+          "Ids": [
+            "Mutation_Block_Generator_Frozen"
+          ],
+          "RadiusX": 1,
+          "RadiusY": 0,
+          "RadiusZ": 0,
+          "OffsetZ": 0
+        }
+      ]
+    },
+    {
+      "Id": "generator_dawnlit",
+      "Chance": 1,
+      "CooldownSeconds": 1,
+      "Slot": "Lunar",
+      "Set": "DAWNLIT",
+      "Priority": 10,
+      "RequiresMature": true,
+      "IgnoreSkyCheck": false,
+      "EventType": "Any",
+      "SkipInitialCooldown": true,
+      "RequiresAdjacentItems": [
+        {
+          "Ids": [
+            "Mutation_Block_Generator_Dawnlit"
+          ],
+          "RadiusX": 1,
+          "RadiusY": 0,
+          "RadiusZ": 0,
+          "OffsetZ": 0
+        }
+      ]
+    },
+    {
+      "Id": "generator_dawnbound",
+      "Chance": 1,
+      "CooldownSeconds": 1,
+      "Slot": "Lunar",
+      "Set": "DAWNBOUND",
+      "Priority": 10,
+      "RequiresMature": true,
+      "IgnoreSkyCheck": false,
+      "EventType": "Any",
+      "SkipInitialCooldown": true,
+      "RequiresAdjacentItems": [
+        {
+          "Ids": [
+            "Mutation_Block_Generator_Dawnbound"
+          ],
+          "RadiusX": 1,
+          "RadiusY": 0,
+          "RadiusZ": 0,
+          "OffsetZ": 0
+        }
+      ]
+    },
+    {
+      "Id": "generator_amberlit",
+      "Chance": 1,
+      "CooldownSeconds": 1,
+      "Slot": "Lunar",
+      "Set": "AMBERLIT",
+      "Priority": 10,
+      "RequiresMature": true,
+      "IgnoreSkyCheck": false,
+      "EventType": "Any",
+      "SkipInitialCooldown": true,
+      "RequiresAdjacentItems": [
+        {
+          "Ids": [
+            "Mutation_Block_Generator_Amberlit"
+          ],
+          "RadiusX": 1,
+          "RadiusY": 0,
+          "RadiusZ": 0,
+          "OffsetZ": 0
+        }
+      ]
+    },
+    {
+      "Id": "generator_amberbound",
+      "Chance": 1,
+      "CooldownSeconds": 1,
+      "Slot": "Lunar",
+      "Set": "AMBERBOUND",
+      "Priority": 10,
+      "RequiresMature": true,
+      "IgnoreSkyCheck": false,
+      "EventType": "Any",
+      "SkipInitialCooldown": true,
+      "RequiresAdjacentItems": [
+        {
+          "Ids": [
+            "Mutation_Block_Generator_Amberbound"
+          ],
+          "RadiusX": 1,
+          "RadiusY": 0,
+          "RadiusZ": 0,
+          "OffsetZ": 0
+        }
+      ]
+    }
+  ]
+}

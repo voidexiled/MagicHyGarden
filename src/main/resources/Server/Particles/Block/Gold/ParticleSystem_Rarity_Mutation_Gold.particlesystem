@@ -1,0 +1,13 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "ParticleSpawner_Gold0",
+      "TotalSpawners": 6
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Gold1"
+    }
+  ],
+  "CullDistance": 80,
+  "BoundingRadius": 5
+}

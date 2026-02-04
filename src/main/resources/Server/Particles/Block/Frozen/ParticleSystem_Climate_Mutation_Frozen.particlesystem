@@ -1,0 +1,15 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "ParticleSpawner_Frozen0",
+      "PositionOffset": {
+        "Y": 0.35
+      }
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Frozen1"
+    }
+  ],
+  "CullDistance": 80,
+  "BoundingRadius": 5
+}

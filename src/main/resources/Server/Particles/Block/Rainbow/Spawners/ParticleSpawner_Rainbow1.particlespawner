@@ -1,0 +1,134 @@
+{
+  "RenderMode": "Erosion",
+  "ParticleRotationInfluence": "Billboard",
+  "LinearFiltering": true,
+  "LightInfluence": 0,
+  "ParticleRotateWithSpawner": false,
+  "TrailSpawnerPositionMultiplier": 1,
+  "TrailSpawnerRotationMultiplier": 1,
+  "ParticleLifeSpan": {
+    "Min": 3.0,
+    "Max": 5
+  },
+  "SpawnRate": {
+    "Min": 50,
+    "Max": 150
+  },
+  "Particle": {
+    "Texture": "Particles/Textures/Basic/Star2.png",
+    "ScaleRatioConstraint": "OneToOne",
+    "Animation": {
+      "0": {
+        "FrameIndex": {
+          "Min": 0,
+          "Max": 0
+        },
+        "Scale": {
+          "X": {
+            "Min": 0.6,
+            "Max": 0.6
+          }
+        },
+        "Rotation": {
+          "X": {
+            "Min": 0,
+            "Max": 0
+          },
+          "Y": {
+            "Min": 0,
+            "Max": 0
+          },
+          "Z": {
+            "Min": 0,
+            "Max": 0
+          }
+        },
+        "Opacity": 0.0,
+        "Color": "#ff0000"
+      },
+      "25": {
+        "Color": "#ff7f00"
+      },
+      "50": {
+        "Opacity": 1.0,
+        "Color": "#ffff00"
+      },
+      "75": {
+        "Color": "#0000ff"
+      },
+      "100": {
+        "Opacity": 0.0,
+        "Scale": {
+          "X": {
+            "Min": 0.2,
+            "Max": 0.2
+          },
+          "Y": {
+            "Min": 0.2,
+            "Max": 0.2
+          }
+        },
+        "Color": "#4b0082"
+      }
+    },
+    "InitialAnimationFrame": {
+      "Rotation": {
+        "X": {
+          "Min": 0,
+          "Max": 360
+        },
+        "Y": {
+          "Min": 0,
+          "Max": 360
+        },
+        "Z": {
+          "Min": 0,
+          "Max": 360
+        }
+      },
+      "Scale": {
+        "X": {
+          "Min": 0.1,
+          "Max": 0.2
+        }
+      },
+      "Opacity": 0.468,
+      "FrameIndex": {
+        "Min": 0,
+        "Max": 0
+      },
+      "Color": "#d4af37"
+    }
+  },
+  "SpawnBurst": false,
+  "EmitOffset": {
+    "X": {
+      "Min": 0,
+      "Max": 1
+    },
+    "Z": {
+      "Min": 0,
+      "Max": 1
+    },
+    "Y": {
+      "Max": 3
+    }
+  },
+  "IntersectionHighlight": {
+    "HighlightThreshold": 0.0
+  },
+  "InitialVelocity": {
+    "Pitch": {
+      "Max": 360
+    },
+    "Speed": {
+      "Min": 0.1,
+      "Max": 0.3
+    },
+    "Yaw": {
+      "Max": 360
+    }
+  },
+  "MaxConcurrentParticles": 50,
+  "IsLowRes": true
+}

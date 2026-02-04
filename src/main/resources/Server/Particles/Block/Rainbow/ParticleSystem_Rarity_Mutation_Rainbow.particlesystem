@@ -1,0 +1,15 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "ParticleSpawner_Rainbow0"
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Rainbow1"
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Rainbow2"
+    }
+  ],
+  "CullDistance": 80,
+  "BoundingRadius": 5
+}

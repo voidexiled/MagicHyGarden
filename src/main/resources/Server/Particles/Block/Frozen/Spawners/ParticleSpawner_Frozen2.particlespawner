@@ -1,0 +1,107 @@
+{
+  "IsLowRes": true,
+  "Particle": {
+    "Texture": "Particles/Textures/Rnd/Smoke_Animated.png",
+    "FrameSize": {
+      "Width": 64,
+      "Height": 64
+    },
+    "Animation": {
+      "0": {
+        "Opacity": 0.052,
+        "Scale": {
+          "X": {
+            "Min": 1,
+            "Max": 1
+          },
+          "Y": {
+            "Min": 1,
+            "Max": 1
+          }
+        }
+      },
+      "25": {
+        "FrameIndex": {
+          "Min": 1,
+          "Max": 1
+        }
+      },
+      "50": {
+        "FrameIndex": {
+          "Min": 2,
+          "Max": 2
+        }
+      },
+      "100": {
+        "Opacity": 0,
+        "FrameIndex": {
+          "Min": 4,
+          "Max": 4
+        }
+      },
+      "75": {
+        "FrameIndex": {
+          "Min": 3,
+          "Max": 3
+        }
+      }
+    },
+    "InitialAnimationFrame": {
+      "Color": "#d9feff"
+    },
+    "UseSpriteBlending": true,
+    "SoftParticlesFadeFactor": 0.5
+  },
+  "Shape": "Sphere",
+  "ParticleRotationInfluence": "Billboard",
+  "LinearFiltering": true,
+  "RenderMode": "BlendAdd",
+  "UseEmitDirection": false,
+  "MaxConcurrentParticles": 1,
+  "EmitOffset": {
+    "X": {
+      "Min": 0.25,
+      "Max": 0.25
+    },
+    "Z": {
+      "Min": 0.25,
+      "Max": 0.25
+    },
+    "Y": {
+      "Min": -0.1,
+      "Max": 0.5
+    }
+  },
+  "Attractors": [
+    {
+      "Position": {
+        "Y": -0.22
+      },
+      "Radius": 0.3,
+      "LinearAcceleration": {
+        "Y": 2
+      },
+      "DampingMultiplier": {
+        "Y": 0.9
+      }
+    }
+  ],
+  "ParticleLifeSpan": {
+    "Min": 2,
+    "Max": 3
+  },
+  "InitialVelocity": {
+    "Yaw": {
+      "Min": -180,
+      "Max": 180
+    },
+    "Speed": {
+      "Min": 0.5,
+      "Max": 1
+    },
+    "Pitch": {
+      "Min": 45,
+      "Max": 90
+    }
+  }
+}

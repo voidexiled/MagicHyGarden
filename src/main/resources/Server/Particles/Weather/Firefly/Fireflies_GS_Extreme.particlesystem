@@ -1,0 +1,19 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "Fireflies_Slow_GS",
+      "FixedRotation": true,
+      "PositionOffset": {
+        "Z": 0
+      },
+      "TotalSpawners": 100
+    },
+    {
+      "SpawnerId": "Fireflies_Random_GS",
+      "PositionOffset": {
+        "Z": 0
+      },
+      "TotalSpawners": 100
+    }
+  ]
+}

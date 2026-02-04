@@ -1,0 +1,35 @@
+{
+  "Defaults": {
+    "BlockType": {
+      "BlockSoundSetId": "Plant",
+      "InteractionSoundEventId": "SFX_Plant_Break"
+    }
+  },
+  "Overrides": {
+    "mghg_rain": {
+      "BlockType": {
+        "ParticleColor": "#6fb8ff"
+      }
+    },
+    "mghg_snow": {
+      "BlockType": {
+        "ParticleColor": "#ffffff"
+      }
+    },
+    "mghg_frozen": {
+      "BlockType": {
+        "ParticleColor": "#9fe7ff"
+      }
+    },
+    "mghg_gold": {
+      "BlockType": {
+        "ParticleColor": "#f6d365"
+      }
+    },
+    "mghg_rainbow": {
+      "BlockType": {
+        "ParticleColor": "#7ad7ff"
+      }
+    }
+  }
+}

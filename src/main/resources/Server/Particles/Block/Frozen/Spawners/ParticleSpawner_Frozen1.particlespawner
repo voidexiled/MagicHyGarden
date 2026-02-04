@@ -1,0 +1,120 @@
+{
+  "Particle": {
+    "Texture": "Particles/Textures/Ice/Iceshard_Spikes.png",
+    "ScaleRatioConstraint": "OneToOne",
+    "UVOption": "RandomFlipU",
+    "Animation": {
+      "0": {
+        "Scale": {
+          "X": {
+            "Min": 0.4,
+            "Max": 0.5
+          }
+        },
+        "Color": "#ffffff",
+        "FrameIndex": {
+          "Min": 0,
+          "Max": 3
+        },
+        "Opacity": 1.0
+      },
+      "20": {
+        "Scale": {
+          "X": {
+            "Min": 0.74,
+            "Max": 0.84
+          }
+        }
+      },
+      "80": {
+        "Opacity": 1.0,
+        "Scale": {
+          "X": {
+            "Max": 0.85,
+            "Min": 0.75
+          }
+        }
+      },
+      "100": {
+        "Color": "#99cdff",
+        "Opacity": 0.0,
+        "Scale": {
+          "X": {
+            "Min": 0.7,
+            "Max": 0.8
+          }
+        }
+      }
+    },
+    "InitialAnimationFrame": {
+      "Opacity": 1,
+      "Color": "#ffffff",
+      "Scale": {
+        "X": {
+          "Min": -1.0,
+          "Max": -0.5
+        }
+      },
+      "FrameIndex": {
+        "Min": 0,
+        "Max": 3
+      }
+    },
+    "FrameSize": {
+      "Width": 32,
+      "Height": 64
+    }
+  },
+  "RenderMode": "Erosion",
+  "Attractors": [
+    {
+      "DampingMultiplier": {
+        "Y": 0.01
+      },
+      "RadialImpulse": 0.05,
+      "LinearImpulse": {
+        "Y": 0.2
+      }
+    }
+  ],
+  "ParticleRotationInfluence": "BillboardVelocity",
+  "EmitOffset": {
+    "X": {
+      "Min": 0.35,
+      "Max": 0.55
+    },
+    "Z": {
+      "Max": 0.55,
+      "Min": 0.35
+    },
+    "Y": {
+      "Min": -0.4,
+      "Max": -0.1
+    }
+  },
+  "InitialVelocity": {
+    "Speed": {
+      "Min": 1,
+      "Max": 3
+    },
+    "Yaw": {
+      "Min": -180,
+      "Max": 180
+    },
+    "Pitch": {
+      "Min": 45,
+      "Max": 90
+    }
+  },
+  "MaxConcurrentParticles": 5,
+  "SpawnBurst": true,
+  "SpawnRate": {
+    "Min": 1,
+    "Max": 10
+  },
+  "ParticleLifeSpan": {
+    "Min": 1.6,
+    "Max": 2.3
+  },
+  "IsLowRes": true
+}

@@ -1,0 +1,12 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "ParticleSpawner_Chilled0",
+      "PositionOffset": {
+        "Y": 0.35
+      }
+    }
+  ],
+  "CullDistance": 80,
+  "BoundingRadius": 5
+}

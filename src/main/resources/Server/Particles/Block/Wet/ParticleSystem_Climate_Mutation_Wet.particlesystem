@@ -1,0 +1,17 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "ParticleSpawner_Wet0",
+      "PositionOffset": {
+        "Y": 0.3
+      }
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Wet1",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    }
+  ],
+  "IsImportant": false
+}

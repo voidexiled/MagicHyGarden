@@ -31,6 +31,7 @@ import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
 import com.voidexiled.magichygarden.features.farming.logic.MghgCropDataAccess;
 import com.voidexiled.magichygarden.features.farming.logic.MghgItemDropUtil;
 import com.voidexiled.magichygarden.features.farming.logic.MghgSupportDropMetaCache;
+import com.voidexiled.magichygarden.features.farming.logic.MghgWeightUtil;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
 import com.voidexiled.magichygarden.utils.NotificationUtils;
@@ -132,11 +133,20 @@ public final class MghgPreserveCropMetaOnBreakSystem extends EntityEventSystem<E
 
         ItemStack out = new ItemStack(itemId, 1);
 
+        double weight = cropData.getWeightGrams();
+        if (weight <= 0.0) {
+            weight = MghgWeightUtil.computeWeightAtMatureGrams(blockType, cropData.getSize());
+            if (weight > 0.0) {
+                cropData.setWeightGrams(weight);
+            }
+        }
+
         MghgCropMeta meta = MghgCropMeta.fromCropData(
                 cropData.getSize(),
                 cropData.getClimate().name(),
                 cropData.getLunar().name(),
-                cropData.getRarity().name()
+                cropData.getRarity().name(),
+                weight
         );
         out = out.withMetadata(MghgCropMeta.KEY, meta);
 

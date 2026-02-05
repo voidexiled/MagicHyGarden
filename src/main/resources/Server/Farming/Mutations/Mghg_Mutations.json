@@ -227,6 +227,25 @@
           "OffsetZ": 0
         }
       ]
+    },
+    {
+      "EventType": "Any",
+      "Id": "aquabrick_transforms_gold",
+      "Slot": "Rarity",
+      "Set": "GOLD",
+      "Chance": 1,
+      "CooldownSeconds": 5,
+      "MustHaveRarity": [
+        "NONE"
+      ],
+      "RequiresAdjacentItems": [
+        {
+          "Ids": [
+            "Rock_Aqua_Brick_Ornate"
+          ],
+          "Radius": 1
+        }
+      ]
     }
   ]
 }

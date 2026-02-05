@@ -22,6 +22,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
+import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
 
 import javax.annotation.Nonnull;
@@ -214,11 +215,19 @@ public final class MghgHarvestUtil {
 
             if (cropData != null && shouldApplyMghgMeta(out, cropData, itemId)) {
                 // 1) metadata SOLO para el item del crop
+                double weight = cropData.getWeightGrams();
+                if (weight <= 0.0) {
+                    weight = MghgWeightUtil.computeWeightAtMatureGrams(blockType, cropData.getSize());
+                    if (weight > 0.0) {
+                        cropData.setWeightGrams(weight);
+                    }
+                }
                 MghgCropMeta meta = MghgCropMeta.fromCropData(
                         cropData.getSize(),
                         cropData.getClimate().name(),
                         cropData.getLunar().name(),
-                        cropData.getRarity().name()
+                        cropData.getRarity().name(),
+                        weight
                 );
                 out = out.withMetadata(MghgCropMeta.KEY, meta);
 
@@ -237,11 +246,19 @@ public final class MghgHarvestUtil {
                 ItemStack out = stack;
 
                 if (cropData != null && shouldApplyMghgMeta(out, cropData, itemId)) {
+                    double weight = cropData.getWeightGrams();
+                    if (weight <= 0.0) {
+                        weight = MghgWeightUtil.computeWeightAtMatureGrams(blockType, cropData.getSize());
+                        if (weight > 0.0) {
+                            cropData.setWeightGrams(weight);
+                        }
+                    }
                     MghgCropMeta meta = MghgCropMeta.fromCropData(
                             cropData.getSize(),
                             cropData.getClimate().name(),
                             cropData.getLunar().name(),
-                            cropData.getRarity().name()
+                            cropData.getRarity().name(),
+                            weight
                     );
                     out = out.withMetadata(MghgCropMeta.KEY, meta);
 
@@ -294,6 +311,8 @@ public final class MghgHarvestUtil {
             @Nonnull Ref<ChunkStore> blockRef
     ) {
         MghgCropData data = chunkStore.ensureAndGetComponent(blockRef, MghgCropData.getComponentType());
-        MghgCropDataSeeder.seedReplant(data);
+        BlockType blockType = MghgWeightUtil.resolveBlockType(chunkStore, blockRef);
+        double baseWeight = MghgCropRegistry.getBaseWeightGrams(blockType);
+        MghgCropDataSeeder.seedReplant(data, baseWeight);
     }
 }

@@ -21,6 +21,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.commands.shared.Targeting;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.logic.MghgCropDataAccess;
+import com.voidexiled.magichygarden.features.farming.logic.MghgWeightUtil;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import org.jspecify.annotations.NonNull;
 
@@ -99,6 +100,7 @@ public class CropSetSizeCommand extends AbstractPlayerCommand {
 
         int before = data.getSize();
         data.setSize(size);
+        MghgWeightUtil.applyWeight(data, blockType);
 
         if (blockComponentChunk != null) blockComponentChunk.markNeedsSaving();
         if (blockChunk != null) blockChunk.markNeedsSaving();

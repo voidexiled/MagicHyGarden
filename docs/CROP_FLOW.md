@@ -16,6 +16,10 @@ Size + seed configuration lives in:
 `build/resources/main/Server/Farming/Modifiers/Size.json`
 (Keep src/main/resources in sync when you want changes to persist in source.)
 
+Per-crop base weight lives in:
+`build/resources/main/Server/Farming/Crops/Mghg_Crops.json`
+(BaseWeightGrams is the weight at SizeMin when fully mature; actual weight scales with Size and growth progress.)
+
 Key fields used by runtime systems:
 - SizeMin / SizeMax
 - InitialRarityGoldChance
@@ -38,6 +42,7 @@ Data Flow Overview
    - `MghgOnFarmBlockAddedSystem` runs when a FarmingBlock entity is created.
    - It seeds MGHG data using `MghgCropDataSeeder` (size/rarity/climate).
    - Seeder reads values from `Size.json` (via GrowthModifier asset).
+   - Weight starts at 0g and grows with crop progress.
 
 2) Growth / Mutation tick
    - `MghgMatureCropMutationTickingSystem` runs every tick on crop entities.
@@ -47,6 +52,7 @@ Data Flow Overview
      - Applies rule engine (`MghgMutationRules` + `MghgMutationEngine`).
      - Immediately updates visuals via `MghgCropStageSync` (no waiting for next growth stage).
    - Rules are per-slot (CLIMATE/LUNAR/RARITY) with priority + cooldown.
+   - Weight is recalculated every tick from Size + growth progress.
 
 3) Visual sync
    - `MghgCropStageSync` switches the stage set to the correct MGHG variant.
@@ -57,10 +63,12 @@ Data Flow Overview
 4) Harvest (StageFinal)
    - `MghgHarvestCropInteraction` produces item drops with metadata from
      `MghgHarvestUtil`.
+   - Weight is injected into item metadata (MGHG_Crop.WeightGrams).
 
 5) Item metadata preservation
    - `MghgPreserveCropMetaOnBreakSystem` ensures placed crops drop with metadata.
    - `MghgRehydrateCropDataOnPlaceSystem` applies metadata back onto the placed block.
+   - If WeightGrams is missing, it is computed from Size + BaseWeightGrams.
 
 Drops (Override + Extras)
 -------------------------

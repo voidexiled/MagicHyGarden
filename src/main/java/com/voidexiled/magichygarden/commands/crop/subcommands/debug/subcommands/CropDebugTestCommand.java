@@ -26,9 +26,9 @@ public class CropDebugTestCommand extends AbstractPlayerCommand {
                            @NonNull World world) {
         ItemStack base = new ItemStack("Plant_Crop_Lettuce_Item");
         ItemStack rain = base.withState("mghg_rain")
-                .withMetadata(MghgCropMeta.KEY, MghgCropMeta.fromCropData(77, "RAIN", "NONE"));
+                .withMetadata(MghgCropMeta.KEY, MghgCropMeta.fromCropData(77, "RAIN", "NONE", 0.0));
         ItemStack snow = base.withState("mghg_snow")
-                .withMetadata(MghgCropMeta.KEY, MghgCropMeta.fromCropData(77, "SNOW", "NONE"));
+                .withMetadata(MghgCropMeta.KEY, MghgCropMeta.fromCropData(77, "SNOW", "NONE", 0.0));
 
         // Mensaje para confirmar IDs
         commandContext.sendMessage(Message.raw("base=" + base.getItemId() + " | rain=" + rain.getItemId()));

@@ -3,7 +3,8 @@
     {
       "Id": "lettuce",
       "BlockId": "Plant_Crop_Lettuce_Block",
-      "ItemId": "Plant_Crop_Lettuce_Item"
+      "ItemId": "Plant_Crop_Lettuce_Item",
+      "BaseWeightGrams": 50
     }
   ]
 }

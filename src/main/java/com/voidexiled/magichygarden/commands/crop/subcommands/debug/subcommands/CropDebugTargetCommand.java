@@ -189,6 +189,7 @@ public class CropDebugTargetCommand extends AbstractPlayerCommand {
         if (cropData != null) {
             msg.insert(Message.raw("MGHG Data: ").color(Color.GRAY))
                     .insert(Message.raw("size=").color(Color.GRAY)).insert(Message.raw(Integer.toString(cropData.getSize())).color(Color.MAGENTA))
+                    .insert(Message.raw(" | weight=").color(Color.GRAY)).insert(Message.raw(String.format(java.util.Locale.ROOT, "%.2f", cropData.getWeightGrams())).color(Color.MAGENTA))
                     .insert(Message.raw(" | climate=").color(Color.GRAY)).insert(Message.raw(cropData.getClimate().name()).color(Color.MAGENTA))
                     .insert(Message.raw(" | lunar=").color(Color.GRAY)).insert(Message.raw(cropData.getLunar().name()).color(Color.MAGENTA))
                     .insert(Message.raw(" | rarity=").color(Color.GRAY)).insert(Message.raw(cropData.getRarity().name()).color(Color.MAGENTA))

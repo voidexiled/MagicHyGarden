@@ -101,6 +101,52 @@ public final class MghgCropRegistry {
         return null;
     }
 
+    @Nullable
+    public static MghgCropDefinition getDefinitionByItemId(@Nullable String itemId) {
+        if (itemId == null || itemId.isBlank()) {
+            return null;
+        }
+        MghgCropDefinition direct = BY_ITEM.get(itemId);
+        if (direct != null) {
+            return direct;
+        }
+        String base = normalizeStateAssetId(itemId);
+        if (base != null) {
+            MghgCropDefinition baseDef = BY_ITEM.get(base);
+            if (baseDef != null) {
+                return baseDef;
+            }
+            MghgCropDefinition blockDef = BY_BLOCK.get(base);
+            if (blockDef != null) {
+                return blockDef;
+            }
+        }
+        String lowerId = itemId.toLowerCase();
+        for (MghgCropDefinition def : BY_ITEM.values()) {
+            if (def == null || def.getItemId() == null) {
+                continue;
+            }
+            String baseId = def.getItemId();
+            if (baseId == null || baseId.isBlank()) {
+                continue;
+            }
+            if (lowerId.contains(baseId.toLowerCase())) {
+                return def;
+            }
+        }
+        return null;
+    }
+
+    public static double getBaseWeightGrams(@Nullable BlockType blockType) {
+        MghgCropDefinition def = getDefinition(blockType);
+        return def != null ? def.getBaseWeightGrams() : 0.0;
+    }
+
+    public static double getBaseWeightGramsByItemId(@Nullable String itemId) {
+        MghgCropDefinition def = getDefinitionByItemId(itemId);
+        return def != null ? def.getBaseWeightGrams() : 0.0;
+    }
+
     public static boolean isMghgCropBlock(@Nullable BlockType blockType) {
         if (blockType == null) {
             return false;

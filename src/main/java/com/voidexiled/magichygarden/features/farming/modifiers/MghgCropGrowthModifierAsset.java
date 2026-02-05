@@ -44,6 +44,8 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final String RESOURCE_PATH = "Server/Farming/Modifiers/Size.json";
     private static volatile MghgCropGrowthModifierAsset LAST_LOADED;
+    public static final int DEFAULT_SIZE_MIN = 50;
+    public static final int DEFAULT_SIZE_MAX = 100;
 
     public static final BuilderCodec<MghgCropGrowthModifierAsset> CODEC =
             BuilderCodec.builder(MghgCropGrowthModifierAsset.class, MghgCropGrowthModifierAsset::new, ABSTRACT_CODEC)
@@ -151,8 +153,8 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
                     .build();
 
     // ---------- Config fields ----------
-    protected int sizeMin = 50;
-    protected int sizeMax = 100;
+    protected int sizeMin = DEFAULT_SIZE_MIN;
+    protected int sizeMax = DEFAULT_SIZE_MAX;
 
     /** Multiplier mínimo cuando size == sizeMax (clamp 0.01..1.0). */
     protected double minGrowthMultiplierAtMaxSize = 0.65;

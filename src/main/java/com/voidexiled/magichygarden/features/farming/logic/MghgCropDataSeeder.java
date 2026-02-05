@@ -11,8 +11,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class MghgCropDataSeeder {
     private MghgCropDataSeeder() {}
 
-    private static final int DEFAULT_SIZE_MIN = 50;
-    private static final int DEFAULT_SIZE_MAX = 100;
     private static final float DEFAULT_GOLD_CHANCE = 0.005f;
     private static final float DEFAULT_RAINBOW_CHANCE = 0.0005f;
 
@@ -22,10 +20,15 @@ public final class MghgCropDataSeeder {
      * - size: [SizeMin, SizeMax]
      * - rarity: chances iniciales
      * - climate: NONE
-     * - lastMutationRoll: null (permite mutación inmediata si hay clima)
+     * - lastMutationRoll: null (el motor arma el cooldown en el primer tick elegible
+     *   salvo que la regla tenga SkipInitialCooldown=true)
      */
     public static void seedNew(MghgCropData data) {
-        applySeed(data);
+        applySeed(data, 0.0);
+    }
+
+    public static void seedNew(MghgCropData data, double baseWeightGrams) {
+        applySeed(data, baseWeightGrams);
     }
 
     /**
@@ -33,14 +36,18 @@ public final class MghgCropDataSeeder {
      * Misma configuración que seedNew para evitar divergencias.
      */
     public static void seedReplant(MghgCropData data) {
-        applySeed(data);
+        applySeed(data, 0.0);
     }
 
-    private static void applySeed(MghgCropData data) {
+    public static void seedReplant(MghgCropData data, double baseWeightGrams) {
+        applySeed(data, baseWeightGrams);
+    }
+
+    private static void applySeed(MghgCropData data, double baseWeightGrams) {
         MghgCropGrowthModifierAsset cfg = MghgCropGrowthModifierAsset.getLastLoaded();
 
-        int min = (cfg != null ? cfg.getSizeMin() : DEFAULT_SIZE_MIN);
-        int max = (cfg != null ? cfg.getSizeMax() : DEFAULT_SIZE_MAX);
+        int min = (cfg != null ? cfg.getSizeMin() : MghgCropGrowthModifierAsset.DEFAULT_SIZE_MIN);
+        int max = (cfg != null ? cfg.getSizeMax() : MghgCropGrowthModifierAsset.DEFAULT_SIZE_MAX);
         if (max < min) {
             int tmp = min;
             min = max;
@@ -53,7 +60,8 @@ public final class MghgCropDataSeeder {
         if (rainbowChance < 0f) rainbowChance = 0f;
 
         // size inicial dentro del rango configurado
-        data.setSize(ThreadLocalRandom.current().nextInt(min, max + 1));
+        int size = ThreadLocalRandom.current().nextInt(min, max + 1);
+        data.setSize(size);
         data.setClimate(ClimateMutation.NONE);
         data.setLunar(LunarMutation.NONE);
 
@@ -68,5 +76,8 @@ public final class MghgCropDataSeeder {
         data.setLastLunarRoll(null);
         data.setLastSpecialRoll(null);
         data.setLastMutationRoll(null);
+
+        // Peso inicial: 0g (crece junto con el progreso del crop).
+        data.setWeightGrams(0.0);
     }
 }

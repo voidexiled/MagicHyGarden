@@ -1,2 +1,23 @@
 items.Plant.Plant_Crop_Lettuce_Wet.name=Wet Lettuce
 items.Plant.Plant_Crop_Lettuce_Wet.description=[TMP] Multipliers:\n • <color is="#7777ea">Wet</color> - <color is="#aaffff">x2</color>
+mghg.hud.crop.unknown=Unknown Crop
+mghg.hud.crop.title={name} ({rarity})
+mghg.hud.crop.size=Size {size} ({tier})
+mghg.hud.crop.subline=Size {size} ({tier}) - Weight {weight}
+mghg.hud.crop.mutations.none=Normal
+mghg.hud.weight.grams={value} g
+mghg.hud.weight.kg={value} kg
+mghg.hud.tier.1=Tiny
+mghg.hud.tier.2=Small
+mghg.hud.tier.3=Medium
+mghg.hud.tier.4=Large
+mghg.hud.tier.5=Huge
+mghg.hud.climate.rain=Wet
+mghg.hud.climate.snow=Chilled
+mghg.hud.climate.frozen=Frozen
+mghg.hud.lunar.dawnlit=Dawnlit
+mghg.hud.lunar.dawnbound=Dawnbound
+mghg.hud.lunar.amberlit=Amberlit
+mghg.hud.lunar.amberbound=Amberbound
+mghg.hud.rarity.gold=Gold
+mghg.hud.rarity.rainbow=Rainbow

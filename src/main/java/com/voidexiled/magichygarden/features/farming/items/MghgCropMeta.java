@@ -14,6 +14,8 @@ public final class MghgCropMeta {
             .add()
             .append(new KeyedCodec<>("Rarity", Codec.STRING), (o, v) -> o.rarity = v, o -> o.rarity)
             .add()
+            .append(new KeyedCodec<>("WeightGrams", Codec.DOUBLE), (o, v) -> o.weightGrams = v == null ? 0.0 : v, o -> o.weightGrams <= 0 ? null : o.weightGrams)
+            .add()
             .build();
 
     public static final KeyedCodec<MghgCropMeta> KEY = new KeyedCodec<>("MGHG_Crop", CODEC);
@@ -22,19 +24,21 @@ public final class MghgCropMeta {
     private String climate;
     private String lunar;
     private String rarity;
+    private double weightGrams;
 
     public MghgCropMeta() {}
 
-    public static MghgCropMeta fromCropData(int size, String climate, String rarity) {
-        return fromCropData(size, climate, "NONE", rarity);
+    public static MghgCropMeta fromCropData(int size, String climate, String rarity, double weightGrams) {
+        return fromCropData(size, climate, "NONE", rarity, weightGrams);
     }
 
-    public static MghgCropMeta fromCropData(int size, String climate, String lunar, String rarity) {
+    public static MghgCropMeta fromCropData(int size, String climate, String lunar, String rarity, double weightGrams) {
         MghgCropMeta meta = new MghgCropMeta();
         meta.size = size;
         meta.climate = climate;
         meta.lunar = lunar;
         meta.rarity = rarity;
+        meta.weightGrams = weightGrams;
         return meta;
     }
 
@@ -42,4 +46,5 @@ public final class MghgCropMeta {
     public String getClimate() { return climate; }
     public String getLunar() { return lunar == null ? "NONE" : lunar; }
     public String getRarity() { return rarity; }
+    public double getWeightGrams() { return weightGrams; }
 }

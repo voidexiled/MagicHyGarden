@@ -25,6 +25,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
+import com.voidexiled.magichygarden.features.farming.logic.MghgWeightUtil;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationContext;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationEngine;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationRuleSet;
@@ -105,15 +106,27 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
 
         // Config dinámica: el GrowthModifier decodificado es la fuente de verdad.
         MghgCropGrowthModifierAsset cfg = MghgCropGrowthModifierAsset.getLastLoaded();
+
+        StageInfo stageInfo = resolveStageInfo(blockType, farmingBlock);
+        boolean weightChanged = updateWeightFromGrowth(blockType, farmingBlock, stageInfo, data, cfg);
+
         if (cfg == null) {
-            applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
+            boolean visualsChanged = applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
+            if (visualsChanged || weightChanged) {
+                if (blockComponentChunk != null) blockComponentChunk.markNeedsSaving();
+                blockChunk.markNeedsSaving();
+            }
             return;
         }
 
         int cooldownSeconds = cfg.getMutationRollCooldownSeconds();
         MghgMutationRuleSet rules = MghgMutationRules.getActive(cfg);
         if (rules == null || rules.isEmpty()) {
-            applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
+            boolean visualsChanged = applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
+            if (visualsChanged || weightChanged) {
+                if (blockComponentChunk != null) blockComponentChunk.markNeedsSaving();
+                blockChunk.markNeedsSaving();
+            }
             return;
         }
 
@@ -150,7 +163,11 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
                 ? MghgWeatherResolver.resolveWeatherId(entityStore, blockChunk, x, y, z, true)
                 : weatherId;
         if (weatherId == Weather.UNKNOWN_ID && !ignoreSkyCheck && !hasNonWeatherRule) {
-            applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
+            boolean visualsChanged = applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
+            if (visualsChanged || weightChanged) {
+                if (blockComponentChunk != null) blockComponentChunk.markNeedsSaving();
+                blockChunk.markNeedsSaving();
+            }
             return;
         }
 
@@ -172,7 +189,6 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
         int currentHour = time != null ? time.getCurrentHour() : -1;
         double sunlightFactor = time != null ? time.getSunlightFactor() : -1.0;
 
-        StageInfo stageInfo = resolveStageInfo(blockType, farmingBlock);
         String soilBlockId = resolveSoilBlockId(blockChunk, x, y, z);
 
         MghgMutationContext ctx = new MghgMutationContext(
@@ -209,7 +225,7 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
 
         boolean visualsChanged = applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
 
-        if (dirty || visualsChanged) {
+        if (dirty || visualsChanged || weightChanged) {
             if (blockComponentChunk != null) blockComponentChunk.markNeedsSaving();
             blockChunk.markNeedsSaving();
         }
@@ -342,6 +358,79 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
         }
 
         return new StageInfo(-1, -1, null);
+    }
+
+    private static boolean updateWeightFromGrowth(
+            BlockType blockType,
+            FarmingBlock farmingBlock,
+            StageInfo stageInfo,
+            MghgCropData data,
+            MghgCropGrowthModifierAsset cfg
+    ) {
+        if (data == null || blockType == null) {
+            return false;
+        }
+
+        double baseWeight = MghgCropRegistry.getBaseWeightGrams(blockType);
+        if (baseWeight <= 0.0) {
+            return false;
+        }
+
+        int min = cfg != null ? cfg.getSizeMin() : MghgCropGrowthModifierAsset.DEFAULT_SIZE_MIN;
+        int max = cfg != null ? cfg.getSizeMax() : MghgCropGrowthModifierAsset.DEFAULT_SIZE_MAX;
+        double progress = resolveGrowthProgress(farmingBlock, stageInfo, blockType);
+        if (Double.isNaN(progress)) {
+            return false;
+        }
+        double next = MghgWeightUtil.computeWeightGrams(data.getSize(), min, max, baseWeight, progress);
+        double current = data.getWeightGrams();
+
+        if (Math.abs(next - current) < 0.01) {
+            return false;
+        }
+        data.setWeightGrams(next);
+        return true;
+    }
+
+    private static double resolveGrowthProgress(FarmingBlock farmingBlock, StageInfo stageInfo, BlockType blockType) {
+        if (farmingBlock != null) {
+            float progress = farmingBlock.getGrowthProgress();
+            int stageCount = stageInfo != null ? stageInfo.stageCount : -1;
+            if (stageCount <= 1) {
+                return clamp01(progress);
+            }
+            double denom = stageCount - 1;
+            if (denom <= 0) denom = 1;
+            return clamp01(progress / denom);
+        }
+
+        // No FarmingBlock: derive progress from stage info or final-state id.
+        if (stageInfo != null && stageInfo.stageCount > 0 && stageInfo.stageIndex >= 0) {
+            if (stageInfo.stageCount <= 1) {
+                return 1.0;
+            }
+            double denom = stageInfo.stageCount - 1;
+            if (denom <= 0) denom = 1;
+            return clamp01(stageInfo.stageIndex / denom);
+        }
+
+        String id = blockType != null ? blockType.getId() : null;
+        if (id != null && id.toLowerCase().contains("_stagefinal")) {
+            return 1.0;
+        }
+
+        // Placed crop-items (no FarmingBlock / no stage info) should still carry full weight.
+        if (blockType != null && MghgCropRegistry.isMghgCropBlock(blockType)) {
+            return 1.0;
+        }
+
+        return Double.NaN;
+    }
+
+    private static double clamp01(double value) {
+        if (value < 0.0) return 0.0;
+        if (value > 1.0) return 1.0;
+        return value;
     }
 
     private static String resolveSoilBlockId(BlockChunk blockChunk, int x, int y, int z) {

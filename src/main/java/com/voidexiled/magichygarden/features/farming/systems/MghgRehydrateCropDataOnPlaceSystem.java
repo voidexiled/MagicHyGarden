@@ -24,6 +24,7 @@ import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
 import com.voidexiled.magichygarden.features.farming.state.LunarMutation;
 import com.voidexiled.magichygarden.features.farming.state.RarityMutation;
+import com.voidexiled.magichygarden.features.farming.logic.MghgWeightUtil;
 import org.bson.BsonDocument;
 import org.bson.BsonValue;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
@@ -90,6 +91,7 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
         String climateStr = getString(mghgDoc, "Climate", "NONE");
         String lunarStr = getString(mghgDoc, "Lunar", "NONE");
         String rarityStr = getString(mghgDoc, "Rarity", "NONE");
+        double weight = getDouble(mghgDoc, "WeightGrams", 0.0);
 
         ClimateMutation climate = parseClimate(climateStr);
         LunarMutation lunar = parseLunar(lunarStr);
@@ -116,7 +118,7 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
         final String finalItemId = itemId;
         final String finalExpectedBlockTypeKey = expectedBlockTypeKey;
         final Vector3i finalPos = pos;
-        world.execute(() -> applyToPlacedBlock(world, who, finalItemId, finalExpectedBlockTypeKey, finalPos, size, climate, lunar, rarity));
+        world.execute(() -> applyToPlacedBlock(world, who, finalItemId, finalExpectedBlockTypeKey, finalPos, size, climate, lunar, rarity, weight));
     }
 
     private void applyToPlacedBlock(
@@ -128,7 +130,8 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             int size,
             @Nonnull ClimateMutation climate,
             @Nonnull LunarMutation lunar,
-            @Nonnull RarityMutation rarity
+            @Nonnull RarityMutation rarity,
+            double weightGrams
     ) {
         long chunkIndex = ChunkUtil.indexChunkFromBlock(pos.x, pos.z);
         WorldChunk worldChunk = world.getChunkIfInMemory(chunkIndex);
@@ -208,6 +211,11 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             data.setClimate(climate);
             data.setLunar(lunar);
             data.setRarity(rarity);
+            double finalWeight = weightGrams;
+            if (finalWeight <= 0.0) {
+                finalWeight = MghgWeightUtil.computeWeightAtMatureGrams(actualBlockType, size);
+            }
+            data.setWeightGrams(finalWeight);
             data.setLastRegularRoll(null);
             data.setLastLunarRoll(null);
             data.setLastSpecialRoll(null);
@@ -257,6 +265,11 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
         data.setClimate(climate);
         data.setLunar(lunar);
         data.setRarity(rarity);
+        double finalWeight = weightGrams;
+        if (finalWeight <= 0.0) {
+            finalWeight = MghgWeightUtil.computeWeightAtMatureGrams(actualBlockType, size);
+        }
+        data.setWeightGrams(finalWeight);
         data.setLastRegularRoll(null);
         data.setLastLunarRoll(null);
         data.setLastSpecialRoll(null);
@@ -310,6 +323,15 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
         if (v == null) return def;
         if (v.isInt32()) return v.asInt32().getValue();
         if (v.isInt64()) return (int) v.asInt64().getValue();
+        return def;
+    }
+
+    private static double getDouble(@Nonnull BsonDocument doc, @Nonnull String key, double def) {
+        BsonValue v = doc.get(key);
+        if (v == null) return def;
+        if (v.isDouble()) return v.asDouble().getValue();
+        if (v.isInt32()) return v.asInt32().getValue();
+        if (v.isInt64()) return v.asInt64().getValue();
         return def;
     }
 

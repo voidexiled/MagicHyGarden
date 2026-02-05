@@ -1,0 +1,314 @@
+$C = "../Common.ui";
+
+@SlotSize = 64;
+@Padding = 20;
+@BadgePadX = 8;
+@BadgePadY = 3;
+@BadgeRowHeight = 20;
+@PanelWidth = 460;
+@PanelHeight = 136;
+@PanelBottomPad = 6;
+@BadgeRowGap = 8;
+
+Group {
+  Anchor: (Left: 0, Top: 0, Right: 0, Bottom: 0);
+  HitTestVisible: false;
+
+  Group #MghgCropInspectDefault {
+    LayoutMode: Top;
+    Anchor: (Left: 20, Bottom: 20, Width: @PanelWidth, Height: @PanelHeight);
+    Padding: (Left: @Padding, Top: @Padding, Right: @Padding, Bottom: @PanelBottomPad);
+    Background: (TexturePath: "../ItemQualities/Tooltips/ItemTooltipDefault.png", Border: 18);
+    HitTestVisible: false;
+    Visible: false;
+
+    Group #TopRow {
+      LayoutMode: Left;
+      Anchor: (Height: @SlotSize);
+
+
+      ItemGrid #PreviewSlot {
+        Anchor: (Width: @SlotSize, Height: @SlotSize, Horizontal: 0, Vertical: 0, Right: 0);
+        SlotsPerRow: 1;
+        Style: (
+          SlotSize: @SlotSize,
+          SlotIconSize: @SlotSize,
+          SlotSpacing: 0,
+          SlotBackground: "../ItemQualities/Slots/SlotDefault.png",
+        );
+        Padding: (Right: 8);
+      }
+
+      Group #TextBlock {
+        LayoutMode: Top;
+        Anchor: (Left: 8);
+
+        Group #TitleRow {
+          LayoutMode: Left;
+          Anchor: (Height: 28);
+
+          Label #Title {
+            Style: (
+              FontSize: 24,
+              RenderBold: true,
+              TextColor: #f3f6fb
+            );
+          }
+        }
+
+        Label #Subline {
+          Style: (
+            FontSize: 14,
+            TextColor: #9fb0c6,
+            Wrap: true
+          );
+        }
+      }
+    }
+
+    Group #BadgeRow {
+      LayoutMode: Left;
+      Anchor: (Top: @BadgeRowGap, Height: @BadgeRowHeight, Left: 2);
+
+      Group #ClimateBadge {
+        Anchor: (Height: @BadgeRowHeight, Right: 6);
+        Background: #1f2d3a(0.85);
+        Padding: (Horizontal: @BadgePadX, Vertical: @BadgePadY);
+
+        Label #ClimateLabel {
+          Style: (
+            FontSize: 14,
+            RenderBold: true,
+            TextColor: #9fd6ff
+          );
+        }
+      }
+
+      Group #LunarBadge {
+        Anchor: (Height: @BadgeRowHeight, Right: 6);
+        Background: #1f2d3a(0.85);
+        Padding: (Horizontal: @BadgePadX, Vertical: @BadgePadY);
+
+        Label #LunarLabel {
+          Style: (
+            FontSize: 14,
+            RenderBold: true,
+            TextColor: #d6a4ff
+          );
+        }
+      }
+
+      Group #RarityBadge {
+        Anchor: (Height: @BadgeRowHeight);
+        Background: #1f2d3a(0.85);
+        Padding: (Horizontal: @BadgePadX, Vertical: @BadgePadY);
+
+        Label #RarityLabel {
+          Style: (
+            FontSize: 14,
+            RenderBold: true,
+            TextColor: #ffd24a
+          );
+        }
+      }
+    }
+  }
+
+  Group #MghgCropInspectGold {
+    LayoutMode: Top;
+    Anchor: (Left: 20, Bottom: 20, Width: @PanelWidth, Height: @PanelHeight);
+    Padding: (Left: @Padding, Top: @Padding, Right: @Padding, Bottom: @PanelBottomPad);
+    Background: (TexturePath: "../ItemQualities/Tooltips/ItemTooltipLegendary.png", Border: 18);
+    HitTestVisible: false;
+    Visible: false;
+
+    Group #TopRow {
+      LayoutMode: Left;
+      Anchor: (Height: @SlotSize);
+
+      ItemGrid #PreviewSlot {
+        Anchor: (Width: @SlotSize, Height: @SlotSize, Horizontal: 0, Vertical: 0, Right: 0);
+        SlotsPerRow: 1;
+        Style: (
+          SlotSize: @SlotSize,
+          SlotIconSize: @SlotSize,
+          SlotSpacing: 0,
+          SlotBackground: "../ItemQualities/Slots/SlotLegendary.png"
+        );
+        Padding: (Right: 8);
+      }
+
+      Group #TextBlock {
+        LayoutMode: Top;
+        Anchor: (Left: 8);
+
+        Group #TitleRow {
+          LayoutMode: Left;
+          Anchor: (Height: 28);
+
+          Label #Title {
+            Style: (
+              FontSize: 24,
+              RenderBold: true,
+              TextColor: #f3f6fb
+            );
+          }
+        }
+
+        Label #Subline {
+          Style: (
+            FontSize: 14,
+            TextColor: #9fb0c6,
+            Wrap: true
+          );
+        }
+      }
+    }
+
+    Group #BadgeRow {
+      LayoutMode: Left;
+      Anchor: (Top: @BadgeRowGap, Height: @BadgeRowHeight, Left: 2);
+
+      Group #ClimateBadge {
+        Anchor: (Height: @BadgeRowHeight, Right: 6);
+        Background: #1f2d3a(0.85);
+        Padding: (Horizontal: @BadgePadX, Vertical: @BadgePadY);
+
+        Label #ClimateLabel {
+          Style: (
+            FontSize: 14,
+            RenderBold: true,
+            TextColor: #9fd6ff
+          );
+        }
+      }
+
+      Group #LunarBadge {
+        Anchor: (Height: @BadgeRowHeight, Right: 6);
+        Background: #1f2d3a(0.85);
+        Padding: (Horizontal: @BadgePadX, Vertical: @BadgePadY);
+
+        Label #LunarLabel {
+          Style: (
+            FontSize: 14,
+            RenderBold: true,
+            TextColor: #d6a4ff
+          );
+        }
+      }
+
+      Group #RarityBadge {
+        Anchor: (Height: @BadgeRowHeight);
+        Background: #1f2d3a(0.85);
+        Padding: (Horizontal: @BadgePadX, Vertical: @BadgePadY);
+
+        Label #RarityLabel {
+          Style: (
+            FontSize: 14,
+            RenderBold: true,
+            TextColor: #ffd24a
+          );
+        }
+      }
+    }
+  }
+
+  Group #MghgCropInspectRainbow {
+    LayoutMode: Top;
+    Anchor: (Left: 20, Bottom: 20, Width: @PanelWidth, Height: @PanelHeight);
+    Padding: (Left: @Padding, Top: @Padding, Right: @Padding, Bottom: @PanelBottomPad);
+    Background: (TexturePath: "../ItemQualities/Tooltips/ItemTooltipEpic.png", Border: 18);
+    HitTestVisible: false;
+    Visible: false;
+
+    Group #TopRow {
+      LayoutMode: Left;
+      Anchor: (Height: @SlotSize);
+
+      ItemGrid #PreviewSlot {
+        Anchor: (Width: @SlotSize, Height: @SlotSize, Horizontal: 0, Vertical: 0, Right: 0);
+        SlotsPerRow: 1;
+        Style: (
+          SlotSize: @SlotSize,
+          SlotIconSize: @SlotSize,
+          SlotSpacing: 0,
+          SlotBackground: "../ItemQualities/Slots/SlotEpic.png"
+        );
+        Padding: (Right: 8);
+      }
+
+      Group #TextBlock {
+        LayoutMode: Top;
+        Anchor: (Left: 8);
+
+        Group #TitleRow {
+          LayoutMode: Left;
+          Anchor: (Height: 28);
+
+          Label #Title {
+            Style: (
+              FontSize: 24,
+              RenderBold: true,
+              TextColor: #f3f6fb
+            );
+          }
+        }
+
+        Label #Subline {
+          Style: (
+            FontSize: 14,
+            TextColor: #9fb0c6,
+            Wrap: true
+          );
+        }
+      }
+    }
+
+    Group #BadgeRow {
+      LayoutMode: Left;
+      Anchor: (Top: @BadgeRowGap, Height: @BadgeRowHeight, Left: 2);
+
+      Group #ClimateBadge {
+        Anchor: (Height: @BadgeRowHeight, Right: 6);
+        Background: #1f2d3a(0.85);
+        Padding: (Horizontal: @BadgePadX, Vertical: @BadgePadY);
+
+        Label #ClimateLabel {
+          Style: (
+            FontSize: 14,
+            RenderBold: true,
+            TextColor: #9fd6ff
+          );
+        }
+      }
+
+      Group #LunarBadge {
+        Anchor: (Height: @BadgeRowHeight, Right: 6);
+        Background: #1f2d3a(0.85);
+        Padding: (Horizontal: @BadgePadX, Vertical: @BadgePadY);
+
+        Label #LunarLabel {
+          Style: (
+            FontSize: 14,
+            RenderBold: true,
+            TextColor: #d6a4ff
+          );
+        }
+      }
+
+      Group #RarityBadge {
+        Anchor: (Height: @BadgeRowHeight);
+        Background: #1f2d3a(0.85);
+        Padding: (Horizontal: @BadgePadX, Vertical: @BadgePadY);
+
+        Label #RarityLabel {
+          Style: (
+            FontSize: 14,
+            RenderBold: true,
+            TextColor: #ffd24a
+          );
+        }
+      }
+    }
+  }
+}

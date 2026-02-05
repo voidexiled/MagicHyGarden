@@ -78,7 +78,8 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
         if (data.getSize() != 0) return;
 
         // Seed unificado (size/rarity/climate) desde GrowthModifier config.
-        MghgCropDataSeeder.seedNew(data);
+        double baseWeight = MghgCropRegistry.getBaseWeightGrams(blockType);
+        MghgCropDataSeeder.seedNew(data, baseWeight);
 
     }
 
@@ -151,6 +152,7 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
         copy.setClimate(cropData.getClimate());
         copy.setLunar(cropData.getLunar());
         copy.setRarity(cropData.getRarity());
+        copy.setWeightGrams(cropData.getWeightGrams());
         copy.setLastRegularRoll(cropData.getLastRegularRoll());
         copy.setLastLunarRoll(cropData.getLastLunarRoll());
         copy.setLastSpecialRoll(cropData.getLastSpecialRoll());

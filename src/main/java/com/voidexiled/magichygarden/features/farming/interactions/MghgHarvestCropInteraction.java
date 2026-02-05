@@ -24,6 +24,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.logic.MghgHarvestUtil;
+import com.voidexiled.magichygarden.features.farming.logic.MghgWeightUtil;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
@@ -105,11 +106,19 @@ public class MghgHarvestCropInteraction extends SimpleBlockInteraction {
             ItemStack out = new ItemStack(itemId, 1);
             MghgCropData cropData = MghgHarvestUtil.tryGetCropData(world, targetBlock);
             if (cropData != null) {
+                double weight = cropData.getWeightGrams();
+                if (weight <= 0.0) {
+                    weight = MghgWeightUtil.computeWeightAtMatureGrams(blockType, cropData.getSize());
+                    if (weight > 0.0) {
+                        cropData.setWeightGrams(weight);
+                    }
+                }
                 MghgCropMeta meta = MghgCropMeta.fromCropData(
                         cropData.getSize(),
                         cropData.getClimate().name(),
                         cropData.getLunar().name(),
-                        cropData.getRarity().name()
+                        cropData.getRarity().name(),
+                        weight
                 );
                 out = out.withMetadata(MghgCropMeta.KEY, meta);
 

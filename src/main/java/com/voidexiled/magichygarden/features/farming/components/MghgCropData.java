@@ -39,6 +39,11 @@ public class MghgCropData implements Component<ChunkStore> {
                     c -> c.rarity == RarityMutation.NONE ? null : c.rarity
             ).add()
             .append(
+                    new KeyedCodec<>("WeightGrams", Codec.DOUBLE),
+                    (c, v) -> c.weightGrams = v == null ? 0.0 : v,
+                    c -> c.weightGrams <= 0 ? null : c.weightGrams
+            ).add()
+            .append(
                     new KeyedCodec<>("LastRegularRoll", Codec.INSTANT),
                     (c, v) -> c.lastRegularRoll = v,
                     c -> c.lastRegularRoll
@@ -69,6 +74,7 @@ public class MghgCropData implements Component<ChunkStore> {
     private ClimateMutation climate = ClimateMutation.NONE;
     private LunarMutation lunar = LunarMutation.NONE;
     private RarityMutation rarity = RarityMutation.NONE;
+    private double weightGrams; // 0 = unset
 
     @Nullable
     private Instant lastRegularRoll;
@@ -89,6 +95,7 @@ public class MghgCropData implements Component<ChunkStore> {
                         ClimateMutation climate,
                         LunarMutation lunar,
                         RarityMutation rarity,
+                        double weightGrams,
                         @Nullable Instant lastRegularRoll,
                         @Nullable Instant lastLunarRoll,
                         @Nullable Instant lastSpecialRoll,
@@ -97,6 +104,7 @@ public class MghgCropData implements Component<ChunkStore> {
         this.climate = climate == null ? ClimateMutation.NONE : climate;
         this.lunar = lunar == null ? LunarMutation.NONE : lunar;
         this.rarity = rarity == null ? RarityMutation.NONE : rarity;
+        this.weightGrams = weightGrams;
         this.lastRegularRoll = lastRegularRoll;
         this.lastLunarRoll = lastLunarRoll;
         this.lastSpecialRoll = lastSpecialRoll;
@@ -105,6 +113,9 @@ public class MghgCropData implements Component<ChunkStore> {
 
     public int getSize() { return size; }
     public void setSize(int size) { this.size = size; }
+
+    public double getWeightGrams() { return weightGrams; }
+    public void setWeightGrams(double weightGrams) { this.weightGrams = weightGrams; }
 
     public ClimateMutation getClimate() { return climate; }
     public void setClimate(ClimateMutation climate) { this.climate = climate == null ? ClimateMutation.NONE : climate; }
@@ -146,6 +157,7 @@ public class MghgCropData implements Component<ChunkStore> {
                 this.climate,
                 this.lunar,
                 this.rarity,
+                this.weightGrams,
                 this.lastRegularRoll,
                 this.lastLunarRoll,
                 this.lastSpecialRoll,

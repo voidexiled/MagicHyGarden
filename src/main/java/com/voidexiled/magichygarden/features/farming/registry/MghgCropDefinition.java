@@ -16,11 +16,16 @@ public final class MghgCropDefinition {
                     .append(new KeyedCodec<>("ItemId", Codec.STRING),
                             (o, v) -> o.itemId = v, o -> o.itemId)
                     .add()
+                    .append(new KeyedCodec<>("BaseWeightGrams", Codec.DOUBLE),
+                            (o, v) -> o.baseWeightGrams = v == null ? 0.0 : v,
+                            o -> o.baseWeightGrams <= 0 ? null : o.baseWeightGrams)
+                    .add()
                     .build();
 
     private String id;
     private String blockId;
     private String itemId;
+    private double baseWeightGrams;
 
     public MghgCropDefinition() {
     }
@@ -35,6 +40,10 @@ public final class MghgCropDefinition {
 
     public String getItemId() {
         return itemId;
+    }
+
+    public double getBaseWeightGrams() {
+        return baseWeightGrams;
     }
 
     void normalize() {

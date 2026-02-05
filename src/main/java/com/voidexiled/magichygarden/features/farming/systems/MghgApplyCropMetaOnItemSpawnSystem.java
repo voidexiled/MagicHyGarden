@@ -14,6 +14,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
 import com.voidexiled.magichygarden.features.farming.logic.MghgHarvestUtil;
 import com.voidexiled.magichygarden.features.farming.logic.MghgSupportDropMetaCache;
+import com.voidexiled.magichygarden.features.farming.logic.MghgWeightUtil;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
 
@@ -61,13 +62,22 @@ public final class MghgApplyCropMetaOnItemSpawnSystem extends RefSystem<EntitySt
             return;
         }
 
+        double weight = pending.data.getWeightGrams();
+        if (weight <= 0.0) {
+            weight = MghgWeightUtil.computeWeightAtMatureGramsByItemId(pending.expectedItemId, pending.data.getSize());
+            if (weight > 0.0) {
+                pending.data.setWeightGrams(weight);
+            }
+        }
+
         ItemStack out = stack.withMetadata(
                 MghgCropMeta.KEY,
                 MghgCropMeta.fromCropData(
                         pending.data.getSize(),
                         pending.data.getClimate().name(),
                         pending.data.getLunar().name(),
-                        pending.data.getRarity().name()
+                        pending.data.getRarity().name(),
+                        weight
                 )
         );
 

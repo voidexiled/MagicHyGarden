@@ -2,9 +2,9 @@
   "Definitions": [
     {
       "Id": "lettuce",
-      "BlockId": "Plant_Crop_Lettuce_Block",
-      "ItemId": "Plant_Crop_Lettuce_Item",
-      "BaseWeightGrams": 50
+      "BlockId": "Mghg_Plant_Crop_Lettuce_Block",
+      "ItemId": "Mghg_Plant_Crop_Lettuce_Item",
+      "BaseWeightGrams": 100
     }
   ]
 }

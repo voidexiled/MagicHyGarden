@@ -89,12 +89,12 @@
   "State": {
     "mghg_none": {
       "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Item.png",
-      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+      "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -109,7 +109,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -153,7 +153,8 @@
             "SystemId": "Plant_Glow_ParticleSystem",
             "Color": "#beac11"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_rain": {
@@ -161,8 +162,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -177,7 +178,7 @@
             }
           ]
         },
-        "ParticleColor": "#6fb8ff",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -202,31 +203,16 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
           }
-        ]
+        ],
+        "Opacity": "Solid",
+        "BlockParticleSetId": "Grass"
       },
       "TranslationProperties": {
         "Name": "server.items.Plant.Plant_Crop_Lettuce_Wet.name",
@@ -238,8 +224,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -254,7 +240,7 @@
             }
           ]
         },
-        "ParticleColor": "#ffffff",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -279,31 +265,16 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
           }
-        ]
+        ],
+        "Opacity": "Solid",
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_frozen": {
@@ -311,12 +282,12 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_reflective.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
-            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png",
             "Weight": 1
           }
         ],
@@ -327,7 +298,7 @@
             }
           ]
         },
-        "ParticleColor": "#9fe7ff",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -352,44 +323,28 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_none_dawnlit": {
-      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+      "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
-            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+            "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
             "Weight": 1
           }
         ],
@@ -400,7 +355,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -449,20 +404,21 @@
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_none_dawnbound": {
-      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+      "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
-            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+            "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
             "Weight": 1
           }
         ],
@@ -473,7 +429,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -522,20 +478,21 @@
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_none_amberlit": {
-      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+      "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
-            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+            "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
             "Weight": 1
           }
         ],
@@ -546,7 +503,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -595,20 +552,21 @@
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_none_amberbound": {
-      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+      "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
-            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
+            "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
             "Weight": 1
           }
         ],
@@ -619,7 +577,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -668,7 +626,8 @@
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_rain_dawnlit": {
@@ -676,8 +635,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -692,7 +651,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -717,31 +676,15 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_rain_dawnbound": {
@@ -749,8 +692,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -765,7 +708,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -790,31 +733,15 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_rain_amberlit": {
@@ -822,8 +749,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -838,7 +765,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -863,31 +790,15 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_rain_amberbound": {
@@ -895,8 +806,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -911,7 +822,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -936,31 +847,15 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_snow_dawnlit": {
@@ -968,8 +863,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -984,7 +879,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1009,31 +904,15 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_snow_dawnbound": {
@@ -1041,8 +920,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1057,7 +936,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1082,31 +961,15 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_snow_amberlit": {
@@ -1114,8 +977,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1130,7 +993,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1155,31 +1018,15 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_snow_amberbound": {
@@ -1187,8 +1034,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1203,7 +1050,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1228,31 +1075,15 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_frozen_dawnlit": {
@@ -1260,8 +1091,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_reflective.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1276,7 +1107,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1301,31 +1132,15 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_frozen_dawnbound": {
@@ -1333,8 +1148,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_reflective.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1349,7 +1164,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1374,31 +1189,15 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_frozen_amberlit": {
@@ -1406,8 +1205,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_reflective.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1422,7 +1221,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1447,31 +1246,15 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_frozen_amberbound": {
@@ -1479,8 +1262,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_reflective.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1495,7 +1278,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1520,31 +1303,15 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass"
       }
     },
     "mghg_gold_none": {
@@ -1552,8 +1319,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1568,7 +1335,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1593,31 +1360,18 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_none_dawnlit": {
@@ -1625,8 +1379,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1641,7 +1395,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1666,31 +1420,18 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_none_dawnbound": {
@@ -1698,8 +1439,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1714,7 +1455,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1739,31 +1480,18 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_none_amberlit": {
@@ -1771,8 +1499,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1787,7 +1515,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1812,31 +1540,18 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_none_amberbound": {
@@ -1844,8 +1559,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1860,7 +1575,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1885,31 +1600,18 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_rain": {
@@ -1917,8 +1619,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -1933,7 +1635,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -1958,31 +1660,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_rain_dawnlit": {
@@ -1990,8 +1682,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2006,7 +1698,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2031,31 +1723,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_rain_dawnbound": {
@@ -2063,8 +1745,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2079,7 +1761,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2104,31 +1786,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_rain_amberlit": {
@@ -2136,8 +1808,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2152,7 +1824,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2177,31 +1849,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_rain_amberbound": {
@@ -2209,8 +1871,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2225,7 +1887,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2250,31 +1912,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_snow": {
@@ -2282,8 +1934,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2298,7 +1950,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2323,31 +1975,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_snow_dawnlit": {
@@ -2355,8 +1997,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2371,7 +2013,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2396,31 +2038,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_snow_dawnbound": {
@@ -2428,8 +2060,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2444,7 +2076,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2469,31 +2101,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_snow_amberlit": {
@@ -2501,8 +2123,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2517,7 +2139,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2542,31 +2164,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_snow_amberbound": {
@@ -2574,8 +2186,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2590,7 +2202,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2615,31 +2227,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_frozen": {
@@ -2647,8 +2249,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2663,7 +2265,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2688,31 +2290,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_frozen_dawnlit": {
@@ -2720,8 +2312,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2736,7 +2328,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2761,31 +2353,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_frozen_dawnbound": {
@@ -2793,8 +2375,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2809,7 +2391,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2834,31 +2416,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_frozen_amberlit": {
@@ -2866,8 +2438,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2882,7 +2454,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2907,31 +2479,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_gold_frozen_amberbound": {
@@ -2939,8 +2501,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -2955,7 +2517,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -2980,31 +2542,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#da3"
+        }
       }
     },
     "mghg_rainbow_none": {
@@ -3012,8 +2564,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3028,7 +2580,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3053,31 +2605,18 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_none_dawnlit": {
@@ -3085,8 +2624,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3101,7 +2640,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3126,31 +2665,18 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_none_dawnbound": {
@@ -3158,8 +2684,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3174,7 +2700,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3199,31 +2725,18 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_none_amberlit": {
@@ -3231,8 +2744,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3247,7 +2760,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3272,31 +2785,18 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_none_amberbound": {
@@ -3304,8 +2804,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3320,7 +2820,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3345,31 +2845,18 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_none.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_rain": {
@@ -3377,8 +2864,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3393,7 +2880,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3418,31 +2905,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_rain_dawnlit": {
@@ -3450,8 +2927,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3466,7 +2943,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3491,31 +2968,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_rain_dawnbound": {
@@ -3523,8 +2990,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3539,7 +3006,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3564,31 +3031,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_rain_amberlit": {
@@ -3596,8 +3053,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3612,7 +3069,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3637,31 +3094,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_rain_amberbound": {
@@ -3669,8 +3116,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3685,7 +3132,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3710,31 +3157,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Wet"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_rain.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_snow": {
@@ -3742,8 +3179,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3758,7 +3195,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3783,31 +3220,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_snow_dawnlit": {
@@ -3815,8 +3242,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3831,7 +3258,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3856,31 +3283,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_snow_dawnbound": {
@@ -3888,8 +3305,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3904,7 +3321,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -3929,31 +3346,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_snow_amberlit": {
@@ -3961,8 +3368,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -3977,7 +3384,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -4002,31 +3409,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_snow_amberbound": {
@@ -4034,8 +3431,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -4050,7 +3447,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -4075,31 +3472,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_snow.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_frozen": {
@@ -4107,8 +3494,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -4123,7 +3510,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -4148,31 +3535,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_frozen_dawnlit": {
@@ -4180,8 +3557,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -4196,7 +3573,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -4221,31 +3598,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_frozen_dawnbound": {
@@ -4253,8 +3620,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -4269,7 +3636,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -4294,31 +3661,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_frozen_amberlit": {
@@ -4326,8 +3683,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -4342,7 +3699,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -4367,31 +3724,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     },
     "mghg_rainbow_frozen_amberbound": {
@@ -4399,8 +3746,8 @@
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
-        "HitboxType": "Food_Medium",
-        "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+        "HitboxType": "Plant_Medium",
+        "CustomModel": "Resources/Plants/Cabbage_lit.blockymodel",
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
@@ -4415,7 +3762,7 @@
             }
           ]
         },
-        "ParticleColor": "#cabc3f",
+        "ParticleColor": "#1e951c",
         "RandomRotation": "YawStep1",
         "Gathering": {
           "Harvest": {},
@@ -4440,31 +3787,21 @@
         },
         "Particles": [
           {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
+            "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
           },
           {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
+            "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
           }
         ],
         "Textures": [
           {
             "All": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_rainbow_frozen.png"
           }
-        ]
+        ],
+        "BlockParticleSetId": "Grass",
+        "Light": {
+          "Color": "#6cd"
+        }
       }
     }
   },

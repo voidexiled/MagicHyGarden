@@ -25,7 +25,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -46,7 +46,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -66,11 +66,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -96,7 +96,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -117,7 +117,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -137,11 +137,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -168,7 +168,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -194,7 +194,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -221,11 +221,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -257,7 +257,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -283,7 +283,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -308,11 +308,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -346,7 +346,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -355,11 +355,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -377,7 +372,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -386,11 +381,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -407,11 +397,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -427,11 +417,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -448,7 +433,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -477,7 +462,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -505,11 +490,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -544,7 +529,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -576,7 +561,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -607,11 +592,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -649,7 +634,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -681,7 +666,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -712,11 +697,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -755,7 +740,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -767,11 +752,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
@@ -792,7 +772,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -804,11 +784,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
@@ -828,11 +803,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -853,11 +828,6 @@
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
             },
             {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
-            },
-            {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
             }
           ]
@@ -875,7 +845,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -904,7 +874,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -932,11 +902,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -971,7 +941,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1003,7 +973,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1034,11 +1004,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -1076,7 +1046,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1108,7 +1078,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1139,11 +1109,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -1181,7 +1151,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1193,11 +1163,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
@@ -1218,7 +1183,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1230,11 +1195,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
@@ -1254,11 +1214,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -1279,11 +1239,6 @@
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
             },
             {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
-            },
-            {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
             }
           ]
@@ -1301,7 +1256,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1322,7 +1277,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1342,11 +1297,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -1373,7 +1328,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1394,7 +1349,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1414,11 +1369,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -1445,7 +1400,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1466,7 +1421,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1486,11 +1441,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -1517,7 +1472,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1538,7 +1493,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1558,11 +1513,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -1589,7 +1544,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1615,7 +1570,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1640,11 +1595,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -1676,7 +1631,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1702,7 +1657,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1727,11 +1682,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -1763,7 +1718,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1789,7 +1744,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1814,11 +1769,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -1850,7 +1805,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1876,7 +1831,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1901,11 +1856,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -1937,7 +1892,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1963,7 +1918,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -1988,11 +1943,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -2024,7 +1979,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2050,7 +2005,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2075,11 +2030,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -2111,7 +2066,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2137,7 +2092,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2162,11 +2117,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -2198,7 +2153,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2224,7 +2179,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2249,11 +2204,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -2285,7 +2240,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2294,11 +2249,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -2316,7 +2266,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2325,11 +2275,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -2346,11 +2291,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -2366,11 +2311,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -2387,7 +2327,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2396,11 +2336,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -2418,7 +2353,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2427,11 +2362,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -2448,11 +2378,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -2468,11 +2398,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -2489,7 +2414,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2498,11 +2423,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -2520,7 +2440,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2529,11 +2449,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -2550,11 +2465,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -2570,11 +2485,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -2591,7 +2501,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2600,11 +2510,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -2622,7 +2527,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2631,11 +2536,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -2652,11 +2552,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -2672,11 +2572,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             }
           ]
         },
@@ -2693,7 +2588,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2722,7 +2617,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2750,11 +2645,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -2789,7 +2684,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2818,7 +2713,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2846,11 +2741,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -2885,7 +2780,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2914,7 +2809,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -2942,11 +2837,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -2981,7 +2876,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3010,7 +2905,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3038,11 +2933,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -3077,7 +2972,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3109,7 +3004,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3140,11 +3035,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -3182,7 +3077,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3214,7 +3109,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3245,11 +3140,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -3287,7 +3182,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3319,7 +3214,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3350,11 +3245,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -3392,7 +3287,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3424,7 +3319,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3455,11 +3350,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -3497,7 +3392,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3529,7 +3424,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3560,11 +3455,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -3602,7 +3497,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3634,7 +3529,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3665,11 +3560,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -3707,7 +3602,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3739,7 +3634,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3770,11 +3665,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -3812,7 +3707,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3844,7 +3739,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3875,11 +3770,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -3917,7 +3812,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3929,11 +3824,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
@@ -3954,7 +3844,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -3966,11 +3856,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
@@ -3990,11 +3875,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -4015,11 +3900,6 @@
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
             },
             {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
-            },
-            {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
             }
           ]
@@ -4037,7 +3917,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4049,11 +3929,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
@@ -4074,7 +3949,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4086,11 +3961,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
@@ -4110,11 +3980,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -4135,11 +4005,6 @@
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
             },
             {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
-            },
-            {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
             }
           ]
@@ -4157,7 +4022,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4169,11 +4034,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
@@ -4194,7 +4054,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4206,11 +4066,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
@@ -4230,11 +4085,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -4255,11 +4110,6 @@
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
             },
             {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
-            },
-            {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
             }
           ]
@@ -4277,7 +4127,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4289,11 +4139,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
@@ -4314,7 +4159,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4326,11 +4171,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
@@ -4350,11 +4190,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -4375,11 +4215,6 @@
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
             },
             {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
-            },
-            {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
             }
           ]
@@ -4397,7 +4232,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4426,7 +4261,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4454,11 +4289,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -4493,7 +4328,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4522,7 +4357,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4550,11 +4385,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -4589,7 +4424,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4618,7 +4453,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4646,11 +4481,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -4685,7 +4520,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4714,7 +4549,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4742,11 +4577,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -4781,7 +4616,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4813,7 +4648,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4844,11 +4679,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -4886,7 +4721,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4918,7 +4753,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -4949,11 +4784,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -4991,7 +4826,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5023,7 +4858,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5054,11 +4889,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -5096,7 +4931,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5128,7 +4963,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5159,11 +4994,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -5201,7 +5036,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5233,7 +5068,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5264,11 +5099,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -5306,7 +5141,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5338,7 +5173,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5369,11 +5204,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -5411,7 +5246,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5443,7 +5278,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5474,11 +5309,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -5516,7 +5351,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5548,7 +5383,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5579,11 +5414,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -5621,7 +5456,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5633,11 +5468,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
@@ -5658,7 +5488,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5670,11 +5500,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
@@ -5694,11 +5519,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -5719,11 +5544,6 @@
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
             },
             {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
-            },
-            {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
             }
           ]
@@ -5741,7 +5561,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5753,11 +5573,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
@@ -5778,7 +5593,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5790,11 +5605,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
@@ -5814,11 +5624,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -5839,11 +5649,6 @@
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
             },
             {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
-            },
-            {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
             }
           ]
@@ -5861,7 +5666,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5873,11 +5678,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
@@ -5898,7 +5698,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5910,11 +5710,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
@@ -5934,11 +5729,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -5959,11 +5754,6 @@
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
             },
             {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
-            },
-            {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
             }
           ]
@@ -5981,7 +5771,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage1"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -5993,11 +5783,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
@@ -6018,7 +5803,7 @@
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_Stage1"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Stage2"
             }
           },
           "BlockParticleSetId": "Flower",
@@ -6030,11 +5815,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
@@ -6054,11 +5834,11 @@
           "InteractionHint": "server.interactionHints.harvest",
           "Gathering": {
             "Harvest": {
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal_Harvest"
             },
             "Soft": {
               "IsWeaponBreakable": false,
-              "DropList": "Drops_Plant_Crop_Lettuce_StageFinal"
+              "DropList": "Mghg_Drops_Plant_Crop_Lettuce_StageFinal"
             }
           },
           "BlockParticleSetId": "Grass",
@@ -6077,11 +5857,6 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
-            },
-            {
-              "SystemId": "Ice_Staff_Charging",
-              "TargetEntityPart": "Self",
-              "Color": "#ffffff"
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
@@ -8228,18 +8003,13 @@
         ]
       },
       "StartingStageSet": "mghg_none",
-      "ActiveGrowthModifiers": [
-        "Fertilizer",
-        "Water",
-        "LightLevel",
-        "Size"
-      ],
+      "ActiveGrowthModifiers": ["Fertilizer", "Water", "LightLevel", "Size"],
       "StageSetAfterHarvest": "mghg_none"
     },
     "Gathering": {
       "Soft": {
         "IsWeaponBreakable": false,
-        "DropList": "Plant_Crop_Lettuce_Block"
+        "DropList": "Mghg_Drops_Plant_Crop_Lettuce_Block"
       }
     },
     "CustomModelScale": 0.9,
@@ -8249,15 +8019,8 @@
   },
   "IconProperties": {
     "Scale": 1.115,
-    "Rotation": [
-      22.5,
-      45.0,
-      22.5
-    ],
-    "Translation": [
-      1.2,
-      -4.2
-    ]
+    "Rotation": [22.5, 45.0, 22.5],
+    "Translation": [1.2, -4.2]
   },
   "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Block.png"
 }

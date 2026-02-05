@@ -3,14 +3,14 @@
     "Name": "server.items.Plant_Seeds_Lettuce.name",
     "Description": "server.items.Plant_Seeds_Lettuce.description"
   },
-  "Parent": "Template_Seeds",
+  "Parent": "Mghg_Template_Seeds",
   "Quality": "Junk",
   "InteractionVars": {
     "SeedId": {
       "Interactions": [
         {
           "Parent": "Seed_Place",
-          "BlockTypeToPlace": "Plant_Crop_Lettuce_Block"
+          "BlockTypeToPlace": "Mghg_Plant_Crop_Lettuce_Block"
         }
       ]
     }
@@ -27,30 +27,6 @@
     "Translation": [
       2.5,
       -11.0
-    ]
-  },
-  "Recipe": {
-    "TimeSeconds": 0,
-    "Input": [
-      {
-        "ItemId": "Ingredient_Life_Essence",
-        "Quantity": 2
-      }
-    ],
-    "Output": [
-      {
-        "ItemId": "Plant_Seeds_Lettuce",
-        "Quantity": 1
-      }
-    ],
-    "BenchRequirement": [
-      {
-        "Type": "Crafting",
-        "Id": "Farmingbench",
-        "Categories": [
-          "Seeds"
-        ]
-      }
     ]
   },
   "ItemLevel": 3,

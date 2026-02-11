@@ -246,6 +246,58 @@
           "Radius": 1
         }
       ]
+    },
+    {
+      "Id": "rain_wet",
+      "WeatherIds": [
+        "Mghg_Zone1_Rain"
+      ],
+      "Set": "RAIN",
+      "Chance": 0.1,
+      "Priority": 10,
+      "CooldownSeconds": 5,
+      "MustHaveClimate": [
+        "NONE"
+      ]
+    },
+    {
+      "Id": "snow_chilled",
+      "WeatherIds": [
+        "Mghg_Zone3_Snow"
+      ],
+      "Set": "SNOW",
+      "Chance": 0.1,
+      "Priority": 10,
+      "CooldownSeconds": 5,
+      "MustHaveClimate": [
+        "NONE"
+      ]
+    },
+    {
+      "Id": "wet_snow_frozen",
+      "WeatherIds": [
+        "Mghg_Zone3_Snow"
+      ],
+      "Set": "FROZEN",
+      "Chance": 0.1,
+      "Priority": 20,
+      "CooldownSeconds": 5,
+      "MustHaveClimate": [
+        "RAIN"
+      ]
+    },
+    {
+      "Id": "chilled_rain_frozen",
+      "WeatherIds": [
+        "Mghg_Zone1_Rain"
+      ],
+      "Set": "FROZEN",
+      "Chance": 0.1,
+      "Priority": 20,
+      "CooldownSeconds": 5,
+      "MustHaveClimate": [
+        "SNOW"
+      ]
     }
   ]
 }

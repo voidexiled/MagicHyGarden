@@ -6,22 +6,27 @@ import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.RefSystem;
 import com.hypixel.hytale.math.util.ChunkUtil;
+import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.protocol.ItemUtility;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.farming.FarmingData;
 import com.hypixel.hytale.server.core.asset.type.model.config.Model;
 import com.hypixel.hytale.server.core.asset.type.model.config.ModelAsset;
 import com.hypixel.hytale.server.core.modules.block.BlockModule;
+import com.hypixel.hytale.server.core.modules.time.WorldTimeResource;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.util.AssetUtil;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
+import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
 import com.voidexiled.magichygarden.features.farming.logic.MghgCropDataSeeder;
+import com.voidexiled.magichygarden.features.farming.logic.MghgGrowthTimeUtil;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nonnull;
+import java.time.Instant;
 
 public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
     private final Query<ChunkStore> query;
@@ -54,6 +59,13 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
             @Nonnull Store<ChunkStore> store,
             @Nonnull CommandBuffer<ChunkStore> commandBuffer
     ) {
+        if (commandBuffer.getExternalData() == null || commandBuffer.getExternalData().getWorld() == null) {
+            return;
+        }
+        var world = commandBuffer.getExternalData().getWorld();
+        if (!MghgFarmEventScheduler.isFarmWorld(world)) {
+            return;
+        }
 
         // Se ejecuta cuando la entidad FarmingBlock aparece (crop nuevo o rehidratado).
         FarmingBlock farmingBlock = commandBuffer.getComponent(ref, farmingBlockType);
@@ -73,13 +85,36 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
         if (blockType == null || blockType.getFarming() == null) return;
         if (!MghgCropRegistry.isMghgCropBlock(blockType)) return;
 
+        int worldX = ChunkUtil.worldCoordFromLocalCoord(blockChunk.getX(), lx);
+        int worldY = ly;
+        int worldZ = ChunkUtil.worldCoordFromLocalCoord(blockChunk.getZ(), lz);
+        Vector3i worldPos = new Vector3i(worldX, worldY, worldZ);
+
+        Instant now = Instant.now();
+        if (commandBuffer.getExternalData() != null && commandBuffer.getExternalData().getWorld() != null) {
+            //var world = commandBuffer.getExternalData().getWorld();
+            var timeRes = world.getEntityStore().getStore().getResource(WorldTimeResource.getResourceType());
+            if (timeRes != null) {
+                now = timeRes.getGameTime();
+            }
+        }
+
         // ✅ asegura tu data SOLO una vez
         MghgCropData data = commandBuffer.ensureAndGetComponent(ref, cropDataType);
-        if (data.getSize() != 0) return;
+        if (data.getSize() != 0) {
+            if (data.getPlantTime() == null && now != null) {
+                long elapsed = MghgGrowthTimeUtil.computeElapsedSecondsFromProgress(blockType, worldPos, farmingBlock, data);
+                data.setPlantTime(elapsed > 0 ? now.minusSeconds(elapsed) : now);
+            }
+            return;
+        }
 
         // Seed unificado (size/rarity/climate) desde GrowthModifier config.
         double baseWeight = MghgCropRegistry.getBaseWeightGrams(blockType);
         MghgCropDataSeeder.seedNew(data, baseWeight);
+        if (now != null) {
+            data.setPlantTime(now);
+        }
 
     }
 
@@ -88,6 +123,13 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
                                @NonNull RemoveReason removeReason,
                                @NonNull Store<ChunkStore> store,
                                @NonNull CommandBuffer<ChunkStore> commandBuffer) {
+        if (commandBuffer.getExternalData() == null || commandBuffer.getExternalData().getWorld() == null) {
+            return;
+        }
+        var world = commandBuffer.getExternalData().getWorld();
+        if (!MghgFarmEventScheduler.isFarmWorld(world)) {
+            return;
+        }
         // Solo nos interesa cuando el farming system REMUEVE la entidad (madurez / stop)
         if (removeReason != RemoveReason.REMOVE) {
             return;
@@ -153,6 +195,7 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
         copy.setLunar(cropData.getLunar());
         copy.setRarity(cropData.getRarity());
         copy.setWeightGrams(cropData.getWeightGrams());
+        copy.setPlantTime(cropData.getPlantTime());
         copy.setLastRegularRoll(cropData.getLastRegularRoll());
         copy.setLastLunarRoll(cropData.getLastLunarRoll());
         copy.setLastSpecialRoll(cropData.getLastSpecialRoll());

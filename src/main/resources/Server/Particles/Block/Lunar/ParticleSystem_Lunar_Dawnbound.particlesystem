@@ -1,0 +1,23 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "ParticleSpawner_Lunar_Dawnbound_Sigil",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Lunar_Dawnbound_Ring",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Lunar_Dawnbound_Wisp",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    }
+  ],
+  "IsImportant": false
+}

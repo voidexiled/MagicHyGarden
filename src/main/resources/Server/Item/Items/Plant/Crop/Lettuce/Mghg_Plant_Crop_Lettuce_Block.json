@@ -1261,7 +1261,12 @@
           },
           "BlockParticleSetId": "Flower",
           "BlockSoundSetId": "Plant",
-          "ParticleColor": "#8bc752"
+          "ParticleColor": "#8bc752",
+          "Particles": [
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
+            }
+          ]
         },
         "mghg_none_dawnlit_stage2": {
           "Material": "Solid",
@@ -1282,7 +1287,12 @@
           },
           "BlockParticleSetId": "Flower",
           "BlockSoundSetId": "Plant",
-          "ParticleColor": "#8bc752"
+          "ParticleColor": "#8bc752",
+          "Particles": [
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
+            }
+          ]
         },
         "mghg_none_dawnlit_stagefinal": {
           "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
@@ -1313,7 +1323,12 @@
             "Use": "MGHG_Root_HarvestCrop",
             "Pick": "MGHG_Root_HarvestCrop"
           },
-          "Material": "Solid"
+          "Material": "Solid",
+          "Particles": [
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
+            }
+          ]
         },
         "mghg_none_dawnbound_stage1": {
           "Opacity": "Semitransparent",
@@ -1333,7 +1348,12 @@
           },
           "BlockParticleSetId": "Flower",
           "BlockSoundSetId": "Plant",
-          "ParticleColor": "#8bc752"
+          "ParticleColor": "#8bc752",
+          "Particles": [
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
+            }
+          ]
         },
         "mghg_none_dawnbound_stage2": {
           "Material": "Solid",
@@ -1354,7 +1374,12 @@
           },
           "BlockParticleSetId": "Flower",
           "BlockSoundSetId": "Plant",
-          "ParticleColor": "#8bc752"
+          "ParticleColor": "#8bc752",
+          "Particles": [
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
+            }
+          ]
         },
         "mghg_none_dawnbound_stagefinal": {
           "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
@@ -1385,7 +1410,12 @@
             "Use": "MGHG_Root_HarvestCrop",
             "Pick": "MGHG_Root_HarvestCrop"
           },
-          "Material": "Solid"
+          "Material": "Solid",
+          "Particles": [
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
+            }
+          ]
         },
         "mghg_none_amberlit_stage1": {
           "Opacity": "Semitransparent",
@@ -1405,7 +1435,12 @@
           },
           "BlockParticleSetId": "Flower",
           "BlockSoundSetId": "Plant",
-          "ParticleColor": "#8bc752"
+          "ParticleColor": "#8bc752",
+          "Particles": [
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
+            }
+          ]
         },
         "mghg_none_amberlit_stage2": {
           "Material": "Solid",
@@ -1426,7 +1461,12 @@
           },
           "BlockParticleSetId": "Flower",
           "BlockSoundSetId": "Plant",
-          "ParticleColor": "#8bc752"
+          "ParticleColor": "#8bc752",
+          "Particles": [
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
+            }
+          ]
         },
         "mghg_none_amberlit_stagefinal": {
           "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
@@ -1457,7 +1497,12 @@
             "Use": "MGHG_Root_HarvestCrop",
             "Pick": "MGHG_Root_HarvestCrop"
           },
-          "Material": "Solid"
+          "Material": "Solid",
+          "Particles": [
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
+            }
+          ]
         },
         "mghg_none_amberbound_stage1": {
           "Opacity": "Semitransparent",
@@ -1477,7 +1522,12 @@
           },
           "BlockParticleSetId": "Flower",
           "BlockSoundSetId": "Plant",
-          "ParticleColor": "#8bc752"
+          "ParticleColor": "#8bc752",
+          "Particles": [
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
+            }
+          ]
         },
         "mghg_none_amberbound_stage2": {
           "Material": "Solid",
@@ -1498,7 +1548,12 @@
           },
           "BlockParticleSetId": "Flower",
           "BlockSoundSetId": "Plant",
-          "ParticleColor": "#8bc752"
+          "ParticleColor": "#8bc752",
+          "Particles": [
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
+            }
+          ]
         },
         "mghg_none_amberbound_stagefinal": {
           "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
@@ -1529,7 +1584,12 @@
             "Use": "MGHG_Root_HarvestCrop",
             "Pick": "MGHG_Root_HarvestCrop"
           },
-          "Material": "Solid"
+          "Material": "Solid",
+          "Particles": [
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
+            }
+          ]
         },
         "mghg_rain_dawnlit_stage1": {
           "Opacity": "Semitransparent",
@@ -1553,6 +1613,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Wet"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -1579,6 +1642,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Wet"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -1615,6 +1681,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Wet"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -1640,6 +1709,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Wet"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -1666,6 +1738,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Wet"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -1702,6 +1777,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Wet"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -1727,6 +1805,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Wet"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -1753,6 +1834,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Wet"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -1789,6 +1873,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Wet"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -1814,6 +1901,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Wet"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -1840,6 +1930,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Wet"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -1876,6 +1969,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Wet"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -1901,6 +1997,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -1927,6 +2026,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -1963,6 +2065,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -1988,6 +2093,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -2014,6 +2122,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -2050,6 +2161,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -2075,6 +2189,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -2101,6 +2218,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -2137,6 +2257,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -2162,6 +2285,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -2188,6 +2314,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -2224,6 +2353,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Chilled"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -2249,6 +2381,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -2275,6 +2410,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -2311,6 +2449,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -2336,6 +2477,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -2362,6 +2506,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -2398,6 +2545,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -2423,6 +2573,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -2449,6 +2602,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -2485,6 +2641,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -2510,6 +2669,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -2536,6 +2698,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -2572,6 +2737,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Climate_Mutation_Frozen"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -2600,6 +2768,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -2629,6 +2800,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -2668,6 +2842,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -2696,6 +2873,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -2725,6 +2905,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -2764,6 +2947,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -2792,6 +2978,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -2821,6 +3010,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -2860,6 +3052,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -2888,6 +3083,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -2917,6 +3115,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -2956,6 +3157,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -2987,6 +3191,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -3019,6 +3226,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -3061,6 +3271,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -3092,6 +3305,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -3124,6 +3340,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -3166,6 +3385,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -3197,6 +3419,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -3229,6 +3454,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -3271,6 +3499,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -3302,6 +3533,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -3334,6 +3568,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -3376,6 +3613,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -3407,6 +3647,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -3439,6 +3682,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -3481,6 +3727,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -3512,6 +3761,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -3544,6 +3796,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -3586,6 +3841,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -3617,6 +3875,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -3649,6 +3910,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -3691,6 +3955,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -3722,6 +3989,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -3754,6 +4024,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -3796,6 +4069,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -3827,6 +4103,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -3859,6 +4138,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -3901,6 +4183,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -3932,6 +4217,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -3964,6 +4252,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -4006,6 +4297,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -4037,6 +4331,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -4069,6 +4366,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -4111,6 +4411,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -4142,6 +4445,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -4174,6 +4480,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -4216,6 +4525,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Gold"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -4244,6 +4556,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -4273,6 +4588,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -4312,6 +4630,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -4340,6 +4661,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -4369,6 +4693,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -4408,6 +4735,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -4436,6 +4766,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -4465,6 +4798,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -4504,6 +4840,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -4532,6 +4871,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -4561,6 +4903,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -4600,6 +4945,9 @@
           "Particles": [
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -4631,6 +4979,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -4663,6 +5014,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -4705,6 +5059,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -4736,6 +5093,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -4768,6 +5128,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -4810,6 +5173,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -4841,6 +5207,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -4873,6 +5242,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -4915,6 +5287,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -4946,6 +5321,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -4978,6 +5356,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -5020,6 +5401,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -5051,6 +5435,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -5083,6 +5470,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -5125,6 +5515,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -5156,6 +5549,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -5188,6 +5584,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -5230,6 +5629,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -5261,6 +5663,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -5293,6 +5698,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -5335,6 +5743,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -5366,6 +5777,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -5398,6 +5812,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -5440,6 +5857,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -5471,6 +5891,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -5503,6 +5926,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -5545,6 +5971,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnlit"
             }
           ]
         },
@@ -5576,6 +6005,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -5608,6 +6040,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -5650,6 +6085,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Dawnbound"
             }
           ]
         },
@@ -5681,6 +6119,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -5713,6 +6154,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -5755,6 +6199,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberlit"
             }
           ]
         },
@@ -5786,6 +6233,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -5818,6 +6268,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         },
@@ -5860,6 +6313,9 @@
             },
             {
               "SystemId": "ParticleSystem_Rarity_Mutation_Rainbow"
+            },
+            {
+              "SystemId": "ParticleSystem_Lunar_Amberbound"
             }
           ]
         }
@@ -8003,7 +8459,12 @@
         ]
       },
       "StartingStageSet": "mghg_none",
-      "ActiveGrowthModifiers": ["Fertilizer", "Water", "LightLevel", "Size"],
+      "ActiveGrowthModifiers": [
+        "Fertilizer",
+        "Water",
+        "LightLevel",
+        "Size"
+      ],
       "StageSetAfterHarvest": "mghg_none"
     },
     "Gathering": {
@@ -8019,8 +8480,15 @@
   },
   "IconProperties": {
     "Scale": 1.115,
-    "Rotation": [22.5, 45.0, 22.5],
-    "Translation": [1.2, -4.2]
+    "Rotation": [
+      22.5,
+      45.0,
+      22.5
+    ],
+    "Translation": [
+      1.2,
+      -4.2
+    ]
   },
   "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Block.png"
 }

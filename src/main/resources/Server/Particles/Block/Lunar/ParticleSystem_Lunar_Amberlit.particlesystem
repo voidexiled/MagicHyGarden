@@ -1,0 +1,23 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "ParticleSpawner_Lunar_Amberlit_Aura",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Lunar_Amberlit_Sunray",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Lunar_Amberlit_Mote",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    }
+  ],
+  "IsImportant": false
+}

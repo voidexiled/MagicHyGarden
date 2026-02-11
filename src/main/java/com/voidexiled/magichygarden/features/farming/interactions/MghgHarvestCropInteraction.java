@@ -26,6 +26,7 @@ import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.logic.MghgHarvestUtil;
 import com.voidexiled.magichygarden.features.farming.logic.MghgWeightUtil;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
+import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
 
@@ -50,6 +51,9 @@ public class MghgHarvestCropInteraction extends SimpleBlockInteraction {
             @Nonnull Vector3i targetBlock,
             @Nonnull CooldownHandler cooldownHandler
     ) {
+        if (!MghgFarmEventScheduler.isFarmWorld(world)) {
+            return;
+        }
         LOGGER.atWarning().log(
                 "111MGHG harvest interaction fired: type=%s pos=%d,%d,%d",
                 type, targetBlock.x, targetBlock.y, targetBlock.z

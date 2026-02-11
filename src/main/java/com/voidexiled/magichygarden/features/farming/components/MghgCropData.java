@@ -44,6 +44,11 @@ public class MghgCropData implements Component<ChunkStore> {
                     c -> c.weightGrams <= 0 ? null : c.weightGrams
             ).add()
             .append(
+                    new KeyedCodec<>("PlantTime", Codec.INSTANT),
+                    (c, v) -> c.plantTime = v,
+                    c -> c.plantTime
+            ).add()
+            .append(
                     new KeyedCodec<>("LastRegularRoll", Codec.INSTANT),
                     (c, v) -> c.lastRegularRoll = v,
                     c -> c.lastRegularRoll
@@ -75,6 +80,8 @@ public class MghgCropData implements Component<ChunkStore> {
     private LunarMutation lunar = LunarMutation.NONE;
     private RarityMutation rarity = RarityMutation.NONE;
     private double weightGrams; // 0 = unset
+    @Nullable
+    private Instant plantTime;
 
     @Nullable
     private Instant lastRegularRoll;
@@ -96,6 +103,7 @@ public class MghgCropData implements Component<ChunkStore> {
                         LunarMutation lunar,
                         RarityMutation rarity,
                         double weightGrams,
+                        @Nullable Instant plantTime,
                         @Nullable Instant lastRegularRoll,
                         @Nullable Instant lastLunarRoll,
                         @Nullable Instant lastSpecialRoll,
@@ -105,6 +113,7 @@ public class MghgCropData implements Component<ChunkStore> {
         this.lunar = lunar == null ? LunarMutation.NONE : lunar;
         this.rarity = rarity == null ? RarityMutation.NONE : rarity;
         this.weightGrams = weightGrams;
+        this.plantTime = plantTime;
         this.lastRegularRoll = lastRegularRoll;
         this.lastLunarRoll = lastLunarRoll;
         this.lastSpecialRoll = lastSpecialRoll;
@@ -116,6 +125,10 @@ public class MghgCropData implements Component<ChunkStore> {
 
     public double getWeightGrams() { return weightGrams; }
     public void setWeightGrams(double weightGrams) { this.weightGrams = weightGrams; }
+
+    @Nullable
+    public Instant getPlantTime() { return plantTime; }
+    public void setPlantTime(@Nullable Instant plantTime) { this.plantTime = plantTime; }
 
     public ClimateMutation getClimate() { return climate; }
     public void setClimate(ClimateMutation climate) { this.climate = climate == null ? ClimateMutation.NONE : climate; }
@@ -158,6 +171,7 @@ public class MghgCropData implements Component<ChunkStore> {
                 this.lunar,
                 this.rarity,
                 this.weightGrams,
+                this.plantTime,
                 this.lastRegularRoll,
                 this.lastLunarRoll,
                 this.lastSpecialRoll,

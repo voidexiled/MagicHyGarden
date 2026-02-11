@@ -35,11 +35,11 @@ public final class MghgMutationRule {
                     .append(new KeyedCodec<>("EventType", new EnumCodec<>(MutationEventType.class)),
                             (o, v) -> o.eventType = v == null ? MutationEventType.WEATHER : v,
                             o -> o.eventType)
-                    .documentation("Event filter: WEATHER | PET | MANUAL | ANY. Default: WEATHER.")
+                    .documentation("Event filter: WEATHER | LUNAR | PET | MANUAL | ANY. Default: WEATHER.")
                     .add()
                     .append(new KeyedCodec<>("WeatherIds", Codec.STRING_ARRAY, true),
                             (o, v) -> o.weatherIds = v, o -> o.weatherIds)
-                    .documentation("Weather asset ids this rule reacts to (only for EventType=WEATHER). Empty = any weather.")
+                    .documentation("Weather asset ids this rule reacts to (EventType=WEATHER or LUNAR). Empty = any weather.")
                     .addValidator(new ArrayValidator<>(MghgMutationRuleValidators.assetRefHint("Weather")))
                     .add()
                     .append(new KeyedCodec<>("Slot", new EnumCodec<>(MutationSlot.class)),
@@ -349,7 +349,7 @@ public final class MghgMutationRule {
         if (eventType == MutationEventType.ANY) return true;
         if (ctx == null) return false;
         if (eventType != ctx.getEventType()) return false;
-        if (eventType != MutationEventType.WEATHER) return true;
+        if (eventType != MutationEventType.WEATHER && eventType != MutationEventType.LUNAR) return true;
         int weatherId = ignoreSkyCheck ? ctx.getWeatherIdIgnoreSky() : ctx.getWeatherId();
         if (weatherIdSet == null || weatherIdSet.isEmpty()) return true;
         return weatherIdSet.contains(weatherId);

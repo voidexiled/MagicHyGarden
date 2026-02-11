@@ -23,6 +23,7 @@ public final class MghgSupportDropMetaCache {
                 data.getLunar(),
                 data.getRarity(),
                 data.getWeightGrams(),
+                data.getPlantTime(),
                 data.getLastRegularRoll(),
                 data.getLastLunarRoll(),
                 data.getLastSpecialRoll(),

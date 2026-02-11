@@ -20,8 +20,10 @@ import com.hypixel.hytale.server.core.universe.world.chunk.BlockChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.modules.i18n.I18nModule;
+import com.hypixel.hytale.logger.HytaleLogger;
 import com.voidexiled.magichygarden.commands.shared.Targeting;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
+import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
 import com.voidexiled.magichygarden.features.farming.logic.MghgCropDataAccess;
 import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropDefinition;
@@ -30,16 +32,20 @@ import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
 import com.voidexiled.magichygarden.features.farming.state.LunarMutation;
 import com.voidexiled.magichygarden.features.farming.state.RarityMutation;
 import com.voidexiled.magichygarden.features.farming.ui.MghgCropInspectHud;
+import com.voidexiled.magichygarden.features.farming.ui.MghgMutationUiPalette;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
 
+import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
-    private static final int UPDATE_INTERVAL_TICKS = 5;
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+    private static final int UPDATE_INTERVAL_TICKS = 1;
     private static final double TARGET_RANGE = 6.0;
     private static final String LANG_PREFIX = "server.";
+    private static final boolean DEBUG_REASONS = false;
 
     private final Query<EntityStore> query = Query.and(
             PlayerRef.getComponentType(),
@@ -49,6 +55,8 @@ public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
     private long tickCounter = 0L;
     private final Map<UUID, String> lastSignature = new ConcurrentHashMap<>();
     private final Map<UUID, MghgCropInspectHud> huds = new ConcurrentHashMap<>();
+    private final Map<UUID, Vector3i> lastTargetPos = new ConcurrentHashMap<>();
+    private final Map<UUID, String> lastDebugReason = new ConcurrentHashMap<>();
 
     @Override
     public Query<EntityStore> getQuery() {
@@ -71,27 +79,43 @@ public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
         Ref<EntityStore> entityRef = archetypeChunk.getReferenceTo(index);
         Vector3i targetPos = Targeting.getTargetBlock(entityRef, store, TARGET_RANGE);
         if (targetPos == null) {
+            debugMaybe(playerRef.getUuid(), "no_target");
             clearHud(playerRef, player);
             return;
         }
 
         World world = store.getExternalData().getWorld();
         if (world == null) {
+            debugMaybe(playerRef.getUuid(), "no_world");
+            clearHud(playerRef, player);
+            return;
+        }
+        if (!MghgFarmEventScheduler.isFarmWorld(world)) {
+            debugMaybe(playerRef.getUuid(), "not_farm_world");
             clearHud(playerRef, player);
             return;
         }
 
         BlockType blockType = resolveBlockType(world, targetPos);
-        if (blockType == null || !MghgCropRegistry.isMghgCropBlock(blockType)) {
+        if (blockType == null) {
+            debugMaybe(playerRef.getUuid(), "blocktype_null@" + targetPos.x + "," + targetPos.y + "," + targetPos.z);
+            clearHud(playerRef, player);
+            return;
+        }
+        if (!MghgCropRegistry.isMghgCropBlock(blockType)) {
+            debugMaybe(playerRef.getUuid(), "not_mghg@" + blockType.getId());
             clearHud(playerRef, player);
             return;
         }
 
         MghgCropData data = MghgCropDataAccess.tryGetCropData(world, targetPos);
         if (data == null) {
+            debugMaybe(playerRef.getUuid(), "mghg_no_data@" + blockType.getId());
             clearHud(playerRef, player);
             return;
         }
+
+        UUID playerId = playerRef.getUuid();
 
         String baseItemId = resolveBaseItemId(blockType);
         Item baseItem = baseItemId != null ? Item.getAssetMap().getAsset(baseItemId) : null;
@@ -101,16 +125,18 @@ public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
         String weightText = formatWeight(playerRef, weight);
 
         String signature = buildSignature(targetPos, data, previewStack != null ? previewStack.getItemId() : "", weightText);
-        UUID playerId = playerRef.getUuid();
         String last = lastSignature.get(playerId);
         if (signature.equals(last)) {
+            lastTargetPos.put(playerId, targetPos);
             return;
         }
         lastSignature.put(playerId, signature);
+        lastTargetPos.put(playerId, targetPos);
 
         HudManager hudManager = player.getHudManager();
         CustomUIHud current = hudManager.getCustomHud();
         if (current != null && !(current instanceof MghgCropInspectHud)) {
+            debugMaybe(playerRef.getUuid(), "other_hud_active");
             return;
         }
 
@@ -124,9 +150,9 @@ public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
         String climate = translateClimate(playerRef, data.getClimate());
         String lunar = translateLunar(playerRef, data.getLunar());
         String rarity = translateRarity(playerRef, data.getRarity());
-        String climateColor = colorForClimate(data.getClimate());
-        String lunarColor = colorForLunar(data.getLunar());
-        String rarityColor = colorForRarity(data.getRarity());
+        String climateColor = MghgMutationUiPalette.colorForClimate(data.getClimate());
+        String lunarColor = MghgMutationUiPalette.colorForLunar(data.getLunar());
+        String rarityColor = MghgMutationUiPalette.colorForRarity(data.getRarity());
 
         if (climate == null && lunar == null && rarity == null) {
             climate = translate(playerRef, "mghg.hud.crop.mutations.none");
@@ -165,6 +191,23 @@ public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
         }
         UUID playerId = playerRef.getUuid();
         lastSignature.remove(playerId);
+        lastTargetPos.remove(playerId);
+        lastDebugReason.remove(playerId);
+    }
+
+    private void debugMaybe(UUID playerId, String reason) {
+        if (!DEBUG_REASONS) {
+            return;
+        }
+        if (playerId == null || reason == null) {
+            return;
+        }
+        String last = lastDebugReason.get(playerId);
+        if (reason.equals(last)) {
+            return;
+        }
+        lastDebugReason.put(playerId, reason);
+        LOGGER.atInfo().log("[MGHG|CROP_INSPECT] %s", reason);
     }
 
     private static BlockType resolveBlockType(World world, Vector3i pos) {
@@ -256,6 +299,8 @@ public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
         return translate(playerRef, "mghg.hud.weight.kg", Map.of("value", value));
     }
 
+    // Timer deshabilitado temporalmente (no se muestra en la UI).
+
     private static String translateClimate(PlayerRef playerRef, ClimateMutation climate) {
         if (climate == null || climate == ClimateMutation.NONE) {
             return null;
@@ -293,42 +338,6 @@ public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
             default -> null;
         };
         return key != null ? translate(playerRef, key) : rarity.name();
-    }
-
-    private static String colorForClimate(ClimateMutation climate) {
-        if (climate == null) {
-            return null;
-        }
-        return switch (climate) {
-            case RAIN -> "#55b7ff";
-            case SNOW -> "#bfe7ff";
-            case FROZEN -> "#7ff1ff";
-            default -> null;
-        };
-    }
-
-    private static String colorForLunar(LunarMutation lunar) {
-        if (lunar == null) {
-            return null;
-        }
-        return switch (lunar) {
-            case DAWNLIT -> "#f3a6ff";
-            case DAWNBOUND -> "#d57dff";
-            case AMBERLIT -> "#ffb357";
-            case AMBERBOUND -> "#ff8c42";
-            default -> null;
-        };
-    }
-
-    private static String colorForRarity(RarityMutation rarity) {
-        if (rarity == null) {
-            return null;
-        }
-        return switch (rarity) {
-            case GOLD -> "#ffd24a";
-            case RAINBOW -> "#8be9ff";
-            default -> null;
-        };
     }
 
     private static String badgeBackgroundFor(String color) {

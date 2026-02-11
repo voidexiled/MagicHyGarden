@@ -54,9 +54,6 @@
     ],
     "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
     "Opacity": "Transparent",
-    "Effect": [
-      "WindFractal"
-    ],
     "BlockParticleSetId": "Flower",
     "RandomRotation": "YawStep1",
     "HitboxType": "Plant_Tall_Large",

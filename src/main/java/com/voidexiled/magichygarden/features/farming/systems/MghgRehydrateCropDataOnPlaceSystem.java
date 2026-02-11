@@ -19,7 +19,9 @@ import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.modules.time.WorldTimeResource;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
+import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
 import com.voidexiled.magichygarden.features.farming.state.LunarMutation;
@@ -61,6 +63,9 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             @Nonnull CommandBuffer<EntityStore> commandBuffer,
             @Nonnull PlaceBlockEvent event
     ) {
+        if (event.isCancelled()) {
+            return;
+        }
         ItemStack item = event.getItemInHand();
         if (item == null) {
             return;
@@ -73,6 +78,15 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             itemId = baseItemId;
         }
         if (itemId == null || !MghgCropRegistry.isMghgCropItem(itemId)) {
+            return;
+        }
+
+        World world = store.getExternalData().getWorld();
+        if (world == null) {
+            return;
+        }
+        if (!MghgFarmEventScheduler.isFarmWorld(world)) {
+            event.setCancelled(true);
             return;
         }
 
@@ -110,8 +124,6 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             );
         }
 
-        World world = store.getExternalData().getWorld();
-
         // IMPORTANTE:
         // PlaceBlockEvent se dispara ANTES de colocar. Para no pelear con vanilla,
         // aplicamos en el siguiente tick del World thread.
@@ -133,6 +145,12 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             @Nonnull RarityMutation rarity,
             double weightGrams
     ) {
+        Instant now = Instant.now();
+        var timeRes = world.getEntityStore().getStore().getResource(WorldTimeResource.getResourceType());
+        if (timeRes != null) {
+            now = timeRes.getGameTime();
+        }
+
         long chunkIndex = ChunkUtil.indexChunkFromBlock(pos.x, pos.z);
         WorldChunk worldChunk = world.getChunkIfInMemory(chunkIndex);
 
@@ -216,6 +234,9 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
                 finalWeight = MghgWeightUtil.computeWeightAtMatureGrams(actualBlockType, size);
             }
             data.setWeightGrams(finalWeight);
+            if (now != null) {
+                data.setPlantTime(now);
+            }
             data.setLastRegularRoll(null);
             data.setLastLunarRoll(null);
             data.setLastSpecialRoll(null);
@@ -270,6 +291,9 @@ public final class MghgRehydrateCropDataOnPlaceSystem extends EntityEventSystem<
             finalWeight = MghgWeightUtil.computeWeightAtMatureGrams(actualBlockType, size);
         }
         data.setWeightGrams(finalWeight);
+        if (now != null) {
+            data.setPlantTime(now);
+        }
         data.setLastRegularRoll(null);
         data.setLastLunarRoll(null);
         data.setLastSpecialRoll(null);

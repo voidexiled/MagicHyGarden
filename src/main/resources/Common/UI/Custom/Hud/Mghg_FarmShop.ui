@@ -1,0 +1,85 @@
+$C = "../Common.ui";
+
+@PanelWidth = 760;
+@PanelHeight = 280;
+@Padding = 16;
+@LineHeight = 24;
+
+Group {
+  Anchor: (Left: 0, Top: 0, Right: 0, Bottom: 0);
+  HitTestVisible: false;
+
+  Group #MghgFarmShop {
+    LayoutMode: Top;
+    Anchor: (Left: 20, Top: 20, Width: @PanelWidth, Height: @PanelHeight);
+    Padding: (Left: @Padding, Top: @Padding, Right: @Padding, Bottom: @Padding);
+    Background: (TexturePath: "../ItemQualities/Tooltips/ItemTooltipDefault.png", Border: 18);
+    HitTestVisible: false;
+    Visible: false;
+
+    Label #Title {
+      Style: (
+        FontSize: 24,
+        RenderBold: true,
+        TextColor: #f3f6fb
+      );
+    }
+
+    Label #Balance {
+      Anchor: (Top: 6);
+      Style: (
+        FontSize: 15,
+        TextColor: #7fffb2
+      );
+    }
+
+    Label #Restock {
+      Anchor: (Top: 2);
+      Style: (
+        FontSize: 14,
+        TextColor: #9fb0c6
+      );
+    }
+
+    Label #Line0 {
+      Anchor: (Top: 8, Height: @LineHeight);
+      Style: (FontSize: 14, TextColor: #dde7f5);
+    }
+    Label #Line1 {
+      Anchor: (Top: 2, Height: @LineHeight);
+      Style: (FontSize: 14, TextColor: #dde7f5);
+    }
+    Label #Line2 {
+      Anchor: (Top: 2, Height: @LineHeight);
+      Style: (FontSize: 14, TextColor: #dde7f5);
+    }
+    Label #Line3 {
+      Anchor: (Top: 2, Height: @LineHeight);
+      Style: (FontSize: 14, TextColor: #dde7f5);
+    }
+    Label #Line4 {
+      Anchor: (Top: 2, Height: @LineHeight);
+      Style: (FontSize: 14, TextColor: #dde7f5);
+    }
+    Label #Line5 {
+      Anchor: (Top: 2, Height: @LineHeight);
+      Style: (FontSize: 14, TextColor: #dde7f5);
+    }
+    Label #Line6 {
+      Anchor: (Top: 2, Height: @LineHeight);
+      Style: (FontSize: 14, TextColor: #dde7f5);
+    }
+    Label #Line7 {
+      Anchor: (Top: 2, Height: @LineHeight);
+      Style: (FontSize: 14, TextColor: #dde7f5);
+    }
+
+    Label #Footer {
+      Anchor: (Top: 10);
+      Style: (
+        FontSize: 13,
+        TextColor: #9fb0c6
+      );
+    }
+  }
+}

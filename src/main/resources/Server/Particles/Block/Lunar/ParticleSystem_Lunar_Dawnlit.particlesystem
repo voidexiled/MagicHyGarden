@@ -1,0 +1,23 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "ParticleSpawner_Lunar_Dawnlit_Aurora",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Lunar_Dawnlit_Beam",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Lunar_Dawnlit_Star",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    }
+  ],
+  "IsImportant": false
+}

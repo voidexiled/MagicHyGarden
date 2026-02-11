@@ -30,9 +30,20 @@ public final class MghgMutationEngine {
             MghgMutationRuleSet ruleSet,
             int defaultCooldownSeconds
     ) {
+        return applyRules(data, ctx, ruleSet, defaultCooldownSeconds, 1.0d);
+    }
+
+    public static boolean applyRules(
+            MghgCropData data,
+            MghgMutationContext ctx,
+            MghgMutationRuleSet ruleSet,
+            int defaultCooldownSeconds,
+            double chanceMultiplier
+    ) {
         if (data == null || ctx == null || ruleSet == null || ruleSet.isEmpty()) {
             return false;
         }
+        double normalizedMultiplier = normalizeMultiplier(chanceMultiplier);
 
         Map<MutationSlot, List<MghgMutationRule>> candidates = new EnumMap<>(MutationSlot.class);
         Map<MutationSlot, Integer> topPriority = new EnumMap<>(MutationSlot.class);
@@ -96,7 +107,7 @@ public final class MghgMutationEngine {
             // Consume roll for this slot
             setLastRoll(data, slot, ctx.getNow());
 
-            double chance = chosen.getChance();
+            double chance = normalizeChance(chosen.getChance() * normalizedMultiplier);
             if (ThreadLocalRandom.current().nextDouble() <= chance) {
                 boolean changed = chosen.applyTo(data);
                 if (changed) dirty = true;
@@ -147,5 +158,22 @@ public final class MghgMutationEngine {
             if (roll < acc) return rule;
         }
         return rules.get(0);
+    }
+
+    private static double normalizeMultiplier(double multiplier) {
+        if (Double.isNaN(multiplier) || multiplier <= 0.0d) {
+            return 0.0d;
+        }
+        return multiplier;
+    }
+
+    private static double normalizeChance(double chance) {
+        if (Double.isNaN(chance) || chance <= 0.0d) {
+            return 0.0d;
+        }
+        if (chance >= 1.0d) {
+            return 1.0d;
+        }
+        return chance;
     }
 }

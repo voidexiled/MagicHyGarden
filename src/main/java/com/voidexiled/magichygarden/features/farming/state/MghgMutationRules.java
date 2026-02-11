@@ -159,12 +159,10 @@ public final class MghgMutationRules {
     private static @Nullable MghgMutationRuleSet loadFromAssets(String id) {
         DefaultAssetMap<String, MghgMutationRulesAsset> map = MghgMutationRulesAsset.getAssetMap();
         if (map == null) {
-            LOGGER.atWarning().log("[MGHG|MUTATION_RULES] Asset store not registered; falling back to legacy JSON.");
             return null;
         }
         MghgMutationRulesAsset asset = map.getAsset(id);
         if (asset == null) {
-            LOGGER.atWarning().log("[MGHG|MUTATION_RULES] Ruleset asset '%s' not found.", id);
             return null;
         }
         MghgMutationRule[] rules = asset.getRules();
@@ -190,8 +188,6 @@ public final class MghgMutationRules {
             } catch (Exception e) {
                 LOGGER.atWarning().log("[MGHG|MUTATION_RULES] Failed to load from build/resources: %s", e.getMessage());
             }
-        } else {
-            LOGGER.atWarning().log("[MGHG|MUTATION_RULES] No config found at %s or %s", RESOURCE_PATH, buildPath.toString());
         }
 
         try (InputStream stream = MghgMutationRules.class.getClassLoader().getResourceAsStream(RESOURCE_PATH)) {
@@ -210,6 +206,7 @@ public final class MghgMutationRules {
             LOGGER.atWarning().log("[MGHG|MUTATION_RULES] Failed to load from classpath: %s", e.getMessage());
         }
 
+        LOGGER.atWarning().log("[MGHG|MUTATION_RULES] No config found at %s or %s", RESOURCE_PATH, buildPath.toString());
         return null;
     }
 }

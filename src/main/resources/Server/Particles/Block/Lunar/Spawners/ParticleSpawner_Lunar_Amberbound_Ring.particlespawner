@@ -1,0 +1,101 @@
+{
+  "RenderMode": "BlendAdd",
+  "ParticleRotationInfluence": "Billboard",
+  "LinearFiltering": true,
+  "ParticleRotateWithSpawner": true,
+  "LightInfluence": 0,
+  "MaxConcurrentParticles": 0,
+  "ParticleLifeSpan": {
+    "Min": 3.0,
+    "Max": 5.0
+  },
+  "SpawnRate": {
+    "Min": 1,
+    "Max": 2
+  },
+  "TotalParticles": {
+    "Min": -1,
+    "Max": -1
+  },
+  "InitialVelocity": {
+    "Speed": {
+      "Min": 0.01,
+      "Max": 0.04
+    },
+    "Yaw": {
+      "Min": -180,
+      "Max": 180
+    },
+    "Pitch": {
+      "Min": -20,
+      "Max": 60
+    }
+  },
+  "Particle": {
+    "Texture": "Particles/Textures/Basic/Ring6.png",
+    "ScaleRatioConstraint": "OneToOne",
+    "UVOption": "RandomFlipU",
+    "Animation": {
+      "0": {
+        "FrameIndex": {
+          "Min": 0,
+          "Max": 0
+        },
+        "Opacity": 0.0,
+        "Color": "#ffb15f"
+      },
+      "20": {
+        "Opacity": 1.0
+      },
+      "80": {
+        "Opacity": 1.0
+      },
+      "100": {
+        "Opacity": 0.0,
+        "Color": "#ff7a00"
+      }
+    },
+    "InitialAnimationFrame": {
+      "Rotation": {
+        "Z": {
+          "Min": 0,
+          "Max": 360
+        }
+      },
+      "Scale": {
+        "X": {
+          "Min": 0.45,
+          "Max": 0.75
+        },
+        "Y": {
+          "Min": 0.45,
+          "Max": 0.75
+        }
+      },
+      "Opacity": 1.0,
+      "FrameIndex": {
+        "Min": 0,
+        "Max": 0
+      }
+    }
+  },
+  "ParticleCollision": {
+    "BlockType": "None",
+    "Action": "Expire"
+  },
+  "EmitOffset": {
+    "X": {
+      "Min": 0.1,
+      "Max": 0.45
+    },
+    "Y": {
+      "Min": 0.1,
+      "Max": 0.45
+    },
+    "Z": {
+      "Min": 0.1,
+      "Max": 0.45
+    }
+  },
+  "IsLowRes": true
+}

@@ -1,0 +1,45 @@
+{
+  "ClearWeatherId": "Zone1_Sunny",
+  "ApplyToAllWorldsIfEmpty": false,
+  "FarmWorldNamePrefix": "MGHG_Farm_",
+  "AllowMutationsWhenOwnerOffline": true,
+  "AllowGrowthWhenOwnerOffline": false,
+  "AllowGrowthWhenServerEmpty": false,
+  "OfflineMutationChanceMultiplier": 1.0,
+  "Regular": {
+    "OccurrenceChance": 1.0,
+    "IntervalMinSeconds": 120,
+    "IntervalMaxSeconds": 120,
+    "DurationSeconds": 60,
+    "Events": [
+      {
+        "Id": "Rain",
+        "WeatherId": "Mghg_Zone1_Rain",
+        "Weight": 75
+      },
+      {
+        "Id": "Snow",
+        "WeatherId": "Mghg_Zone3_Snow",
+        "Weight": 25
+      }
+    ]
+  },
+  "Lunar": {
+    "OccurrenceChance": 1.0,
+    "IntervalMinSeconds": 14400,
+    "IntervalMaxSeconds": 14400,
+    "DurationSeconds": 600,
+    "Events": [
+      {
+        "Id": "Dawn",
+        "WeatherId": "Blood_Moon",
+        "Weight": 67
+      },
+      {
+        "Id": "Amber",
+        "WeatherId": "Portals_Void_Event_Light",
+        "Weight": 33
+      }
+    ]
+  }
+}

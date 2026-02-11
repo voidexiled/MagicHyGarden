@@ -14,15 +14,29 @@ import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.commands.crop.CropCommand;
+import com.voidexiled.magichygarden.commands.farm.FarmCommand;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
+import com.voidexiled.magichygarden.features.farming.economy.MghgEconomyManager;
+import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
 import com.voidexiled.magichygarden.features.farming.interactions.MghgHarvestCropInteraction;
 import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
+import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
+import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelInviteService;
+import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
+import com.voidexiled.magichygarden.features.farming.shop.MghgShopUiLogManager;
+import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
+import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
 import com.voidexiled.magichygarden.features.farming.systems.MghgApplyCropMetaOnItemSpawnSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgCropInspectHudSystem;
+import com.voidexiled.magichygarden.features.farming.systems.MghgFarmShopHudRefreshSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgPreserveCropMetaOnBreakSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgMatureCropMutationTickingSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgOnFarmBlockAddedSystem;
+import com.voidexiled.magichygarden.features.farming.systems.MghgParcelBreakGuardSystem;
+import com.voidexiled.magichygarden.features.farming.systems.MghgParcelPlaceGuardSystem;
+import com.voidexiled.magichygarden.features.farming.systems.MghgParcelUseGuardSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgRehydrateCropDataOnPlaceSystem;
+import com.voidexiled.magichygarden.features.farming.systems.MghgShopBenchUseSystem;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationRules;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationRulesAsset;
@@ -59,6 +73,7 @@ public class MagicHyGardenPlugin extends JavaPlugin {
 
         // Register Commands
         this.getCommandRegistry().registerCommand(new CropCommand());
+        this.getCommandRegistry().registerCommand(new FarmCommand());
 
         // Register Component Codecs
         this.mghgCropDataComponentType = this.getChunkStoreRegistry()
@@ -69,6 +84,12 @@ public class MagicHyGardenPlugin extends JavaPlugin {
 
     @Override
     protected void start() {
+        MghgParcelManager.load();
+        MghgParcelInviteService.start();
+        MghgFarmWorldManager.load();
+        MghgEconomyManager.load();
+        MghgPlayerNameManager.load();
+        MghgShopUiLogManager.load();
         FarmingPlugin farmingPlugin =
                 FarmingPlugin.get();
 
@@ -83,6 +104,8 @@ public class MagicHyGardenPlugin extends JavaPlugin {
         MghgCropRegistry.reload();
         MghgCropGrowthModifierAsset.reloadFromDisk();
         MghgMutationRules.reload();
+        MghgFarmEventScheduler.start();
+        MghgShopStockManager.start();
 
         // Farm Block Added System ChunkStore
         // minSize, maxSize, goldChance, rainbowChance
@@ -93,6 +116,12 @@ public class MagicHyGardenPlugin extends JavaPlugin {
                         this.mghgCropDataComponentType
                 )
         );
+
+        // Parcel protection (place/break) inside farm worlds.
+        this.getEntityStoreRegistry().registerSystem(new MghgParcelPlaceGuardSystem());
+        this.getEntityStoreRegistry().registerSystem(new MghgParcelBreakGuardSystem());
+        this.getEntityStoreRegistry().registerSystem(new MghgParcelUseGuardSystem());
+        this.getEntityStoreRegistry().registerSystem(new MghgShopBenchUseSystem());
 
         // 2) 🔥 IMPORTANT: rehydrate MGHG_Crop metadata onto placed blocks (decorative crop items)
         this.getEntityStoreRegistry().registerSystem(new MghgRehydrateCropDataOnPlaceSystem(
@@ -109,6 +138,7 @@ public class MagicHyGardenPlugin extends JavaPlugin {
 
         // Crop inspect HUD (bottom-left Blocchio style)
         this.getEntityStoreRegistry().registerSystem(new MghgCropInspectHudSystem());
+        this.getEntityStoreRegistry().registerSystem(new MghgFarmShopHudRefreshSystem());
 
         this.getChunkStoreRegistry().registerSystem(
                 new MghgMatureCropMutationTickingSystem(
@@ -124,7 +154,15 @@ public class MagicHyGardenPlugin extends JavaPlugin {
 
     @Override
     protected void shutdown() {
+        MghgFarmWorldManager.shutdown();
+        MghgParcelInviteService.stop();
+        MghgParcelManager.save();
+        MghgEconomyManager.save();
+        MghgPlayerNameManager.save();
+        MghgShopUiLogManager.save();
+        MghgFarmEventScheduler.stop();
         MghgParticleTracker.stop();
+        MghgShopStockManager.stop();
     }
 
 

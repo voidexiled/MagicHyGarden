@@ -1,0 +1,20 @@
+{
+  "FarmWorldNamePrefix": "MGHG_Farm_",
+  "LobbyWorldName": "Lobby",
+  "SurvivalWorldName": "Zone1",
+  "WorldGenProvider": "Flat",
+  "ChunkStorageProvider": "Hytale",
+  "IsPvpEnabled": false,
+  "IsSpawningNPC": false,
+  "EnableFullInstancePersistence": true,
+  "FullInstanceBackupIntervalSeconds": 5,
+  "BackupWorldsPerTick": 1,
+  "ParcelSizeX": 1000,
+  "ParcelSizeY": 256,
+  "ParcelSizeZ": 1000,
+  "FarmSpawnX": 4096,
+  "FarmSpawnY": 80,
+  "FarmSpawnZ": 4096,
+  "FarmSpawnOriginGuardRadius": 512
+}
+

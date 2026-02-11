@@ -1,0 +1,23 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "ParticleSpawner_Lunar_Amberbound_Ring",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Lunar_Amberbound_Sigil",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    },
+    {
+      "SpawnerId": "ParticleSpawner_Lunar_Amberbound_Glint",
+      "PositionOffset": {
+        "Y": 0.25
+      }
+    }
+  ],
+  "IsImportant": false
+}

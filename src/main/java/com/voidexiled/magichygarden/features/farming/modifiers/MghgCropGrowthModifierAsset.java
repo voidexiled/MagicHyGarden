@@ -363,6 +363,14 @@ public class MghgCropGrowthModifierAsset extends GrowthModifierAsset {
         return sizeMax;
     }
 
+    public double getMinGrowthMultiplierAtMaxSize() {
+        return minGrowthMultiplierAtMaxSize;
+    }
+
+    public double getSizeMultiplierFor(int size) {
+        return computeSizeMultiplier(size);
+    }
+
     public float getInitialRarityGoldChance() {
         return initialRarityGoldChance;
     }

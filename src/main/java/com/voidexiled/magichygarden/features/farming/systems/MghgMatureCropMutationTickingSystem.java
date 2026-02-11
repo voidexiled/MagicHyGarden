@@ -23,6 +23,8 @@ import com.hypixel.hytale.server.core.universe.world.meta.BlockState;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
+import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventConfig;
+import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
 import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.logic.MghgWeightUtil;
@@ -99,13 +101,26 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
             return;
         }
 
+        if (commandBuffer.getExternalData() == null || commandBuffer.getExternalData().getWorld() == null) {
+            return;
+        }
         var world = commandBuffer.getExternalData().getWorld();
+        if (!MghgFarmEventScheduler.isFarmWorld(world)) {
+            return;
+        }
         Store<EntityStore> entityStore = world.getEntityStore().getStore();
 
         FarmingBlock farmingBlock = commandBuffer.getComponent(ref, farmingBlockType);
 
         // Config dinámica: el GrowthModifier decodificado es la fuente de verdad.
         MghgCropGrowthModifierAsset cfg = MghgCropGrowthModifierAsset.getLastLoaded();
+        MghgFarmEventConfig farmEventConfig = MghgFarmEventScheduler.getConfig();
+        boolean ownerOnline = MghgFarmEventScheduler.isFarmOwnerOnline(world);
+        boolean allowMutationsWhenOwnerOffline = farmEventConfig == null || farmEventConfig.isAllowMutationsWhenOwnerOffline();
+        double offlineMutationChanceMultiplier = farmEventConfig == null
+                ? 1.0d
+                : farmEventConfig.getOfflineMutationChanceMultiplier();
+        double mutationChanceMultiplier = ownerOnline ? 1.0d : offlineMutationChanceMultiplier;
 
         StageInfo stageInfo = resolveStageInfo(blockType, farmingBlock);
         boolean weightChanged = updateWeightFromGrowth(blockType, farmingBlock, stageInfo, data, cfg);
@@ -121,6 +136,15 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
 
         int cooldownSeconds = cfg.getMutationRollCooldownSeconds();
         MghgMutationRuleSet rules = MghgMutationRules.getActive(cfg);
+        if (!ownerOnline && !allowMutationsWhenOwnerOffline) {
+            boolean visualsChanged = applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
+            if (visualsChanged || weightChanged) {
+                if (blockComponentChunk != null) blockComponentChunk.markNeedsSaving();
+                blockChunk.markNeedsSaving();
+            }
+            return;
+        }
+
         if (rules == null || rules.isEmpty()) {
             boolean visualsChanged = applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
             if (visualsChanged || weightChanged) {
@@ -190,14 +214,21 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
         double sunlightFactor = time != null ? time.getSunlightFactor() : -1.0;
 
         String soilBlockId = resolveSoilBlockId(blockChunk, x, y, z);
+        MutationEventType eventType = MutationEventType.WEATHER;
+        if (MghgFarmEventScheduler.isFarmWorld(world)) {
+            var eventState = MghgFarmEventScheduler.getState();
+            if (eventState != null && eventState.isActive(now) && eventState.eventType() != null) {
+                eventType = eventState.eventType();
+            }
+        }
 
         MghgMutationContext ctx = new MghgMutationContext(
                 now,
-                MutationEventType.WEATHER,
+                eventType,
                 weatherId,
                 weatherIdIgnoreSky,
                 mature,
-                true,
+                ownerOnline,
                 adjacent,
                 adjacencyScanner,
                 world.getWorldConfig().getUuid(),
@@ -220,7 +251,8 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
                 data,
                 ctx,
                 rules,
-                cooldownSeconds
+                cooldownSeconds,
+                mutationChanceMultiplier
         );
 
         boolean visualsChanged = applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);

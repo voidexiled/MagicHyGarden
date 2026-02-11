@@ -1,0 +1,248 @@
+$C = "../Common.ui";
+
+$C.@PageOverlay {}
+
+Group #MghgFarmShopPage {
+  Anchor: (Left: 0, Top: 0, Right: 0, Bottom: 0);
+
+  $C.@DecoratedContainer {
+    Anchor: (Width: 1236, Height: 980);
+
+    #Title {
+      Group {
+        $C.@Title {
+          @Text = "Farm Shop";
+        }
+      }
+    }
+
+    #Content {
+      LayoutMode: Top;
+
+      Label #Status {
+        Anchor: (Height: 24);
+        Style: (
+          FontSize: 15,
+          RenderBold: true,
+          TextColor: #d5e6fb
+        );
+      }
+
+      Label #LastStatus {
+        Anchor: (Top: 2, Height: 20);
+        Style: (
+          FontSize: 13,
+          TextColor: #9fb6d1
+        );
+      }
+
+      Group {
+        Anchor: (Top: 8, Height: 590);
+        LayoutMode: Left;
+
+        Group {
+          Anchor: (Width: 596);
+          LayoutMode: Top;
+
+          Label {
+            Anchor: (Height: 24);
+            Text: "Buy Seeds";
+            Style: (
+              FontSize: 16,
+              RenderBold: true,
+              TextColor: #d5e6fb
+            );
+          }
+
+          Group {
+            Anchor: (Top: 6, Height: 420);
+            LayoutMode: Top;
+            Background: (TexturePath: "../Common/ContainerPanelPatch.png", Border: 4);
+            Padding: 6;
+
+            Group #BuyGridHost {
+              Anchor: (Left: 0, Top: 0, Right: 0, Bottom: 0);
+              Group #BuyGridSlots {
+                Anchor: (Left: 0, Top: 0, Right: 0, Bottom: 0);
+                LayoutMode: TopScrolling;
+                ScrollbarStyle: $C.@DefaultScrollbarStyle;
+              }
+            }
+          }
+
+          Group {
+            Anchor: (Top: 8, Height: 44);
+            LayoutMode: Left;
+
+            $C.@SecondaryTextButton #Buy1 {
+              @Text = "Buy 1";
+              Anchor: (Width: 174);
+            }
+
+            Group {
+              Anchor: (Width: 8);
+            }
+
+            $C.@SecondaryTextButton #Buy10 {
+              @Text = "Buy 10";
+              Anchor: (Width: 184);
+            }
+
+            Group {
+              Anchor: (Width: 8);
+            }
+
+            $C.@SecondaryTextButton #BuyMax {
+              @Text = "Buy Max";
+              Anchor: (Width: 196);
+            }
+          }
+        }
+
+        Group {
+          Anchor: (Width: 12);
+        }
+
+        Group {
+          Anchor: (Width: 596);
+          LayoutMode: Top;
+
+          Group {
+            Anchor: (Height: 24);
+            LayoutMode: Left;
+
+            Label {
+              Anchor: (Width: 372, Height: 24);
+              Text: "Sell From Inventory";
+              Style: (
+                FontSize: 16,
+                RenderBold: true,
+                TextColor: #d5e6fb
+              );
+            }
+
+            Group {
+              Anchor: (Width: 8);
+            }
+
+            Label #SellPotential {
+              Anchor: (Height: 24);
+              FlexWeight: 1;
+              Text: "Potential value: $0.00";
+              Style: (
+                FontSize: 15,
+                RenderBold: true,
+                HorizontalAlignment: End,
+                TextColor: #f2d896
+              );
+            }
+          }
+
+          Group {
+            Anchor: (Top: 6, Height: 420);
+            LayoutMode: Top;
+            Background: (TexturePath: "../Common/ContainerPanelPatch.png", Border: 4);
+            Padding: 6;
+
+            Group #SellGridHost {
+              Anchor: (Left: 0, Top: 0, Right: 0, Bottom: 0);
+              Group #SellGridSlots {
+                Anchor: (Left: 0, Top: 0, Right: 0, Bottom: 0);
+                LayoutMode: TopScrolling;
+                ScrollbarStyle: $C.@DefaultScrollbarStyle;
+              }
+            }
+          }
+
+          Group {
+            Anchor: (Top: 8, Height: 44);
+            LayoutMode: Left;
+
+            $C.@TertiaryTextButton #SellSelectAll {
+              @Text = "Select all";
+              Anchor: (Width: 180);
+            }
+
+            Group {
+              Anchor: (Width: 8);
+            }
+
+            $C.@TertiaryTextButton #SellUnselectAll {
+              @Text = "Unselect all";
+              Anchor: (Width: 180);
+            }
+          }
+
+          Group {
+            Anchor: (Top: 6, Height: 44);
+            LayoutMode: Left;
+
+            $C.@TertiaryTextButton #Sell1 {
+              @Text = "Sell 1";
+              Anchor: (Width: 180);
+            }
+
+            Group {
+              Anchor: (Width: 8);
+            }
+
+            $C.@TertiaryTextButton #SellSelected {
+              @Text = "Sell selected";
+              Anchor: (Width: 180);
+            }
+
+            Group {
+              Anchor: (Width: 8);
+            }
+
+            $C.@TertiaryTextButton #SellAll {
+              @Text = "Sell All";
+              Anchor: (Width: 180);
+            }
+          }
+        }
+      }
+
+      Group {
+        Anchor: (Top: 8, Height: 190);
+        LayoutMode: Top;
+
+        Group {
+          Anchor: (Height: 190);
+          LayoutMode: Top;
+          Background: (TexturePath: "../Common/ContainerPanelPatch.png", Border: 4);
+          Padding: (Horizontal: 8, Vertical: 8);
+
+          Label #DetailTitle {
+            Anchor: (Height: 22);
+            Text: "Item Details";
+            Style: (
+              FontSize: 14,
+              RenderBold: true,
+              TextColor: #d5e6fb
+            );
+          }
+
+          Label #DetailLine1 { Anchor: (Top: 4, Height: 20); Style: (FontSize: 12, TextColor: #cdd8e7); }
+          Label #DetailLine2 { Anchor: (Top: 4, Height: 20); Style: (FontSize: 12, TextColor: #cdd8e7); }
+          Label #DetailLine3 { Anchor: (Top: 4, Height: 20); Style: (FontSize: 12, TextColor: #cdd8e7); }
+          Label #DetailLine4 { Anchor: (Top: 4, Height: 20); Style: (FontSize: 12, TextColor: #cdd8e7); }
+          Label #DetailLine5 { Anchor: (Top: 4, Height: 20); Style: (FontSize: 12, TextColor: #cdd8e7); }
+          Label #DetailLine6 { Anchor: (Top: 4, Height: 20); Style: (FontSize: 12, TextColor: #cdd8e7); }
+        }
+      }
+
+      Group {
+        Anchor: (Top: 8, Height: 44);
+        LayoutMode: Left;
+
+        $C.@SecondaryTextButton #Close {
+          @Text = "Close";
+          Anchor: (Width: 160);
+        }
+      }
+    }
+  }
+}
+
+$C.@BackButton {}

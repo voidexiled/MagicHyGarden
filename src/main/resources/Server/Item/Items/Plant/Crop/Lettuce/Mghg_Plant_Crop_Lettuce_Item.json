@@ -39,7 +39,7 @@
         }
       ]
     },
-    "ParticleColor": "#cabc3f",
+    "ParticleColor": "#1e951c",
     "RandomRotation": "YawStep1",
     "Gathering": {
       "Harvest": {},
@@ -61,29 +61,7 @@
           "Rarity": "None"
         }
       }
-    },
-    "Particles": [
-      {
-        "SystemId": "Custom_Sparks_ParticleSystem",
-        "Color": "#beb518",
-        "Scale": 1.2,
-        "PositionOffset": {
-          "Y": 1
-        }
-      },
-      {
-        "SystemId": "Block_Gem_Sparks",
-        "Scale": 1.2,
-        "Color": "#c0951b",
-        "PositionOffset": {
-          "Y": 1
-        }
-      },
-      {
-        "SystemId": "Plant_Glow_ParticleSystem",
-        "Color": "#beac11"
-      }
-    ]
+    }
   },
   "DropOnDeath": true,
   "State": {
@@ -123,6 +101,7 @@
           "Use": "MGHG_Root_HarvestCrop",
           "Pick": "MGHG_Root_HarvestCrop"
         },
+        "BlockParticleSetId": "Grass",
         "BlockEntity": {
           "Components": {
             "MGHG_CropData": {
@@ -131,30 +110,7 @@
               "Rarity": "None"
             }
           }
-        },
-        "Particles": [
-          {
-            "SystemId": "Custom_Sparks_ParticleSystem",
-            "Color": "#beb518",
-            "Scale": 1.2,
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Block_Gem_Sparks",
-            "Scale": 1.2,
-            "Color": "#c0951b",
-            "PositionOffset": {
-              "Y": 1
-            }
-          },
-          {
-            "SystemId": "Plant_Glow_ParticleSystem",
-            "Color": "#beac11"
-          }
-        ],
-        "BlockParticleSetId": "Grass"
+        }
       }
     },
     "mghg_rain": {

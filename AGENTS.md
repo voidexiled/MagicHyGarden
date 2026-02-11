@@ -40,3 +40,8 @@
 ## Assets & Config Workflow
 - Runtime reads from `build/resources/main`. If you edit assets in `src/main/resources`, mirror changes into `build/resources/main`.
 - Prefer `/crop reload` to hot‑reload crops/mutations/modifiers during balancing.
+
+
+## You must ensure that everything is always well documented and specified.
+## You can found vanilla assets in `AssetsVanilla/` and you can use them as reference for your work.
+## Hytale Modding Developer Documentation in `hytalemodding-docs/content/`

@@ -106,6 +106,7 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
         }
         var world = commandBuffer.getExternalData().getWorld();
         if (!MghgFarmEventScheduler.isFarmWorld(world)) {
+            LOGGER.atInfo().log("World %s is not a farm world, skipping MghgOnFarmBlockAddedSystem", world.getName());
             return;
         }
         Store<EntityStore> entityStore = world.getEntityStore().getStore();
@@ -220,6 +221,8 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
             if (eventState != null && eventState.isActive(now) && eventState.eventType() != null) {
                 eventType = eventState.eventType();
             }
+        } else {
+            LOGGER.atInfo().log("World %s is not a farm world, skipping MghgOnFarmBlockAddedSystem", world.getName());
         }
 
         MghgMutationContext ctx = new MghgMutationContext(

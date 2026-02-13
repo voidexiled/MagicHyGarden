@@ -2,6 +2,11 @@
 
 This document specifies the server-side farm systems currently wired in MagicHyGarden.
 
+Related references:
+- `docs/FARM_CONFIG_REFERENCE.md` (field-by-field JSON config reference)
+- `docs/COMMAND_REFERENCE.md` (all `/farm` and `/crop` commands with examples)
+- `docs/MUTATION_RULES.md` (full mutation rule schema and advanced filters)
+
 ## Scope
 - `Survival` worlds keep vanilla behavior.
 - `Farm` worlds are detected by `FarmWorldNamePrefix` (default: `MGHG_Farm_`).
@@ -117,6 +122,7 @@ This document specifies the server-side farm systems currently wired in MagicHyG
 - `/farm survival`
 - `/farm visit <ownerUuid|ownerName>`
 - `/farm spawn [status|set|reset]`
+  - Shortcut: `/farm setspawn`
 - `/farm invite <player>`
 - `/farm invites`
 - `/farm accept`
@@ -147,6 +153,7 @@ This document specifies the server-side farm systems currently wired in MagicHyG
   - Hover tooltip on sell slots shows per-item valuation (unit/stack + multipliers + formula).
   - Logs are queried via `/farm log` instead of in-page activity panel.
 - `/farm event [status|reload|worlds|growth|weather|list|start|stop]`
+  - Help: `/farm event help`
 - `/farm event worlds` (lists farm worlds, owner online, players, ticking, block ticking, forced weather, parcel state)
 - `/farm event growth <true|false|reset> [true|false]` (runtime override for owner-offline/server-empty growth gates)
 - `/farm event weather <weatherId|clear> [force]` (force weather across farm worlds for debugging; `force` clears scheduler cache and reapplies)
@@ -154,7 +161,8 @@ This document specifies the server-side farm systems currently wired in MagicHyG
 - `/farm event start <weather|lunar> <eventId|random> [durationSec]` (force-start configured event)
 - `/farm event stop` (force-stop active event and apply clear weather)
 - `/farm reload [all|events|worlds|parcels|invites|economy|names|shop]`
-- `/farm admin [status|paths|parcel|world|stock|economy] [value1] [value2] [value3]`
+- `/farm admin [status|paths|parcel|world|stock|economy|sim] [value1] [value2] [value3]`
+  - Help: `/farm admin help`
   - `status`: global snapshot (worlds/parcels/event/shop timers)
   - `paths`: prints active runtime data paths
   - `parcel <self|player|uuid|list|save|reload>`:
@@ -171,6 +179,11 @@ This document specifies the server-side farm systems currently wired in MagicHyG
     - restock forces immediate cycle
     - set writes a direct stock override
   - `economy <self|player|uuid> [status|set|add|sub] [amount]`: balance debug/control
+  - `sim <create|list|tp> ...`:
+    - `create <name> [count]`: creates deterministic simulated owners (`sim_*`) and ensures their farm worlds/parcels
+    - creator gets `MANAGER` role in those parcels for immediate build/debug access
+    - `list`: prints simulated parcel owners/worlds/spawns
+    - `tp <name|uuid>`: teleports admin to simulated farm spawn (and grants manager if needed)
 
 ## Buy/Sell Safety
 - Buy flow is rollback-safe:

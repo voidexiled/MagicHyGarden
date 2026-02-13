@@ -5,17 +5,17 @@
   },
   "Quality": "Common",
   "Parent": "Mghg_Template_Crop_Item",
-  "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Item.png",
+  "Icon": "Icons/ItemsGenerated/Mghg_Plant_Crop_Lettuce_Item.png",
   "IconProperties": {
     "Scale": 0.7,
     "Rotation": [
-      22.5,
-      45,
-      22.5
+      90,
+      0,
+      0
     ],
     "Translation": [
-      1.2,
-      -4.2
+      0,
+      0
     ]
   },
   "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
@@ -66,8 +66,8 @@
   "DropOnDeath": true,
   "State": {
     "mghg_none": {
-      "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Item.png",
-      "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+      "Icon": "Icons/ItemsGenerated/LettuceStates/mghg_none.png",
+      "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
       "BlockType": {
         "Material": "Solid",
         "DrawType": "Model",
@@ -76,7 +76,7 @@
         "CustomModelScale": 0.7,
         "CustomModelTexture": [
           {
-            "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
+            "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
             "Weight": 1
           }
         ],
@@ -173,7 +173,8 @@
       "TranslationProperties": {
         "Name": "server.items.Plant.Plant_Crop_Lettuce_Wet.name",
         "Description": "server.items.Plant.Plant_Crop_Lettuce_Wet.description"
-      }
+      },
+      "Icon": "Icons/ItemsGenerated/LettuceStates/mghg_rain.png"
     },
     "mghg_snow": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
@@ -1631,7 +1632,8 @@
         "Light": {
           "Color": "#da3"
         }
-      }
+      },
+      "Icon": "Icons/ItemsGenerated/LettuceStates/mghg_gold_rain.png"
     },
     "mghg_gold_rain_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",

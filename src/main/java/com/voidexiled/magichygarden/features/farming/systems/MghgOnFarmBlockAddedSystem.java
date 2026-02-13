@@ -5,6 +5,7 @@ import com.hypixel.hytale.builtin.asseteditor.util.AssetStoreUtil;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.RefSystem;
+import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.protocol.ItemUtility;
@@ -29,6 +30,8 @@ import javax.annotation.Nonnull;
 import java.time.Instant;
 
 public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+
     private final Query<ChunkStore> query;
 
     private final ComponentType<ChunkStore, FarmingBlock> farmingBlockType;
@@ -64,6 +67,7 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
         }
         var world = commandBuffer.getExternalData().getWorld();
         if (!MghgFarmEventScheduler.isFarmWorld(world)) {
+            LOGGER.atInfo().log("World %s is not a farm world, skipping MghgOnFarmBlockAddedSystem", world.getName());
             return;
         }
 

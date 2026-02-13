@@ -5,6 +5,7 @@ import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
 import com.hypixel.hytale.protocol.packets.interface_.Page;
@@ -775,7 +776,8 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
         String current = normalizeItemId(stack.getItemId());
         for (String accepted : acceptedItemIds) {
             String normalizedAccepted = normalizeItemId(accepted);
-            if (normalizedAccepted != null && normalizedAccepted.equalsIgnoreCase(current)) {
+            //if (normalizedAccepted != null && normalizedAccepted.equalsIgnoreCase(current)) {
+            if (normalizedAccepted != null && current.contains(normalizedAccepted)) {
                 return true;
             }
         }
@@ -786,12 +788,15 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
         if (itemId == null || itemId.isBlank()) {
             return null;
         }
-        String raw = itemId.trim();
+        //LOGGER.atInfo().log(itemId);
+        /*String raw = itemId.trim();
         int idx = raw.indexOf("_State_");
         if (idx > 0) {
             return raw.charAt(0) == '*' ? (idx > 1 ? raw.substring(1, idx) : null) : raw.substring(0, idx);
         }
         return raw.charAt(0) == '*' ? raw.substring(1) : raw;
+        */
+        return itemId.trim();
     }
 
     private static String safeDisplayItemId(@Nullable String itemId) {

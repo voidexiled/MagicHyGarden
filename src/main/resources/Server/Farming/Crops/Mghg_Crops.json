@@ -4,7 +4,7 @@
       "Id": "lettuce",
       "BlockId": "Mghg_Plant_Crop_Lettuce_Block",
       "ItemId": "Mghg_Plant_Crop_Lettuce_Item",
-      "BaseWeightGrams": 100
+      "BaseWeightGrams": 250
     }
   ]
 }

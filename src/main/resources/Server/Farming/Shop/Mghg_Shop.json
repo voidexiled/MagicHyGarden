@@ -15,30 +15,30 @@
       "Id": "lettuce",
       "BuyItemId": "Mghg_Plant_Seeds_Lettuce",
       "SellItemIds": [
-        "Mghg_Plant_Crop_Lettuce_Item"
+        "*Mghg_Plant_Crop_Lettuce_Item"
       ],
       "MinStock": 0,
       "MaxStock": 8,
       "RestockChance": 1.0,
       "BuyPrice": 5.0,
-      "SellPrice": 2.0,
+      "SellPrice": 8.0,
       "EnableMetaSellPricing": true,
       "SellSizeMultiplierMinSize": 50.0,
       "SellSizeMultiplierMaxSize": 100.0,
       "SellSizeMultiplierAtMin": 1.0,
       "SellSizeMultiplierAtMax": 2.0,
       "ClimateMultiplierNone": 1.0,
-      "ClimateMultiplierRain": 1.1,
-      "ClimateMultiplierSnow": 1.1,
-      "ClimateMultiplierFrozen": 1.2,
+      "ClimateMultiplierRain": 1.2,
+      "ClimateMultiplierSnow": 1.2,
+      "ClimateMultiplierFrozen": 1.3,
       "LunarMultiplierNone": 1.0,
-      "LunarMultiplierDawnlit": 1.35,
+      "LunarMultiplierDawnlit": 1.45,
       "LunarMultiplierDawnbound": 1.6,
-      "LunarMultiplierAmberlit": 1.35,
+      "LunarMultiplierAmberlit": 1.45,
       "LunarMultiplierAmberbound": 1.6,
       "RarityMultiplierNone": 1.0,
-      "RarityMultiplierGold": 1.4,
-      "RarityMultiplierRainbow": 1.8
+      "RarityMultiplierGold": 10,
+      "RarityMultiplierRainbow": 40
     }
   ]
 }

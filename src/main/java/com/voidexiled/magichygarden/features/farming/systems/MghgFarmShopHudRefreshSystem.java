@@ -8,7 +8,7 @@ import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import com.voidexiled.magichygarden.commands.farm.subcommands.FarmShopCommand;
+import com.voidexiled.magichygarden.commands.farm.subcommands.shop.FarmShopCommand;
 
 import java.util.Map;
 import java.util.UUID;

@@ -6,7 +6,7 @@
   "ChunkStorageProvider": "Hytale",
   "CreationMode": "Generator",
   "TemplateWorldPath": "templates/farm_base_world",
-  "TemplateRequireValidConfig": true,
+  "TemplateRequireValidConfig": false,
   "TemplateCopyRetries": 2,
   "IsPvpEnabled": false,
   "IsSpawningNPC": false,

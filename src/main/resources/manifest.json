@@ -1,20 +1,22 @@
 {
-  "Group": "${plugin_group}",
-  "Name": "${plugin_name}",
-  "Version": "${plugin_version}",
-  "Description": "${plugin_description}",
-  "Authors": [
-    {
-      "Name": "${plugin_author}"
-    }
-  ],
-  "Website": "${plugin_website}",
-  "ServerVersion": "${server_version}",
-  "Dependencies": {
-    "org.herolias:DynamicTooltipsLib": "*"
-  },
-  "OptionalDependencies": {},
-  "DisabledByDefault": false,
-  "IncludesAssetPack": true,
-  "Main": "${plugin_main_entrypoint}"
+    "Group": "voidexiled",
+    "Name": "MagicHyGarden",
+    "Version": "0.1.0",
+    "Description": "A magic garden server inspired!",
+    "Authors": [
+        {
+            "Name": "Voidexiled"
+        }
+    ],
+    "Website": "",
+    "ServerVersion": "2026.02.18-f3b8fff95",
+    "Dependencies": {
+        
+    },
+    "OptionalDependencies": {
+        
+    },
+    "DisabledByDefault": false,
+    "Main": "com.voidexiled.magichygarden.MagicHyGardenPlugin",
+    "IncludesAssetPack": true
 }

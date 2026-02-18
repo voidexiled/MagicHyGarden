@@ -1,21 +1,25 @@
-AssetsVanilla
-other-plugins-example
+# Gradle
 .gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+.kotlin/
+2.git
 
-### IntelliJ IDEA ###
-/.idea/
+# Server testing directory
+run/
+
+# IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
-/out/
+out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
-### Eclipse ###
+# Eclipse
 .apt_generated
 .classpath
 .factorypath
@@ -23,19 +27,38 @@ build/
 .settings
 .springBeans
 .sts4-cache
-/bin/
+bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-### VS Code ###
-/.vscode/
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
 
-### Mac OS ###
+# VS Code
+.vscode/*
+!.vscode/java-formatter.xml
+!.vscode/settings.json
+
+# Mac OS
 .DS_Store
 
-### Misc ###
-/run/
+# Windows
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Temporary files
 *.tmp
-.tmp_*.log
-__pycache__/
-*.pyc
+*.bak
+*.swp
+*~
+
+# Template specific
+libs/HytaleServer.jar
+buildSrc/

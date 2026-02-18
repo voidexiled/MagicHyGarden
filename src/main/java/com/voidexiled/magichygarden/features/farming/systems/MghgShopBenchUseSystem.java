@@ -78,7 +78,7 @@ public final class MghgShopBenchUseSystem extends EntityEventSystem<EntityStore,
         String openError = MghgFarmShopPage.openForPlayer(store, playerEntityRef, playerRef, world);
         event.setCancelled(true);
         if (openError != null) {
-            playerRef.sendMessage(Message.raw(openError));
+            playerRef.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(openError));
         }
     }
 }

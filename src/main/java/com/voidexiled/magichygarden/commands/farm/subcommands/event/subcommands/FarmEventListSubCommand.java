@@ -41,7 +41,7 @@ public class FarmEventListSubCommand extends AbstractPlayerCommand {
         MutationEventType type = FarmEventCommandShared.parseEventType(typeArg.get(commandContext));
         MghgFarmEventConfig cfg = MghgFarmEventScheduler.getConfig();
         if (cfg == null) {
-            commandContext.sendMessage(Message.raw("Config de events no disponible."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Config de events no disponible."));
             return;
         }
         if (type == MutationEventType.WEATHER || type == MutationEventType.ANY) {

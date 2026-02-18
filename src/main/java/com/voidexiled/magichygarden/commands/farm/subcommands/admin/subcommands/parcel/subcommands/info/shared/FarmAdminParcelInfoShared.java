@@ -24,7 +24,7 @@ public final class FarmAdminParcelInfoShared {
 
         MghgParcel playerParcel = MghgParcelManager.getByOwner(owner);
         if (playerParcel == null) {
-            ctx.sendMessage(Message.raw("No pude resolver owner. Asegúrate de que el jugador tenga una parcela."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude resolver owner. Asegúrate de que el jugador tenga una parcela."));
             return;
         }
 

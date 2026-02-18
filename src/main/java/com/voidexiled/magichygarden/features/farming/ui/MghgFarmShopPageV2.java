@@ -8,7 +8,6 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
 import com.hypixel.hytale.protocol.packets.interface_.Page;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.CustomUIPage;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
@@ -31,6 +30,7 @@ import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopTransactionResult;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopTransactionService;
 import com.voidexiled.magichygarden.features.farming.tooltips.MghgDynamicTooltipsManager;
+import com.voidexiled.magichygarden.utils.chat.MghgChat;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -734,8 +734,7 @@ public final class MghgFarmShopPageV2 extends InteractiveCustomUIPage<MghgFarmSh
 
     private void sendFeedback(boolean success, @Nonnull String rawMessage) {
         String[] lines = safeText(rawMessage, tr("mghg.shop.chat.default", "Operation completed.")).replace('\r', '\n').split("\n");
-        String lineColor = success ? "#8fe388" : "#f6a2a2";
-        String prefix = tr("mghg.shop.chat.prefix", "[Farm Shop] ");
+        MghgChat.Channel channel = success ? MghgChat.Channel.SUCCESS : MghgChat.Channel.ERROR;
         boolean sent = false;
 
         for (String line : lines) {
@@ -743,18 +742,12 @@ public final class MghgFarmShopPageV2 extends InteractiveCustomUIPage<MghgFarmSh
             if (clean.isEmpty()) {
                 continue;
             }
-            Message feedback = Message.empty();
-            feedback.insert(Message.raw(prefix).bold(true).color("#f2d896"));
-            feedback.insert(Message.raw(clean).color(lineColor));
-            playerRef.sendMessage(feedback);
+            playerRef.sendMessage(MghgChat.format(channel, clean));
             sent = true;
         }
 
         if (!sent) {
-            Message feedback = Message.empty();
-            feedback.insert(Message.raw(prefix).bold(true).color("#f2d896"));
-            feedback.insert(Message.raw(tr("mghg.shop.chat.default", "Operation completed.")).color(lineColor));
-            playerRef.sendMessage(feedback);
+            playerRef.sendMessage(MghgChat.format(channel, tr("mghg.shop.chat.default", "Operation completed.")));
         }
     }
 

@@ -29,11 +29,11 @@ public class FarmSpawnResetSubCommand extends AbstractPlayerCommand {
     private static void resetSpawn(@NonNull CommandContext ctx, @NonNull PlayerRef playerRef) {
         MghgParcel parcel = MghgParcelManager.getByOwner(playerRef.getUuid());
         if (parcel == null) {
-            ctx.sendMessage(Message.raw("No tienes parcela aun. Usa /farm home primero."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes parcela aun. Usa /farm home primero."));
             return;
         }
         parcel.clearCustomSpawn();
         MghgParcelManager.saveSoon();
-        ctx.sendMessage(Message.raw("Spawn custom eliminado. /farm home usara el centro de tu parcela."));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Spawn custom eliminado. /farm home usara el centro de tu parcela."));
     }
 }

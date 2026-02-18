@@ -47,13 +47,13 @@ public class FarmAdminPerksRecalcSubCommand extends AbstractPlayerCommand {
     ) {
         UUID targetUuid = FarmAdminCommandShared.resolveUuid(executor, targetArg.get(commandContext));
         if (targetUuid == null) {
-            commandContext.sendMessage(Message.raw("Invalid target. Use self, UUID or cached/online name."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Invalid target. Use self, UUID or cached/online name."));
             return;
         }
 
         MghgParcel parcel = MghgParcelManager.getByOwner(targetUuid);
         if (parcel == null) {
-            commandContext.sendMessage(Message.raw("Target does not have a parcel yet."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Target does not have a parcel yet."));
             return;
         }
 
@@ -61,7 +61,7 @@ public class FarmAdminPerksRecalcSubCommand extends AbstractPlayerCommand {
         String worldName = MghgFarmWorldManager.getFarmWorldName(targetUuid);
         World targetWorld = universe == null ? null : universe.getWorld(worldName);
         if (targetWorld == null) {
-            commandContext.sendMessage(Message.raw(
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                     "Target farm world is not loaded.\n"
                             + "Run /farm admin world ensure <target> and retry."
             ));
@@ -70,18 +70,18 @@ public class FarmAdminPerksRecalcSubCommand extends AbstractPlayerCommand {
 
         int before = MghgFarmPerkManager.getTrackedFertileCount(parcel);
         String targetName = MghgPlayerNameManager.resolve(targetUuid);
-        commandContext.sendMessage(Message.raw("Reconciling fertile tracking for " + targetName + "..."));
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Reconciling fertile tracking for " + targetName + "..."));
 
         MghgFertileSoilReconcileService.reconcileOwnerNow(targetUuid)
                 .whenComplete((removed, error) -> {
                     if (error != null) {
-                        executor.sendMessage(Message.raw(
+                        executor.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                                 "Fertile reconcile failed: " + error.getMessage()
                         ));
                         return;
                     }
                     int after = MghgFarmPerkManager.getTrackedFertileCount(parcel);
-                    executor.sendMessage(Message.raw(
+                    executor.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                             "Fertile reconcile completed for " + targetName + ".\n"
                                     + "Removed stale entries: " + removed + ".\n"
                                     + "Tracked fertile blocks: " + after + " (was " + before + ")."

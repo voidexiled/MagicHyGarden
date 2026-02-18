@@ -55,11 +55,11 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
             case "", "open", "ui" -> openUi(ctx, store, playerEntityRef, playerRef, world);
             case "close", "hide" -> {
                 closeUi(store, playerEntityRef);
-                ctx.sendMessage(Message.raw("Perks UI cerrada."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Perks UI cerrada."));
             }
             case "status", "show", "info" -> sendStatus(ctx, playerRef);
             case "upgrade", "up", "buy" -> handleUpgrade(ctx, store, playerEntityRef, playerRef);
-            default -> ctx.sendMessage(Message.raw(
+            default -> ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                     "Usage:\n"
                             + "/farm perks\n"
                             + "/farm perks open\n"
@@ -79,10 +79,10 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
     ) {
         String error = MghgFarmPerksPage.openForPlayer(store, playerEntityRef, playerRef, world);
         if (error != null) {
-            ctx.sendMessage(Message.raw(error));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(error));
             return;
         }
-        ctx.sendMessage(Message.raw("Perks UI abierta. Usa /farm perks close para cerrar."));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Perks UI abierta. Usa /farm perks close para cerrar."));
     }
 
     private void closeUi(@NonNull Store<EntityStore> store, @NonNull Ref<EntityStore> playerEntityRef) {
@@ -92,7 +92,7 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
     private void sendStatus(@NonNull CommandContext ctx, @NonNull PlayerRef playerRef) {
         MghgParcel parcel = MghgParcelManager.getByOwner(playerRef.getUuid());
         if (parcel == null) {
-            ctx.sendMessage(Message.raw(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                     "You do not have a farm parcel yet.\n"
                             + "Use /farm home first."
             ));
@@ -108,13 +108,13 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
         var next = MghgFarmPerkManager.getNextFertileLevel(parcel);
         var nextSell = MghgFarmPerkManager.getNextSellMultiplierLevel(parcel);
 
-        ctx.sendMessage(Message.raw("Perks - Fertile Soil"));
-        ctx.sendMessage(Message.raw("Level: " + level));
-        ctx.sendMessage(Message.raw("Fertile slots used: " + used + " / " + cap));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Perks - Fertile Soil"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Level: " + level));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Fertile slots used: " + used + " / " + cap));
         if (next == null) {
-            ctx.sendMessage(Message.raw("Next upgrade: max level reached."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Next upgrade: max level reached."));
         } else {
-            ctx.sendMessage(Message.raw(String.format(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                     Locale.ROOT,
                     "Next upgrade: level %d (%d slots) for $%.2f",
                     next.getLevel(),
@@ -122,16 +122,16 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
                     next.getUpgradeCost()
             )));
         }
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Sell Multiplier: level %d (x%.2f)",
                 sellLevel,
                 sellMultiplier
         )));
         if (nextSell == null) {
-            ctx.sendMessage(Message.raw("Next sell upgrade: max level reached."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Next sell upgrade: max level reached."));
         } else {
-            ctx.sendMessage(Message.raw(String.format(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                     Locale.ROOT,
                     "Next sell upgrade: level %d (x%.2f) for $%.2f",
                     nextSell.getLevel(),
@@ -139,7 +139,7 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
                     nextSell.getUpgradeCost()
             )));
         }
-        ctx.sendMessage(Message.raw(String.format(Locale.ROOT, "Balance: $%.2f", balance)));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(Locale.ROOT, "Balance: $%.2f", balance)));
     }
 
     private void handleUpgrade(
@@ -150,13 +150,13 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
     ) {
         String perkId = normalize(perkArg.get(ctx));
         if (!isKnownPerk(perkId)) {
-            ctx.sendMessage(Message.raw("Unknown perk id. Supported: fertile_soil, sell_multiplier"));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Unknown perk id. Supported: fertile_soil, sell_multiplier"));
             return;
         }
 
         MghgParcel parcel = MghgParcelManager.getByOwner(playerRef.getUuid());
         if (parcel == null) {
-            ctx.sendMessage(Message.raw(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                     "You do not have a farm parcel yet.\n"
                             + "Use /farm home first."
             ));
@@ -173,7 +173,7 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
             case SUCCESS -> {
                 if (isSellPerk(perkId)) {
                     double multiplier = MghgFarmPerkManager.getSellMultiplier(parcel);
-                    ctx.sendMessage(Message.raw(String.format(
+                    ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                             Locale.ROOT,
                             "Upgrade successful (%s).\n"
                                     + "Level %d.\n"
@@ -185,7 +185,7 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
                             result.getUpgradeCost()
                     )));
                 } else {
-                    ctx.sendMessage(Message.raw(String.format(
+                    ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                             Locale.ROOT,
                             "Upgrade successful (%s).\n"
                                     + "Level %d.\n"
@@ -197,21 +197,21 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
                             result.getUpgradeCost()
                     )));
                 }
-                ctx.sendMessage(Message.raw(String.format(
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                         Locale.ROOT,
                         "New balance: $%.2f",
                         result.getBalanceAfter()
                 )));
             }
-            case MAX_LEVEL -> ctx.sendMessage(Message.raw(perkLabel + " is already at max level."));
-            case INSUFFICIENT_FUNDS -> ctx.sendMessage(Message.raw(String.format(
+            case MAX_LEVEL -> ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(perkLabel + " is already at max level."));
+            case INSUFFICIENT_FUNDS -> ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                     Locale.ROOT,
                     "Not enough balance.\nRequired: $%.2f\nCurrent: $%.2f",
                     result.getUpgradeCost(),
                     result.getBalanceAfter()
             )));
             case INVALID_TARGET ->
-                    ctx.sendMessage(Message.raw("Could not upgrade perk for your parcel."));
+                    ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Could not upgrade perk for your parcel."));
         }
         MghgFarmPerksPage.refreshForPlayer(store, playerEntityRef);
     }

@@ -28,6 +28,6 @@ public class FarmAdminParcelSaveSubCommand extends AbstractPlayerCommand {
 
     private static void handleParcelSave(@NotNull CommandContext ctx) {
         MghgParcelManager.save();
-        ctx.sendMessage(Message.raw("Parcel store guardado a disco."));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Parcel store guardado a disco."));
     }
 }

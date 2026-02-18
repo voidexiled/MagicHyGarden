@@ -30,7 +30,7 @@ public final class FarmEventCommandShared {
             long remaining = secondsBetween(now, state.endsAt());
             String eventId = fallback(state.eventId(), "-");
             String weatherId = fallback(state.weatherId(), "-");
-            ctx.sendMessage(Message.raw(String.format(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                     Locale.ROOT,
                     "Evento activo: %s | id=%s | weather=%s | remaining=%s",
                     state.eventType(),
@@ -39,12 +39,12 @@ public final class FarmEventCommandShared {
                     formatDuration(remaining)
             )));
         } else {
-            ctx.sendMessage(Message.raw("Evento activo: none"));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Evento activo: none"));
         }
 
         long nextRegular = secondsBetween(now, MghgFarmEventScheduler.getNextRegularAt());
         long nextLunar = secondsBetween(now, MghgFarmEventScheduler.getNextLunarAt());
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Next regular=%s | next lunar=%s",
                 formatDuration(nextRegular),
@@ -61,31 +61,31 @@ public final class FarmEventCommandShared {
         double regularChance = normalizeChance(cfg.getRegular().getOccurrenceChance()) * 100.0d;
         double lunarChance = normalizeChance(cfg.getLunar().getOccurrenceChance()) * 100.0d;
         double offlineMultiplier = cfg.getOfflineMutationChanceMultiplier();
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Scope prefix=%s | clearWeather=%s",
                 prefix,
                 clearWeather
         )));
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Occurrence chance regular=%.2f%% | lunar=%.2f%%",
                 regularChance,
                 lunarChance
         )));
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Offline mutation policy: allow=%s | chanceMultiplier=%.2f",
                 cfg.isAllowMutationsWhenOwnerOffline(),
                 offlineMultiplier
         )));
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Offline growth policy: ownerOffline=%s | serverEmpty=%s",
                 cfg.isAllowGrowthWhenOwnerOffline(),
                 cfg.isAllowGrowthWhenServerEmpty()
         )));
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Growth overrides: ownerOffline=%s | serverEmpty=%s",
                 formatNullableBoolean(MghgFarmEventScheduler.getGrowthWhenOwnerOfflineOverride()),
@@ -96,7 +96,7 @@ public final class FarmEventCommandShared {
     public static void sendWorlds(@NonNull CommandContext ctx) {
         Universe universe = Universe.get();
         if (universe == null) {
-            ctx.sendMessage(Message.raw("Universe no disponible."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Universe no disponible."));
             return;
         }
 
@@ -113,7 +113,7 @@ public final class FarmEventCommandShared {
             String ownerLabel = owner == null ? "-" : owner.toString();
             int players = world.getPlayerRefs().size();
             boolean growthAllowedNow = MghgFarmEventScheduler.isGrowthAllowedForWorld(world);
-            ctx.sendMessage(Message.raw(String.format(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                     Locale.ROOT,
                     "%s | owner=%s | ownerOnline=%s | players=%d | growthAllowed=%s | ticking=%s | blockTicking=%s | forcedWeather=%s | parcel=%s",
                     fallback(world.getName(), "(unnamed)"),
@@ -128,10 +128,10 @@ public final class FarmEventCommandShared {
             )));
         }
         if (totalFarmWorlds == 0) {
-            ctx.sendMessage(Message.raw("No hay farm worlds activos."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No hay farm worlds activos."));
             return;
         }
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Farm worlds: %d | growthOverride ownerOffline=%s serverEmpty=%s",
                 totalFarmWorlds,
@@ -146,10 +146,10 @@ public final class FarmEventCommandShared {
             @Nullable MghgFarmEventConfig.EventGroup group
     ) {
         if (group == null || group.getEvents() == null || group.getEvents().length == 0) {
-            ctx.sendMessage(Message.raw(label + ": (sin eventos)"));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(label + ": (sin eventos)"));
             return;
         }
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "%s interval=%ds-%ds duration=%ds occurrence=%.2f%%",
                 label,
@@ -162,7 +162,7 @@ public final class FarmEventCommandShared {
             if (definition == null) {
                 continue;
             }
-            ctx.sendMessage(Message.raw(String.format(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                     Locale.ROOT,
                     " - id=%s | weather=%s | weight=%d",
                     fallback(definition.getId(), "-"),

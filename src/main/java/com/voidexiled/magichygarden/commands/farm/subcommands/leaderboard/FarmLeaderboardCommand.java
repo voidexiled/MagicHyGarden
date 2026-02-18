@@ -44,11 +44,11 @@ public class FarmLeaderboardCommand extends AbstractPlayerCommand {
         int limit = Math.max(1, Math.min(50, limitArg.get(ctx)));
         List<MghgEconomyState.Entry> top = MghgEconomyManager.getTopBalances(limit);
         if (top.isEmpty()) {
-            ctx.sendMessage(Message.raw("Leaderboard vacio."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Leaderboard vacio."));
             return;
         }
 
-        ctx.sendMessage(Message.raw("Top balances (global):"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Top balances (global):"));
         int rank = 1;
         for (MghgEconomyState.Entry entry : top) {
             if (entry == null || entry.getUuid() == null) {
@@ -62,7 +62,7 @@ public class FarmLeaderboardCommand extends AbstractPlayerCommand {
                     name,
                     Math.max(0.0d, entry.getBalance())
             );
-            ctx.sendMessage(Message.raw(line));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(line));
             rank++;
         }
     }

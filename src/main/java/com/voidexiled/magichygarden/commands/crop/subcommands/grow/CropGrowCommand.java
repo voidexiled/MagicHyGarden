@@ -58,7 +58,7 @@ public class CropGrowCommand extends AbstractPlayerCommand {
         // 1) Bloque objetivo (raycast real de la API)
         Vector3i target = TargetUtil.getTargetBlock(playerEntityRef, 6.0, store);
         if (target == null) {
-            commandContext.sendMessage(Message.raw("No estás mirando ningún bloque (rango 6)."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No estás mirando ningún bloque (rango 6)."));
             return;
         }
 
@@ -73,30 +73,30 @@ public class CropGrowCommand extends AbstractPlayerCommand {
         long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
         Ref<ChunkStore> chunkRef = chunkStore.getChunkReference(chunkIndex);
         if (chunkRef == null || !chunkRef.isValid()) {
-            commandContext.sendMessage(Message.raw("El chunk objetivo no está disponible."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("El chunk objetivo no está disponible."));
             return;
         }
 
         WorldChunk worldChunk = chunkStoreStore.getComponent(chunkRef, WorldChunk.getComponentType());
         if (worldChunk == null) {
-            commandContext.sendMessage(Message.raw("No pude leer WorldChunk del chunk objetivo."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude leer WorldChunk del chunk objetivo."));
             return;
         }
 
         // 3) Verificar que el bloque sea “farmable” (crop)
         BlockType blockType = worldChunk.getBlockType(x, y, z);
         if (blockType == null) {
-            commandContext.sendMessage(Message.raw("No pude obtener BlockType del bloque objetivo."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude obtener BlockType del bloque objetivo."));
             return;
         }
         if (!MghgCropRegistry.isMghgCropBlock(blockType)) {
-            commandContext.sendMessage(Message.raw("Ese bloque no es un crop MGHG."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Ese bloque no es un crop MGHG."));
             return;
         }
 
         FarmingData farming = blockType.getFarming();
         if (farming == null || farming.getStages() == null || farming.getStages().isEmpty()) {
-            commandContext.sendMessage(Message.raw("Ese bloque no tiene FarmingData (no parece ser un crop)."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Ese bloque no tiene FarmingData (no parece ser un crop)."));
             return;
         }
 
@@ -104,7 +104,7 @@ public class CropGrowCommand extends AbstractPlayerCommand {
         String stageSet = farming.getStartingStageSet();
         FarmingStageData[] stages = farming.getStages().get(stageSet);
         if (stages == null || stages.length == 0) {
-            commandContext.sendMessage(Message.raw("El crop no tiene stages en el stageSet inicial: " + stageSet));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("El crop no tiene stages en el stageSet inicial: " + stageSet));
             return;
         }
 
@@ -119,7 +119,7 @@ public class CropGrowCommand extends AbstractPlayerCommand {
         BlockComponentChunk blockComponentChunk = chunkStoreStore.getComponent(chunkRef,
                 BlockComponentChunk.getComponentType());
         if (blockComponentChunk == null) {
-            commandContext.sendMessage(Message.raw("No pude obtener BlockComponentChunk del chunk objetivo."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude obtener BlockComponentChunk del chunk objetivo."));
             return;
         }
 
@@ -149,7 +149,7 @@ public class CropGrowCommand extends AbstractPlayerCommand {
 
             blockEntityRef = chunkStoreStore.addEntity(holder, AddReason.SPAWN);
             if (blockEntityRef == null) {
-                commandContext.sendMessage(Message.raw("No pude crear la Block Component Entity del bloque objetivo."));
+                commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude crear la Block Component Entity del bloque objetivo."));
                 return;
             }
             blockComponentChunk.addEntityReference(indexInColumn, blockEntityRef);
@@ -183,7 +183,7 @@ public class CropGrowCommand extends AbstractPlayerCommand {
                 : null;
 
         if (sectionRef == null || blockSection == null) {
-            commandContext.sendMessage(Message.raw("No pude obtener BlockSection/sectionRef del bloque objetivo."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude obtener BlockSection/sectionRef del bloque objetivo."));
             return;
         }
 
@@ -197,7 +197,7 @@ public class CropGrowCommand extends AbstractPlayerCommand {
         // aseguramos ticking para esa celda (igual que interacciones de farming)
         worldChunk.setTicking(x, y, z, true);
 
-        commandContext.sendMessage(Message.raw(
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                 "Crop crecido a " + percent + "% (stage " + targetStageIndex + "/" + (stages.length - 1) + ")."
         ));
     }

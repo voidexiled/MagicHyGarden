@@ -26,7 +26,7 @@ public class FarmEventReloadSubCommand extends AbstractPlayerCommand {
             @NonNull World world
     ) {
         MghgFarmEventScheduler.reload();
-        commandContext.sendMessage(Message.raw("Farm events recargados."));
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Farm events recargados."));
         FarmEventCommandShared.sendStatus(commandContext);
     }
 }

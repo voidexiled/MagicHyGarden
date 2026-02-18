@@ -56,19 +56,19 @@ public class CropAddMutationCommand extends AbstractPlayerCommand {
     ) {
         String rawName = nameArg.get(ctx);
         if (rawName == null || rawName.trim().isEmpty()) {
-            ctx.sendMessage(Message.raw("Uso: /crop add mutation --name=<rain|snow|frozen|none>"));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Uso: /crop add mutation --name=<rain|snow|frozen|none>"));
             return;
         }
 
         ClimateMutation add = parseMutation(rawName);
         if (add == null) {
-            ctx.sendMessage(Message.raw("Mutación inválida: " + rawName + " (usa rain, snow, frozen o none)"));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Mutación inválida: " + rawName + " (usa rain, snow, frozen o none)"));
             return;
         }
 
         Vector3i target = Targeting.getTargetBlock(playerEntityRef, store, 6.0);
         if (target == null) {
-            ctx.sendMessage(Message.raw("No estás mirando ningún bloque (rango 6)."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No estás mirando ningún bloque (rango 6)."));
             return;
         }
 
@@ -82,23 +82,23 @@ public class CropAddMutationCommand extends AbstractPlayerCommand {
         long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
         Ref<ChunkStore> chunkRef = chunkStore.getChunkReference(chunkIndex);
         if (chunkRef == null || !chunkRef.isValid()) {
-            ctx.sendMessage(Message.raw("El chunk objetivo no está disponible."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("El chunk objetivo no está disponible."));
             return;
         }
 
         WorldChunk worldChunk = cs.getComponent(chunkRef, WorldChunk.getComponentType());
         if (worldChunk == null) {
-            ctx.sendMessage(Message.raw("No pude leer WorldChunk del chunk objetivo."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude leer WorldChunk del chunk objetivo."));
             return;
         }
 
         BlockType blockType = worldChunk.getBlockType(x, y, z);
         if (blockType == null) {
-            ctx.sendMessage(Message.raw("No pude obtener BlockType del bloque objetivo."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude obtener BlockType del bloque objetivo."));
             return;
         }
         if (!MghgCropRegistry.isMghgCropBlock(blockType)) {
-            ctx.sendMessage(Message.raw("Ese bloque no es un crop MGHG."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Ese bloque no es un crop MGHG."));
             return;
         }
 
@@ -110,7 +110,7 @@ public class CropAddMutationCommand extends AbstractPlayerCommand {
         MghgCropData data = handle != null ? handle.data() : null;
 
         if (data == null) {
-            ctx.sendMessage(Message.raw("El bloque objetivo no tiene MGHG data."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("El bloque objetivo no tiene MGHG data."));
             return;
         }
 
@@ -134,7 +134,7 @@ public class CropAddMutationCommand extends AbstractPlayerCommand {
         }
         }
 
-        ctx.sendMessage(Message.raw(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                 "Mutación: " + before.name() + " -> " + after.name() + " (add=" + add.name() + ")"
         ));
     }

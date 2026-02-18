@@ -30,7 +30,7 @@ public class FarmLobbyCommand extends AbstractPlayerCommand {
     ) {
         World targetWorld = MghgFarmWorldManager.resolveLobbyWorld();
         if (targetWorld == null) {
-            ctx.sendMessage(Message.raw("No pude resolver el mundo lobby."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude resolver el mundo lobby."));
             return;
         }
         Transform spawn = resolveSpawn(targetWorld, playerRef);
@@ -41,7 +41,7 @@ public class FarmLobbyCommand extends AbstractPlayerCommand {
         );
         world.execute(() -> {
             store.putComponent(playerEntityRef, Teleport.getComponentType(), tp);
-            ctx.sendMessage(Message.raw("Teletransportando al lobby..."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Teletransportando al lobby..."));
         });
     }
 

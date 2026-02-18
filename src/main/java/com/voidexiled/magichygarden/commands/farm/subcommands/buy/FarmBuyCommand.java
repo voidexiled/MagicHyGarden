@@ -57,7 +57,7 @@ public class FarmBuyCommand extends AbstractPlayerCommand {
         MghgPlayerNameManager.remember(playerRef);
         String accessError = MghgShopAccessPolicy.validateTransactionContext(store, playerEntityRef, playerRef, world);
         if (accessError != null) {
-            ctx.sendMessage(Message.raw(accessError));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(accessError));
             return;
         }
 
@@ -66,52 +66,52 @@ public class FarmBuyCommand extends AbstractPlayerCommand {
 
         MghgShopConfig.ShopItem item = MghgShopStockManager.getConfiguredItem(requested);
         if (item == null || item.getId() == null) {
-            ctx.sendMessage(Message.raw("shopId no encontrado. Usa /farm stock."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("shopId no encontrado. Usa /farm stock."));
             return;
         }
         String buyItemId = item.resolveBuyItemId();
         if (buyItemId == null || buyItemId.isBlank()) {
-            ctx.sendMessage(Message.raw("Item mal configurado (BuyItemId/Id vacio)."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Item mal configurado (BuyItemId/Id vacio)."));
             return;
         }
         if (item.getBuyPrice() <= 0.0) {
-            ctx.sendMessage(Message.raw("Este item no se puede comprar."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Este item no se puede comprar."));
             return;
         }
 
         int stock = MghgShopStockManager.getPlayerStock(playerRef.getUuid(), item.getId());
         if (stock < qty) {
-            ctx.sendMessage(Message.raw("Stock personal insuficiente: " + stock + " disponible en este ciclo."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Stock personal insuficiente: " + stock + " disponible en este ciclo."));
             return;
         }
 
         double total = item.getBuyPrice() * qty;
         double balance = MghgEconomyManager.getBalance(playerRef.getUuid());
         if (balance < total) {
-            ctx.sendMessage(Message.raw("Balance insuficiente. Necesitas $" + formatMoney(total)));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Balance insuficiente. Necesitas $" + formatMoney(total)));
             return;
         }
 
         Player player = store.getComponent(playerEntityRef, Player.getComponentType());
         if (player == null) {
-            ctx.sendMessage(Message.raw("No pude obtener el componente de jugador."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude obtener el componente de jugador."));
             return;
         }
         ItemContainer inventory = player.getInventory().getCombinedStorageFirst();
         ItemStack stack = new ItemStack(buyItemId, qty);
         if (!inventory.canAddItemStack(stack, false, true)) {
-            ctx.sendMessage(Message.raw("No tienes espacio suficiente en inventario."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes espacio suficiente en inventario."));
             return;
         }
 
         if (!MghgEconomyManager.withdraw(playerRef.getUuid(), total)) {
-            ctx.sendMessage(Message.raw("No pude debitar balance."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude debitar balance."));
             return;
         }
 
         if (!MghgShopStockManager.consumePlayerStock(playerRef.getUuid(), item.getId(), qty)) {
             MghgEconomyManager.deposit(playerRef.getUuid(), total);
-            ctx.sendMessage(Message.raw("No pude consumir stock, compra cancelada."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude consumir stock, compra cancelada."));
             return;
         }
 
@@ -119,13 +119,13 @@ public class FarmBuyCommand extends AbstractPlayerCommand {
         if (!transaction.succeeded() || !ItemStack.isEmpty(transaction.getRemainder())) {
             MghgEconomyManager.deposit(playerRef.getUuid(), total);
             MghgShopStockManager.releasePlayerStock(playerRef.getUuid(), item.getId(), qty);
-            ctx.sendMessage(Message.raw("Inventario no valido para la compra, compra revertida."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Inventario no valido para la compra, compra revertida."));
             return;
         }
 
         double newBalance = MghgEconomyManager.getBalance(playerRef.getUuid());
         int newStock = MghgShopStockManager.getPlayerStock(playerRef.getUuid(), item.getId());
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Compraste %dx %s (shopId=%s) por $%s | balance=$%s | stock personal=%d",
                 qty,

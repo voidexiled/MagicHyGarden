@@ -43,33 +43,33 @@ public class FarmKickCommand extends AbstractPlayerCommand {
         MghgPlayerNameManager.remember(playerRef);
         UUID targetId = MghgPlayerNameManager.resolveUuid(playerArg.get(ctx));
         if (targetId == null) {
-            ctx.sendMessage(Message.raw("Jugador inválido. Usa UUID o username online/cacheado."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Jugador inválido. Usa UUID o username online/cacheado."));
             return;
         }
         String targetName = MghgPlayerNameManager.resolve(targetId);
         if (targetId.equals(playerRef.getUuid())) {
-            ctx.sendMessage(Message.raw("No puedes expulsarte a ti mismo."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No puedes expulsarte a ti mismo."));
             return;
         }
 
         MghgParcel parcel = FarmParcelCommandUtil.resolveManagedParcel(playerRef.getUuid(), world);
         if (parcel == null) {
-            ctx.sendMessage(Message.raw("No tienes una parcela gestionable en este contexto."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes una parcela gestionable en este contexto."));
             return;
         }
 
         MghgParcelRole role = MghgParcelAccess.resolveRole(parcel, playerRef.getUuid());
         if (role != MghgParcelRole.OWNER && role != MghgParcelRole.MANAGER) {
-            ctx.sendMessage(Message.raw("No tienes permisos para expulsar."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes permisos para expulsar."));
             return;
         }
 
         boolean removed = parcel.removeMember(targetId);
         if (removed) {
             MghgParcelManager.save();
-            ctx.sendMessage(Message.raw("Expulsaste a " + targetName + " de tu granja."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Expulsaste a " + targetName + " de tu granja."));
         } else {
-            ctx.sendMessage(Message.raw("Ese jugador no está en tu granja."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Ese jugador no está en tu granja."));
         }
     }
 }

@@ -46,13 +46,13 @@ public class FarmAdminPerksStatusSubCommand extends AbstractPlayerCommand {
     ) {
         UUID targetUuid = FarmAdminCommandShared.resolveUuid(executor, targetArg.get(commandContext));
         if (targetUuid == null) {
-            commandContext.sendMessage(Message.raw("Invalid target. Use self, UUID or cached/online name."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Invalid target. Use self, UUID or cached/online name."));
             return;
         }
 
         MghgParcel parcel = MghgParcelManager.getByOwner(targetUuid);
         if (parcel == null) {
-            commandContext.sendMessage(Message.raw("Target does not have a parcel yet."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Target does not have a parcel yet."));
             return;
         }
 
@@ -63,13 +63,13 @@ public class FarmAdminPerksStatusSubCommand extends AbstractPlayerCommand {
         double balance = MghgEconomyManager.getBalance(targetUuid);
         String targetName = MghgPlayerNameManager.resolve(targetUuid);
 
-        commandContext.sendMessage(Message.raw("Admin Perks - " + targetName));
-        commandContext.sendMessage(Message.raw("Fertile Soil level: " + level));
-        commandContext.sendMessage(Message.raw("Tracked fertile blocks: " + used + " / " + cap));
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Admin Perks - " + targetName));
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Fertile Soil level: " + level));
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Tracked fertile blocks: " + used + " / " + cap));
         if (next == null) {
-            commandContext.sendMessage(Message.raw("Next upgrade: max level reached."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Next upgrade: max level reached."));
         } else {
-            commandContext.sendMessage(Message.raw(String.format(
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                     Locale.ROOT,
                     "Next upgrade: level %d (%d slots) for $%.2f",
                     next.getLevel(),
@@ -77,6 +77,6 @@ public class FarmAdminPerksStatusSubCommand extends AbstractPlayerCommand {
                     next.getUpgradeCost()
             )));
         }
-        commandContext.sendMessage(Message.raw(String.format(Locale.ROOT, "Balance: $%.2f", balance)));
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(Locale.ROOT, "Balance: $%.2f", balance)));
     }
 }

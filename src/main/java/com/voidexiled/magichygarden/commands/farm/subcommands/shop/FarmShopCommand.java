@@ -60,31 +60,31 @@ public class FarmShopCommand extends AbstractPlayerCommand {
         String action = normalize(actionArg.get(ctx));
         if ("close".equals(action) || "hide".equals(action)) {
             closeHudForPlayer(store, playerEntityRef, playerRef);
-            ctx.sendMessage(Message.raw("Shop UI cerrada."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Shop UI cerrada."));
             return;
         }
 
         if ("hud".equals(action)) {
             String openHudError = openHudForPlayer(store, playerEntityRef, playerRef, world);
             if (openHudError != null) {
-                ctx.sendMessage(Message.raw(openHudError));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(openHudError));
                 return;
             }
             MghgFarmShopPage.closeForPlayer(store, playerEntityRef);
             MghgFarmShopPageV2.closeForPlayer(store, playerEntityRef);
-            ctx.sendMessage(Message.raw("Shop HUD abierta. Usa /farm shop close para cerrar."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Shop HUD abierta. Usa /farm shop close para cerrar."));
             return;
         }
 
         if ("text".equals(action)) {
             MghgShopConfig.ShopItem[] items = MghgShopStockManager.getConfiguredItems();
             if (items.length == 0) {
-                ctx.sendMessage(Message.raw("Shop config vacia."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Shop config vacia."));
                 return;
             }
             Player player = store.getComponent(playerEntityRef, Player.getComponentType());
             if (player == null) {
-                ctx.sendMessage(Message.raw("No pude obtener el componente de jugador."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude obtener el componente de jugador."));
                 return;
             }
             ItemContainer inventory = player.getInventory().getCombinedStorageFirst();
@@ -100,12 +100,12 @@ public class FarmShopCommand extends AbstractPlayerCommand {
             MghgDynamicTooltipsManager.refreshAllPlayers();
             String openError = MghgFarmShopPageV2.openForPlayer(store, playerEntityRef, playerRef, world);
             if (openError != null) {
-                ctx.sendMessage(Message.raw(openError));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(openError));
                 return;
             }
             closeLegacyHudForPlayer(store, playerEntityRef, playerRef);
             MghgFarmShopPage.closeForPlayer(store, playerEntityRef);
-            ctx.sendMessage(Message.raw("Shop V2 abierta. Usa /farm shop close para cerrar."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Shop V2 abierta. Usa /farm shop close para cerrar."));
             return;
         }
 
@@ -113,12 +113,12 @@ public class FarmShopCommand extends AbstractPlayerCommand {
         MghgDynamicTooltipsManager.refreshAllPlayers();
         String openError = MghgFarmShopPage.openForPlayer(store, playerEntityRef, playerRef, world);
         if (openError != null) {
-            ctx.sendMessage(Message.raw(openError));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(openError));
             return;
         }
         closeLegacyHudForPlayer(store, playerEntityRef, playerRef);
         MghgFarmShopPageV2.closeForPlayer(store, playerEntityRef);
-        ctx.sendMessage(Message.raw("Shop page abierta. Usa /farm shop close para cerrar."));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Shop page abierta. Usa /farm shop close para cerrar."));
     }
 
     public static @Nullable String openHudForPlayer(
@@ -208,7 +208,7 @@ public class FarmShopCommand extends AbstractPlayerCommand {
     }
 
     private static void sendTextView(@NonNull CommandContext ctx, double balance, long remaining, @NonNull String[] lines) {
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Farm Shop | balance=$%.2f | nextRestock=%s",
                 balance,
@@ -216,10 +216,10 @@ public class FarmShopCommand extends AbstractPlayerCommand {
         )));
         for (String line : lines) {
             if (line != null && !line.isBlank()) {
-                ctx.sendMessage(Message.raw(line));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(line));
             }
         }
-        ctx.sendMessage(Message.raw("Uso: /farm buy <shopId> <qty> | /farm buymax <shopId> | /farm sell <shopId> <qty> | /farm sellall [shopId|all]"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Uso: /farm buy <shopId> <qty> | /farm buymax <shopId> | /farm sell <shopId> <qty> | /farm sellall [shopId|all]"));
     }
 
     private static void showHud(

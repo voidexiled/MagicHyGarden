@@ -27,6 +27,6 @@ public class FarmAdminParcelReloadSubCommand extends AbstractPlayerCommand {
 
     private static void handleParcelReload(@NonNull CommandContext ctx) {
         MghgParcelManager.load();
-        ctx.sendMessage(Message.raw("Parcel store recargado desde disco."));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Parcel store recargado desde disco."));
     }
 }

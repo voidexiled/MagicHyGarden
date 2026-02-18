@@ -29,14 +29,14 @@ public class FarmStockCommand extends AbstractPlayerCommand {
     ) {
         MghgShopConfig.ShopItem[] items = MghgShopStockManager.getConfiguredItems();
         if (items.length == 0) {
-            ctx.sendMessage(Message.raw("Shop config vacia."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Shop config vacia."));
             return;
         }
 
         long remaining = MghgShopStockManager.getRemainingRestockSeconds();
         long minutes = remaining / 60L;
         long seconds = remaining % 60L;
-        ctx.sendMessage(Message.raw("Restock in " + minutes + "m " + seconds + "s"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Restock in " + minutes + "m " + seconds + "s"));
 
         for (MghgShopConfig.ShopItem item : items) {
             if (item == null || item.getId() == null || item.getId().isBlank()) continue;
@@ -54,9 +54,9 @@ public class FarmStockCommand extends AbstractPlayerCommand {
                     item.getSellPrice(),
                     normalizeChance(item.getRestockChance())
             );
-            ctx.sendMessage(Message.raw(line));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(line));
         }
-        ctx.sendMessage(Message.raw("Usa /farm shop para vista detallada."));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Usa /farm shop para vista detallada."));
     }
 
     private static double normalizeChance(double raw) {

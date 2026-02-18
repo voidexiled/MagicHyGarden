@@ -56,7 +56,7 @@ public class FarmEventWeatherSubCommand extends AbstractPlayerCommand {
             MghgFarmEventScheduler.clearWeatherStateCache();
         }
         MghgFarmEventScheduler.applyWeatherToFarmWorlds(weatherId);
-        commandContext.sendMessage(Message.raw("Weather aplicado a farm worlds: "
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Weather aplicado a farm worlds: "
                 + FarmEventCommandShared.fallback(weatherId, "clear")
                 + (force ? " (forced reapply)" : "")));
     }

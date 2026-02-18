@@ -42,7 +42,7 @@ public class FarmAdminWorldBackupSubCommand extends AbstractPlayerCommand {
         String targetToken = targetArg.get(commandContext);
         UUID targetUuid = FarmAdminCommandShared.resolveUuid(executor, targetToken);
         if (targetUuid == null) {
-            commandContext.sendMessage(Message.raw("Target invalido. Usa self, UUID o username cacheado/online."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Target invalido. Usa self, UUID o username cacheado/online."));
             return;
         }
         forceWorldBackup(commandContext, targetUuid);
@@ -56,9 +56,9 @@ public class FarmAdminWorldBackupSubCommand extends AbstractPlayerCommand {
 
         boolean ok = MghgFarmWorldManager.forceSnapshotOwner(owner);
         if (!ok) {
-            ctx.sendMessage(Message.raw("No pude forzar snapshot (world/universe no disponible)."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude forzar snapshot (world/universe no disponible)."));
             return;
         }
-        ctx.sendMessage(Message.raw("Snapshot forzado para " + targetName + " (" + owner + ")"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Snapshot forzado para " + targetName + " (" + owner + ")"));
     }
 }

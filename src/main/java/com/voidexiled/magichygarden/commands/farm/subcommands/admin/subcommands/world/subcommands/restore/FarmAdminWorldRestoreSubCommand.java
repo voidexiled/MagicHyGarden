@@ -40,7 +40,7 @@ public class FarmAdminWorldRestoreSubCommand extends AbstractPlayerCommand {
         String targetToken = targetArg.get(commandContext);
         UUID targetUuid = FarmAdminCommandShared.resolveUuid(executor, targetToken);
         if (targetUuid == null) {
-            commandContext.sendMessage(Message.raw("Target invalido. Usa self, UUID o username cacheado/online."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Target invalido. Usa self, UUID o username cacheado/online."));
             return;
         }
         forceWorldRestore(commandContext, targetUuid);
@@ -53,7 +53,7 @@ public class FarmAdminWorldRestoreSubCommand extends AbstractPlayerCommand {
         String targetName = MghgPlayerNameManager.resolve(owner);
 
         boolean restored = MghgFarmWorldManager.restoreOwnerFromSnapshot(owner);
-        ctx.sendMessage(Message.raw(restored
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(restored
                 ? "Restore desde snapshot aplicado para " + targetName + " (" + owner + ")"
                 : "No habia snapshot/restauracion para " + targetName + " (" + owner + ")"));
     }

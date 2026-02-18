@@ -37,7 +37,7 @@ public class FarmAdminWorldStatusSubCommand extends AbstractPlayerCommand {
     private static void sendWorldStatus(@NonNull CommandContext ctx) {
         Universe universe = Universe.get();
         if (universe == null) {
-            ctx.sendMessage(Message.raw("Universe no disponible."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Universe no disponible."));
             return;
         }
         int count = 0;
@@ -49,7 +49,7 @@ public class FarmAdminWorldStatusSubCommand extends AbstractPlayerCommand {
             UUID owner = MghgFarmWorldManager.getOwnerFromFarmWorld(candidate);
             Path backupPath = MghgFarmWorldManager.getBackupWorldPath(owner);
             boolean backupExists = Files.isDirectory(backupPath);
-            ctx.sendMessage(Message.raw(String.format(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                     Locale.ROOT,
                     "%s | owner=%s | players=%d | ticking=%s | backup=%s",
                     FarmAdminCommandShared.fallback(candidate.getName(), "(unnamed)"),
@@ -59,12 +59,12 @@ public class FarmAdminWorldStatusSubCommand extends AbstractPlayerCommand {
                     backupExists
             )));
             if (count >= 60) {
-                ctx.sendMessage(Message.raw("World list truncada en 60 entradas."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("World list truncada en 60 entradas."));
                 break;
             }
         }
         if (count == 0) {
-            ctx.sendMessage(Message.raw("No hay farm worlds activas."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No hay farm worlds activas."));
         }
     }
 }

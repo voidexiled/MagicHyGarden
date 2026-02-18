@@ -20,10 +20,10 @@ public final class MghgCropDefinition {
                             (o, v) -> o.baseWeightGrams = v == null ? 0.0 : v,
                             o -> o.baseWeightGrams <= 0 ? null : o.baseWeightGrams)
                     .add()
-                    .append(new KeyedCodec<>("GrowTimeSeconds", Codec.INTEGER, true),
-                            (o, v) -> o.growTimeSeconds = v == null ? o.growTimeSeconds : Math.max(0, v),
-                            o -> o.growTimeSeconds <= 0 ? null : o.growTimeSeconds)
-                    .documentation("Approximate full growth time in seconds (seed to mature). Used by tooltips/UI.")
+                    .append(new KeyedCodec<>("GrowTimeMiliseconds", Codec.INTEGER, true),
+                            (o, v) -> o.GrowTimeMiliseconds = v == null ? o.GrowTimeMiliseconds : Math.max(0, v),
+                            o -> o.GrowTimeMiliseconds <= 0 ? null : o.GrowTimeMiliseconds)
+                    .documentation("Approximate full growth time in ms (seed to mature). Used by tooltips/UI.")
                     .add()
                     .build();
 
@@ -31,7 +31,7 @@ public final class MghgCropDefinition {
     private String blockId;
     private String itemId;
     private double baseWeightGrams;
-    private int growTimeSeconds;
+    private int GrowTimeMiliseconds;
 
     public MghgCropDefinition() {
     }
@@ -52,8 +52,8 @@ public final class MghgCropDefinition {
         return baseWeightGrams;
     }
 
-    public int getGrowTimeSeconds() {
-        return growTimeSeconds;
+    public int getGrowTimeMiliseconds() {
+        return GrowTimeMiliseconds;
     }
 
     void normalize() {

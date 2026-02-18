@@ -58,21 +58,21 @@ public class FarmAdminStatusSubCommand extends AbstractPlayerCommand {
         long nextStock = MghgShopStockManager.getRemainingRestockSeconds();
         int configuredItems = MghgShopStockManager.getConfiguredItems().length;
 
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Worlds total=%d | farm=%d | onlinePlayers=%d",
                 totalWorlds,
                 farmWorlds,
                 onlinePlayers
         )));
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Parcels=%d | shopItems=%d | nextRestock=%s",
                 parcelCount,
                 configuredItems,
                 FarmAdminCommandShared.formatDuration(nextStock)
         )));
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Event active=%s | type=%s | id=%s | weather=%s",
                 eventActive,

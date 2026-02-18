@@ -26,9 +26,9 @@ public class FarmDenySubCommand extends AbstractPlayerCommand {
     ) {
         MghgParcelInviteService.Invite invite = MghgParcelInviteService.denyLatest(playerRef.getUuid());
         if (invite == null) {
-            ctx.sendMessage(Message.raw("No tienes invitaciones pendientes."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes invitaciones pendientes."));
             return;
         }
-        ctx.sendMessage(Message.raw("Invitación rechazada de " + invite.getOwnerName() + "."));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Invitación rechazada de " + invite.getOwnerName() + "."));
     }
 }

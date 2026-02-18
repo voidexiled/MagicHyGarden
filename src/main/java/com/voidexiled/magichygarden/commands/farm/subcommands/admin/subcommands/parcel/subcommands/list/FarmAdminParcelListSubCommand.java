@@ -41,7 +41,7 @@ public class FarmAdminParcelListSubCommand extends AbstractPlayerCommand {
             count++;
             String worldName = MghgFarmWorldManager.getFarmWorldName(parcel.getOwner());
             MghgParcelBounds bounds = parcel.getBounds();
-            ctx.sendMessage(Message.raw(String.format(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                     Locale.ROOT,
                     "%s | owner=%s | world=%s | spawn=(%d,%d,%d) | origin=(%d,%d,%d)",
                     FarmAdminCommandShared.fallback(parcel.getId() == null ? null : parcel.getId().toString(), "-"),
@@ -55,10 +55,10 @@ public class FarmAdminParcelListSubCommand extends AbstractPlayerCommand {
                     bounds == null ? 0 : bounds.getOriginZ()
             )));
             if (count >= 40) {
-                ctx.sendMessage(Message.raw("Parcel list truncada en 40 entradas."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Parcel list truncada en 40 entradas."));
                 break;
             }
         }
-        ctx.sendMessage(Message.raw("Total parcels: " + MghgParcelManager.all().size()));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Total parcels: " + MghgParcelManager.all().size()));
     }
 }

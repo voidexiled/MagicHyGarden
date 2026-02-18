@@ -40,11 +40,11 @@ public class FarmAdminPathsSubCommand extends AbstractPlayerCommand {
         Path ecoPath = MghgEconomyManager.getStorePath();
         Path shopPath = MghgShopStockManager.getStorePath();
         Path backupRoot = MghgFarmWorldManager.getBackupRootPath();
-        ctx.sendMessage(Message.raw("Data root: " + root));
-        ctx.sendMessage(Message.raw("Parcels dir: " + parcelDir));
-        ctx.sendMessage(Message.raw("Parcel invites file: " + invitePath));
-        ctx.sendMessage(Message.raw("World backups dir: " + backupRoot));
-        ctx.sendMessage(Message.raw("Economy file: " + ecoPath));
-        ctx.sendMessage(Message.raw("Shop stock file: " + shopPath));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Data root: " + root));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Parcels dir: " + parcelDir));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Parcel invites file: " + invitePath));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("World backups dir: " + backupRoot));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Economy file: " + ecoPath));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Shop stock file: " + shopPath));
     }
 }

@@ -32,24 +32,24 @@ public class FarmMembersCommand extends AbstractPlayerCommand {
         MghgPlayerNameManager.remember(playerRef);
         MghgParcel parcel = FarmParcelCommandUtil.resolveManagedParcel(playerRef.getUuid(), world);
         if (parcel == null) {
-            ctx.sendMessage(Message.raw("No tienes una parcela gestionable en este contexto."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes una parcela gestionable en este contexto."));
             return;
         }
 
-        ctx.sendMessage(Message.raw("Owner: " + resolveName(parcel.getOwner()) + " (" + parcel.getOwner() + ")"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Owner: " + resolveName(parcel.getOwner()) + " (" + parcel.getOwner() + ")"));
         MghgParcelMember[] members = parcel.getMembers();
         if (members == null || members.length == 0) {
-            ctx.sendMessage(Message.raw("Members: 0"));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Members: 0"));
             return;
         }
 
-        ctx.sendMessage(Message.raw("Members: " + members.length));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Members: " + members.length));
         for (MghgParcelMember member : members) {
             if (member == null || member.getUuid() == null || member.getRole() == null) {
                 continue;
             }
             UUID uuid = member.getUuid();
-            ctx.sendMessage(Message.raw(" - " + resolveName(uuid) + " | " + member.getRole().name()));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - " + resolveName(uuid) + " | " + member.getRole().name()));
         }
     }
 

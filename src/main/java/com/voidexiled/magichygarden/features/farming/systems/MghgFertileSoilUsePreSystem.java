@@ -118,7 +118,7 @@ public final class MghgFertileSoilUsePreSystem extends EntityEventSystem<EntityS
 
         int current = MghgFarmPerkManager.getTrackedFertileCount(parcel);
         int cap = MghgFarmPerkManager.getFertileSoilCap(parcel);
-        playerRef.sendMessage(Message.raw(
+        playerRef.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                 "Fertile soil limit reached.\n"
                         + "Current: " + current + " / " + cap + ".\n"
                         + "Upgrade with /farm perks upgrade fertile_soil."
@@ -133,7 +133,7 @@ public final class MghgFertileSoilUsePreSystem extends EntityEventSystem<EntityS
             return;
         }
         lastDeniedMessageAt.put(playerId, now);
-        playerRef.sendMessage(Message.raw(
+        playerRef.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                 "You must use the custom farm hoe for tilling.\n"
                         + "Craft/use Tool_Hoe_Custom."
         ));

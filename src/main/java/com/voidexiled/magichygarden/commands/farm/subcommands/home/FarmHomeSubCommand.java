@@ -78,7 +78,7 @@ public class FarmHomeSubCommand extends AbstractPlayerCommand {
             @NonNull Transform spawn,
             int attempt
     ) {
-        ctx.sendMessage(Message.raw("Preparando teletransporte a tu granja...").color(Color.orange));
+
         Ref<EntityStore> liveRef = playerRef.getReference();
         if (liveRef == null || !liveRef.isValid()) {
             retryTeleport(ctx, playerRef, targetWorld, spawn, attempt);
@@ -103,7 +103,10 @@ public class FarmHomeSubCommand extends AbstractPlayerCommand {
                     FarmTeleportUtil.sanitizeRotation(spawn.getRotation())
             );
             currentStore.putComponent(currentRef, Teleport.getComponentType(), tp);
-            ctx.sendMessage(Message.raw("Teletransportando a tu granja...").color(Color.green));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.format(
+                    com.voidexiled.magichygarden.utils.chat.MghgChat.Channel.SUCCESS,
+                    "Teletransportando a tu granja..."
+            ));
         });
     }
 
@@ -115,7 +118,7 @@ public class FarmHomeSubCommand extends AbstractPlayerCommand {
             int attempt
     ) {
         if (attempt >= TELEPORT_MAX_ATTEMPTS) {
-            ctx.sendMessage(Message.raw("No pude teletransportarte ahora. Intenta /farm home nuevamente."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude teletransportarte ahora. Intenta /farm home nuevamente."));
             return;
         }
         HytaleServer.SCHEDULED_EXECUTOR.schedule(
@@ -131,8 +134,16 @@ public class FarmHomeSubCommand extends AbstractPlayerCommand {
             @NonNull World callbackWorld,
             int attempt
     ) {
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.format(
+                com.voidexiled.magichygarden.utils.chat.MghgChat.Channel.WARNING,
+                "Comando recibido..."
+        ));
         MghgFarmWorldManager.ensureFarmWorld(playerRef.getUuid())
                 .thenAccept(targetWorld -> {
+                    ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.format(
+                            com.voidexiled.magichygarden.utils.chat.MghgChat.Channel.WARNING,
+                            "Preparando teletransporte a tu granja..."
+                    ));
                     Transform spawn = resolveParcelSpawn(targetWorld, playerRef.getUuid());
                     scheduleTeleport(ctx, playerRef, targetWorld, spawn, 1);
                 })
@@ -149,7 +160,7 @@ public class FarmHomeSubCommand extends AbstractPlayerCommand {
                     String message = root == null || root.getMessage() == null
                             ? String.valueOf(error)
                             : root.getClass().getSimpleName() + ": " + root.getMessage();
-                    callbackWorld.execute(() -> ctx.sendMessage(Message.raw("No pude crear/abrir tu granja: " + message)));
+                    callbackWorld.execute(() -> ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude crear/abrir tu granja: " + message)));
                     return null;
                 });
     }

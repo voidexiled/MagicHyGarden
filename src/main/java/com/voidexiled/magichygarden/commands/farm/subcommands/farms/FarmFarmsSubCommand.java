@@ -34,10 +34,10 @@ public class FarmFarmsSubCommand extends AbstractPlayerCommand {
         UUID self = playerRef.getUuid();
         MghgParcel own = MghgParcelManager.getByOwner(self);
         if (own == null) {
-            ctx.sendMessage(Message.raw("Tu granja no esta inicializada todavia."));
-            ctx.sendMessage(Message.raw("Usa /farm home para crearla."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Tu granja no esta inicializada todavia."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Usa /farm home para crearla."));
         } else {
-            ctx.sendMessage(Message.raw(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                     "Tu granja: owner=" + resolveName(self) + " | " + self
             ));
         }
@@ -50,7 +50,7 @@ public class FarmFarmsSubCommand extends AbstractPlayerCommand {
             MghgParcelRole role = MghgParcelAccess.resolveRole(parcel, self);
             if (role == MghgParcelRole.MEMBER || role == MghgParcelRole.MANAGER) {
                 memberships++;
-                ctx.sendMessage(Message.raw(
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                         " - " + role.name() + " en owner=" + resolveName(parcel.getOwner())
                                 + " | " + parcel.getOwner()
                 ));
@@ -58,10 +58,10 @@ public class FarmFarmsSubCommand extends AbstractPlayerCommand {
         }
 
         if (memberships == 0) {
-            ctx.sendMessage(Message.raw("No perteneces a otras granjas."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No perteneces a otras granjas."));
             return;
         }
-        ctx.sendMessage(Message.raw("Total granjas donde eres miembro: " + memberships));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Total granjas donde eres miembro: " + memberships));
     }
 
     private static String resolveName(@NonNull UUID playerUuid) {

@@ -26,7 +26,7 @@ public class FarmEventStopSubCommand extends AbstractPlayerCommand {
             @NonNull World world
     ) {
         MghgFarmEventScheduler.forceStopActiveEvent();
-        commandContext.sendMessage(Message.raw("Evento activo forzado a detenerse."));
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Evento activo forzado a detenerse."));
         FarmEventCommandShared.sendStatus(commandContext);
     }
 }

@@ -48,16 +48,16 @@ public class FarmEventGrowthSubCommand extends AbstractPlayerCommand {
         String ownerOfflineToken = FarmEventCommandShared.raw(ownerOfflineArg.get(commandContext));
         if ("reset".equals(FarmEventCommandShared.normalize(ownerOfflineToken))) {
             MghgFarmEventScheduler.setGrowthPolicyOverrides(null, null);
-            commandContext.sendMessage(Message.raw("Growth overrides reseteados (vuelven al JSON)."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Growth overrides reseteados (vuelven al JSON)."));
             return;
         }
 
         Boolean ownerOffline = FarmEventCommandShared.parseBoolean(ownerOfflineToken);
         if (ownerOffline == null) {
-            commandContext.sendMessage(Message.raw(
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                     "Valor invalido para ownerOffline. Usa true/false o reset."
             ));
-            commandContext.sendMessage(Message.raw(
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                     "Uso: /farm event growth <true|false|reset> [serverEmpty true|false]"
             ));
             return;
@@ -68,12 +68,12 @@ public class FarmEventGrowthSubCommand extends AbstractPlayerCommand {
                 ? ownerOffline
                 : FarmEventCommandShared.parseBoolean(serverEmptyToken);
         if (serverEmpty == null) {
-            commandContext.sendMessage(Message.raw("Valor invalido para serverEmpty. Usa true/false."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Valor invalido para serverEmpty. Usa true/false."));
             return;
         }
 
         MghgFarmEventScheduler.setGrowthPolicyOverrides(ownerOffline, serverEmpty);
-        commandContext.sendMessage(Message.raw(String.format(
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Growth overrides actualizados: ownerOffline=%s | serverEmpty=%s",
                 ownerOffline,

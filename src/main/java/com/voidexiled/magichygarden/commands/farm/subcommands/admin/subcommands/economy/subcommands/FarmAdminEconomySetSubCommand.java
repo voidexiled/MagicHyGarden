@@ -48,7 +48,7 @@ public class FarmAdminEconomySetSubCommand extends AbstractPlayerCommand {
         String targetToken = targetArg.get(commandContext);
         UUID targetUuid = FarmAdminCommandShared.resolveUuid(executor, targetToken);
         if (targetUuid == null) {
-            commandContext.sendMessage(Message.raw("Target invalido. Usa self, UUID o username cacheado/online."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Target invalido. Usa self, UUID o username cacheado/online."));
             return;
         }
         int amount = amountArg.get(commandContext);
@@ -57,6 +57,6 @@ public class FarmAdminEconomySetSubCommand extends AbstractPlayerCommand {
 
         double updated = MghgEconomyManager.getBalance(targetUuid);
         String targetName = MghgPlayerNameManager.resolve(targetUuid);
-        commandContext.sendMessage(Message.raw(String.format(Locale.ROOT, "Balance actualizado %s = $%.2f", targetName, updated)));
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(Locale.ROOT, "Balance actualizado %s = $%.2f", targetName, updated)));
     }
 }

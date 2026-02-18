@@ -25,6 +25,6 @@ public class FarmAdminWorldBackupAllSubCommand extends AbstractPlayerCommand {
                            @NonNull PlayerRef playerRef,
                            @NonNull World world) {
         MghgFarmWorldManager.forceSnapshotAll();
-        commandContext.sendMessage(Message.raw("Snapshot forzado para todas las farm worlds."));
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Snapshot forzado para todas las farm worlds."));
     }
 }

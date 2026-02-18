@@ -454,19 +454,20 @@ public final class MghgDynamicTooltipsManager {
 
     private static @Nonnull TooltipPayload buildSeedPayload(@Nonnull String itemId, @Nonnull MghgShopConfig.ShopItem item) {
         ArrayList<String> lines = new ArrayList<>();
-        lines.add(color("#f2d896", "Seed bag pricing"));
+        //lines.add(color("#f2d896", "Seed bag pricing"));
         lines.add(color("#9fb6d1", "Buy price: ") + color("#ffffff", formatMoney(item.getBuyPrice())));
         lines.add(color("#9fb6d1", "Base sell value: ") + color("#d7e5f7", formatMoney(item.getSellPrice())));
-        int growTimeSeconds = resolveGrowTimeSeconds(item);
-        if (growTimeSeconds > 0) {
-            lines.add(color("#9fb6d1", "Grow time: ") + color("#d7e5f7", formatDuration(growTimeSeconds)));
+        int growTimeMiliseconds = resolveGrowTimeMiliseconds(item);
+        if (growTimeMiliseconds > 0) {
+            lines.add(color("#9fb6d1", "Grow time: ") + color("#d7e5f7", formatDuration(growTimeMiliseconds, true)));
         }
-        lines.add(color("#9fb6d1", "Restock chance: ") + color("#d7e5f7", formatPercent(item.getRestockChance())));
+        lines.add("");
+        //lines.add(color("#9fb6d1", "Restock chance: ") + color("#d7e5f7", formatPercent(item.getRestockChance())));
 
         if (item.isEnableMetaSellPricing()) {
-            lines.add(color("#9fb6d1", "Formula: ") + "Base x Rarity x Size x Climate x Lunar");
+            //lines.add(color("#9fb6d1", "Formula: ") + "Base x Rarity x Size x Climate x Lunar");
             lines.add(
-                    color("#9fb6d1", "Size curve: ")
+                    color("#9fb6d1", "Size multiplier: ")
                             + color(
                             "#d7e5f7",
                             String.format(
@@ -480,7 +481,7 @@ public final class MghgDynamicTooltipsManager {
                     )
             );
         } else {
-            lines.add(color("#9fb6d1", "Formula: ") + color("#d7e5f7", "Fixed base sell value"));
+            //lines.add(color("#9fb6d1", "Formula: ") + color("#d7e5f7", "Fixed base sell value"));
         }
 
         String hashInput = String.format(
@@ -491,7 +492,7 @@ public final class MghgDynamicTooltipsManager {
                 item.getSellPrice(),
                 item.getRestockChance(),
                 item.isEnableMetaSellPricing(),
-                growTimeSeconds
+                growTimeMiliseconds
         );
         return new TooltipPayload(lines, hashInput);
     }
@@ -709,10 +710,15 @@ public final class MghgDynamicTooltipsManager {
     }
 
     private static @Nonnull String formatDuration(int totalSecondsRaw) {
-        int totalSeconds = Math.max(0, totalSecondsRaw);
+        return formatDuration(totalSecondsRaw, false);
+    }
+
+    private static @Nonnull String formatDuration(int totalSecondsRaw, boolean inMiliseconds) {
+        int totalSeconds = inMiliseconds ? Math.max(0, totalSecondsRaw) / 100 : Math.max(0, totalSecondsRaw);
         int hours = totalSeconds / 3600;
         int minutes = (totalSeconds % 3600) / 60;
         int seconds = totalSeconds % 60;
+
 
         ArrayList<String> parts = new ArrayList<>(3);
         if (hours > 0) {
@@ -727,15 +733,15 @@ public final class MghgDynamicTooltipsManager {
         return String.join(" ", parts);
     }
 
-    private static int resolveGrowTimeSeconds(@Nonnull MghgShopConfig.ShopItem item) {
+    private static int resolveGrowTimeMiliseconds(@Nonnull MghgShopConfig.ShopItem item) {
         for (String sellItemId : item.resolveSellItemIds()) {
             String normalizedSellId = normalizeItemId(sellItemId);
             if (normalizedSellId == null || normalizedSellId.isBlank()) {
                 continue;
             }
             MghgCropDefinition definition = MghgCropRegistry.getDefinitionByItemId(normalizedSellId);
-            if (definition != null && definition.getGrowTimeSeconds() > 0) {
-                return definition.getGrowTimeSeconds();
+            if (definition != null && definition.getGrowTimeMiliseconds() > 0) {
+                return definition.getGrowTimeMiliseconds();
             }
         }
         return 0;

@@ -29,7 +29,7 @@ public class FarmBalanceCommand extends AbstractPlayerCommand {
     ) {
         MghgPlayerNameManager.remember(playerRef);
         double balance = MghgEconomyManager.getBalance(playerRef.getUuid());
-        ctx.sendMessage(Message.raw("Balance: $" + formatMoney(balance)));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Balance: $" + formatMoney(balance)));
     }
 
     private static String formatMoney(double value) {

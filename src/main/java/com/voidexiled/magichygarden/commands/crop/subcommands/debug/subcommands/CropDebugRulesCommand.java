@@ -65,6 +65,6 @@ public class CropDebugRulesCommand extends AbstractPlayerCommand {
             }
         }
 
-        ctx.sendMessage(Message.raw(sb.toString()));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(sb.toString()));
     }
 }

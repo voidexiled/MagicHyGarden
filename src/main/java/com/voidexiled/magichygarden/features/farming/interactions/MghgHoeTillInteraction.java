@@ -6,7 +6,6 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.protocol.SoundCategory;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.soundevent.config.SoundEvent;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
@@ -21,6 +20,7 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcel;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelAccess;
 import com.voidexiled.magichygarden.features.farming.perks.MghgFarmPerkManager;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
+import com.voidexiled.magichygarden.utils.chat.MghgChat;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -65,10 +65,11 @@ public final class MghgHoeTillInteraction extends SimpleBlockInteraction {
 
         PlayerRef player = resolvePlayerRef(world, context);
         if (!MghgFarmPerkManager.isHoeItem(heldItemId)) {
-            sendMessageWithCooldown(player, Message.raw(
-                    "You must use the custom farm hoe for tilling.\n"
-                            + "Craft/use Tool_Hoe_Custom."
-            ));
+            sendMessageWithCooldown(
+                    player,
+                    MghgChat.Channel.WARNING,
+                    "You must use the custom farm hoe for tilling.\nCraft/use Tool_Hoe_Custom."
+            );
             return;
         }
 
@@ -85,11 +86,11 @@ public final class MghgHoeTillInteraction extends SimpleBlockInteraction {
         if (!MghgFarmPerkManager.canTrackFertileBlock(parcel, key)) {
             int current = MghgFarmPerkManager.getTrackedFertileCount(parcel);
             int cap = MghgFarmPerkManager.getFertileSoilCap(parcel);
-            sendMessageWithCooldown(player, Message.raw(
-                    "Fertile soil limit reached.\n"
-                            + "Current: " + current + " / " + cap + ".\n"
-                            + "Upgrade with /farm perks upgrade fertile_soil."
-            ));
+            sendMessageWithCooldown(
+                    player,
+                    MghgChat.Channel.WARNING,
+                    "Fertile soil limit reached.\nCurrent: " + current + " / " + cap + ".\nUpgrade with /farm perks upgrade fertile_soil."
+            );
             return;
         }
 
@@ -156,7 +157,11 @@ public final class MghgHoeTillInteraction extends SimpleBlockInteraction {
         return world.getEntityStore().getStore().getComponent(ref, PlayerRef.getComponentType());
     }
 
-    private void sendMessageWithCooldown(@Nullable PlayerRef player, @Nonnull Message message) {
+    private void sendMessageWithCooldown(
+            @Nullable PlayerRef player,
+            @Nonnull MghgChat.Channel channel,
+            @Nonnull String body
+    ) {
         if (player == null) {
             return;
         }
@@ -167,6 +172,6 @@ public final class MghgHoeTillInteraction extends SimpleBlockInteraction {
             return;
         }
         LAST_MESSAGE_AT.put(playerId, now);
-        player.sendMessage(message);
+        MghgChat.toPlayer(player, channel, body);
     }
 }

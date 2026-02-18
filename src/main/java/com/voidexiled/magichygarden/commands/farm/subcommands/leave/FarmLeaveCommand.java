@@ -51,7 +51,7 @@ public class FarmLeaveCommand extends AbstractPlayerCommand {
         if (!rawOwner.isBlank()) {
             UUID ownerId = resolveOwner(rawOwner);
             if (ownerId == null) {
-                ctx.sendMessage(Message.raw("Owner invalido. Usa username cacheado/online o UUID."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Owner invalido. Usa username cacheado/online o UUID."));
                 return;
             }
             leaveFromOwner(ctx, playerId, ownerId);
@@ -66,7 +66,7 @@ public class FarmLeaveCommand extends AbstractPlayerCommand {
 
         List<MghgParcel> memberships = resolveMemberships(playerId);
         if (memberships.isEmpty()) {
-            ctx.sendMessage(Message.raw("No perteneces a ninguna granja ajena."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No perteneces a ninguna granja ajena."));
             return;
         }
         if (memberships.size() == 1) {
@@ -74,24 +74,24 @@ public class FarmLeaveCommand extends AbstractPlayerCommand {
             return;
         }
 
-        ctx.sendMessage(Message.raw(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                 "Perteneces a " + memberships.size()
                         + " granjas. Usa /farm leave <ownerUuid> para elegir:"
         ));
         for (int i = 0; i < Math.min(10, memberships.size()); i++) {
             MghgParcel parcel = memberships.get(i);
-            ctx.sendMessage(Message.raw(" - owner=" + resolveName(parcel.getOwner()) + " | " + parcel.getOwner()));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - owner=" + resolveName(parcel.getOwner()) + " | " + parcel.getOwner()));
         }
     }
 
     private static void leaveFromOwner(@NonNull CommandContext ctx, @NonNull UUID playerId, @NonNull UUID ownerId) {
         MghgParcel parcel = MghgParcelManager.getByOwner(ownerId);
         if (parcel == null) {
-            ctx.sendMessage(Message.raw("No existe una granja para ese owner."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No existe una granja para ese owner."));
             return;
         }
         if (!canLeaveRole(parcel, playerId)) {
-            ctx.sendMessage(Message.raw("No tienes rol de member/manager en esa granja."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes rol de member/manager en esa granja."));
             return;
         }
         applyLeave(ctx, parcel, playerId);
@@ -105,11 +105,11 @@ public class FarmLeaveCommand extends AbstractPlayerCommand {
     private static void applyLeave(@NonNull CommandContext ctx, @NonNull MghgParcel parcel, @NonNull UUID playerId) {
         boolean removed = parcel.removeMember(playerId);
         if (!removed) {
-            ctx.sendMessage(Message.raw("No se pudo salir de la granja."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No se pudo salir de la granja."));
             return;
         }
         MghgParcelManager.save();
-        ctx.sendMessage(Message.raw("Saliste de la granja de " + resolveName(parcel.getOwner()) + "."));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Saliste de la granja de " + resolveName(parcel.getOwner()) + "."));
     }
 
     private static @Nullable UUID resolveOwner(@NonNull String rawOwner) {

@@ -31,7 +31,7 @@ public class CropDebugTestCommand extends AbstractPlayerCommand {
                 .withMetadata(MghgCropMeta.KEY, MghgCropMeta.fromCropData(77, "SNOW", "NONE", 0.0));
 
         // Mensaje para confirmar IDs
-        commandContext.sendMessage(Message.raw("base=" + base.getItemId() + " | rain=" + rain.getItemId()));
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("base=" + base.getItemId() + " | rain=" + rain.getItemId()));
 
         // Dárselo al jugador (origin null = sin animación, va directo a inventario)
         ItemUtils.interactivelyPickupItem(ref, rain, null, store);

@@ -49,24 +49,24 @@ public final class FarmLogCommand extends AbstractPlayerCommand {
         String action = normalize(actionArg.get(ctx));
         if ("clear".equals(action)) {
             int removed = MghgShopUiLogManager.clear(playerRef.getUuid());
-            ctx.sendMessage(Message.raw("Shop log cleared. Removed " + removed + " entries."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Shop log cleared. Removed " + removed + " entries."));
             return;
         }
 
         int limit = clampLimit(limitArg.get(ctx));
         String[] lines = MghgShopUiLogManager.getRecentLines(playerRef.getUuid(), limit);
         if (lines.length == 0) {
-            ctx.sendMessage(Message.raw("No shop activity yet."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No shop activity yet."));
             return;
         }
 
-        ctx.sendMessage(Message.raw("Shop activity log (latest " + lines.length + "):"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Shop activity log (latest " + lines.length + "):"));
         for (String line : lines) {
             if (line != null && !line.isBlank()) {
-                ctx.sendMessage(Message.raw(line));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(line));
             }
         }
-        ctx.sendMessage(Message.raw("Use /farm log clear to reset your history."));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Use /farm log clear to reset your history."));
     }
 
     private static int clampLimit(int value) {

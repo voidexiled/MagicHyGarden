@@ -30,21 +30,21 @@ public class CropDebugHeldCommand extends AbstractPlayerCommand {
 
         Player player = store.getComponent(ref, Player.getComponentType());
         if (player == null) {
-            ctx.sendMessage(Message.raw("No se pudo obtener Player component."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No se pudo obtener Player component."));
             return;
         }
 
         Inventory inv = player.getInventory();
         byte slot = inv.getActiveHotbarSlot();
         if (slot == -1) {
-            ctx.sendMessage(Message.raw("No tienes ítem en mano (activeHotbarSlot = -1)."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes ítem en mano (activeHotbarSlot = -1)."));
             return;
         }
 
         ItemContainer hotbar = inv.getHotbar();
         ItemStack item = hotbar.getItemStack(slot);
         if (item == null || ItemStack.isEmpty(item)) {
-            ctx.sendMessage(Message.raw("No tienes ítem en mano (slot=" + slot + ")."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes ítem en mano (slot=" + slot + ")."));
             return;
         }
 
@@ -64,7 +64,7 @@ public class CropDebugHeldCommand extends AbstractPlayerCommand {
             metaJson = (encoded != null && encoded.isDocument()) ? encoded.asDocument().toJson() : String.valueOf(encoded);
         }
 
-        ctx.sendMessage(Message.raw(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                 "Held item\n" +
                         "- slot: " + slot + "\n" +
                         "- itemId: " + item.getItemId() + "\n" +

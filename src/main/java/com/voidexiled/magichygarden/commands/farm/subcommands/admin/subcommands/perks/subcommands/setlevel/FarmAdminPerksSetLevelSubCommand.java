@@ -49,13 +49,13 @@ public class FarmAdminPerksSetLevelSubCommand extends AbstractPlayerCommand {
     ) {
         UUID targetUuid = FarmAdminCommandShared.resolveUuid(executor, targetArg.get(commandContext));
         if (targetUuid == null) {
-            commandContext.sendMessage(Message.raw("Invalid target. Use self, UUID or cached/online name."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Invalid target. Use self, UUID or cached/online name."));
             return;
         }
 
         MghgParcel parcel = MghgParcelManager.getByOwner(targetUuid);
         if (parcel == null) {
-            commandContext.sendMessage(Message.raw("Target does not have a parcel yet."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Target does not have a parcel yet."));
             return;
         }
 
@@ -65,7 +65,7 @@ public class FarmAdminPerksSetLevelSubCommand extends AbstractPlayerCommand {
         int cap = MghgFarmPerkManager.getFertileSoilCap(parcel);
         String targetName = MghgPlayerNameManager.resolve(targetUuid);
 
-        commandContext.sendMessage(Message.raw(
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                 "Updated fertile perk level for " + targetName + ".\n"
                         + "Level: " + applied + ".\n"
                         + "Tracked fertile blocks: " + used + " / " + cap + "."

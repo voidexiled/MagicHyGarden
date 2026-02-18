@@ -61,7 +61,7 @@ public class CropDebugTargetCommand extends AbstractPlayerCommand {
         Vector3i target = Targeting.getTargetBlock(playerEntityRef, entityStore, range);
 
         if (target == null) {
-            ctx.sendMessage(Message.raw("No estás mirando ningún bloque (rango " + range + ")."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No estás mirando ningún bloque (rango " + range + ")."));
             return;
         }
 
@@ -75,24 +75,24 @@ public class CropDebugTargetCommand extends AbstractPlayerCommand {
         long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
         Ref<ChunkStore> chunkRef = chunkStore.getChunkReference(chunkIndex);
         if (chunkRef == null) {
-            ctx.sendMessage(Message.raw("El chunk objetivo no está disponible/cargado."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("El chunk objetivo no está disponible/cargado."));
             return;
         }
 
         WorldChunk worldChunk = cs.getComponent(chunkRef, WorldChunk.getComponentType());
         if (worldChunk == null) {
-            ctx.sendMessage(Message.raw("El chunk objetivo no tiene WorldChunk (estado inválido)."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("El chunk objetivo no tiene WorldChunk (estado inválido)."));
             return;
         }
         BlockChunk blockChunk = cs.getComponent(chunkRef, BlockChunk.getComponentType());
         if (blockChunk == null) {
-            ctx.sendMessage(Message.raw("El chunk objetivo no tiene BlockChunk (estado inválido)."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("El chunk objetivo no tiene BlockChunk (estado inválido)."));
             return;
         }
 
         BlockType blockType = worldChunk.getBlockType(x, y, z);
         if (blockType == null) {
-            ctx.sendMessage(Message.raw("No se pudo obtener el BlockType en la posición objetivo."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No se pudo obtener el BlockType en la posición objetivo."));
             return;
         }
 

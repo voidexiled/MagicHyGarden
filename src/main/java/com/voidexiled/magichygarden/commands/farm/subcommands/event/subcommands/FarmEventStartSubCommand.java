@@ -54,7 +54,7 @@ public class FarmEventStartSubCommand extends AbstractPlayerCommand {
     ) {
         MutationEventType type = FarmEventCommandShared.parseEventType(typeArg.get(commandContext));
         if (type == MutationEventType.ANY) {
-            commandContext.sendMessage(Message.raw(
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                     "Uso: /farm event start <weather|lunar> [eventId|random] [durationSec]"
             ));
             return;
@@ -68,12 +68,12 @@ public class FarmEventStartSubCommand extends AbstractPlayerCommand {
         Integer durationSec = duration == null || duration <= 0 ? null : duration;
         boolean started = MghgFarmEventScheduler.forceStartConfiguredEvent(type, eventId, durationSec);
         if (!started) {
-            commandContext.sendMessage(Message.raw(
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                     "No pude iniciar evento. Revisa tipo/id con /farm event list."
             ));
             return;
         }
-        commandContext.sendMessage(Message.raw("Evento forzado iniciado."));
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Evento forzado iniciado."));
         FarmEventCommandShared.sendStatus(commandContext);
     }
 }

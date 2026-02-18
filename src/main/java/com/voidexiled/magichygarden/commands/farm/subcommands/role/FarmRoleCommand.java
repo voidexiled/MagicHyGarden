@@ -51,41 +51,41 @@ public class FarmRoleCommand extends AbstractPlayerCommand {
         MghgPlayerNameManager.remember(playerRef);
         UUID targetId = MghgPlayerNameManager.resolveUuid(playerArg.get(ctx));
         if (targetId == null) {
-            ctx.sendMessage(Message.raw("Jugador inválido. Usa UUID o username online/cacheado."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Jugador inválido. Usa UUID o username online/cacheado."));
             return;
         }
         String targetName = MghgPlayerNameManager.resolve(targetId);
 
         MghgParcel parcel = FarmParcelCommandUtil.resolveManagedParcel(playerRef.getUuid(), world);
         if (parcel == null) {
-            ctx.sendMessage(Message.raw("No tienes una parcela gestionable en este contexto."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes una parcela gestionable en este contexto."));
             return;
         }
 
         MghgParcelRole myRole = MghgParcelAccess.resolveRole(parcel, playerRef.getUuid());
         if (myRole != MghgParcelRole.OWNER && myRole != MghgParcelRole.MANAGER) {
-            ctx.sendMessage(Message.raw("No tienes permisos para cambiar roles."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes permisos para cambiar roles."));
             return;
         }
 
         MghgParcelRole desired = parseRole(roleArg.get(ctx));
         if (desired == null) {
-            ctx.sendMessage(Message.raw("Rol inválido. Usa: owner, manager, member, visitor"));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Rol inválido. Usa: owner, manager, member, visitor"));
             return;
         }
 
         if (desired == MghgParcelRole.OWNER) {
-            ctx.sendMessage(Message.raw("No puedes transferir ownership con este comando."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No puedes transferir ownership con este comando."));
             return;
         }
 
         if (desired == MghgParcelRole.MANAGER && myRole != MghgParcelRole.OWNER) {
-            ctx.sendMessage(Message.raw("Solo el owner puede asignar MANAGER."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Solo el owner puede asignar MANAGER."));
             return;
         }
 
         if (targetId.equals(parcel.getOwner())) {
-            ctx.sendMessage(Message.raw("No puedes cambiar el rol del owner."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No puedes cambiar el rol del owner."));
             return;
         }
 
@@ -95,7 +95,7 @@ public class FarmRoleCommand extends AbstractPlayerCommand {
             parcel.upsertMember(targetId, desired);
         }
         MghgParcelManager.save();
-        ctx.sendMessage(Message.raw("Rol actualizado: " + targetName + " -> " + desired.name()));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Rol actualizado: " + targetName + " -> " + desired.name()));
     }
 
     private static @Nullable MghgParcelRole parseRole(@Nullable String raw) {

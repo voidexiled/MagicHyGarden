@@ -53,13 +53,13 @@ public class FarmSellAllCommand extends AbstractPlayerCommand {
         MghgPlayerNameManager.remember(playerRef);
         String accessError = MghgShopAccessPolicy.validateTransactionContext(store, playerEntityRef, playerRef, world);
         if (accessError != null) {
-            ctx.sendMessage(Message.raw(accessError));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(accessError));
             return;
         }
 
         Player player = store.getComponent(playerEntityRef, Player.getComponentType());
         if (player == null) {
-            ctx.sendMessage(Message.raw("No pude obtener el componente de jugador."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude obtener el componente de jugador."));
             return;
         }
         ItemContainer inventory = player.getInventory().getCombinedStorageFirst();
@@ -68,9 +68,9 @@ public class FarmSellAllCommand extends AbstractPlayerCommand {
         MghgShopConfig.ShopItem[] selectedItems = resolveSellTargets(selector);
         if (selectedItems.length == 0) {
             if ("all".equals(selector)) {
-                ctx.sendMessage(Message.raw("No hay shopIds vendibles configurados."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No hay shopIds vendibles configurados."));
             } else {
-                ctx.sendMessage(Message.raw("shopId no encontrado o no vendible."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("shopId no encontrado o no vendible."));
             }
             return;
         }
@@ -84,7 +84,7 @@ public class FarmSellAllCommand extends AbstractPlayerCommand {
             SellResult result = sellAllForItem(inventory, item, rollbackStacks);
             if (result.hasError()) {
                 rollbackSell(inventory, rollbackStacks);
-                ctx.sendMessage(Message.raw("No pude remover items del inventario, venta revertida."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude remover items del inventario, venta revertida."));
                 return;
             }
             if (result.units() > 0) {
@@ -95,7 +95,7 @@ public class FarmSellAllCommand extends AbstractPlayerCommand {
         }
 
         if (soldUnits <= 0 || gain <= 0.0d) {
-            ctx.sendMessage(Message.raw("No tienes items vendibles para ese shopId."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes items vendibles para ese shopId."));
             return;
         }
 
@@ -103,7 +103,7 @@ public class FarmSellAllCommand extends AbstractPlayerCommand {
         double newBalance = MghgEconomyManager.getBalance(playerRef.getUuid());
 
         String label = "all".equals(selector) ? "all" : selector;
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Vendiste ALL %d items (%d shopIds, selector=%s) por $%s | balance=$%s",
                 soldUnits,

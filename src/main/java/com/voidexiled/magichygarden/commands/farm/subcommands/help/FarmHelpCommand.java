@@ -24,17 +24,17 @@ public class FarmHelpCommand extends AbstractPlayerCommand {
             @NonNull PlayerRef playerRef,
             @NonNull World world
     ) {
-        ctx.sendMessage(Message.raw("Farm quick help:"));
-        ctx.sendMessage(Message.raw(" - /farm home | /farm lobby | /farm survival"));
-        ctx.sendMessage(Message.raw(" - /farm visit <player> | /farm farms"));
-        ctx.sendMessage(Message.raw(" - /farm spawn status | /farm spawn set | /farm spawn reset | /farm setspawn"));
-        ctx.sendMessage(Message.raw(" - /farm members | /farm invite <player> | /farm invites | /farm accept | /farm deny"));
-        ctx.sendMessage(Message.raw(" - /farm role <player> <manager|member|visitor> | /farm kick <player>"));
-        ctx.sendMessage(Message.raw(" - /farm balance | /farm stock | /farm shop"));
-        ctx.sendMessage(Message.raw(" - /farm perks | /farm perks close | /farm perks status | /farm perks upgrade [fertile_soil]"));
-        ctx.sendMessage(Message.raw(" - /farm buy <shopId> [qty] | /farm buymax <shopId>"));
-        ctx.sendMessage(Message.raw(" - /farm sell <shopId> [qty] | /farm sellall [shopId|all]"));
-        ctx.sendMessage(Message.raw(" - /farm event status | /farm event list [weather|lunar|all] | /farm reload [all|events|worlds|parcels|invites|economy|perks|shop|names]"));
-        ctx.sendMessage(Message.raw(" - /farm admin status | /farm admin paths | /farm admin parcel | /farm admin world | /farm admin stock | /farm admin economy | /farm admin perks"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Farm quick help:"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - /farm home | /farm lobby | /farm survival"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - /farm visit <player> | /farm farms"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - /farm spawn status | /farm spawn set | /farm spawn reset | /farm setspawn"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - /farm members | /farm invite <player> | /farm invites | /farm accept | /farm deny"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - /farm role <player> <manager|member|visitor> | /farm kick <player>"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - /farm balance | /farm stock | /farm shop"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - /farm perks | /farm perks close | /farm perks status | /farm perks upgrade [fertile_soil]"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - /farm buy <shopId> [qty] | /farm buymax <shopId>"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - /farm sell <shopId> [qty] | /farm sellall [shopId|all]"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - /farm event status | /farm event list [weather|lunar|all] | /farm reload [all|events|worlds|parcels|invites|economy|perks|shop|names]"));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - /farm admin status | /farm admin paths | /farm admin parcel | /farm admin world | /farm admin stock | /farm admin economy | /farm admin perks"));
     }
 }

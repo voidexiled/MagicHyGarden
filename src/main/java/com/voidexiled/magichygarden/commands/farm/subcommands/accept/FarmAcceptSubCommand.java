@@ -30,13 +30,13 @@ public class FarmAcceptSubCommand extends AbstractPlayerCommand {
     ) {
         MghgParcelInviteService.Invite invite = MghgParcelInviteService.acceptLatest(playerRef.getUuid());
         if (invite == null) {
-            ctx.sendMessage(Message.raw("No tienes invitaciones pendientes."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes invitaciones pendientes."));
             return;
         }
 
         MghgParcel parcel = MghgParcelManager.getByOwner(invite.getOwnerId());
         if (parcel == null) {
-            ctx.sendMessage(Message.raw("La granja de destino ya no existe."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("La granja de destino ya no existe."));
             return;
         }
 
@@ -45,7 +45,7 @@ public class FarmAcceptSubCommand extends AbstractPlayerCommand {
             MghgParcelManager.save();
         }
 
-        ctx.sendMessage(Message.raw(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                 "Invitacion aceptada. Usa /farm visit " + invite.getOwnerId()
                         + " (owner: " + invite.getOwnerName() + ")"
         ));

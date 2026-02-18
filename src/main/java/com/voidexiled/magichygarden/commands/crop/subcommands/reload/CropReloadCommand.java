@@ -50,25 +50,25 @@ public class CropReloadCommand extends AbstractPlayerCommand {
                 MghgCropRegistry.reload();
                 MghgCropGrowthModifierAsset.reloadFromDisk();
                 MghgMutationRules.reload();
-                ctx.sendMessage(Message.raw("Reload completo: crops + size + mutation rules."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Reload completo: crops + size + mutation rules."));
             }
             case "crops", "registry" -> {
                 MghgCropRegistry.reload();
-                ctx.sendMessage(Message.raw("Reload: crop registry (Mghg_Crops.json)."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Reload: crop registry (Mghg_Crops.json)."));
             }
             case "mutations", "rules" -> {
                 MghgMutationRules.reload();
-                ctx.sendMessage(Message.raw("Reload: mutation rules (Farming/Mutations asset)."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Reload: mutation rules (Farming/Mutations asset)."));
             }
             case "growth", "size", "config", "modifier" -> {
                 MghgCropGrowthModifierAsset.reloadFromDisk();
-                ctx.sendMessage(Message.raw("Reload: growth/size config (Size.json)."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Reload: growth/size config (Size.json)."));
             }
             default -> did = false;
         }
 
         if (!did) {
-            ctx.sendMessage(Message.raw(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                     "Uso: /crop reload [all|crops|mutations|growth]"
             ));
         }

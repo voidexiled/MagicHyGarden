@@ -24,6 +24,6 @@ public class FarmAdminStockRestockSubCommand extends AbstractPlayerCommand {
                            @NonNull PlayerRef playerRef,
                            @NonNull World world) {
         MghgShopStockManager.forceRestockNow();
-        commandContext.sendMessage(Message.raw("Restock forzado."));
+        commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Restock forzado."));
     }
 }

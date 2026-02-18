@@ -33,7 +33,7 @@ public class FarmAdminStockStatusSubCommand extends AbstractPlayerCommand {
     private void handleStockStatus(@NonNull CommandContext ctx){
         long remaining = MghgShopStockManager.getRemainingRestockSeconds();
         MghgShopConfig.ShopItem[] items = MghgShopStockManager.getConfiguredItems();
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Stock status | configured=%d | nextRestock=%s",
                 items.length,
@@ -46,7 +46,7 @@ public class FarmAdminStockStatusSubCommand extends AbstractPlayerCommand {
             int stock = MghgShopStockManager.getStock(item.getId());
             double chance = FarmAdminCommandShared.normalizeChance(item.getRestockChance()) * 100.0d;
             String buyItemId = item.resolveBuyItemId();
-            ctx.sendMessage(Message.raw(String.format(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                     Locale.ROOT,
                     " - %s | stockGlobal=%d | buyItem=%s | buy=%.2f | sellBase=%.2f | restockChance=%.2f%%",
                     item.getId(),

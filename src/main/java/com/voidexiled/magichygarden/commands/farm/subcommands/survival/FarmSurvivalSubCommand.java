@@ -30,7 +30,7 @@ public class FarmSurvivalSubCommand extends AbstractPlayerCommand {
     ) {
         World targetWorld = MghgFarmWorldManager.resolveSurvivalWorld();
         if (targetWorld == null) {
-            ctx.sendMessage(Message.raw("No pude resolver el mundo survival."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude resolver el mundo survival."));
             return;
         }
         Transform spawn = resolveSpawn(targetWorld, playerRef);
@@ -41,7 +41,7 @@ public class FarmSurvivalSubCommand extends AbstractPlayerCommand {
         );
         world.execute(() -> {
             store.putComponent(playerEntityRef, Teleport.getComponentType(), tp);
-            ctx.sendMessage(Message.raw("Teletransportando a survival..."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Teletransportando a survival..."));
         });
     }
 

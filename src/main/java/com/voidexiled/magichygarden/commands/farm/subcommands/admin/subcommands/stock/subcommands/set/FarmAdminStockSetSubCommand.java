@@ -49,9 +49,9 @@ public class FarmAdminStockSetSubCommand extends AbstractPlayerCommand {
     private void handleStockSet(@NonNull CommandContext ctx, @NonNull String shopId, int qty){
         boolean ok = MghgShopStockManager.setStock(shopId, qty);
         if (!ok) {
-            ctx.sendMessage(Message.raw("No pude actualizar stock para '" + shopId + "'."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude actualizar stock para '" + shopId + "'."));
             return;
         }
-        ctx.sendMessage(Message.raw("Stock actualizado: " + shopId + "=" + qty));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Stock actualizado: " + shopId + "=" + qty));
     }
 }

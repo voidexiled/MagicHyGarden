@@ -44,29 +44,29 @@ public class FarmInviteSubCommand extends AbstractPlayerCommand {
         String rawTarget = playerArg.get(ctx);
         UUID targetId = MghgPlayerNameManager.resolveUuid(rawTarget);
         if (targetId == null) {
-            ctx.sendMessage(Message.raw("Jugador inválido. Usa UUID o username online/cacheado."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Jugador inválido. Usa UUID o username online/cacheado."));
             return;
         }
         String targetName = MghgPlayerNameManager.resolve(targetId);
         if (targetId.equals(playerRef.getUuid())) {
-            ctx.sendMessage(Message.raw("No puedes invitarte a ti mismo."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No puedes invitarte a ti mismo."));
             return;
         }
 
         MghgParcel parcel = FarmParcelCommandUtil.resolveManagedParcel(playerRef.getUuid(), world);
         if (parcel == null) {
-            ctx.sendMessage(Message.raw("No tienes una parcela gestionable en este contexto."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes una parcela gestionable en este contexto."));
             return;
         }
 
         MghgParcelRole role = MghgParcelAccess.resolveRole(parcel, playerRef.getUuid());
         if (role != MghgParcelRole.OWNER && role != MghgParcelRole.MANAGER) {
-            ctx.sendMessage(Message.raw("No tienes permisos para invitar."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes permisos para invitar."));
             return;
         }
 
         if (MghgParcelAccess.resolveRole(parcel, targetId) != MghgParcelRole.VISITOR) {
-            ctx.sendMessage(Message.raw("Ese jugador ya forma parte de la granja."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Ese jugador ya forma parte de la granja."));
             return;
         }
 
@@ -78,7 +78,7 @@ public class FarmInviteSubCommand extends AbstractPlayerCommand {
                 targetId,
                 targetName
         );
-        ctx.sendMessage(Message.raw(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                 "Invitación enviada a " + targetName
                         + ". Debe aceptar con /farm accept (expira en 15m)."
         ));

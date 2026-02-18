@@ -40,7 +40,7 @@ public class FarmAdminWorldEnsureSubCommand extends AbstractPlayerCommand {
         String targetToken = targetArg.get(commandContext);
         UUID targetUuid = FarmAdminCommandShared.resolveUuid(executor, targetToken);
         if (targetUuid == null) {
-            commandContext.sendMessage(Message.raw("Target invalido. Usa self, UUID o username cacheado/online."));
+            commandContext.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Target invalido. Usa self, UUID o username cacheado/online."));
             return;
         }
         ensureWorld(
@@ -56,9 +56,9 @@ public class FarmAdminWorldEnsureSubCommand extends AbstractPlayerCommand {
         String targetName = MghgPlayerNameManager.resolve(owner);
         try {
             World farmWorld = MghgFarmWorldManager.ensureFarmWorld(owner).join();
-            ctx.sendMessage(Message.raw("Farm world asegurada para " + targetName + ": " + FarmAdminCommandShared.fallback(farmWorld.getName(), "-")));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Farm world asegurada para " + targetName + ": " + FarmAdminCommandShared.fallback(farmWorld.getName(), "-")));
         } catch (Exception e) {
-            ctx.sendMessage(Message.raw("No pude asegurar farm world: " + e.getMessage()));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude asegurar farm world: " + e.getMessage()));
         }
     }
 }

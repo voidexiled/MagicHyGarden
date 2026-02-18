@@ -50,12 +50,12 @@ public class FarmVisitSubCommand extends AbstractPlayerCommand {
         MghgPlayerNameManager.remember(playerRef);
         String rawOwner = normalize(ownerArg.get(ctx));
         if (rawOwner.isBlank()) {
-            ctx.sendMessage(Message.raw("Uso: /farm visit <ownerUuid|ownerName>"));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Uso: /farm visit <ownerUuid|ownerName>"));
             return;
         }
         UUID targetOwner = resolveOwner(rawOwner);
         if (targetOwner == null) {
-            ctx.sendMessage(Message.raw("Owner invalido. Usa UUID o username online/cacheado."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Owner invalido. Usa UUID o username online/cacheado."));
             return;
         }
         PlayerRef targetRef = Universe.get().getPlayer(targetOwner);
@@ -65,11 +65,11 @@ public class FarmVisitSubCommand extends AbstractPlayerCommand {
         if (!selfVisit) {
             MghgParcel targetParcel = MghgParcelManager.getByOwner(targetOwner);
             if (targetParcel == null) {
-                ctx.sendMessage(Message.raw("La granja de ese owner aun no esta inicializada."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("La granja de ese owner aun no esta inicializada."));
                 return;
             }
             if (!MghgParcelAccess.canVisit(targetParcel, playerRef.getUuid())) {
-                ctx.sendMessage(Message.raw("No tienes permisos para visitar esa granja."));
+                ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes permisos para visitar esa granja."));
                 return;
             }
         }
@@ -78,7 +78,7 @@ public class FarmVisitSubCommand extends AbstractPlayerCommand {
                 .thenAccept(targetWorld -> {
                     Transform spawn = resolveParcelSpawn(targetWorld, targetOwner, selfVisit);
                     if (spawn == null) {
-                        world.execute(() -> ctx.sendMessage(Message.raw("No pude resolver el spawn de esa granja.")));
+                        world.execute(() -> ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude resolver el spawn de esa granja.")));
                         return;
                     }
                     Teleport tp = Teleport.createForPlayer(
@@ -88,11 +88,11 @@ public class FarmVisitSubCommand extends AbstractPlayerCommand {
                     );
                     world.execute(() -> {
                         store.putComponent(playerEntityRef, Teleport.getComponentType(), tp);
-                        ctx.sendMessage(Message.raw("Visitando granja de " + targetName + "..."));
+                        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Visitando granja de " + targetName + "..."));
                     });
                 })
                 .exceptionally(e -> {
-                    world.execute(() -> ctx.sendMessage(Message.raw("No pude abrir esa granja: " + e.getMessage())));
+                    world.execute(() -> ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude abrir esa granja: " + e.getMessage())));
                     return null;
                 });
     }

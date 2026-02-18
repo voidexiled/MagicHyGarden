@@ -35,12 +35,12 @@ public class FarmSpawnSetSubCommand extends AbstractPlayerCommand {
     public static void setSpawn(@NonNull CommandContext ctx, @NonNull PlayerRef playerRef, @NonNull World world) {
         UUID owner = MghgFarmWorldManager.getOwnerFromFarmWorld(world);
         if (owner == null || !owner.equals(playerRef.getUuid())) {
-            ctx.sendMessage(Message.raw("Debes estar dentro de tu propia granja para usar /farm spawn set."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Debes estar dentro de tu propia granja para usar /farm spawn set."));
             return;
         }
         MghgParcel parcel = MghgParcelManager.getByOwner(owner);
         if (parcel == null) {
-            ctx.sendMessage(Message.raw("No se encontro tu parcela."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No se encontro tu parcela."));
             return;
         }
 
@@ -59,7 +59,7 @@ public class FarmSpawnSetSubCommand extends AbstractPlayerCommand {
         int safeZ = (int) Math.floor(safeSpawn.getPosition().z);
         parcel.setCustomSpawn(safeX, safeY, safeZ);
         MghgParcelManager.saveSoon();
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Spawn de granja actualizado a %d, %d, %d.",
                 safeX, safeY, safeZ

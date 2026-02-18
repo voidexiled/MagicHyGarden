@@ -29,21 +29,21 @@ public class FarmInvitesSubCommand extends AbstractPlayerCommand {
     ) {
         List<MghgParcelInviteService.Invite> pending = MghgParcelInviteService.getPending(playerRef.getUuid());
         if (pending.isEmpty()) {
-            ctx.sendMessage(Message.raw("No tienes invitaciones pendientes."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes invitaciones pendientes."));
             return;
         }
         long now = Instant.now().getEpochSecond();
-        ctx.sendMessage(Message.raw("Invitaciones pendientes: " + pending.size()));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Invitaciones pendientes: " + pending.size()));
         for (MghgParcelInviteService.Invite invite : pending) {
             long remaining = invite.getRemainingSeconds(now);
-            ctx.sendMessage(Message.raw(
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
                     " - owner=" + invite.getOwnerName()
                             + " (" + invite.getOwnerId() + ")"
                             + " | inviter=" + invite.getInviterName()
                             + " | expira en " + formatDuration(remaining)
             ));
         }
-        ctx.sendMessage(Message.raw("Usa /farm accept para aceptar la más reciente, o /farm deny para rechazarla."));
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Usa /farm accept para aceptar la más reciente, o /farm deny para rechazarla."));
     }
 
     private static String formatDuration(long seconds) {

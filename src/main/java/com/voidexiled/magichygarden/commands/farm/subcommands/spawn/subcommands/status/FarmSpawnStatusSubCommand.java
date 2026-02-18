@@ -34,18 +34,18 @@ public class FarmSpawnStatusSubCommand extends AbstractPlayerCommand {
     private static void showStatus(@NonNull CommandContext ctx, @NonNull PlayerRef playerRef) {
         MghgParcel parcel = MghgParcelManager.getByOwner(playerRef.getUuid());
         if (parcel == null) {
-            ctx.sendMessage(Message.raw("No tienes parcela aun. Usa /farm home primero."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes parcela aun. Usa /farm home primero."));
             return;
         }
         MghgParcelBounds bounds = parcel.getBounds();
         if (bounds == null) {
-            ctx.sendMessage(Message.raw("Tu parcela no tiene bounds validos."));
+            ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Tu parcela no tiene bounds validos."));
             return;
         }
         int x = parcel.resolveSpawnX();
         int y = parcel.resolveSpawnY();
         int z = parcel.resolveSpawnZ();
-        ctx.sendMessage(Message.raw(String.format(
+        ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Spawn actual: %d, %d, %d | custom=%s",
                 x, y, z, parcel.hasCustomSpawn()

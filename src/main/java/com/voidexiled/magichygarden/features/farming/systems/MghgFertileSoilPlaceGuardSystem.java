@@ -6,7 +6,6 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.EntityEventSystem;
 import com.hypixel.hytale.math.vector.Vector3i;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
@@ -17,6 +16,7 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcel;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelAccess;
 import com.voidexiled.magichygarden.features.farming.perks.MghgFarmPerkManager;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
+import com.voidexiled.magichygarden.utils.chat.MghgChat;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -108,11 +108,11 @@ public final class MghgFertileSoilPlaceGuardSystem extends EntityEventSystem<Ent
 
         int current = MghgFarmPerkManager.getTrackedFertileCount(parcel);
         int cap = MghgFarmPerkManager.getFertileSoilCap(parcel);
-        playerRef.sendMessage(Message.raw(
-                "Fertile soil limit reached.\n"
-                        + "Current: " + current + " / " + cap + ".\n"
-                        + "Upgrade with /farm perks upgrade fertile_soil."
-        ));
+        MghgChat.toPlayer(
+                playerRef,
+                MghgChat.Channel.WARNING,
+                "Fertile soil limit reached.\nCurrent: " + current + " / " + cap + ".\nUpgrade with /farm perks upgrade fertile_soil."
+        );
     }
 
     private void sendCustomHoeRequiredMessage(@Nonnull PlayerRef playerRef) {
@@ -123,10 +123,11 @@ public final class MghgFertileSoilPlaceGuardSystem extends EntityEventSystem<Ent
             return;
         }
         lastDeniedMessageAt.put(playerId, now);
-        playerRef.sendMessage(Message.raw(
-                "You must use the custom farm hoe for tilling.\n"
-                        + "Craft/use Tool_Hoe_Custom."
-        ));
+        MghgChat.toPlayer(
+                playerRef,
+                MghgChat.Channel.WARNING,
+                "You must use the custom farm hoe for tilling.\nCraft/use Tool_Hoe_Custom."
+        );
     }
 
     private @Nullable BlockType resolvePlacedBlockType(@Nonnull PlaceBlockEvent event, @Nullable ItemStack held) {

@@ -23,18 +23,25 @@ import com.hypixel.hytale.server.core.modules.i18n.I18nModule;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.voidexiled.magichygarden.commands.shared.Targeting;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
-import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
+import com.voidexiled.magichygarden.features.farming.economy.MghgEconomyManager;
 import com.voidexiled.magichygarden.features.farming.logic.MghgCropDataAccess;
 import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
+import com.voidexiled.magichygarden.features.farming.parcels.MghgParcel;
+import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
+import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelMember;
+import com.voidexiled.magichygarden.features.farming.perks.MghgFarmPerkManager;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropDefinition;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
+import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
 import com.voidexiled.magichygarden.features.farming.state.ClimateMutation;
 import com.voidexiled.magichygarden.features.farming.state.LunarMutation;
 import com.voidexiled.magichygarden.features.farming.state.RarityMutation;
 import com.voidexiled.magichygarden.features.farming.ui.MghgCropInspectHud;
 import com.voidexiled.magichygarden.features.farming.ui.MghgMutationUiPalette;
 import com.voidexiled.magichygarden.features.farming.visuals.MghgCropVisualStateResolver;
+import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.UUID;
@@ -54,6 +61,7 @@ public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
 
     private long tickCounter = 0L;
     private final Map<UUID, String> lastSignature = new ConcurrentHashMap<>();
+    private final Map<UUID, String> lastFarmInfoSignature = new ConcurrentHashMap<>();
     private final Map<UUID, MghgCropInspectHud> huds = new ConcurrentHashMap<>();
     private final Map<UUID, Vector3i> lastTargetPos = new ConcurrentHashMap<>();
     private final Map<UUID, String> lastDebugReason = new ConcurrentHashMap<>();
@@ -77,45 +85,57 @@ public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
         }
 
         Ref<EntityStore> entityRef = archetypeChunk.getReferenceTo(index);
-        Vector3i targetPos = Targeting.getTargetBlock(entityRef, store, TARGET_RANGE);
-        if (targetPos == null) {
-            debugMaybe(playerRef.getUuid(), "no_target");
-            clearHud(playerRef, player);
-            return;
-        }
-
         World world = store.getExternalData().getWorld();
         if (world == null) {
             debugMaybe(playerRef.getUuid(), "no_world");
-            clearHud(playerRef, player);
+            clearHud(playerRef, player, true);
             return;
         }
-        if (!MghgFarmEventScheduler.isFarmWorld(world)) {
+        if (!MghgFarmWorldManager.isFarmWorld(world)) {
             debugMaybe(playerRef.getUuid(), "not_farm_world");
-            clearHud(playerRef, player);
+            clearHud(playerRef, player, true);
+            return;
+        }
+
+        UUID playerId = playerRef.getUuid();
+        HudManager hudManager = player.getHudManager();
+        CustomUIHud current = hudManager.getCustomHud();
+        if (current != null && !(current instanceof MghgCropInspectHud)) {
+            debugMaybe(playerRef.getUuid(), "other_hud_active");
+            return;
+        }
+
+        MghgCropInspectHud hud = huds.computeIfAbsent(playerId, id -> new MghgCropInspectHud(playerRef));
+        if (current == null) {
+            hudManager.setCustomHud(playerRef, hud);
+        }
+        updateFarmInfoHud(playerRef, world, hud, playerId);
+
+        Vector3i targetPos = Targeting.getTargetBlock(entityRef, store, TARGET_RANGE);
+        if (targetPos == null) {
+            debugMaybe(playerRef.getUuid(), "no_target");
+            clearInspectHud(playerRef.getUuid(), hud);
             return;
         }
 
         BlockType blockType = resolveBlockType(world, targetPos);
         if (blockType == null) {
             debugMaybe(playerRef.getUuid(), "blocktype_null@" + targetPos.x + "," + targetPos.y + "," + targetPos.z);
-            clearHud(playerRef, player);
+            clearInspectHud(playerRef.getUuid(), hud);
             return;
         }
         if (!MghgCropRegistry.isMghgCropBlock(blockType)) {
             debugMaybe(playerRef.getUuid(), "not_mghg@" + blockType.getId());
-            clearHud(playerRef, player);
+            clearInspectHud(playerRef.getUuid(), hud);
             return;
         }
 
         MghgCropData data = MghgCropDataAccess.tryGetCropData(world, targetPos);
         if (data == null) {
             debugMaybe(playerRef.getUuid(), "mghg_no_data@" + blockType.getId());
-            clearHud(playerRef, player);
+            clearInspectHud(playerRef.getUuid(), hud);
             return;
         }
-
-        UUID playerId = playerRef.getUuid();
 
         String baseItemId = resolveBaseItemId(blockType);
         Item baseItem = baseItemId != null ? Item.getAssetMap().getAsset(baseItemId) : null;
@@ -132,18 +152,6 @@ public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
         }
         lastSignature.put(playerId, signature);
         lastTargetPos.put(playerId, targetPos);
-
-        HudManager hudManager = player.getHudManager();
-        CustomUIHud current = hudManager.getCustomHud();
-        if (current != null && !(current instanceof MghgCropInspectHud)) {
-            debugMaybe(playerRef.getUuid(), "other_hud_active");
-            return;
-        }
-
-        MghgCropInspectHud hud = huds.computeIfAbsent(playerId, id -> new MghgCropInspectHud(playerRef));
-        if (current == null) {
-            hudManager.setCustomHud(playerRef, hud);
-        }
 
         String title = buildTitle(playerRef, baseItem, data);
         String subline = buildSubline(playerRef, data, weightText);
@@ -183,16 +191,87 @@ public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
         );
     }
 
-    private void clearHud(PlayerRef playerRef, Player player) {
+    private void clearHud(PlayerRef playerRef, Player player, boolean hideFarmInfo) {
         HudManager hudManager = player.getHudManager();
         CustomUIHud current = hudManager.getCustomHud();
         if (current instanceof MghgCropInspectHud hud) {
-            hud.hide();
+            if (hideFarmInfo) {
+                hud.hide();
+            } else {
+                hud.hideInspect();
+            }
         }
         UUID playerId = playerRef.getUuid();
         lastSignature.remove(playerId);
         lastTargetPos.remove(playerId);
+        if (hideFarmInfo) {
+            lastFarmInfoSignature.remove(playerId);
+        }
         lastDebugReason.remove(playerId);
+    }
+
+    private void clearInspectHud(@Nullable UUID playerId, @Nullable MghgCropInspectHud hud) {
+        if (playerId == null) {
+            return;
+        }
+        boolean hadInspect = lastSignature.containsKey(playerId) || lastTargetPos.containsKey(playerId);
+        if (hadInspect && hud != null) {
+            hud.hideInspect();
+        }
+        lastSignature.remove(playerId);
+        lastTargetPos.remove(playerId);
+    }
+
+    private void updateFarmInfoHud(
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world,
+            @Nonnull MghgCropInspectHud hud,
+            @Nonnull UUID playerId
+    ) {
+        UUID owner = MghgFarmWorldManager.getOwnerFromFarmWorld(world);
+        if (owner == null) {
+            owner = playerRef.getUuid();
+        }
+        MghgParcel parcel = owner == null ? null : MghgParcelManager.getByOwner(owner);
+
+        String ownerName = MghgPlayerNameManager.resolve(owner);
+        String title = translate(playerRef, "mghg.hud.farm.title", Map.of("owner", ownerName));
+        if (title.equals(normalizeLangKey("mghg.hud.farm.title"))) {
+            title = ownerName + "'s Farm";
+        }
+
+        String balanceLine = translate(playerRef, "mghg.hud.farm.balance", Map.of(
+                "value", formatMoney(MghgEconomyManager.getBalance(playerRef.getUuid()))
+        ));
+        String fertileLine = translate(playerRef, "mghg.hud.farm.fertile", Map.of(
+                "used", Integer.toString(MghgFarmPerkManager.getTrackedFertileCount(parcel)),
+                "cap", Integer.toString(MghgFarmPerkManager.getFertileSoilCap(parcel))
+        ));
+        String sellMultiplierLine = translate(playerRef, "mghg.hud.farm.sell_multiplier", Map.of(
+                "value", formatMultiplier(MghgFarmPerkManager.getSellMultiplier(parcel))
+        ));
+        String mutationMultiplierLine = translate(playerRef, "mghg.hud.farm.mutation_multiplier", Map.of(
+                "value", formatMultiplier(1.0d)
+        ));
+        String membersLine = translate(playerRef, "mghg.hud.farm.members", Map.of(
+                "value", Integer.toString(countFarmMembers(parcel))
+        ));
+
+        String signature = title + "|" + balanceLine + "|" + fertileLine + "|" + sellMultiplierLine + "|" + mutationMultiplierLine + "|" + membersLine;
+        String last = lastFarmInfoSignature.get(playerId);
+        if (signature.equals(last)) {
+            return;
+        }
+
+        lastFarmInfoSignature.put(playerId, signature);
+        hud.updateFarmInfo(
+                title,
+                balanceLine,
+                fertileLine,
+                sellMultiplierLine,
+                mutationMultiplierLine,
+                membersLine
+        );
     }
 
     private void debugMaybe(UUID playerId, String reason) {
@@ -410,5 +489,34 @@ public class MghgCropInspectHudSystem extends EntityTickingSystem<EntityStore> {
             result = result.replace("{" + entry.getKey() + "}", value);
         }
         return result;
+    }
+
+    private static int countFarmMembers(@Nullable MghgParcel parcel) {
+        if (parcel == null) {
+            return 1;
+        }
+        int members = 1;
+        MghgParcelMember[] parcelMembers = parcel.getMembers();
+        if (parcelMembers == null) {
+            return members;
+        }
+        for (MghgParcelMember member : parcelMembers) {
+            if (member == null || member.getUuid() == null) {
+                continue;
+            }
+            members++;
+        }
+        return members;
+    }
+
+    private static String formatMoney(double value) {
+        return String.format(java.util.Locale.US, "$%.2f", Math.max(0.0d, value));
+    }
+
+    private static String formatMultiplier(double value) {
+        if (Double.isNaN(value) || Double.isInfinite(value)) {
+            return "x1.00";
+        }
+        return String.format(java.util.Locale.US, "x%.2f", Math.max(0.0d, value));
     }
 }

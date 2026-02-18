@@ -2,16 +2,19 @@ package com.voidexiled.magichygarden.features.farming.shop;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.inventory.transaction.ItemStackSlotTransaction;
 import com.hypixel.hytale.server.core.inventory.transaction.ItemStackTransaction;
+import com.hypixel.hytale.server.core.modules.i18n.I18nModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.economy.MghgEconomyManager;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
+import com.voidexiled.magichygarden.features.farming.perks.MghgFarmPerkManager;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
 
 import javax.annotation.Nonnull;
@@ -22,6 +25,8 @@ import java.util.Locale;
 import java.util.UUID;
 
 public final class MghgShopTransactionService {
+    private static final String LANG_PREFIX = "server.";
+
     private MghgShopTransactionService() {
     }
 
@@ -93,16 +98,16 @@ public final class MghgShopTransactionService {
 
         double newBalance = MghgEconomyManager.getBalance(playerRef.getUuid());
         int newStock = MghgShopStockManager.getPlayerStock(playerRef.getUuid(), item.getId());
+        String buyName = resolveItemDisplayName(buyItemId, playerRef);
         MghgShopUiLogManager.append(
                 playerRef.getUuid(),
                 buildBuyLogLine(item.getId(), buyItemId, quantity, item.getBuyPrice(), total, newBalance, newStock)
         );
         return MghgShopTransactionResult.ok(String.format(
                 Locale.ROOT,
-                "Compraste %dx %s (shopId=%s) por $%s | balance=$%s | stock personal=%d",
+                "Compraste %dx %s.%nTotal: $%s%nBalance: $%s%nStock personal restante: %d",
                 quantity,
-                buyItemId,
-                item.getId(),
+                buyName,
                 formatMoney(total),
                 formatMoney(newBalance),
                 newStock
@@ -176,16 +181,16 @@ public final class MghgShopTransactionService {
 
         double newBalance = MghgEconomyManager.getBalance(playerRef.getUuid());
         int newStock = MghgShopStockManager.getPlayerStock(playerRef.getUuid(), item.getId());
+        String buyName = resolveItemDisplayName(buyItemId, playerRef);
         MghgShopUiLogManager.append(
                 playerRef.getUuid(),
                 buildBuyLogLine(item.getId(), buyItemId, maxQty, item.getBuyPrice(), total, newBalance, newStock)
         );
         return MghgShopTransactionResult.ok(String.format(
                 Locale.ROOT,
-                "Compraste MAX %dx %s (shopId=%s) por $%s | balance=$%s | stock personal=%d",
+                "Compraste MAX %dx %s.%nTotal: $%s%nBalance: $%s%nStock personal restante: %d",
                 maxQty,
-                buyItemId,
-                item.getId(),
+                buyName,
                 formatMoney(total),
                 formatMoney(newBalance),
                 newStock
@@ -226,7 +231,8 @@ public final class MghgShopTransactionService {
             return MghgShopTransactionResult.fail("Item mal configurado: no tiene SellItemIds/Id.");
         }
 
-        ArrayList<SellSelection> selections = collectSelections(inventory, sellItemIds, item, quantity);
+        double sellMultiplier = resolveSellMultiplier(playerRef, world);
+        ArrayList<SellSelection> selections = collectSelections(inventory, sellItemIds, item, quantity, sellMultiplier);
         int found = countSellable(inventory, sellItemIds);
         if (found < quantity) {
             return MghgShopTransactionResult.fail("No tienes suficiente cantidad vendible. Disponible=" + found);
@@ -267,16 +273,20 @@ public final class MghgShopTransactionService {
                     selection.stack().getItemId(),
                     selection.quantity(),
                     selection.unitPrice(),
-                    meta
+                    meta,
+                    sellMultiplier
             ));
         }
         MghgShopUiLogManager.appendAll(playerRef.getUuid(), logLines.toArray(String[]::new));
         MghgShopUiLogManager.append(playerRef.getUuid(), "Balance after sell: $" + formatMoney(newBalance));
+        String soldName = selections.isEmpty()
+                ? resolveItemDisplayName(firstSellTarget(item), playerRef)
+                : resolveItemDisplayName(selections.get(0).stack().getItemId(), playerRef);
         return MghgShopTransactionResult.ok(String.format(
                 Locale.ROOT,
-                "Vendiste %dx (shopId=%s) por $%s | balance=$%s",
+                "Vendiste %dx %s.%nTotal: $%s%nBalance: $%s",
                 quantity,
-                item.getId(),
+                soldName,
                 formatMoney(gain),
                 formatMoney(newBalance)
         ));
@@ -333,8 +343,9 @@ public final class MghgShopTransactionService {
         if (quantity <= 0) {
             return MghgShopTransactionResult.fail("Cantidad invalida en slot.");
         }
+        double sellMultiplier = resolveSellMultiplier(playerRef, world);
         MghgCropMeta meta = stack.getFromMetadataOrNull(MghgCropMeta.KEY);
-        double unitPrice = MghgShopPricing.computeUnitSellPrice(item, meta);
+        double unitPrice = MghgShopPricing.computeUnitSellPrice(item, meta) * sellMultiplier;
         double gain = unitPrice * quantity;
         if (gain <= 0.0d) {
             return MghgShopTransactionResult.fail("La venta resulto en $0.00, cancelada.");
@@ -349,15 +360,15 @@ public final class MghgShopTransactionService {
         double newBalance = MghgEconomyManager.getBalance(playerRef.getUuid());
         MghgShopUiLogManager.append(
                 playerRef.getUuid(),
-                buildSellLogLine(item, stack.getItemId(), quantity, unitPrice, meta)
+                buildSellLogLine(item, stack.getItemId(), quantity, unitPrice, meta, sellMultiplier)
         );
         MghgShopUiLogManager.append(playerRef.getUuid(), "Balance after sell: $" + formatMoney(newBalance));
+        String soldName = resolveItemDisplayName(stack.getItemId(), playerRef);
         return MghgShopTransactionResult.ok(String.format(
                 Locale.ROOT,
-                "Vendiste slot %d (%dx, shopId=%s) por $%s | balance=$%s",
-                slot,
+                "Vendiste %dx %s.%nTotal: $%s%nBalance: $%s",
                 quantity,
-                item.getId(),
+                soldName,
                 formatMoney(gain),
                 formatMoney(newBalance)
         ));
@@ -414,6 +425,7 @@ public final class MghgShopTransactionService {
         ArrayList<String> logLines = new ArrayList<>();
         int soldUnits = 0;
         double gain = 0.0d;
+        double sellMultiplier = resolveSellMultiplier(playerRef, world);
         for (int slot : unique) {
             ItemStack stack = inventory.getItemStack((short) slot);
             if (ItemStack.isEmpty(stack) || !matchesSellItem(stack, sellItemIds)) {
@@ -424,7 +436,7 @@ public final class MghgShopTransactionService {
                 continue;
             }
             MghgCropMeta meta = stack.getFromMetadataOrNull(MghgCropMeta.KEY);
-            double unit = MghgShopPricing.computeUnitSellPrice(item, meta);
+            double unit = MghgShopPricing.computeUnitSellPrice(item, meta) * sellMultiplier;
             double slotGain = unit * quantity;
             if (slotGain <= 0.0d) {
                 continue;
@@ -442,7 +454,7 @@ public final class MghgShopTransactionService {
             }
             soldUnits += quantity;
             gain += slotGain;
-            logLines.add(buildSellLogLine(item, stack.getItemId(), quantity, unit, meta));
+            logLines.add(buildSellLogLine(item, stack.getItemId(), quantity, unit, meta, sellMultiplier));
         }
 
         if (soldUnits <= 0 || gain <= 0.0d) {
@@ -453,11 +465,14 @@ public final class MghgShopTransactionService {
         double newBalance = MghgEconomyManager.getBalance(playerRef.getUuid());
         MghgShopUiLogManager.appendAll(playerRef.getUuid(), logLines.toArray(String[]::new));
         MghgShopUiLogManager.append(playerRef.getUuid(), "Balance after sell: $" + formatMoney(newBalance));
+        String soldName = unique.isEmpty()
+                ? resolveItemDisplayName(firstSellTarget(item), playerRef)
+                : resolveFirstSelectedName(inventory, unique, sellItemIds, playerRef, item);
         return MghgShopTransactionResult.ok(String.format(
                 Locale.ROOT,
-                "Vendiste seleccion (%dx, shopId=%s) por $%s | balance=$%s",
+                "Vendiste seleccion: %dx %s.%nTotal: $%s%nBalance: $%s",
                 soldUnits,
-                item.getId(),
+                soldName,
                 formatMoney(gain),
                 formatMoney(newBalance)
         ));
@@ -496,8 +511,9 @@ public final class MghgShopTransactionService {
         int soldUnits = 0;
         int soldShops = 0;
         double gain = 0.0d;
+        double sellMultiplier = resolveSellMultiplier(playerRef, world);
         for (MghgShopConfig.ShopItem item : selectedItems) {
-            SellAllResult result = sellAllForItem(inventory, item, rollbackStacks, logLines);
+            SellAllResult result = sellAllForItem(inventory, item, rollbackStacks, logLines, sellMultiplier);
             if (result.hasError()) {
                 rollbackSell(inventory, rollbackStacks);
                 return MghgShopTransactionResult.fail("No pude remover items del inventario, venta revertida.");
@@ -520,7 +536,7 @@ public final class MghgShopTransactionService {
         String label = "all".equals(normalizedSelector) ? "all" : normalizedSelector;
         return MghgShopTransactionResult.ok(String.format(
                 Locale.ROOT,
-                "Vendiste ALL %d items (%d shopIds, selector=%s) por $%s | balance=$%s",
+                "Vendiste ALL %d items en %d categorias (%s).%nTotal: $%s%nBalance: $%s",
                 soldUnits,
                 soldShops,
                 label,
@@ -546,6 +562,14 @@ public final class MghgShopTransactionService {
     }
 
     public static double estimateSellValue(@Nonnull ItemContainer inventory, @Nonnull MghgShopConfig.ShopItem item) {
+        return estimateSellValue(inventory, item, 1.0d);
+    }
+
+    public static double estimateSellValue(
+            @Nonnull ItemContainer inventory,
+            @Nonnull MghgShopConfig.ShopItem item,
+            double sellMultiplier
+    ) {
         String[] sellItemIds = item.resolveSellItemIds();
         double total = 0.0d;
         short capacity = inventory.getCapacity();
@@ -558,17 +582,47 @@ public final class MghgShopTransactionService {
                 continue;
             }
             MghgCropMeta meta = stack.getFromMetadataOrNull(MghgCropMeta.KEY);
-            double unit = MghgShopPricing.computeUnitSellPrice(item, meta);
+            double unit = MghgShopPricing.computeUnitSellPrice(item, meta) * sanitizeMultiplier(sellMultiplier);
             total += unit * Math.max(0, stack.getQuantity());
         }
         return total;
+    }
+
+    private static @Nonnull String resolveFirstSelectedName(
+            @Nonnull ItemContainer inventory,
+            @Nonnull LinkedHashSet<Integer> slots,
+            @Nonnull String[] sellItemIds,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull MghgShopConfig.ShopItem item
+    ) {
+        short capacity = inventory.getCapacity();
+        for (int slot : slots) {
+            if (slot < 0 || slot >= capacity) {
+                continue;
+            }
+            ItemStack stack = inventory.getItemStack((short) slot);
+            if (ItemStack.isEmpty(stack) || !matchesSellItem(stack, sellItemIds)) {
+                continue;
+            }
+            return resolveItemDisplayName(stack.getItemId(), playerRef);
+        }
+        return resolveItemDisplayName(firstSellTarget(item), playerRef);
+    }
+
+    private static @Nullable String firstSellTarget(@Nonnull MghgShopConfig.ShopItem item) {
+        String[] sellItemIds = item.resolveSellItemIds();
+        if (sellItemIds.length == 0) {
+            return item.resolveBuyItemId();
+        }
+        return sellItemIds[0];
     }
 
     private static ArrayList<SellSelection> collectSelections(
             @Nonnull ItemContainer inventory,
             @Nonnull String[] sellItemIds,
             @Nonnull MghgShopConfig.ShopItem item,
-            int quantity
+            int quantity,
+            double sellMultiplier
     ) {
         ArrayList<SellSelection> selections = new ArrayList<>();
         int remaining = Math.max(0, quantity);
@@ -587,7 +641,7 @@ public final class MghgShopTransactionService {
             }
             int take = Math.min(remaining, available);
             MghgCropMeta meta = stack.getFromMetadataOrNull(MghgCropMeta.KEY);
-            double unitPrice = MghgShopPricing.computeUnitSellPrice(item, meta);
+            double unitPrice = MghgShopPricing.computeUnitSellPrice(item, meta) * sanitizeMultiplier(sellMultiplier);
             selections.add(new SellSelection(slot, stack, take, unitPrice));
             remaining -= take;
         }
@@ -693,7 +747,8 @@ public final class MghgShopTransactionService {
             @Nonnull ItemContainer inventory,
             @Nonnull MghgShopConfig.ShopItem item,
             @Nonnull ArrayList<ItemStack> rollbackStacks,
-            @Nonnull ArrayList<String> logLines
+            @Nonnull ArrayList<String> logLines,
+            double sellMultiplier
     ) {
         String[] sellItemIds = item.resolveSellItemIds();
         if (sellItemIds.length == 0) {
@@ -717,7 +772,7 @@ public final class MghgShopTransactionService {
             }
 
             MghgCropMeta meta = stack.getFromMetadataOrNull(MghgCropMeta.KEY);
-            double unitPrice = MghgShopPricing.computeUnitSellPrice(item, meta);
+            double unitPrice = MghgShopPricing.computeUnitSellPrice(item, meta) * sanitizeMultiplier(sellMultiplier);
 
             ItemStackSlotTransaction transaction = inventory.removeItemStackFromSlot(slot, take, true, true);
             if (!transaction.succeeded() || !ItemStack.isEmpty(transaction.getRemainder())) {
@@ -728,7 +783,7 @@ public final class MghgShopTransactionService {
             if (removed != null && !ItemStack.isEmpty(removed)) {
                 rollbackStacks.add(removed);
             }
-            logLines.add(buildSellLogLine(item, stack.getItemId(), take, unitPrice, meta));
+            logLines.add(buildSellLogLine(item, stack.getItemId(), take, unitPrice, meta, sellMultiplier));
             units += take;
             gain += unitPrice * take;
         }
@@ -737,6 +792,12 @@ public final class MghgShopTransactionService {
 
     private static String normalize(@Nullable String value) {
         return value == null ? "" : value.trim().toLowerCase(Locale.ROOT);
+    }
+
+    private static double resolveSellMultiplier(@Nonnull PlayerRef playerRef, @Nonnull World world) {
+        return sanitizeMultiplier(
+                MghgFarmPerkManager.resolveSellMultiplierForContext(playerRef.getUuid(), world)
+        );
     }
 
     private static String buildBuyLogLine(
@@ -766,7 +827,8 @@ public final class MghgShopTransactionService {
             @Nullable String itemId,
             int quantity,
             double unitPrice,
-            @Nullable MghgCropMeta meta
+            @Nullable MghgCropMeta meta,
+            double sellMultiplier
     ) {
         double sizeMultiplier = meta == null ? 1.0d : MghgShopPricing.computeSizeMultiplier(shopItem, meta.getSize());
         double climateMultiplier = meta == null ? 1.0d : sanitizeMultiplier(shopItem.getClimateMultiplier(meta.getClimate()));
@@ -778,12 +840,13 @@ public final class MghgShopTransactionService {
         String rarity = meta == null ? "none" : safeText(meta.getRarity()).toLowerCase(Locale.ROOT);
         return String.format(
                 Locale.ROOT,
-                "SELL | %s x%d | unit $%s | total $%s | shop=%s | size=%s(x%s) climate=%s(x%s) lunar=%s(x%s) rarity=%s(x%s)",
+                "SELL | %s x%d | unit $%s | total $%s | shop=%s | sell_perk=x%s | size=%s(x%s) climate=%s(x%s) lunar=%s(x%s) rarity=%s(x%s)",
                 toDisplayName(itemId),
                 Math.max(1, quantity),
                 formatMoney(unitPrice),
                 formatMoney(unitPrice * Math.max(1, quantity)),
                 safeText(shopItem.getId()),
+                formatMoney(sanitizeMultiplier(sellMultiplier)),
                 size,
                 formatMoney(sizeMultiplier),
                 climate,
@@ -825,6 +888,44 @@ public final class MghgShopTransactionService {
             out.append(Character.toUpperCase(lower.charAt(0))).append(lower.substring(1));
         }
         return out.isEmpty() ? id : out.toString();
+    }
+
+    private static String resolveItemDisplayName(@Nullable String rawId, @Nullable PlayerRef playerRef) {
+        String id = normalizeItemId(rawId);
+        if (id == null || id.isBlank()) {
+            return "Unknown";
+        }
+        Item item = Item.getAssetMap().getAsset(id);
+        if (item != null) {
+            String translationKey = item.getTranslationKey();
+            if (translationKey != null && !translationKey.isBlank()) {
+                String translated = translateKey(playerRef, translationKey);
+                if (!translated.isBlank()
+                        && !translated.equals(translationKey)
+                        && !translated.equals(LANG_PREFIX + translationKey)) {
+                    return translated;
+                }
+            }
+        }
+        return toDisplayName(id);
+    }
+
+    private static String translateKey(@Nullable PlayerRef playerRef, @Nonnull String key) {
+        I18nModule i18n = I18nModule.get();
+        if (i18n == null) {
+            return key;
+        }
+        String language = playerRef != null ? playerRef.getLanguage() : null;
+        String normalized = key.startsWith(LANG_PREFIX) ? key : (LANG_PREFIX + key);
+        String direct = i18n.getMessages(language).get(key);
+        if (direct != null && !direct.isBlank()) {
+            return direct;
+        }
+        String prefixed = i18n.getMessages(language).get(normalized);
+        if (prefixed != null && !prefixed.isBlank()) {
+            return prefixed;
+        }
+        return key;
     }
 
     private static String trimSuffixToken(@Nonnull String input, @Nonnull String suffix) {

@@ -5,6 +5,7 @@ import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.EntityEventSystem;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -44,9 +45,13 @@ public final class MghgParcelPlaceGuardSystem extends EntityEventSystem<EntitySt
         boolean farmWorld = MghgFarmEventScheduler.isFarmWorld(world);
 
         ItemStack held = event.getItemInHand();
-        if (!farmWorld && held != null && held.getItem() != null) {
-            String heldId = held.getItem().getId();
-            if (MghgCropRegistry.isMghgCropItem(heldId)) {
+        if (!farmWorld && held != null) {
+            String heldId = held.getItem() == null ? null : held.getItem().getId();
+            String blockKey = held.getBlockKey();
+            BlockType placedBlock = blockKey == null ? null : BlockType.getAssetMap().getAsset(blockKey);
+            boolean mghgCropPlacement = MghgCropRegistry.isMghgCropItem(heldId)
+                    || MghgCropRegistry.isMghgCropBlock(placedBlock);
+            if (mghgCropPlacement) {
                 // Hard separation: MGHG crop placement is farm-world only.
                 event.setCancelled(true);
                 return;

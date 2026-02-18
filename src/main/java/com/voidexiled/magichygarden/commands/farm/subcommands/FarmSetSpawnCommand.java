@@ -7,6 +7,7 @@ import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayer
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.voidexiled.magichygarden.commands.farm.subcommands.spawn.subcommands.set.FarmSpawnSetSubCommand;
 import org.jspecify.annotations.NonNull;
 
 public class FarmSetSpawnCommand extends AbstractPlayerCommand {
@@ -22,6 +23,6 @@ public class FarmSetSpawnCommand extends AbstractPlayerCommand {
             @NonNull PlayerRef playerRef,
             @NonNull World world
     ) {
-        //FarmSpawnCommand.setSpawn(ctx, playerRef, world);
+        FarmSpawnSetSubCommand.setSpawn(ctx, playerRef, world);
     }
 }

@@ -4,7 +4,8 @@
       "Id": "lettuce",
       "BlockId": "Mghg_Plant_Crop_Lettuce_Block",
       "ItemId": "Mghg_Plant_Crop_Lettuce_Item",
-      "BaseWeightGrams": 250
+      "BaseWeightGrams": 250,
+      "GrowTimeSeconds": 10050
     }
   ]
 }

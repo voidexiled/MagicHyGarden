@@ -1,0 +1,85 @@
+{
+  "BaseLevel": 1,
+  "ReconcileIntervalSeconds": 30,
+  "FertileSoilLevels": [
+    {
+      "Level": 1,
+      "MaxFertileBlocks": 10,
+      "UpgradeCost": 0.0
+    },
+    {
+      "Level": 2,
+      "MaxFertileBlocks": 15,
+      "UpgradeCost": 250.0
+    },
+    {
+      "Level": 3,
+      "MaxFertileBlocks": 25,
+      "UpgradeCost": 750.0
+    },
+    {
+      "Level": 4,
+      "MaxFertileBlocks": 35,
+      "UpgradeCost": 2000.0
+    }
+  ],
+  "SellMultiplierLevels": [
+    {
+      "Level": 1,
+      "Multiplier": 1.0,
+      "UpgradeCost": 0.0
+    },
+    {
+      "Level": 2,
+      "Multiplier": 1.2,
+      "UpgradeCost": 1000.0
+    },
+    {
+      "Level": 3,
+      "Multiplier": 1.4,
+      "UpgradeCost": 3000.0
+    },
+    {
+      "Level": 4,
+      "Multiplier": 1.6,
+      "UpgradeCost": 7500.0
+    },
+    {
+      "Level": 5,
+      "Multiplier": 1.8,
+      "UpgradeCost": 15000.0
+    }
+  ],
+  "FertileSoilRules": {
+    "TillSourceBlockIds": [
+      "Soil_Dirt",
+      "Soil_Dirt_Burnt",
+      "Soil_Dirt_Cold",
+      "Soil_Dirt_Dry",
+      "Soil_Grass",
+      "Soil_Grass_Burnt",
+      "Soil_Grass_Cold",
+      "Soil_Grass_Deep",
+      "Soil_Grass_Dry",
+      "Soil_Grass_Full",
+      "Soil_Grass_Sunny",
+      "Soil_Leaves",
+      "Soil_Mud",
+      "Soil_Mud_Dry",
+      "Soil_Needles",
+      "Soil_Pathway",
+      "Mghg_Soil_Dirt",
+      "Dirt"
+    ],
+    "FertileBaseBlockIds": [
+      "Mghg_Soil_Dirt_Tilled"
+    ],
+    "AllowedSeedSoilBaseBlockIds": [
+      "Mghg_Soil_Dirt_Tilled"
+    ],
+    "HoeItemIds": [
+      "Tool_Hoe_Custom"
+    ],
+    "HoeItemIdPrefixes": []
+  }
+}

@@ -1,0 +1,73 @@
+$C = "../Common.ui";
+
+Group {
+  Anchor: (Width: 70, Height: 70);
+  Padding: (Horizontal: 3, Vertical: 3);
+
+  ItemSlotButton #SellButton {
+    Anchor: (Full: 0);
+    Padding: 2;
+    Style: (
+      Default: (
+        Background: #0f1b28,
+      ),
+      Hovered: (
+        Background: #2a3f57,
+      ),
+      Pressed: (
+        Background: #3a5575,
+      ),
+      Disabled: (
+        Background: #0a1119,
+      ),
+      Sounds: $C.@ButtonSounds,
+    );
+
+    Group #SlotFrame {
+      Anchor: (Full: 0);
+      Background: (TexturePath: "../Common/ContainerPanelPatch.png", Border: 4, Color: #17314b);
+      Padding: 2;
+
+      ItemSlot #ItemSlot {
+        Anchor: (Full: 0);
+        ShowQualityBackground: true;
+      }
+
+      Label #Qty {
+        Anchor: (Right: 3, Bottom: 1, Width: 34, Height: 16);
+        Style: (
+          FontSize: 12,
+          RenderBold: true,
+          HorizontalAlignment: End,
+          VerticalAlignment: End,
+          TextColor: #f0f6ff
+        );
+        HitTestVisible: false;
+      }
+
+      Group #SelectedTop {
+        Anchor: (Left: 0, Top: 0, Right: 0, Height: 2);
+        Background: #5ecfff;
+        Visible: false;
+      }
+
+      Group #SelectedBottom {
+        Anchor: (Left: 0, Bottom: 0, Right: 0, Height: 2);
+        Background: #5ecfff;
+        Visible: false;
+      }
+
+      Group #SelectedLeft {
+        Anchor: (Left: 0, Top: 0, Bottom: 0, Width: 2);
+        Background: #5ecfff;
+        Visible: false;
+      }
+
+      Group #SelectedRight {
+        Anchor: (Right: 0, Top: 0, Bottom: 0, Width: 2);
+        Background: #5ecfff;
+        Visible: false;
+      }
+    }
+  }
+}

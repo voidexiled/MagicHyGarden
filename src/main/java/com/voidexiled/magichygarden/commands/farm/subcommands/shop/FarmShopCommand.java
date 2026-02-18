@@ -20,7 +20,9 @@ import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopConfig;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopPricing;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
+import com.voidexiled.magichygarden.features.farming.tooltips.MghgDynamicTooltipsManager;
 import com.voidexiled.magichygarden.features.farming.ui.MghgFarmShopPage;
+import com.voidexiled.magichygarden.features.farming.ui.MghgFarmShopPageV2;
 import com.voidexiled.magichygarden.features.farming.ui.MghgFarmShopHud;
 import org.jspecify.annotations.NonNull;
 
@@ -69,6 +71,7 @@ public class FarmShopCommand extends AbstractPlayerCommand {
                 return;
             }
             MghgFarmShopPage.closeForPlayer(store, playerEntityRef);
+            MghgFarmShopPageV2.closeForPlayer(store, playerEntityRef);
             ctx.sendMessage(Message.raw("Shop HUD abierta. Usa /farm shop close para cerrar."));
             return;
         }
@@ -92,12 +95,29 @@ public class FarmShopCommand extends AbstractPlayerCommand {
             return;
         }
 
+        if ("openv2".equals(action) || "v2".equals(action)) {
+            MghgDynamicTooltipsManager.tryRegister();
+            MghgDynamicTooltipsManager.refreshAllPlayers();
+            String openError = MghgFarmShopPageV2.openForPlayer(store, playerEntityRef, playerRef, world);
+            if (openError != null) {
+                ctx.sendMessage(Message.raw(openError));
+                return;
+            }
+            closeLegacyHudForPlayer(store, playerEntityRef, playerRef);
+            MghgFarmShopPage.closeForPlayer(store, playerEntityRef);
+            ctx.sendMessage(Message.raw("Shop V2 abierta. Usa /farm shop close para cerrar."));
+            return;
+        }
+
+        MghgDynamicTooltipsManager.tryRegister();
+        MghgDynamicTooltipsManager.refreshAllPlayers();
         String openError = MghgFarmShopPage.openForPlayer(store, playerEntityRef, playerRef, world);
         if (openError != null) {
             ctx.sendMessage(Message.raw(openError));
             return;
         }
         closeLegacyHudForPlayer(store, playerEntityRef, playerRef);
+        MghgFarmShopPageV2.closeForPlayer(store, playerEntityRef);
         ctx.sendMessage(Message.raw("Shop page abierta. Usa /farm shop close para cerrar."));
     }
 
@@ -150,8 +170,10 @@ public class FarmShopCommand extends AbstractPlayerCommand {
         }
         if (fullPageRefresh) {
             MghgFarmShopPage.refreshForPlayer(store, playerEntityRef);
+            MghgFarmShopPageV2.refreshForPlayer(store, playerEntityRef);
         } else {
             MghgFarmShopPage.refreshStatusForPlayer(store, playerEntityRef);
+            MghgFarmShopPageV2.refreshStatusForPlayer(store, playerEntityRef);
         }
 
         HudManager hudManager = player.getHudManager();
@@ -229,6 +251,7 @@ public class FarmShopCommand extends AbstractPlayerCommand {
     ) {
         closeLegacyHudForPlayer(store, playerEntityRef, playerRef);
         MghgFarmShopPage.closeForPlayer(store, playerEntityRef);
+        MghgFarmShopPageV2.closeForPlayer(store, playerEntityRef);
     }
 
     public static void closeLegacyHudForPlayer(

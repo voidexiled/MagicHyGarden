@@ -8476,13 +8476,23 @@
     "CustomModelScale": 0.9,
     "ParticleColor": "#aa946e",
     "Material": "Solid",
-    "HitboxType": "Block_One_Eighth"
+    "HitboxType": "Block_One_Eighth",
+    "Support": {
+      "Down": [
+        {
+          "TagId": "Type=Soil"
+        },
+        {
+          "TagId": "SubType=Planter"
+        }
+      ]
+    }
   },
   "IconProperties": {
     "Scale": 1.115,
     "Rotation": [
       22.5,
-      45.0,
+      45,
       22.5
     ],
     "Translation": [
@@ -8490,5 +8500,5 @@
       -4.2
     ]
   },
-  "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce_Block.png"
+  "Icon": "Icons/ItemsGenerated/Mghg_Plant_Crop_Lettuce_Block.png"
 }

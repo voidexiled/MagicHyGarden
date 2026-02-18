@@ -19,6 +19,7 @@ Size + seed configuration lives in:
 Per-crop base weight lives in:
 `build/resources/main/Server/Farming/Crops/Mghg_Crops.json`
 (BaseWeightGrams is the weight at SizeMin when fully mature; actual weight scales with Size and growth progress.)
+GrowTimeSeconds (optional) can also be set there to display seed grow-time in Dynamic Tooltips.
 
 Key fields used by runtime systems:
 - SizeMin / SizeMax

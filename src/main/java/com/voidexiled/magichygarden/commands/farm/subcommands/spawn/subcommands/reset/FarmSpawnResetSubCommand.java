@@ -14,7 +14,7 @@ import org.jspecify.annotations.NonNull;
 
 public class FarmSpawnResetSubCommand extends AbstractPlayerCommand {
     public FarmSpawnResetSubCommand() {
-        super("reset", "magichygarden.command.farm.spawn.set.description");
+        super("reset", "magichygarden.command.farm.spawn.reset.description");
     }
 
     @Override

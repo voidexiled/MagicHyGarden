@@ -10,6 +10,8 @@ import com.voidexiled.magichygarden.commands.farm.subcommands.event.FarmEventCom
 import com.voidexiled.magichygarden.commands.farm.subcommands.deny.FarmDenySubCommand;
 import com.voidexiled.magichygarden.commands.farm.subcommands.home.FarmHomeSubCommand;
 import com.voidexiled.magichygarden.commands.farm.subcommands.farms.FarmFarmsSubCommand;
+import com.voidexiled.magichygarden.commands.farm.subcommands.FarmSetSpawnCommand;
+import com.voidexiled.magichygarden.commands.farm.subcommands.help.FarmHelpCommand;
 import com.voidexiled.magichygarden.commands.farm.subcommands.invite.FarmInviteSubCommand;
 import com.voidexiled.magichygarden.commands.farm.subcommands.invites.FarmInvitesSubCommand;
 import com.voidexiled.magichygarden.commands.farm.subcommands.kick.FarmKickCommand;
@@ -24,6 +26,7 @@ import com.voidexiled.magichygarden.commands.farm.subcommands.sell.FarmSellComma
 import com.voidexiled.magichygarden.commands.farm.subcommands.sellall.FarmSellAllCommand;
 import com.voidexiled.magichygarden.commands.farm.subcommands.shop.FarmShopCommand;
 import com.voidexiled.magichygarden.commands.farm.subcommands.stock.FarmStockCommand;
+import com.voidexiled.magichygarden.commands.farm.subcommands.perks.FarmPerksCommand;
 import com.voidexiled.magichygarden.commands.farm.subcommands.spawn.FarmSpawnCommandCollection;
 import com.voidexiled.magichygarden.commands.farm.subcommands.survival.FarmSurvivalSubCommand;
 import com.voidexiled.magichygarden.commands.farm.subcommands.visit.FarmVisitSubCommand;
@@ -32,8 +35,10 @@ public class FarmCommand extends AbstractCommandCollection {
     public FarmCommand() {
         super("farm", "magichygarden.command.farm.description");
 
+        addSubCommand(new FarmHelpCommand());
         addSubCommand(new FarmHomeSubCommand());
         addSubCommand(new FarmSpawnCommandCollection());
+        addSubCommand(new FarmSetSpawnCommand());
 
         addSubCommand(new FarmFarmsSubCommand());
         addSubCommand(new FarmLobbyCommand());
@@ -52,6 +57,7 @@ public class FarmCommand extends AbstractCommandCollection {
         addSubCommand(new FarmLogCommand());
         addSubCommand(new FarmLeaderboardCommand());
         addSubCommand(new FarmStockCommand());
+        addSubCommand(new FarmPerksCommand());
         addSubCommand(new FarmShopCommand());
         addSubCommand(new FarmBuyCommand());
         addSubCommand(new FarmBuyMaxCommand());

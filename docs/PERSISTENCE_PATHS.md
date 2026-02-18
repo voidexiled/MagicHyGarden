@@ -33,14 +33,25 @@ Farm instances now use full-world snapshots as the primary persistence path:
 - Snapshot mirror: `<pluginDataDirectory>/mghg/world_backups/<farm-world-name>/...`.
 - Restore strategy: if `/world prune --confirm` removes a farm world folder, `/farm home` restores it from snapshot before loading.
 
-This persistence is independent of place/break hooks and runs on a periodic scheduler plus shutdown flush.
+Snapshot scheduler details:
 
-## Parcel persistence model (legacy/metadata)
+- Backups do **not** run immediately right after a farm world is loaded (grace window) to avoid file-lock races on Windows.
+- Backups skip farm worlds with players inside.
+- Only one backup per farm world can run at a time.
+- World open/restore (`/farm home`) and snapshot copy now share a per-world file lock.
+- If a farm world is currently opening, snapshot for that world is skipped for that tick.
+- Shutdown still performs a final backup pass.
 
-Parcel block persistence is now sparse (delta-based), not full-volume snapshots:
+These constraints are intentional to avoid `region.bin` lock crashes (`FileSystemException`) during `/farm home` after prune.
 
-- Only modified blocks are saved (`Blocks.Entries`), relative to parcel origin.
-- Entries are kept for compatibility/migration, but full world backup/restore is the primary persistence path.
-- `bounds` are now metadata for spawn/origin and role scoping, not a hard edit limit.
+## Parcel persistence model (metadata-first)
 
-This avoids losing farm changes after world prune and scales better than serializing a full 3D volume.
+Parcel files are metadata-first:
+
+- Active fields: owner/roles/spawn/bounds metadata.
+- Active fields also include `Perks` (fertile level + tracked fertile block keys).
+- Legacy `Blocks` payload is read only for backward compatibility.
+- When full-instance persistence is enabled and world/backup data exists, legacy `Blocks` is auto-purged on startup.
+- `bounds` are metadata for spawn/origin and role scoping, not a hard edit limit.
+
+Block-state continuity is handled by full world snapshot/restore, not by parcel JSON block volume data.

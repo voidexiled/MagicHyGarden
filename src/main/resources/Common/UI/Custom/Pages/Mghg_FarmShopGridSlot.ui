@@ -2,47 +2,47 @@ $C = "../Common.ui";
 
 @ShopTooltipStyle = TextTooltipStyle(
   Background: (TexturePath: "../Common/TooltipDefaultBackground.png", Border: 24),
-  MaxWidth: 520,
+  MaxWidth: 500,
   LabelStyle: (
     Wrap: true,
-    FontSize: 16,
-    TextColor: #d8e7f8
+    FontSize: 15,
+    TextColor: #e1ecfb
   ),
-  Padding: 20
+  Padding: 18
 );
 
 Group {
   Anchor: (Width: 72, Height: 72);
 
   Button #Button {
-    Anchor: (Left: 2, Top: 2, Right: 2, Bottom: 2);
+    Anchor: (Left: 1, Top: 1, Right: 1, Bottom: 1);
     TextTooltipStyle: @ShopTooltipStyle;
     TextTooltipShowDelay: 0.08;
     Style: (
       Default: (
-        Background: #0d1723,
+        Background: #0b1622,
       ),
       Hovered: (
-        Background: #1b2f47,
+        Background: #1a3049,
       ),
       Pressed: (
-        Background: #274166,
+        Background: #264668,
       ),
       Disabled: (
-        Background: #09121b,
+        Background: #08121b,
       ),
       Sounds: $C.@ButtonSounds,
     );
 
     Group #Tile {
       Anchor: (Full: 0);
-      Background: (TexturePath: "../Common/ContainerPanelPatch.png", Border: 4, Color: #11253a);
+      Background: (TexturePath: "../Common/ContainerPanelPatch.png", Border: 4, Color: #132c44);
       Padding: 1;
 
       Group #SelectedFill {
         Anchor: (Full: 0);
         Visible: false;
-        Background: (TexturePath: "../Common/ContainerPanelPatch.png", Border: 4, Color: #38b8ff24);
+        Background: (TexturePath: "../Common/ContainerPanelPatch.png", Border: 4, Color: #39bcff2d);
       }
 
       ItemIcon #Item {
@@ -64,27 +64,27 @@ Group {
       }
 
       Group #SelectedTop {
-        Anchor: (Left: 0, Top: 0, Right: 0, Height: 1);
+        Anchor: (Left: 0, Top: 0, Right: 0, Height: 2);
         Visible: false;
-        Background: #52c7ff;
+        Background: #5cd0ff;
       }
 
       Group #SelectedBottom {
-        Anchor: (Left: 0, Bottom: 0, Right: 0, Height: 1);
+        Anchor: (Left: 0, Bottom: 0, Right: 0, Height: 2);
         Visible: false;
-        Background: #52c7ff;
+        Background: #5cd0ff;
       }
 
       Group #SelectedLeft {
-        Anchor: (Left: 0, Top: 0, Bottom: 0, Width: 1);
+        Anchor: (Left: 0, Top: 0, Bottom: 0, Width: 2);
         Visible: false;
-        Background: #52c7ff;
+        Background: #5cd0ff;
       }
 
       Group #SelectedRight {
-        Anchor: (Right: 0, Top: 0, Bottom: 0, Width: 1);
+        Anchor: (Right: 0, Top: 0, Bottom: 0, Width: 2);
         Visible: false;
-        Background: #52c7ff;
+        Background: #5cd0ff;
       }
     }
   }

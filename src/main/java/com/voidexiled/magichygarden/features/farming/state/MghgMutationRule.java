@@ -243,6 +243,7 @@ public final class MghgMutationRule {
 
     // Cached
     @Nullable private IntSet weatherIdSet;
+    @Nullable private Set<String> weatherIdKeySet;
     @Nullable private EnumSet<ClimateMutation> mustHaveClimateSet;
     @Nullable private EnumSet<ClimateMutation> mustNotHaveClimateSet;
     @Nullable private EnumSet<LunarMutation> mustHaveLunarSet;
@@ -259,6 +260,7 @@ public final class MghgMutationRule {
         if (weatherIdSet == null) {
             weatherIdSet = resolveWeatherIds(weatherIds);
         }
+        weatherIdKeySet = resolveWeatherIdKeys(weatherIds);
         mustHaveClimateSet = resolveClimateSet(mustHaveClimate);
         mustNotHaveClimateSet = resolveClimateSet(mustNotHaveClimate);
         mustHaveLunarSet = resolveLunarSet(mustHaveLunar);
@@ -351,8 +353,26 @@ public final class MghgMutationRule {
         if (eventType != ctx.getEventType()) return false;
         if (eventType != MutationEventType.WEATHER && eventType != MutationEventType.LUNAR) return true;
         int weatherId = ignoreSkyCheck ? ctx.getWeatherIdIgnoreSky() : ctx.getWeatherId();
-        if (weatherIdSet == null || weatherIdSet.isEmpty()) return true;
-        return weatherIdSet.contains(weatherId);
+        boolean hasNumericFilters = weatherIdSet != null && !weatherIdSet.isEmpty();
+        boolean hasStringFilters = weatherIdKeySet != null && !weatherIdKeySet.isEmpty();
+        if (!hasNumericFilters && !hasStringFilters) return true;
+        if (hasNumericFilters && weatherIdSet.contains(weatherId)) {
+            return true;
+        }
+        if (!hasStringFilters || weatherId == Weather.UNKNOWN_ID) {
+            return false;
+        }
+        Weather weather = Weather.getAssetMap().getAsset(weatherId);
+        if (weather == null || weather.getId() == null || weather.getId().isBlank()) {
+            return false;
+        }
+        String key = MghgWeatherIdUtil.normalizeWeatherKey(weather.getId());
+        if (key != null && weatherIdKeySet.contains(key)) {
+            return true;
+        }
+        String alias = MghgWeatherIdUtil.normalizeWeatherAlias(weather.getId());
+        String aliasKey = MghgWeatherIdUtil.normalizeWeatherKey(alias);
+        return aliasKey != null && weatherIdKeySet.contains(aliasKey);
     }
 
     public boolean matchesRequirements(MghgCropData data, MghgMutationContext ctx) {
@@ -458,10 +478,16 @@ public final class MghgMutationRule {
         if (ids == null || ids.length == 0) return null;
         IntOpenHashSet set = new IntOpenHashSet(ids.length * 2);
         for (String id : ids) {
-            int idx = Weather.getAssetMap().getIndex(id);
-            if (idx != Weather.UNKNOWN_ID) {
-                set.add(idx);
-            }
+            MghgWeatherIdUtil.addWeatherIndex(set, id);
+        }
+        return set.isEmpty() ? null : set;
+    }
+
+    private static @Nullable Set<String> resolveWeatherIdKeys(@Nullable String[] ids) {
+        if (ids == null || ids.length == 0) return null;
+        Set<String> set = new HashSet<>(ids.length * 2);
+        for (String weatherId : ids) {
+            MghgWeatherIdUtil.addWeatherKeys(set, weatherId);
         }
         return set.isEmpty() ? null : set;
     }

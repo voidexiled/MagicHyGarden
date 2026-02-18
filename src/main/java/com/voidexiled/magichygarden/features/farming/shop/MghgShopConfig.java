@@ -45,7 +45,7 @@ public final class MghgShopConfig {
                     .append(new KeyedCodec<>("RequireParcelAccessForTransactions", Codec.BOOLEAN, true),
                             (o, v) -> o.requireParcelAccessForTransactions = v == null ? o.requireParcelAccessForTransactions : v,
                             o -> o.requireParcelAccessForTransactions)
-                    .documentation("If true, buy/sell requires parcel membership and position inside parcel bounds.")
+                    .documentation("If true, buy/sell requires parcel build access (role-based).")
                     .add()
                     .append(new KeyedCodec<>("RequireBenchProximityForTransactions", Codec.BOOLEAN, true),
                             (o, v) -> o.requireBenchProximityForTransactions = v == null ? o.requireBenchProximityForTransactions : v,
@@ -163,7 +163,7 @@ public final class MghgShopConfig {
                         .append(new KeyedCodec<>("RestockChance", Codec.DOUBLE, true),
                                 (o, v) -> o.restockChance = v == null ? o.restockChance : v,
                                 o -> o.restockChance)
-                        .documentation("Chance to appear in a restock (0-1 or 0-100).")
+                        .documentation("Chance to receive positive stock this cycle (0-1 or 0-100). If roll fails, stock is 0.")
                         .add()
                         .append(new KeyedCodec<>("BuyPrice", Codec.DOUBLE, true),
                                 (o, v) -> o.buyPrice = v == null ? o.buyPrice : v,

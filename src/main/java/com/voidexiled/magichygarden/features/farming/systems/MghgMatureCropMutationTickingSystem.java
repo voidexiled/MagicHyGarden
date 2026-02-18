@@ -8,7 +8,6 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
-import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.farming.FarmingData;
@@ -25,6 +24,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventConfig;
 import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
+import com.voidexiled.magichygarden.features.farming.events.MghgGlobalFarmEventState;
 import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
 import com.voidexiled.magichygarden.features.farming.logic.MghgWeightUtil;
@@ -33,6 +33,7 @@ import com.voidexiled.magichygarden.features.farming.state.MghgMutationEngine;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationRuleSet;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationRules;
 import com.voidexiled.magichygarden.features.farming.state.MghgWeatherResolver;
+import com.voidexiled.magichygarden.features.farming.state.MghgWeatherIdUtil;
 import com.voidexiled.magichygarden.features.farming.state.MghgAdjacencyScanner;
 import com.voidexiled.magichygarden.features.farming.state.MghgBlockIdUtil;
 import com.voidexiled.magichygarden.features.farming.state.CooldownClock;
@@ -46,8 +47,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<ChunkStore> {
-
-        private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private final Query<ChunkStore> query;
 
@@ -106,7 +105,6 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
         }
         var world = commandBuffer.getExternalData().getWorld();
         if (!MghgFarmEventScheduler.isFarmWorld(world)) {
-            LOGGER.atInfo().log("World %s is not a farm world, skipping MghgOnFarmBlockAddedSystem", world.getName());
             return;
         }
         Store<EntityStore> entityStore = world.getEntityStore().getStore();
@@ -187,6 +185,18 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
         int weatherIdIgnoreSky = ignoreSkyCheck
                 ? MghgWeatherResolver.resolveWeatherId(entityStore, blockChunk, x, y, z, true)
                 : weatherId;
+        MghgGlobalFarmEventState activeEvent = null;
+        if (MghgFarmEventScheduler.isFarmWorld(world)) {
+            activeEvent = MghgFarmEventScheduler.getState();
+            if (activeEvent != null && activeEvent.isActive(now)) {
+                int forcedFromEvent = MghgWeatherIdUtil.resolveWeatherIndex(activeEvent.weatherId());
+                if (forcedFromEvent != Weather.UNKNOWN_ID) {
+                    // Event weather is authoritative during active weather/lunar windows.
+                    weatherId = forcedFromEvent;
+                    weatherIdIgnoreSky = forcedFromEvent;
+                }
+            }
+        }
         if (weatherId == Weather.UNKNOWN_ID && !ignoreSkyCheck && !hasNonWeatherRule) {
             boolean visualsChanged = applyVisuals(store, commandBuffer, chunkRef, blockChunk, ref, farmingBlock, x, y, z, data);
             if (visualsChanged || weightChanged) {
@@ -216,14 +226,9 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
 
         String soilBlockId = resolveSoilBlockId(blockChunk, x, y, z);
         MutationEventType eventType = MutationEventType.WEATHER;
-        if (MghgFarmEventScheduler.isFarmWorld(world)) {
-            var eventState = MghgFarmEventScheduler.getState();
-            if (eventState != null && eventState.isActive(now) && eventState.eventType() != null) {
-                eventType = eventState.eventType();
+        if (activeEvent != null && activeEvent.isActive(now) && activeEvent.eventType() != null) {
+            eventType = activeEvent.eventType();
             }
-        } else {
-            LOGGER.atInfo().log("World %s is not a farm world, skipping MghgOnFarmBlockAddedSystem", world.getName());
-        }
 
         MghgMutationContext ctx = new MghgMutationContext(
                 now,
@@ -322,10 +327,14 @@ public class MghgMatureCropMutationTickingSystem extends EntityTickingSystem<Chu
 
         BlockType currentType = BlockType.getAssetMap().getAsset(currentId);
         if (currentType == null) return;
+        BlockType baseType = MghgBlockIdUtil.resolveBaseBlockType(currentType);
+        if (baseType == null) {
+            baseType = currentType;
+        }
 
         // siempre final stage
         String targetState = MghgCropVisualStateResolver.resolveVariantKey(data) + "_stagefinal";
-        BlockType targetType = currentType.getBlockForState(targetState);
+        BlockType targetType = baseType.getBlockForState(targetState);
         if (targetType == null) return;
 
         int targetId = BlockType.getAssetMap().getIndex(targetType.getId());

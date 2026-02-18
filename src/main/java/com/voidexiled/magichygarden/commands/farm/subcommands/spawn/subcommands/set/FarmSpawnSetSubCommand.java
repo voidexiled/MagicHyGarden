@@ -4,7 +4,6 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.vector.Transform;
 import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
@@ -12,7 +11,6 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcel;
-import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelAccess;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
 import org.jspecify.annotations.NonNull;
@@ -34,14 +32,14 @@ public class FarmSpawnSetSubCommand extends AbstractPlayerCommand {
         setSpawn(commandContext, playerRef, world);
     }
 
-    private static void setSpawn(@NonNull CommandContext ctx, @NonNull PlayerRef playerRef, @NonNull World world) {
+    public static void setSpawn(@NonNull CommandContext ctx, @NonNull PlayerRef playerRef, @NonNull World world) {
         UUID owner = MghgFarmWorldManager.getOwnerFromFarmWorld(world);
         if (owner == null || !owner.equals(playerRef.getUuid())) {
             ctx.sendMessage(Message.raw("Debes estar dentro de tu propia granja para usar /farm spawn set."));
             return;
         }
         MghgParcel parcel = MghgParcelManager.getByOwner(owner);
-        if (parcel == null || parcel.getBounds() == null) {
+        if (parcel == null) {
             ctx.sendMessage(Message.raw("No se encontro tu parcela."));
             return;
         }
@@ -51,12 +49,6 @@ public class FarmSpawnSetSubCommand extends AbstractPlayerCommand {
         int x = (int) Math.floor(position.x);
         int y = (int) Math.floor(position.y);
         int z = (int) Math.floor(position.z);
-        Vector3i pos = new Vector3i(x, y, z);
-
-        if (!MghgParcelAccess.isInside(parcel.getBounds(), pos)) {
-            ctx.sendMessage(Message.raw("Debes estar dentro de tu parcela para fijar el spawn."));
-            return;
-        }
 
         Transform safeSpawn = MghgFarmWorldManager.resolveSafeSurfaceSpawn(
                 world,

@@ -1,6 +1,5 @@
 package com.voidexiled.magichygarden.features.farming.parcels;
 
-import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
 
@@ -18,34 +17,6 @@ public final class MghgParcelAccess {
             return null;
         }
         return MghgParcelManager.getByOwner(owner);
-    }
-
-    public static boolean isInside(@Nullable MghgParcelBounds bounds, @Nullable Vector3i pos) {
-        if (bounds == null || pos == null) {
-            return false;
-        }
-        int minX = bounds.getOriginX();
-        int minY = bounds.getOriginY();
-        int minZ = bounds.getOriginZ();
-        int maxX = minX + bounds.getSizeX();
-        int maxY = minY + bounds.getSizeY();
-        int maxZ = minZ + bounds.getSizeZ();
-
-        return pos.x >= minX && pos.x < maxX
-                && pos.y >= minY && pos.y < maxY
-                && pos.z >= minZ && pos.z < maxZ;
-    }
-
-    public static boolean isInsideHorizontal(@Nullable MghgParcelBounds bounds, @Nullable Vector3i pos) {
-        if (bounds == null || pos == null) {
-            return false;
-        }
-        int minX = bounds.getOriginX();
-        int minZ = bounds.getOriginZ();
-        int maxX = minX + bounds.getSizeX();
-        int maxZ = minZ + bounds.getSizeZ();
-        return pos.x >= minX && pos.x < maxX
-                && pos.z >= minZ && pos.z < maxZ;
     }
 
     public static MghgParcelRole resolveRole(@Nullable MghgParcel parcel, @Nullable UUID playerId) {

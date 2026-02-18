@@ -2,14 +2,16 @@ package com.voidexiled.magichygarden.commands.farm.subcommands.admin.shared;
 
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
+import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
 import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.UUID;
 
-public class FarmAdminCommandShared {
-
+public final class FarmAdminCommandShared {
+    private FarmAdminCommandShared() {
+    }
 
     private static boolean isBlank(@Nullable String value) {
         return value == null || value.isBlank();
@@ -19,13 +21,23 @@ public class FarmAdminCommandShared {
         if (isBlank(token) || "self".equals(normalize(token))) {
             return executor.getUuid();
         }
+        UUID resolved = MghgPlayerNameManager.resolveUuid(token);
+        if (resolved != null) {
+            return resolved;
+        }
+        return resolveOnlineOnly(token);
+    }
+
+    public static @Nullable UUID resolveOnlineOnly(@Nullable String token) {
+        if (isBlank(token)) {
+            return null;
+        }
         String raw = token.trim();
         try {
             return UUID.fromString(raw);
         } catch (IllegalArgumentException ignored) {
             // Fallback to online player name lookup.
         }
-
         Universe universe = Universe.get();
         if (universe == null) {
             return null;

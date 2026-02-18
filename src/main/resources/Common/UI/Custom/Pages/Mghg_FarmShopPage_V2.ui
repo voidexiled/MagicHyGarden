@@ -1,0 +1,191 @@
+$C = "../Common.ui";
+
+@ShopTopTabAnchor = Anchor(Width: 78, Height: 56, Right: 4, Bottom: 0);
+
+@ShopTopTabStyle = TabStyleState(
+  Background: (TexturePath: "ShopIcons/Tab.png", Border: 3),
+  Overlay: "ShopIcons/TabOverlay.png",
+  IconAnchor: (Width: 38, Height: 38),
+  Anchor: @ShopTopTabAnchor
+);
+
+@ShopTopTabsStyle = TabNavigationStyle(
+  TabStyle: (
+    Default: @ShopTopTabStyle,
+    Hovered: @ShopTopTabStyle,
+    Pressed: @ShopTopTabStyle
+  ),
+  SelectedTabStyle: (
+    Default: (
+      ...@ShopTopTabStyle,
+      Background: (TexturePath: "ShopIcons/Tab.png", Border: 3),
+      Overlay: "ShopIcons/TabSelectedOverlay.png",
+      IconAnchor: (Width: 38, Height: 38)
+    )
+  )
+);
+
+$C.@PageOverlay {}
+
+Group #MghgFarmShopPageV2 {
+  Anchor: (Left: 0, Top: 0, Right: 0, Bottom: 0);
+  LayoutMode: Middle;
+
+  Group #ShopFrame {
+    Anchor: (Width: 930, Height: 620);
+
+    Group #TabsRow {
+      Anchor: (Left: 8, Top: 0, Width: 170, Height: 62);
+      LayoutMode: Left;
+
+      TabNavigation #ShopTabs {
+        Style: @ShopTopTabsStyle;
+        SelectedTab: "BuyTab";
+
+        TabButton #BuyTab {
+          Id: "BuyTab";
+          Icon: "ShopIcons/Seeds.png";
+          TooltipText: "Buy";
+        }
+
+        TabButton #SellTab {
+          Id: "SellTab";
+          Icon: "ShopIcons/SettingsTab.png";
+          TooltipText: "Sell";
+        }
+      }
+    }
+
+    $C.@DecoratedContainer {
+      Anchor: (Width: 930, Height: 560, Top: 56);
+
+      #Title {
+        Label #PageTitle {
+          Style: (
+            ...$C.@TitleStyle,
+            HorizontalAlignment: Center,
+          );
+          Padding: (Horizontal: 19);
+          Text: "Magic HyGarden Shop";
+        }
+      }
+
+      #Content {
+        LayoutMode: Top;
+        Padding: (Horizontal: 10);
+
+        Group #BuyPanel {
+          FlexWeight: 1;
+          LayoutMode: Top;
+          Visible: true;
+
+          Group #BuyTradeGridContainer {
+            FlexWeight: 1;
+            LayoutMode: TopScrolling;
+            ScrollbarStyle: $C.@DefaultScrollbarStyle;
+            Padding: (Top: 10, Left: 8, Right: 8);
+
+            Group #BuyTradeGrid {
+              LayoutMode: LeftCenterWrap;
+            }
+          }
+
+          Group #Footer {
+            Anchor: (Height: 40);
+            LayoutMode: Top;
+            Padding: (Horizontal: -2);
+
+            Group #FooterDivider {
+              Anchor: (Height: 2);
+              Background: #19252F;
+            }
+
+            Group #FooterContent {
+              FlexWeight: 1;
+              LayoutMode: CenterMiddle;
+              Padding: (Bottom: 6);
+
+              Label #FooterTimer {
+                Style: (
+                  FontSize: 14,
+                  TextColor: #7caacc,
+                  HorizontalAlignment: Center,
+                  VerticalAlignment: Center,
+                );
+                Text: "";
+              }
+            }
+          }
+        }
+
+        Group #SellPanel {
+          FlexWeight: 1;
+          LayoutMode: Top;
+          Visible: false;
+
+          Group #SellInventoryPanel {
+            FlexWeight: 1;
+            LayoutMode: Top;
+            Background: (TexturePath: "../Common/ContainerPanelPatch.png", Border: 4, Color: #102235);
+            Padding: (Full: 6);
+
+            Group #SellTradeGridContainer {
+              FlexWeight: 1;
+              LayoutMode: TopScrolling;
+              ScrollbarStyle: $C.@DefaultScrollbarStyle;
+
+              Group #SellTradeGrid {
+                LayoutMode: LeftCenterWrap;
+              }
+            }
+          }
+
+          Group #SellFooter {
+            Anchor: (Height: 44);
+            LayoutMode: Top;
+            Padding: (Horizontal: -2);
+
+            Group #SellFooterDivider {
+              Anchor: (Height: 2);
+              Background: #19252F;
+            }
+
+            Group #SellFooterContent {
+              FlexWeight: 1;
+              LayoutMode: Left;
+              Padding: (Bottom: 6, Left: 4, Right: 4);
+
+              Label #SellFooterLabel {
+                FlexWeight: 1;
+                Style: (
+                  FontSize: 14,
+                  TextColor: #7caacc,
+                  HorizontalAlignment: Start,
+                  VerticalAlignment: Center,
+                );
+                Text: "";
+              }
+
+              $C.@SmallSecondaryTextButton #SellSelectAll {
+                @Text = "Select all";
+                @Anchor = (Width: 106, Height: 28, Left: 8);
+              }
+
+              $C.@SmallSecondaryTextButton #SellClearSelection {
+                @Text = "Clear";
+                @Anchor = (Width: 96, Height: 28, Left: 8);
+              }
+
+              $C.@SmallSecondaryTextButton #SellSelected {
+                @Text = "Sell Selected";
+                @Anchor = (Width: 146, Height: 28, Left: 8);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+$C.@BackButton {}

@@ -14,9 +14,12 @@ import com.voidexiled.magichygarden.features.farming.economy.MghgEconomyManager;
 import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelInviteService;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
+import com.voidexiled.magichygarden.features.farming.perks.MghgFertileSoilReconcileService;
+import com.voidexiled.magichygarden.features.farming.perks.MghgFarmPerkManager;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopUiLogManager;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
+import com.voidexiled.magichygarden.features.farming.tooltips.MghgDynamicTooltipsManager;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
 import org.jspecify.annotations.NonNull;
 
@@ -67,6 +70,11 @@ public class FarmReloadCommand extends AbstractPlayerCommand {
                 MghgEconomyManager.load();
                 ctx.sendMessage(Message.raw("Recargado: economy store."));
             }
+            case "perks", "perk" -> {
+                MghgFarmPerkManager.reload();
+                MghgFertileSoilReconcileService.restart();
+                ctx.sendMessage(Message.raw("Recargado: farm perks config."));
+            }
             case "names", "namecache", "players" -> {
                 MghgPlayerNameManager.load();
                 ctx.sendMessage(Message.raw("Recargado: player name cache."));
@@ -74,10 +82,12 @@ public class FarmReloadCommand extends AbstractPlayerCommand {
             case "shop", "stock" -> {
                 MghgShopStockManager.reloadFromDisk();
                 MghgShopUiLogManager.load();
+                MghgDynamicTooltipsManager.tryRegister();
+                MghgDynamicTooltipsManager.refreshAllPlayers();
                 ctx.sendMessage(Message.raw("Recargado: shop config + stock state + ui logs."));
             }
             default -> ctx.sendMessage(Message.raw(
-                    "Uso: /farm reload [all|events|worlds|parcels|invites|economy|shop|names]"
+                    "Uso: /farm reload [all|events|worlds|parcels|invites|economy|perks|shop|names]"
             ));
         }
     }
@@ -87,12 +97,16 @@ public class FarmReloadCommand extends AbstractPlayerCommand {
         MghgParcelManager.load();
         MghgParcelInviteService.load();
         MghgEconomyManager.load();
+        MghgFarmPerkManager.reload();
+        MghgFertileSoilReconcileService.restart();
         MghgPlayerNameManager.load();
         MghgShopStockManager.reloadFromDisk();
         MghgShopUiLogManager.load();
+        MghgDynamicTooltipsManager.tryRegister();
+        MghgDynamicTooltipsManager.refreshAllPlayers();
         MghgFarmEventScheduler.reload();
         ctx.sendMessage(Message.raw(
-                "Recargado: worlds, parcels, invites, economy, names, shop(stock+ui logs) y events."
+                "Recargado: worlds, parcels, invites, economy, perks, names, shop(stock+ui logs) y events."
         ));
     }
 

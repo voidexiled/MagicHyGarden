@@ -31,10 +31,7 @@ public final class MghgWeatherResolver {
 
         IntOpenHashSet set = new IntOpenHashSet(ids.length * 2);
         for (String id : ids) {
-            int idx = Weather.getAssetMap().getIndex(id);
-            if (idx != Weather.UNKNOWN_ID) {
-                set.add(idx);
-            }
+            MghgWeatherIdUtil.addWeatherIndex(set, id);
         }
 
         return set.isEmpty() ? null : set;
@@ -116,13 +113,13 @@ public final class MghgWeatherResolver {
             int x, int y, int z,
             boolean ignoreSkyCheck
     ) {
-        if (!ignoreSkyCheck && !hasSkyAccess(blockChunk, x, y, z)) {
-            return Weather.UNKNOWN_ID;
-        }
         WeatherResource weatherResource = entityStore.getResource(WeatherResource.getResourceType());
         int forced = weatherResource.getForcedWeatherIndex();
         if (forced != Weather.UNKNOWN_ID) {
             return forced;
+        }
+        if (!ignoreSkyCheck && !hasSkyAccess(blockChunk, x, y, z)) {
+            return Weather.UNKNOWN_ID;
         }
         int envId = blockChunk.getEnvironment(x, y, z);
         return weatherResource.getWeatherIndexForEnvironment(envId);
@@ -138,4 +135,5 @@ public final class MghgWeatherResolver {
         }
         return true;
     }
+
 }

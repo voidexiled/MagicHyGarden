@@ -7,6 +7,7 @@ import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.builtin.weather.resources.WeatherResource;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
+import com.voidexiled.magichygarden.features.farming.state.MghgWeatherIdUtil;
 import com.voidexiled.magichygarden.features.farming.state.MutationEventType;
 
 import javax.annotation.Nullable;
@@ -218,6 +219,18 @@ public final class MghgFarmEventScheduler {
             return worldUuid != null && uuids.contains(worldUuid);
         }
         return false;
+    }
+
+    public static boolean isGrowthAllowedForWorld(@Nullable World world) {
+        if (world == null) {
+            return true;
+        }
+        UUID worldUuid = world.getWorldConfig().getUuid();
+        if (worldUuid == null) {
+            return true;
+        }
+        Boolean cached = LAST_BLOCK_TICKING_BY_WORLD.get(worldUuid);
+        return cached == null || cached;
     }
 
     private static void tickSafe() {
@@ -445,7 +458,7 @@ public final class MghgFarmEventScheduler {
             return requested;
         }
 
-        String normalizedAlias = normalizeWeatherAlias(requested);
+        String normalizedAlias = MghgWeatherIdUtil.normalizeWeatherAlias(requested);
         if (normalizedAlias != null && assetExists(normalizedAlias)) {
             LOGGER.atInfo().log(
                     "[MGHG|EVENTS] Weather id '%s' remapped to '%s'.",
@@ -473,24 +486,7 @@ public final class MghgFarmEventScheduler {
     }
 
     private static boolean assetExists(String weatherId) {
-        return Weather.getAssetMap().getIndex(weatherId) != Integer.MIN_VALUE;
-    }
-
-    private static @Nullable String normalizeWeatherAlias(String weatherId) {
-        // Backward compatibility aliases for previous config values.
-        if (weatherId.equalsIgnoreCase("Zone1_Rain")) {
-            return "Mghg_Zone1_Rain";
-        }
-        if (weatherId.equalsIgnoreCase("Zone3_Snow")) {
-            return "Mghg_Zone3_Snow";
-        }
-        if (weatherId.equalsIgnoreCase("Mghg_Zone1_Rain")) {
-            return "Zone1_Rain";
-        }
-        if (weatherId.equalsIgnoreCase("Mghg_Zone3_Snow")) {
-            return "Zone3_Snow";
-        }
-        return null;
+        return Weather.getAssetMap().getIndex(weatherId) != Weather.UNKNOWN_ID;
     }
 
     private static void syncFarmWorldTicking(MghgFarmEventConfig cfg) {
@@ -520,27 +516,11 @@ public final class MghgFarmEventScheduler {
             boolean shouldTickBlocks = (allowWhenOwnerOffline || ownerOnline)
                     && (allowWhenServerEmpty || anyPlayersOnline);
 
-            boolean alreadyApplied = world.isTicking() == shouldTickBlocks
-                    && world.getWorldConfig().isBlockTicking() == shouldTickBlocks;
             Boolean last = LAST_BLOCK_TICKING_BY_WORLD.get(worldUuid);
-            if (alreadyApplied && last != null && last == shouldTickBlocks) {
+            if (last != null && last == shouldTickBlocks) {
                 continue;
             }
             LAST_BLOCK_TICKING_BY_WORLD.put(worldUuid, shouldTickBlocks);
-            world.execute(() -> {
-                boolean changed = false;
-                if (world.isTicking() != shouldTickBlocks) {
-                    world.setTicking(shouldTickBlocks);
-                    changed = true;
-                }
-                if (world.getWorldConfig().isBlockTicking() != shouldTickBlocks) {
-                    world.getWorldConfig().setBlockTicking(shouldTickBlocks);
-                    changed = true;
-                }
-                if (changed) {
-                    world.getWorldConfig().markChanged();
-                }
-            });
         }
         LAST_BLOCK_TICKING_BY_WORLD.keySet().removeIf(uuid -> !farmWorldUuids.contains(uuid));
     }

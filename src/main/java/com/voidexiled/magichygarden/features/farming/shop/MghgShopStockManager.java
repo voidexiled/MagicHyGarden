@@ -212,6 +212,7 @@ public final class MghgShopStockManager {
         if (itemId == null || itemId.isBlank()) {
             return false;
         }
+        String normalizedItemId = itemId.trim();
         int safeAmount = Math.max(0, amount);
         MghgShopStockState state = STATE;
         if (state == null) {
@@ -225,13 +226,23 @@ public final class MghgShopStockManager {
             if (entry == null || entry.getId() == null) {
                 continue;
             }
-            if (itemId.equalsIgnoreCase(entry.getId())) {
+            if (normalizedItemId.equalsIgnoreCase(entry.getId())) {
                 entry.setStock(safeAmount);
                 saveState();
                 return true;
             }
         }
-        return false;
+
+        ArrayList<MghgShopStockState.StockEntry> entries = new ArrayList<>();
+        for (MghgShopStockState.StockEntry entry : state.getStocks()) {
+            if (entry != null) {
+                entries.add(entry);
+            }
+        }
+        entries.add(new MghgShopStockState.StockEntry(normalizedItemId, safeAmount));
+        state.setStocks(entries.toArray(MghgShopStockState.StockEntry[]::new));
+        saveState();
+        return true;
     }
 
     private static void tickSafe() {
@@ -260,14 +271,13 @@ public final class MghgShopStockManager {
         MghgShopConfig.ShopItem[] items = cfg.getItems();
 
         Map<String, Integer> stock = new HashMap<>();
+        int positiveRestocks = 0;
         for (MghgShopConfig.ShopItem item : items) {
             if (item == null || item.getId() == null || item.getId().isBlank()) continue;
-            if (!rollRestock(item)) {
-                continue;
+            int value = resolveRestockQuantity(item);
+            if (value > 0) {
+                positiveRestocks++;
             }
-            int min = Math.max(0, item.getMinStock());
-            int max = Math.max(min, item.getMaxStock());
-            int value = (max == min) ? min : ThreadLocalRandom.current().nextInt(min, max + 1);
             stock.put(item.getId(), value);
         }
 
@@ -278,7 +288,8 @@ public final class MghgShopStockManager {
         Instant next = Instant.now().plusSeconds(resolveNextRestockSeconds(cfg));
         STATE = new MghgShopStockState(next, entries, new MghgShopStockState.PlayerPurchaseEntry[0]);
         saveState();
-        LOGGER.atInfo().log("[MGHG|SHOP] Restocked %d items. Next restock at %s.", entries.length, next);
+        LOGGER.atInfo().log("[MGHG|SHOP] Restocked %d/%d items with positive stock. Next restock at %s.",
+                positiveRestocks, entries.length, next);
     }
 
     private static int getPlayerPurchased(@Nonnull UUID playerUuid, @Nonnull String itemId) {
@@ -338,9 +349,27 @@ public final class MghgShopStockManager {
     }
 
     private static int resolveNextRestockSeconds(MghgShopConfig cfg) {
-        int min = Math.max(60, cfg.getRestockIntervalMinSeconds());
+        int min = Math.max(1, cfg.getRestockIntervalMinSeconds());
         int max = Math.max(min, cfg.getRestockIntervalMaxSeconds());
         return ThreadLocalRandom.current().nextInt(min, max + 1);
+    }
+
+    private static int resolveRestockQuantity(@Nonnull MghgShopConfig.ShopItem item) {
+        int min = Math.max(0, item.getMinStock());
+        int max = Math.max(min, item.getMaxStock());
+        if (max <= 0) {
+            return 0;
+        }
+        if (!rollRestock(item)) {
+            return 0;
+        }
+
+        // RestockChance controls whether this item receives a positive stock this cycle.
+        int positiveMin = Math.max(1, min);
+        int positiveMax = Math.max(positiveMin, max);
+        return (positiveMax == positiveMin)
+                ? positiveMin
+                : ThreadLocalRandom.current().nextInt(positiveMin, positiveMax + 1);
     }
 
     private static boolean rollRestock(MghgShopConfig.ShopItem item) {

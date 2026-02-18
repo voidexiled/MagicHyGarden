@@ -4,7 +4,6 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
-import com.hypixel.hytale.server.core.command.system.basecommands.AbstractAsyncPlayerCommand;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
@@ -18,7 +17,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Locale;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public class FarmAdminWorldStatusSubCommand extends AbstractPlayerCommand {
     public FarmAdminWorldStatusSubCommand() {
@@ -53,7 +51,7 @@ public class FarmAdminWorldStatusSubCommand extends AbstractPlayerCommand {
             boolean backupExists = Files.isDirectory(backupPath);
             ctx.sendMessage(Message.raw(String.format(
                     Locale.ROOT,
-                    "%s \n owner=%s \n players=%d |\n ticking=%s | backup=%s",
+                    "%s | owner=%s | players=%d | ticking=%s | backup=%s",
                     FarmAdminCommandShared.fallback(candidate.getName(), "(unnamed)"),
                     owner == null ? "-" : owner.toString(),
                     candidate.getPlayerRefs().size(),
@@ -70,5 +68,4 @@ public class FarmAdminWorldStatusSubCommand extends AbstractPlayerCommand {
         }
     }
 }
-
 

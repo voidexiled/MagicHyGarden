@@ -7,13 +7,13 @@
     "Blocks.Plants"
   ],
   "Interactions": {
-    "Secondary": "Seed_Condition"
+    "Secondary": "Mghg_Seed_Condition"
   },
   "InteractionVars": {
     "SeedId": {
       "Interactions": [
         {
-          "Parent": "Seed_Place",
+          "Parent": "Mghg_Seed_Place",
           "BlockTypeToPlace": "Template_Crop_Stage_Start"
         }
       ]

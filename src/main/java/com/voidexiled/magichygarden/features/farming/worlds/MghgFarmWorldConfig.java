@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 
 public final class MghgFarmWorldConfig {
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
@@ -47,6 +48,26 @@ public final class MghgFarmWorldConfig {
                             (o, v) -> o.chunkStorageProvider = v,
                             o -> o.chunkStorageProvider)
                     .documentation("Chunk storage provider id (e.g., Hytale, Empty, IndexedStorage).")
+                    .add()
+                    .append(new KeyedCodec<>("CreationMode", Codec.STRING, true),
+                            (o, v) -> o.creationMode = v == null ? o.creationMode : v,
+                            o -> o.creationMode)
+                    .documentation("Farm world creation mode: Generator or TemplateCopy.")
+                    .add()
+                    .append(new KeyedCodec<>("TemplateWorldPath", Codec.STRING, true),
+                            (o, v) -> o.templateWorldPath = v,
+                            o -> o.templateWorldPath)
+                    .documentation("Template world path used when CreationMode=TemplateCopy. Relative paths resolve from server root.")
+                    .add()
+                    .append(new KeyedCodec<>("TemplateRequireValidConfig", Codec.BOOLEAN, true),
+                            (o, v) -> o.templateRequireValidConfig = v == null || v,
+                            o -> o.templateRequireValidConfig)
+                    .documentation("When true, template world path must contain a valid world config before copy.")
+                    .add()
+                    .append(new KeyedCodec<>("TemplateCopyRetries", Codec.INTEGER, true),
+                            (o, v) -> o.templateCopyRetries = v == null ? o.templateCopyRetries : v,
+                            o -> o.templateCopyRetries)
+                    .documentation("How many template-copy attempts to run before failing farm creation.")
                     .add()
                     .append(new KeyedCodec<>("DisplayName", Codec.STRING, true),
                             (o, v) -> o.displayName = v,
@@ -122,6 +143,11 @@ public final class MghgFarmWorldConfig {
     private String survivalWorldName;
     private String worldGenProvider = "Flat";
     private String chunkStorageProvider = "Hytale";
+    private String creationMode = "Generator";
+    @Nullable
+    private String templateWorldPath;
+    private boolean templateRequireValidConfig = true;
+    private int templateCopyRetries = 2;
     @Nullable
     private String displayName;
     private boolean isPvpEnabled;
@@ -155,6 +181,22 @@ public final class MghgFarmWorldConfig {
 
     public String getChunkStorageProvider() {
         return chunkStorageProvider == null ? "Hytale" : chunkStorageProvider;
+    }
+
+    public CreationMode getCreationMode() {
+        return CreationMode.fromRaw(creationMode);
+    }
+
+    public @Nullable String getTemplateWorldPath() {
+        return templateWorldPath;
+    }
+
+    public boolean isTemplateRequireValidConfig() {
+        return templateRequireValidConfig;
+    }
+
+    public int getTemplateCopyRetries() {
+        return Math.max(1, templateCopyRetries);
     }
 
     public @Nullable String getDisplayName() {
@@ -237,5 +279,23 @@ public final class MghgFarmWorldConfig {
         }
 
         return new MghgFarmWorldConfig();
+    }
+
+    public enum CreationMode {
+        GENERATOR,
+        TEMPLATE_COPY;
+
+        public static CreationMode fromRaw(@Nullable String raw) {
+            if (raw == null || raw.isBlank()) {
+                return GENERATOR;
+            }
+            String normalized = raw.trim().toLowerCase(Locale.ROOT);
+            if (normalized.equals("templatecopy")
+                    || normalized.equals("template_copy")
+                    || normalized.equals("template")) {
+                return TEMPLATE_COPY;
+            }
+            return GENERATOR;
+        }
     }
 }

@@ -13,12 +13,18 @@ This document is the operational reference for all farm-related JSON configs loa
 - `SurvivalWorldName` (`string`): Survival world target for `/farm survival`.
 - `WorldGenProvider` (`string`): World generator provider id for farm worlds.
 - `ChunkStorageProvider` (`string`): Chunk storage backend id.
+- `CreationMode` (`string`): `Generator` (default) or `TemplateCopy`.
+- `TemplateWorldPath` (`string`): Source world folder used when `CreationMode=TemplateCopy`.
+  - Absolute path works directly.
+  - Relative path resolves from server root (parent of `universe/`).
+- `TemplateRequireValidConfig` (`bool`): If true, template folder must contain `config.json`/`config.bson`.
+- `TemplateCopyRetries` (`int`): Template copy attempts before fallback to generator mode.
 - `IsPvpEnabled` (`bool`): Enables/disables PvP in farm worlds.
 - `IsSpawningNPC` (`bool`): Enables/disables NPC spawning in farm worlds.
 - `EnableFullInstancePersistence` (`bool`): Enables world-folder snapshot persistence.
 - `FullInstanceBackupIntervalSeconds` (`int`): Snapshot interval in seconds.
 - `BackupWorldsPerTick` (`int`): Number of farm worlds processed per snapshot tick.
-- `ParcelSizeX/Y/Z` (`int`): Default parcel bounds used for metadata/permissions.
+- `ParcelSizeX/Y/Z` (`int`): Default parcel bounds metadata (spawn fallback center + admin/debug context).
 - `FarmSpawnX/Y/Z` (`int`): Fallback farm spawn (safe fallback if computed spawn is invalid).
 - `FarmSpawnOriginGuardRadius` (`int`): Prevents spawn too close to origin hotspot.
 
@@ -42,7 +48,7 @@ This document is the operational reference for all farm-related JSON configs loa
 ## `Server/Farming/Shop/Mghg_Shop.json`
 - `RestockIntervalMinSeconds`, `RestockIntervalMaxSeconds` (`int`): Restock cycle window.
 - `RequireFarmWorldForTransactions` (`bool`): Buy/sell only from farm worlds.
-- `RequireParcelAccessForTransactions` (`bool`): Buy/sell only with parcel build access.
+- `RequireParcelAccessForTransactions` (`bool`): Buy/sell only with parcel build access (role-based, not by position bounds).
 - `RequireBenchProximityForTransactions` (`bool`): Buy/sell requires nearby bench block.
 - `BenchSearchRadius` (`int`): Radius for bench lookup.
 - `BenchBlockIds[]` (`string[]`): Accepted bench block ids.
@@ -50,8 +56,8 @@ This document is the operational reference for all farm-related JSON configs loa
   - `Id` (`string`): Shop id used in commands/UI (`/farm buy <Id>`).
   - `BuyItemId` (`string`): Item granted by buy.
   - `SellItemIds[]` (`string[]`): Item ids accepted for selling.
-  - `MinStock`, `MaxStock` (`int`): Restock quantity range.
-  - `RestockChance` (`double`): Chance item appears in each cycle (`0..1` or `0..100`).
+  - `MinStock`, `MaxStock` (`int`): Positive restock quantity range.
+  - `RestockChance` (`double`): Chance item gets positive stock in each cycle (`0..1` or `0..100`). If the roll fails, stock is `0`.
   - `BuyPrice` (`double`): Unit buy price.
   - `SellPrice` (`double`): Base unit sell price.
   - `EnableMetaSellPricing` (`bool`): Enables metadata-based multipliers.
@@ -72,12 +78,31 @@ Stock semantics:
 - `AutoCreateAccountOnFirstAccess` (`bool`): Creates account lazily on first economy read.
 - `StartingBalance` (`double`): Initial balance for first-time accounts.
 
+## `Server/Farming/Perks/Mghg_Perks.json`
+- `BaseLevel` (`int`): Default fertile-soil perk level for new parcel perk state.
+- `ReconcileIntervalSeconds` (`int`): Interval used by stale tracked-fertile reconciliation task.
+- `FertileSoilLevels[]`:
+  - `Level` (`int`): Perk level id.
+  - `MaxFertileBlocks` (`int`): Max tracked fertile blocks allowed at this level.
+  - `UpgradeCost` (`double`): Economy cost to upgrade into this level.
+- `SellMultiplierLevels[]`:
+  - `Level` (`int`): Perk level id.
+  - `Multiplier` (`double`): Final sell-value multiplier applied by shop transactions.
+  - `UpgradeCost` (`double`): Economy cost to upgrade into this level.
+- `FertileSoilRules`:
+  - `TillSourceBlockIds[]` (`string[]`): Blocks that can be hoed into fertile soil (cap checked before conversion).
+  - `FertileBaseBlockIds[]` (`string[]`): Blocks counted as fertile for cap tracking.
+  - `AllowedSeedSoilBaseBlockIds[]` (`string[]`): Shared allowlist for seed-soil compatibility metadata. Intended to match your seed interaction/crop support assets.
+  - `HoeItemIds[]` (`string[]`): Exact hoe item ids explicitly allowed to till in farm parcel worlds.
+  - `HoeItemIdPrefixes[]` (`string[]`): Optional prefix-based allowlist (leave empty to force exact-id only, e.g. only `Tool_Hoe_Custom`).
+
 ## `Server/Farming/Crops/Mghg_Crops.json`
 - `Definitions[]`:
   - `Id` (`string`): Logical crop id.
   - `BlockId` (`string`): Crop block asset id.
   - `ItemId` (`string`): Harvestable crop item asset id.
   - `BaseWeightGrams` (`double`): Base weight metadata value.
+  - `GrowTimeSeconds` (`int`, optional): Approximate full grow time (seed to mature) shown in seed tooltips/UI.
 
 ## `Server/Farming/Modifiers/Size.json`
 - `Type` (`string`): Modifier asset type id (must match expected type).
@@ -97,7 +122,7 @@ Each rule supports many fields (`EventType`, `Slot`, `Set`, `Chance`, `Priority`
 Full rule-by-rule field reference is maintained in:
 - `docs/MUTATION_RULES.md`
 
-## `Server/Farming/Mutations/Mghg_MutationVisuals.json`
+## `Server/Farming/Visuals/Mghg_MutationVisuals.json`
 - `Defaults.BlockType.*`: Default visual overrides (sound ids, particle color defaults, etc.).
 - `Overrides.<mutationKey>.BlockType.*`: Per-mutation visual overrides.
 - Mutation keys must match your state naming conventions (example: `mghg_rain`, `mghg_frozen`).
@@ -108,4 +133,5 @@ Full rule-by-rule field reference is maintained in:
 - `run/mghg/shop_ui_logs.json`: Per-player shop activity logs.
 - `run/mghg/player_names.json`: UUID/name cache.
 - `run/mghg/parcels/*.parcel.json`: Parcel metadata/roles/spawn.
+  - Includes `Perks.FertileSoilLevel` and tracked fertile block keys.
 - `run/mghg/world_backups/*`: Farm world snapshots for full-instance persistence.

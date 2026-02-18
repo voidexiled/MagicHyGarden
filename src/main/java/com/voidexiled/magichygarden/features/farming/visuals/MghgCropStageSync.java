@@ -66,30 +66,37 @@ public final class MghgCropStageSync {
         if (stages == null || stages.length == 0) return false;
 
         String currentStageSet = farmingBlock.getCurrentStageSet();
-        if (desiredStageSet.equals(currentStageSet)) return false;
-
-        farmingBlock.setCurrentStageSet(desiredStageSet);
+        boolean stageSetChanged = !desiredStageSet.equals(currentStageSet);
+        if (stageSetChanged) {
+            farmingBlock.setCurrentStageSet(desiredStageSet);
+        }
 
         int stageIndex = (int) farmingBlock.getGrowthProgress();
         if (stageIndex < 0) stageIndex = 0;
         if (stageIndex >= stages.length) stageIndex = stages.length - 1;
 
+        boolean refreshed = false;
+
         // Resolver el state key del stage (ej: "Stage1")
         String stateKey = tryGetStageStateKey(stages[stageIndex]);
         if (stateKey != null) {
             if (applyBlockState(commandBuffer, chunkColRef, blockChunk, blockType, stateKey, x, y, z)) {
-                return true;
+                refreshed = true;
             }
         }
 
-        try {
-            stages[stageIndex].apply(commandBuffer, sectionRef, blockRef, x, y, z, null);
-            return true;
-        } catch (Throwable ignored) {
-            // Fallback seguro: programar tick para que el farming system refresque en el siguiente tick
-            scheduleTick(commandBuffer, sectionRef, x, y, z);
-            return true;
+        if (!refreshed) {
+            try {
+                stages[stageIndex].apply(commandBuffer, sectionRef, blockRef, x, y, z, null);
+                refreshed = true;
+            } catch (Throwable ignored) {
+                // Fallback seguro: programar tick para que el farming system refresque en el siguiente tick
+                scheduleTick(commandBuffer, sectionRef, x, y, z);
+                refreshed = true;
+            }
         }
+
+        return stageSetChanged || refreshed;
     }
 
     /**

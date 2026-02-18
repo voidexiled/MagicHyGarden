@@ -4,7 +4,6 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -73,14 +72,6 @@ public final class MghgShopAccessPolicy {
                 return "No tienes permisos de parcela para usar la shop aqui.";
             }
 
-            Vector3d playerPos = resolvePlayerPos(store, playerEntityRef);
-            if (playerPos == null) {
-                return "No pude resolver posicion del jugador para validar parcela.";
-            }
-            Vector3i playerBlock = toBlockPos(playerPos);
-            if (!MghgParcelAccess.isInsideHorizontal(parcel.getBounds(), playerBlock)) {
-                return "Debes estar dentro de tu parcela para usar la shop.";
-            }
         }
 
         if (cfg.isRequireBenchProximityForTransactions()) {
@@ -115,14 +106,6 @@ public final class MghgShopAccessPolicy {
             return null;
         }
         return transform.getPosition();
-    }
-
-    private static Vector3i toBlockPos(Vector3d pos) {
-        return new Vector3i(
-                (int) Math.floor(pos.x),
-                (int) Math.floor(pos.y),
-                (int) Math.floor(pos.z)
-        );
     }
 
     private static BenchProximity findNearestBench(World world, Vector3d playerPos, Set<String> benchIds, int radius) {

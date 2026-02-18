@@ -7,7 +7,7 @@ Goal
 Files
 - tools/mghg_asset_normalize.py
   - Generator that merges BlockType defaults into every Item state.
-- Server/Farming/Mutations/Mghg_MutationVisuals.json
+- Server/Farming/Visuals/Mghg_MutationVisuals.json
   - Central place for defaults and per-mutation overrides.
 
 How it works
@@ -29,7 +29,7 @@ How to run
    - build/resources/main
 
 Customizing per-mutation overrides
-Edit Server/Farming/Mutations/Mghg_MutationVisuals.json:
+Edit Server/Farming/Visuals/Mghg_MutationVisuals.json:
 
 {
   "Defaults": {

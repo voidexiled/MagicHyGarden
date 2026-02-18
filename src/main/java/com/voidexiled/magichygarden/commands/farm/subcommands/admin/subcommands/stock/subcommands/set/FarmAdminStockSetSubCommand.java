@@ -15,14 +15,14 @@ import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
 import org.jspecify.annotations.NonNull;
 
 public class FarmAdminStockSetSubCommand extends AbstractPlayerCommand {
-    final private RequiredArg<String> shopIdArg;
-    final private RequiredArg<Integer> qtyArg;
+    private final RequiredArg<String> shopIdArg;
+    private final RequiredArg<Integer> qtyArg;
 
     public FarmAdminStockSetSubCommand() {
         super("set", "magichygarden.command.farm.admin.stock.set.description");
 
         this.shopIdArg = withRequiredArg(
-                "shop id",
+                "shopId",
                 "magichygarden.command.farm.admin.stock.set.args.shopId.description",
                 ArgTypes.STRING
         ).addValidator(Validators.nonEmptyString());

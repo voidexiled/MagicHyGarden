@@ -4,12 +4,12 @@
     "Description": "server.items.Plant_Seeds_Lettuce.description"
   },
   "Parent": "Mghg_Template_Seeds",
-  "Quality": "Junk",
+  "Quality": "Common",
   "InteractionVars": {
     "SeedId": {
       "Interactions": [
         {
-          "Parent": "Seed_Place",
+          "Parent": "Mghg_Seed_Place",
           "BlockTypeToPlace": "Mghg_Plant_Crop_Lettuce_Block"
         }
       ]

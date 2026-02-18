@@ -211,11 +211,24 @@ Ejemplo de regla con luz y particulas
 Como funciona la resolucion de weather
 --------------------------------------
 El motor toma el weather actual via `MghgWeatherResolver.resolveWeatherId(...)`:
-- Respeta forced weather.
-- Respeta sky-check (si hay un bloque encima, no aplica clima).
+- Si existe forced weather (evento activo), ese weather tiene prioridad.
+- Si no hay forced weather, aplica sky-check (si hay un bloque encima, no aplica clima).
 
 Luego las reglas comparan el weatherId contra WeatherIds (si existen).
 Si un WeatherId es invalido/no existe, simplemente nunca matchea.
+Compatibilidad incluida:
+- `Mghg_Zone1_Rain` <-> `Zone1_Rain`
+- `Mghg_Zone3_Snow` <-> `Zone3_Snow`
+
+Politica de growth en runtime
+-----------------------------
+La policy de growth (ownerOffline/serverEmpty) se calcula por mundo y se usa para
+habilitar/deshabilitar los rolls de mutacion de forma segura.
+
+Importante:
+- No se cambia `world.setTicking(...)` dinamicamente durante tick activo para evitar
+  errores del motor (`Store is currently processing`, `Failed to set chunk ticking`).
+- Usa `/farm event worlds` para ver `growthAllowed` efectivo por farm world.
 
 Reglas para evitar sobreescrituras
 ----------------------------------

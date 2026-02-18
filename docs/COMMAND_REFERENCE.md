@@ -23,7 +23,7 @@ This is the live command reference for MagicHyGarden gameplay and operations.
 - `/farm spawn status`
   - Show current parcel spawn.
 - `/farm spawn set`
-  - Save your current position as parcel spawn (must be inside your own farm).
+  - Save your current position as parcel spawn (must be inside your own farm world).
 - `/farm spawn reset`
   - Remove custom spawn and fallback to parcel center/safe spawn.
 - `/farm setspawn`
@@ -43,7 +43,8 @@ This is the live command reference for MagicHyGarden gameplay and operations.
 - `/farm balance`
 - `/farm leaderboard [limit]`
 - `/farm stock`
-- `/farm shop [open|close|text|hud]`
+- `/farm perks [open|close|status|upgrade] [perkId]`
+- `/farm shop [open|openv2|v2|close|text|hud]`
 - `/farm buy <shopId> [qty]`
 - `/farm buymax <shopId>`
 - `/farm sell <shopId> [qty]`
@@ -52,10 +53,19 @@ This is the live command reference for MagicHyGarden gameplay and operations.
 
 Example:
 - `/farm shop open`
+- `/farm shop openv2`
+- `/farm perks`
+- `/farm perks close`
+- `/farm perks upgrade fertile_soil`
+- `/farm perks upgrade sell_multiplier`
 - `/farm buy lettuce 10`
 - `/farm sell lettuce 1`
 - `/farm sellall all`
 - `/farm log show 50`
+
+Perk ids currently supported:
+- `fertile_soil`
+- `sell_multiplier`
 
 ### Events (player/admin debug)
 - `/farm event status`
@@ -68,24 +78,42 @@ Example:
 - `/farm event stop`
 
 ### Runtime reload
-- `/farm reload [all|events|worlds|parcels|invites|economy|shop|names]`
+- `/farm reload [all|events|worlds|parcels|invites|economy|perks|shop|names]`
 
 ## Farm admin commands (`/farm admin`)
 - `/farm admin status`
 - `/farm admin paths`
-- `/farm admin parcel <self|player|uuid|list|save|reload>`
-- `/farm admin world <status|list|backup|backup-all|restore|ensure> [self|player|uuid]`
-- `/farm admin stock <status|restock|set> [shopId] [qty]`
-- `/farm admin economy <self|player|uuid> [status|set|add|sub] [amount]`
-- `/farm admin sim <create|list|tp> [name] [count]`
+- `/farm admin parcel list`
+- `/farm admin parcel save`
+- `/farm admin parcel reload`
+- `/farm admin parcel info [player]`
+- `/farm admin world status`
+- `/farm admin world backupall`
+- `/farm admin world backup <target>`
+- `/farm admin world restore <target>`
+- `/farm admin world ensure <target>`
+- `/farm admin stock status`
+- `/farm admin stock restock`
+- `/farm admin stock set <shopId> <qty>`
+- `/farm admin economy set <target> <amount>`
+- `/farm admin economy add <target> <amount>`
+- `/farm admin economy subtract <target> <amount>`
+- `/farm admin perks status [target]`
+- `/farm admin perks setlevel <target> <level>`
+- `/farm admin perks recalc [target]`
 
 Examples:
-- `/farm admin world backup self`
+- `/farm admin economy set self 2000`
+- `/farm admin world backup Voidexiled`
 - `/farm admin world restore 0eea1f01-3c65-4e08-925e-1656546864fb`
 - `/farm admin stock set lettuce 50`
-- `/farm admin economy self add 500`
-- `/farm admin sim create qa 5`
-- `/farm admin sim tp sim_qa_01`
+- `/farm admin economy add Voidexiled 500`
+- `/farm admin economy subtract Voidexiled 250`
+- `/farm admin perks status self`
+- `/farm admin perks setlevel Voidexiled 3`
+- `/farm admin perks recalc Voidexiled`
+
+`target` accepts `self`, UUID, or cached/online player name.
 
 ## Crop commands (`/crop`)
 

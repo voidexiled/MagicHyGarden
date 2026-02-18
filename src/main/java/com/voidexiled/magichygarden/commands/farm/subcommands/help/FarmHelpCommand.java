@@ -31,9 +31,10 @@ public class FarmHelpCommand extends AbstractPlayerCommand {
         ctx.sendMessage(Message.raw(" - /farm members | /farm invite <player> | /farm invites | /farm accept | /farm deny"));
         ctx.sendMessage(Message.raw(" - /farm role <player> <manager|member|visitor> | /farm kick <player>"));
         ctx.sendMessage(Message.raw(" - /farm balance | /farm stock | /farm shop"));
+        ctx.sendMessage(Message.raw(" - /farm perks | /farm perks close | /farm perks status | /farm perks upgrade [fertile_soil]"));
         ctx.sendMessage(Message.raw(" - /farm buy <shopId> [qty] | /farm buymax <shopId>"));
         ctx.sendMessage(Message.raw(" - /farm sell <shopId> [qty] | /farm sellall [shopId|all]"));
-        ctx.sendMessage(Message.raw(" - /farm event help | /farm reload [all|events|worlds|parcels|invites|economy|shop|names]"));
-        ctx.sendMessage(Message.raw(" - /farm admin help"));
+        ctx.sendMessage(Message.raw(" - /farm event status | /farm event list [weather|lunar|all] | /farm reload [all|events|worlds|parcels|invites|economy|perks|shop|names]"));
+        ctx.sendMessage(Message.raw(" - /farm admin status | /farm admin paths | /farm admin parcel | /farm admin world | /farm admin stock | /farm admin economy | /farm admin perks"));
     }
 }

@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
     "Name": "server.items.Plant_Crop_Lettuce.name",
-    "Description": "server.items.Plant_Crop_Lettuce_Item.description"
+    "Description": ""
   },
   "Quality": "Common",
   "Parent": "Mghg_Template_Crop_Item",
@@ -9,13 +9,13 @@
   "IconProperties": {
     "Scale": 0.7,
     "Rotation": [
-      90,
       0,
-      0
+      110,
+      29
     ],
     "Translation": [
-      0,
-      0
+      -2,
+      -6
     ]
   },
   "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
@@ -66,7 +66,7 @@
   "DropOnDeath": true,
   "State": {
     "mghg_none": {
-      "Icon": "Icons/ItemsGenerated/LettuceStates/mghg_none.png",
+      "Icon": "Icons/ItemsGenerated/Mghg_Plant_Crop_Lettuce_Item.png",
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_none.png",
       "BlockType": {
         "Material": "Solid",
@@ -170,11 +170,7 @@
         "Opacity": "Solid",
         "BlockParticleSetId": "Grass"
       },
-      "TranslationProperties": {
-        "Name": "server.items.Plant.Plant_Crop_Lettuce_Wet.name",
-        "Description": "server.items.Plant.Plant_Crop_Lettuce_Wet.description"
-      },
-      "Icon": "Icons/ItemsGenerated/LettuceStates/mghg_rain.png"
+      "Icon": "Icons/ItemsGenerated/Mghg_Plant_Crop_Lettuce_Item.png"
     },
     "mghg_snow": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_snow.png",
@@ -1632,8 +1628,7 @@
         "Light": {
           "Color": "#da3"
         }
-      },
-      "Icon": "Icons/ItemsGenerated/LettuceStates/mghg_gold_rain.png"
+      }
     },
     "mghg_gold_rain_dawnlit": {
       "Texture": "BlockTextures/Crops/Lettuce/Cabbage_Lettuce_mghg_gold_rain.png",

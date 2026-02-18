@@ -1,10 +1,11 @@
 import argparse
 import json
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
-DEFAULT_CONFIG_REL = Path('Server/Farming/Mutations/Mghg_MutationVisuals.json')
-DEFAULT_GLOB = 'Server/Item/Items/Plant/Crop/**/Plant_Crop_*_Item.json'
+DEFAULT_CONFIG_REL = Path('Server/Farming/Visuals/Mghg_MutationVisuals.json')
+LEGACY_CONFIG_REL = Path('Server/Farming/Mutations/Mghg_MutationVisuals.json')
+DEFAULT_GLOB = 'Server/Item/Items/Plant/Crop/**/*Plant_Crop*_Item.json'
 
 
 def deep_merge(base: Dict[str, Any], override: Dict[str, Any]) -> Dict[str, Any]:
@@ -21,6 +22,15 @@ def load_config(path: Path) -> Dict[str, Any]:
     if not path.exists():
         return {}
     return json.loads(path.read_text(encoding='utf-8'))
+
+
+def resolve_config_path(root: Path, explicit: Optional[str]) -> Path:
+    if explicit:
+        return root / explicit
+    primary = root / DEFAULT_CONFIG_REL
+    if primary.exists():
+        return primary
+    return root / LEGACY_CONFIG_REL
 
 
 def normalize_file(path: Path, cfg: Dict[str, Any]) -> bool:
@@ -69,7 +79,7 @@ def main() -> None:
     for root in roots:
         if not root.exists():
             continue
-        cfg_path = root / (args.config if args.config else DEFAULT_CONFIG_REL)
+        cfg_path = resolve_config_path(root, args.config)
         cfg = load_config(cfg_path)
         for path in root.glob(args.glob):
             if normalize_file(path, cfg):

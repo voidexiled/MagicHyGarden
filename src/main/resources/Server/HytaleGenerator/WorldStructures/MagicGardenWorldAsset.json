@@ -1,0 +1,78 @@
+{
+  "Type": "NoiseRange",
+  "MaxBiomeEdgeDistance": 32,
+  "Density": {
+    "Type": "Imported",
+    "Name": "Biome-Map"
+  },
+  "DefaultBiome": "Plains1_Oak",
+  "Biomes": [
+    {
+      "Min": -1,
+      "Max": -0.6,
+      "Biome": "Plains1_Oak"
+    },
+    {
+      "Max": -0.6,
+      "Min": -1,
+      "Biome": "Volcanic1_Caldera"
+    },
+    {
+      "Max": -0.4,
+      "Min": -0.6,
+      "Biome": "Boreal1_Henges"
+    },
+    {
+      "Biome": "Boreal1_Hedera",
+      "Min": -0.4,
+      "Max": -0.2
+    },
+    {
+      "Biome": "Taiga1_River",
+      "Min": -0.2,
+      "Max": 0
+    },
+    {
+      "Biome": "Taiga1_Redwood",
+      "Min": 0,
+      "Max": 0.2
+    },
+    {
+      "Min": 0.2,
+      "Max": 0.4,
+      "Biome": "Taiga1_Mountains"
+    },
+    {
+      "Biome": "Volcanic1_Caldera",
+      "Min": 0.4,
+      "Max": 0.6
+    },
+    {
+      "Min": 0.6,
+      "Max": 0.8,
+      "Biome": "Volcanic1_Jungle"
+    },
+    {
+      "Max": 1,
+      "Min": 0.8,
+      "Biome": "Volcanic1_River"
+    }
+  ],
+  "ContentFields": [
+    {
+      "Type": "BaseHeight",
+      "Name": "Base",
+      "Y": 100
+    },
+    {
+      "Type": "BaseHeight",
+      "Name": "Water",
+      "Y": 100
+    },
+    {
+      "Type": "BaseHeight",
+      "Name": "Bedrock",
+      "Y": 0
+    }
+  ]
+}

@@ -26,6 +26,8 @@ public final class MghgParcel {
             .add()
             .<MghgParcelBlocks>append(new KeyedCodec<>("Blocks", MghgParcelBlocks.CODEC, true), (o, v) -> o.blocks = v, o -> o.blocks)
             .add()
+            .<MghgParcelPerks>append(new KeyedCodec<>("Perks", MghgParcelPerks.CODEC, true), (o, v) -> o.perks = v, o -> o.perks)
+            .add()
             .<MghgParcelMember[]>append(
                     new KeyedCodec<>("Members", ArrayCodec.ofBuilderCodec(MghgParcelMember.CODEC, MghgParcelMember[]::new)),
                     (o, v) -> o.members = v,
@@ -41,6 +43,7 @@ public final class MghgParcel {
     private Integer spawnY;
     private Integer spawnZ;
     private MghgParcelBlocks blocks;
+    private MghgParcelPerks perks;
     private MghgParcelMember[] members = new MghgParcelMember[0];
 
     public MghgParcel() {
@@ -74,6 +77,21 @@ public final class MghgParcel {
 
     public void setBlocks(MghgParcelBlocks blocks) {
         this.blocks = blocks;
+    }
+
+    public @Nullable MghgParcelPerks getPerks() {
+        return perks;
+    }
+
+    public MghgParcelPerks getOrCreatePerks() {
+        if (perks == null) {
+            perks = new MghgParcelPerks();
+        }
+        return perks;
+    }
+
+    public void setPerks(@Nullable MghgParcelPerks perks) {
+        this.perks = perks;
     }
 
     public boolean hasCustomSpawn() {

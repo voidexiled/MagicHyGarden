@@ -1,0 +1,181 @@
+$C = "../Common.ui";
+
+Group {
+  Anchor: (Width: 234, Height: 210);
+  Padding: (Horizontal: 5, Vertical: 5);
+
+  ItemSlotButton #TradeButton {
+    Anchor: (Full: 0);
+    LayoutMode: Full;
+    Padding: 2;
+    Style: (
+      Default: (
+        Background: #252f3a,
+      ),
+      Hovered: (
+        Background: #c9a050,
+      ),
+      Pressed: (
+        Background: #a08040,
+      ),
+      Disabled: (
+        Background: #1a1e24,
+      ),
+      Sounds: $C.@ButtonSounds,
+    );
+
+    Group #CardContent {
+      Anchor: (Full: 0);
+      LayoutMode: Top;
+      Background: #1c2835;
+
+      Group #OutputSection {
+        Anchor: (Height: 84);
+        Padding: (Top: 6);
+        LayoutMode: CenterMiddle;
+
+        Group #OutputSlotContainer {
+          Anchor: (Width: 68, Height: 68);
+
+          Group #OutputSlotBorder {
+            Anchor: (Full: 0);
+            Background: #1a2530;
+            Padding: 2;
+
+            ItemSlot #OutputSlot {
+              Anchor: (Full: 0);
+              ShowQualityBackground: true;
+            }
+          }
+
+          Label #OutputQuantity {
+            Anchor: (Right: 8, Bottom: 5);
+            Style: (
+              FontSize: 15,
+              TextColor: #ffffff,
+              HorizontalAlignment: End,
+              VerticalAlignment: End,
+              RenderBold: true,
+            );
+          }
+        }
+      }
+
+      Group #DividerSection {
+        Anchor: (Height: 8);
+        LayoutMode: CenterMiddle;
+
+        Group #DividerLine {
+          Anchor: (Width: 170, Height: 1);
+          Background: #252F3A;
+        }
+      }
+
+      Group #CostSection {
+        Anchor: (Height: 70);
+        Padding: (Top: 4);
+        LayoutMode: Top;
+
+        Label #CostLabel {
+          Anchor: (Height: 20);
+          Style: (
+            FontSize: 14,
+            TextColor: #8a9aaa,
+            HorizontalAlignment: Center,
+            VerticalAlignment: Center,
+          );
+          Text: "Cost:";
+        }
+
+        Group #CostTextRow {
+          Anchor: (Top: 2, Height: 22);
+          LayoutMode: CenterMiddle;
+
+          Group #CostBorder {
+            Anchor: (Width: 86, Height: 22);
+            Background: #2a5a3a;
+            Padding: 1;
+
+            Label #CostValue {
+              Anchor: (Full: 0);
+              Style: (
+                FontSize: 14,
+                TextColor: #ffffff,
+                HorizontalAlignment: Center,
+                VerticalAlignment: Center,
+                RenderBold: true,
+              );
+              Text: "$0.00";
+            }
+          }
+        }
+
+        Label #HaveNeedLabel {
+          Anchor: (Top: 2, Height: 18);
+          Style: (
+            FontSize: 13,
+            TextColor: #d95353,
+            HorizontalAlignment: Center,
+            VerticalAlignment: Center,
+          );
+          Text: "Have: $0.00";
+        }
+      }
+
+      Group #StockSection {
+        Anchor: (Height: 18);
+        LayoutMode: Full;
+        Padding: (Right: 8, Top: 1);
+
+        Label #Stock {
+          Anchor: (Right: 0, Bottom: 0, Height: 14);
+          Style: (
+            FontSize: 12,
+            TextColor: #7a8a9a,
+            HorizontalAlignment: End,
+            VerticalAlignment: Center,
+          );
+          Text: "";
+        }
+      }
+    }
+
+    Group #OutOfStockOverlay {
+      Anchor: (Full: 0);
+      Background: #120509(0.35);
+      LayoutMode: CenterMiddle;
+      Visible: false;
+
+      Group #OutOfStockBorderTop {
+        Anchor: (Left: 0, Top: 0, Right: 0, Height: 2);
+        Background: #7f2d35;
+      }
+
+      Group #OutOfStockBorderBottom {
+        Anchor: (Left: 0, Bottom: 0, Right: 0, Height: 2);
+        Background: #7f2d35;
+      }
+
+      Group #OutOfStockBorderLeft {
+        Anchor: (Left: 0, Top: 0, Bottom: 0, Width: 2);
+        Background: #7f2d35;
+      }
+
+      Group #OutOfStockBorderRight {
+        Anchor: (Right: 0, Top: 0, Bottom: 0, Width: 2);
+        Background: #7f2d35;
+      }
+
+      Label #OutOfStockLabel {
+        Style: (
+          FontSize: 14,
+          TextColor: #ff545d,
+          HorizontalAlignment: Center,
+          VerticalAlignment: Center,
+          RenderBold: true,
+        );
+        Text: "OUT OF STOCK";
+      }
+    }
+  }
+}

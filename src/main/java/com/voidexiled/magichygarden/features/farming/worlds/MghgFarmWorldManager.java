@@ -20,10 +20,12 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcel;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelBlocks;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelBounds;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
+import com.voidexiled.magichygarden.features.farming.perks.MghgFarmPerkManager;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -36,6 +38,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -47,23 +50,37 @@ public final class MghgFarmWorldManager {
     private static final int SAFE_SPAWN_SEARCH_RADIUS_BLOCKS = 16;
     private static final int SAFE_SPAWN_MIN_Y = ChunkUtil.MIN_Y + 1;
     private static final int SAFE_SPAWN_MAX_Y = ChunkUtil.HEIGHT_MINUS_1;
+    private static final long LOADED_WORLD_BACKUP_GRACE_MILLIS = 90_000L;
+    private static final int WORLD_FILE_IO_RETRY_ATTEMPTS = 6;
+    private static final long WORLD_FILE_IO_RETRY_DELAY_MILLIS = 150L;
+    private static final int WORLD_LOAD_RETRY_ATTEMPTS = 4;
+    private static final long WORLD_LOAD_RETRY_DELAY_MILLIS = 350L;
     private static final Pattern FORCED_WEATHER_STRING_PATTERN =
             Pattern.compile("\"ForcedWeather\"\\s*:\\s*\"([^\"]*)\"");
     private static volatile MghgFarmWorldConfig CONFIG = new MghgFarmWorldConfig();
     private static volatile ScheduledFuture<?> backupTask;
     private static volatile int backupCursor;
+    private static final Map<String, Long> WORLD_LAST_LOADED_AT = new ConcurrentHashMap<>();
+    private static final Set<String> WORLDS_BACKUP_IN_PROGRESS = ConcurrentHashMap.newKeySet();
+    private static final Map<String, CompletableFuture<World>> WORLDS_LOADING_IN_PROGRESS = new ConcurrentHashMap<>();
+    private static final Map<String, Object> WORLD_FILE_LOCKS = new ConcurrentHashMap<>();
 
     private MghgFarmWorldManager() {}
 
     public static void load() {
         CONFIG = MghgFarmWorldConfig.load();
         sanitizePersistedFarmWorldConfigs();
+        purgeLegacyParcelBlockSnapshots();
         startBackupTask();
     }
 
     public static void shutdown() {
         backupAllNow();
         stopBackupTask();
+        WORLD_LAST_LOADED_AT.clear();
+        WORLDS_BACKUP_IN_PROGRESS.clear();
+        WORLDS_LOADING_IN_PROGRESS.clear();
+        WORLD_FILE_LOCKS.clear();
     }
 
     public static void forceSnapshotAll() {
@@ -98,7 +115,7 @@ public final class MghgFarmWorldManager {
         if (worldName == null || worldName.isBlank()) {
             return false;
         }
-        return restoreWorldFromBackupIfNeeded(universe, worldName);
+        return withWorldFileLock(worldName, () -> restoreWorldFromBackupIfNeeded(universe, worldName));
     }
 
     public static Path getBackupRootPath() {
@@ -198,34 +215,60 @@ public final class MghgFarmWorldManager {
     }
 
     public static CompletableFuture<World> ensureFarmWorld(UUID owner) {
+        String worldName = getFarmWorldName(owner);
+        CompletableFuture<World> inFlight = WORLDS_LOADING_IN_PROGRESS.get(worldName);
+        if (inFlight != null) {
+            return inFlight;
+        }
+        CompletableFuture<World> promise = new CompletableFuture<>();
+        CompletableFuture<World> previous = WORLDS_LOADING_IN_PROGRESS.putIfAbsent(worldName, promise);
+        if (previous != null) {
+            return previous;
+        }
+
+        ensureFarmWorldInternal(owner, worldName).whenComplete((world, error) -> {
+            try {
+                if (error != null) {
+                    promise.completeExceptionally(error);
+                } else {
+                    promise.complete(world);
+                }
+            } finally {
+                WORLDS_LOADING_IN_PROGRESS.remove(worldName, promise);
+            }
+        });
+        return promise;
+    }
+
+    private static CompletableFuture<World> ensureFarmWorldInternal(UUID owner, String worldName) {
         Universe universe = Universe.get();
         if (universe == null) {
             return CompletableFuture.failedFuture(new IllegalStateException("Universe not ready"));
         }
-
-        String worldName = getFarmWorldName(owner);
-        sanitizeWorldDirectory(resolveUniverseWorldPath(universe, worldName));
-        sanitizeWorldDirectory(resolveBackupWorldPath(worldName));
+        withWorldFileLock(worldName, () -> {
+            sanitizeWorldDirectory(resolveUniverseWorldPath(universe, worldName));
+            sanitizeWorldDirectory(resolveBackupWorldPath(worldName));
+        });
         World existing = universe.getWorld(worldName);
         if (existing != null) {
-            queueSnapshot(existing);
+            markWorldLoaded(existing);
             return CompletableFuture.completedFuture(existing);
         }
 
-        boolean restored = restoreWorldFromBackupIfNeeded(universe, worldName);
+        boolean restored = withWorldFileLock(worldName, () -> restoreWorldFromBackupIfNeeded(universe, worldName));
         if (universe.isWorldLoadable(worldName)) {
-            return universe.loadWorld(worldName)
-                    .thenApply(world -> {
-                        applyWorldConfig(world);
-                        initializeParcel(world, owner, false);
-                        queueSnapshot(world);
-                        if (restored) {
-                            LOGGER.atInfo().log("[MGHG|FARM] Restored and loaded farm world %s from backup", worldName);
-                        } else {
-                            LOGGER.atInfo().log("[MGHG|FARM] Loaded farm world %s from disk", worldName);
-                        }
-                        return world;
-                    });
+            return loadExistingWorldWithRetries(universe, owner, worldName, restored, 1);
+        }
+
+        if (CONFIG.getCreationMode() == MghgFarmWorldConfig.CreationMode.TEMPLATE_COPY) {
+            boolean copied = withWorldFileLock(worldName, () -> copyTemplateWorldIntoTarget(universe, worldName));
+            if (copied && universe.isWorldLoadable(worldName)) {
+                return loadExistingWorldWithRetries(universe, owner, worldName, restored || copied, 1);
+            }
+            LOGGER.atWarning().log(
+                    "[MGHG|FARM] TemplateCopy mode could not prepare %s. Falling back to generator.",
+                    worldName
+            );
         }
 
         String gen = CONFIG.getWorldGenProvider();
@@ -235,10 +278,79 @@ public final class MghgFarmWorldManager {
                 .thenApply(world -> {
                     applyWorldConfig(world);
                     initializeParcel(world, owner, true);
-                    queueSnapshot(world);
+                    markWorldLoaded(world);
                     LOGGER.atInfo().log("[MGHG|FARM] Created farm world %s (gen=%s storage=%s)", worldName, gen, storage);
                     return world;
                 });
+    }
+
+    private static CompletableFuture<World> loadExistingWorldWithRetries(
+            Universe universe,
+            UUID owner,
+            String worldName,
+            boolean restored,
+            int attempt
+    ) {
+        return universe.loadWorld(worldName)
+                .handle((world, error) -> {
+                    if (error == null) {
+                        applyWorldConfig(world);
+                        initializeParcel(world, owner, false);
+                        markWorldLoaded(world);
+                        if (restored) {
+                            LOGGER.atInfo().log("[MGHG|FARM] Restored and loaded farm world %s from backup", worldName);
+                        } else {
+                            LOGGER.atInfo().log("[MGHG|FARM] Loaded farm world %s from disk", worldName);
+                        }
+                        return CompletableFuture.completedFuture(world);
+                    }
+
+                    Throwable root = unwrapThrowable(error);
+                    if (attempt >= WORLD_LOAD_RETRY_ATTEMPTS || !isRetryableWorldIoError(root)) {
+                        return CompletableFuture.<World>failedFuture(root);
+                    }
+
+                    long delayMillis = WORLD_LOAD_RETRY_DELAY_MILLIS * attempt;
+                    LOGGER.atWarning().log(
+                            "[MGHG|FARM] Retry loading world %s (%d/%d) after %dms: %s",
+                            worldName,
+                            attempt + 1,
+                            WORLD_LOAD_RETRY_ATTEMPTS,
+                            delayMillis,
+                            root == null ? "unknown error" : root.getMessage()
+                    );
+
+                    return delayAsync(delayMillis).thenCompose(ignored -> {
+                        try {
+                            boolean retryRestored = withWorldFileLock(worldName, () -> {
+                                sanitizeWorldDirectory(resolveUniverseWorldPath(universe, worldName));
+                                sanitizeWorldDirectory(resolveBackupWorldPath(worldName));
+                                return restoreWorldFromBackupIfNeeded(universe, worldName);
+                            });
+                            return loadExistingWorldWithRetries(
+                                    universe,
+                                    owner,
+                                    worldName,
+                                    restored || retryRestored,
+                                    attempt + 1
+                            );
+                        } catch (RuntimeException runtimeException) {
+                            return CompletableFuture.failedFuture(runtimeException);
+                        }
+                    });
+                })
+                .thenCompose(future -> future);
+    }
+
+    private static CompletableFuture<Void> delayAsync(long delayMillis) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        long safeDelay = Math.max(0L, delayMillis);
+        HytaleServer.SCHEDULED_EXECUTOR.schedule(
+                () -> future.complete(null),
+                safeDelay,
+                TimeUnit.MILLISECONDS
+        );
+        return future;
     }
 
     private static void applyWorldConfig(World world) {
@@ -264,6 +376,7 @@ public final class MghgFarmWorldManager {
                 desiredBounds.getOriginY(),
                 desiredBounds.getOriginZ()
         );
+        MghgFarmPerkManager.ensureParcelPerks(parcel);
         MghgParcelBounds bounds = parcel.getBounds();
         if (bounds == null) {
             parcel.setBounds(desiredBounds);
@@ -271,7 +384,7 @@ public final class MghgFarmWorldManager {
         }
 
         MghgParcelBlocks blocks = parcel.getBlocks();
-        if (shouldRebaseParcel(bounds, desiredBounds, blocks)) {
+        if (shouldRebaseParcel(bounds, desiredBounds, blocks, parcel)) {
             LOGGER.atInfo().log("[MGHG|FARM] Rebasing parcel bounds for %s from y=%d to y=%d",
                     owner, bounds.getOriginY(), desiredBounds.getOriginY());
             parcel.setBounds(desiredBounds);
@@ -313,8 +426,16 @@ public final class MghgFarmWorldManager {
     private static boolean shouldRebaseParcel(
             @Nullable MghgParcelBounds current,
             @Nullable MghgParcelBounds desired,
-            @Nullable MghgParcelBlocks blocks
+            @Nullable MghgParcelBlocks blocks,
+            @Nullable MghgParcel parcel
     ) {
+        // With full-world persistence enabled, keep the original parcel origin stable.
+        if (CONFIG.isEnableFullInstancePersistence()) {
+            return false;
+        }
+        if (parcel != null && parcel.hasCustomSpawn()) {
+            return false;
+        }
         if (current == null || desired == null) {
             return false;
         }
@@ -447,6 +568,48 @@ public final class MghgFarmWorldManager {
         return null;
     }
 
+    private static void purgeLegacyParcelBlockSnapshots() {
+        if (!CONFIG.isEnableFullInstancePersistence()) {
+            return;
+        }
+        Universe universe = Universe.get();
+        if (universe == null) {
+            return;
+        }
+
+        int removed = 0;
+        for (MghgParcel parcel : MghgParcelManager.all()) {
+            if (parcel == null) {
+                continue;
+            }
+            MghgParcelBlocks blocks = parcel.getBlocks();
+            if (blocks == null) {
+                continue;
+            }
+
+            UUID owner = parcel.getOwner();
+            if (owner == null) {
+                parcel.setBlocks(null);
+                removed++;
+                continue;
+            }
+
+            String worldName = getFarmWorldName(owner);
+            boolean loaded = universe.getWorld(worldName) != null;
+            boolean hasWorldData = isValidWorldDirectory(resolveUniverseWorldPath(universe, worldName));
+            boolean hasBackupData = isValidWorldDirectory(resolveBackupWorldPath(worldName));
+            if (loaded || hasWorldData || hasBackupData || blocks.isEmpty()) {
+                parcel.setBlocks(null);
+                removed++;
+            }
+        }
+
+        if (removed > 0) {
+            MghgParcelManager.save();
+            LOGGER.atInfo().log("[MGHG|FARM] Purged legacy parcel block snapshots from %d parcel(s).", removed);
+        }
+    }
+
     private static void startBackupTask() {
         stopBackupTask();
         if (!CONFIG.isEnableFullInstancePersistence()) {
@@ -511,22 +674,6 @@ public final class MghgFarmWorldManager {
         }
     }
 
-    private static void queueSnapshot(@Nullable World world) {
-        if (!CONFIG.isEnableFullInstancePersistence() || world == null) {
-            return;
-        }
-        HytaleServer.SCHEDULED_EXECUTOR.execute(() -> {
-            Universe universe = Universe.get();
-            if (universe == null) {
-                return;
-            }
-            String worldName = world.getName();
-            if (worldName != null && !worldName.isBlank()) {
-                backupWorldByName(universe, worldName);
-            }
-        });
-    }
-
     private static boolean restoreWorldFromBackupIfNeeded(Universe universe, String worldName) {
         Path worldPath = resolveUniverseWorldPath(universe, worldName);
         Path backupPath = resolveBackupWorldPath(worldName);
@@ -542,7 +689,7 @@ public final class MghgFarmWorldManager {
             if (Files.exists(worldPath) && !isValidWorldDirectory(worldPath)) {
                 deleteRecursively(worldPath);
             }
-            copyDirectory(backupPath, worldPath);
+            copyDirectoryWithRetries(worldName, backupPath, worldPath);
             sanitizeWorldDirectory(worldPath);
             LOGGER.atInfo().log("[MGHG|FARM] Restored world data for %s from %s", worldName, backupPath);
             return true;
@@ -556,12 +703,38 @@ public final class MghgFarmWorldManager {
         if (worldName == null || worldName.isBlank() || !isFarmWorldName(worldName)) {
             return;
         }
-        World loaded = universe.getWorld(worldName);
-        if (loaded != null) {
-            backupWorldToSnapshot(universe, loaded);
+        if (WORLDS_LOADING_IN_PROGRESS.containsKey(worldName)) {
             return;
         }
+        World loaded = universe.getWorld(worldName);
+        if (loaded != null) {
+            backupLoadedWorldIfEligible(universe, loaded);
+            return;
+        }
+        WORLD_LAST_LOADED_AT.remove(worldName);
         backupWorldDirectoryToSnapshot(universe, worldName);
+    }
+
+    private static void backupLoadedWorldIfEligible(Universe universe, World world) {
+        if (world == null) {
+            return;
+        }
+        String worldName = world.getName();
+        if (worldName == null || worldName.isBlank()) {
+            return;
+        }
+        if (WORLDS_LOADING_IN_PROGRESS.containsKey(worldName)) {
+            return;
+        }
+        if (world.getPlayerCount() > 0) {
+            return;
+        }
+        long loadedAt = WORLD_LAST_LOADED_AT.getOrDefault(worldName, 0L);
+        long now = System.currentTimeMillis();
+        if (loadedAt > 0L && now - loadedAt < LOADED_WORLD_BACKUP_GRACE_MILLIS) {
+            return;
+        }
+        backupWorldToSnapshot(universe, world);
     }
 
     private static void backupWorldToSnapshot(Universe universe, World world) {
@@ -576,6 +749,9 @@ public final class MghgFarmWorldManager {
         if (!isValidWorldDirectory(source)) {
             return;
         }
+        if (!WORLDS_BACKUP_IN_PROGRESS.add(worldName)) {
+            return;
+        }
         Path backup = resolveBackupWorldPath(worldName);
         Store<ChunkStore> store = world.getChunkStore().getStore();
         ChunkSavingSystems.Data saveData = store.getResource(ChunkStore.SAVE_RESOURCE);
@@ -584,11 +760,12 @@ public final class MghgFarmWorldManager {
                 saveData.isSaving = false;
                 saveData.waitForSavingChunks().join();
             }
-            copyDirectory(source, backup);
+            withWorldFileLock(worldName, () -> copyDirectoryWithRetries(worldName, source, backup));
             sanitizeWorldDirectory(backup);
         } catch (Exception e) {
             LOGGER.atWarning().log("[MGHG|FARM] Failed to snapshot world %s: %s", worldName, e.getMessage());
         } finally {
+            WORLDS_BACKUP_IN_PROGRESS.remove(worldName);
             if (saveData != null) {
                 saveData.isSaving = true;
             }
@@ -600,12 +777,147 @@ public final class MghgFarmWorldManager {
         if (!isValidWorldDirectory(source)) {
             return;
         }
+        if (!WORLDS_BACKUP_IN_PROGRESS.add(worldName)) {
+            return;
+        }
         Path backup = resolveBackupWorldPath(worldName);
         try {
-            copyDirectory(source, backup);
+            withWorldFileLock(worldName, () -> copyDirectoryWithRetries(worldName, source, backup));
             sanitizeWorldDirectory(backup);
         } catch (Exception e) {
             LOGGER.atWarning().log("[MGHG|FARM] Failed to snapshot unloaded world %s: %s", worldName, e.getMessage());
+        } finally {
+            WORLDS_BACKUP_IN_PROGRESS.remove(worldName);
+        }
+    }
+
+    private static void markWorldLoaded(@Nullable World world) {
+        if (world == null) {
+            return;
+        }
+        String worldName = world.getName();
+        if (worldName == null || worldName.isBlank()) {
+            return;
+        }
+        WORLD_LAST_LOADED_AT.put(worldName, System.currentTimeMillis());
+    }
+
+    private static void copyDirectoryWithRetries(String worldName, Path source, Path destination) throws IOException {
+        IOException last = null;
+        for (int attempt = 1; attempt <= WORLD_FILE_IO_RETRY_ATTEMPTS; attempt++) {
+            try {
+                copyDirectory(source, destination);
+                return;
+            } catch (IOException ioException) {
+                last = ioException;
+                if (attempt >= WORLD_FILE_IO_RETRY_ATTEMPTS || !isRetryableWorldIoError(ioException)) {
+                    throw ioException;
+                }
+                long delayMillis = WORLD_FILE_IO_RETRY_DELAY_MILLIS * attempt;
+                LOGGER.atWarning().log(
+                        "[MGHG|FARM] Retrying file copy for %s (%d/%d) after %dms: %s",
+                        worldName,
+                        attempt + 1,
+                        WORLD_FILE_IO_RETRY_ATTEMPTS,
+                        delayMillis,
+                        ioException.getMessage()
+                );
+                sleepQuietly(delayMillis);
+            }
+        }
+        if (last != null) {
+            throw last;
+        }
+    }
+
+    private static @Nullable Throwable unwrapThrowable(@Nullable Throwable error) {
+        Throwable current = error;
+        while (current != null && current.getCause() != null && current.getCause() != current) {
+            if (current instanceof java.util.concurrent.CompletionException) {
+                current = current.getCause();
+                continue;
+            }
+            break;
+        }
+        return current;
+    }
+
+    private static boolean isRetryableWorldIoError(@Nullable Throwable error) {
+        Throwable current = error;
+        while (current != null) {
+            if (current instanceof IllegalMonitorStateException) {
+                return true;
+            }
+            if (current instanceof FileSystemException fileSystemException) {
+                String reason = fileSystemException.getReason();
+                if (hasRetryableIoToken(reason)) {
+                    return true;
+                }
+            }
+            String message = current.getMessage();
+            if (hasRetryableIoToken(message)) {
+                return true;
+            }
+            current = current.getCause();
+        }
+        return false;
+    }
+
+    private static boolean hasRetryableIoToken(@Nullable String message) {
+        if (message == null || message.isBlank()) {
+            return false;
+        }
+        String normalized = message.toLowerCase(Locale.ROOT);
+        return normalized.contains("used by another process")
+                || normalized.contains("being used by another process")
+                || normalized.contains("otro proceso")
+                || normalized.contains("sharing violation")
+                || normalized.contains("resource busy")
+                || normalized.contains("access is denied")
+                || normalized.contains("acceso al archivo")
+                || normalized.contains("unlock read lock")
+                || normalized.contains("read lock");
+    }
+
+    private static void sleepQuietly(long delayMillis) {
+        long safeDelay = Math.max(0L, delayMillis);
+        if (safeDelay == 0L) {
+            return;
+        }
+        try {
+            Thread.sleep(safeDelay);
+        } catch (InterruptedException interruptedException) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    @FunctionalInterface
+    private interface WorldFileOperation {
+        void run() throws Exception;
+    }
+
+    @FunctionalInterface
+    private interface WorldFileSupplier<T> {
+        T get() throws Exception;
+    }
+
+    private static void withWorldFileLock(String worldName, WorldFileOperation operation) {
+        withWorldFileLock(worldName, () -> {
+            operation.run();
+            return null;
+        });
+    }
+
+    private static <T> T withWorldFileLock(String worldName, WorldFileSupplier<T> supplier) {
+        Object lock = WORLD_FILE_LOCKS.computeIfAbsent(worldName, ignored -> new Object());
+        synchronized (lock) {
+            try {
+                return supplier.get();
+            } catch (RuntimeException runtimeException) {
+                throw runtimeException;
+            } catch (Exception exception) {
+                throw new RuntimeException(exception);
+            }
         }
     }
 
@@ -637,6 +949,84 @@ public final class MghgFarmWorldManager {
         }
 
         return new ArrayList<>(names);
+    }
+
+    private static boolean copyTemplateWorldIntoTarget(Universe universe, String worldName) {
+        Path templatePath = resolveTemplateWorldPath(universe);
+        if (templatePath == null || !Files.isDirectory(templatePath)) {
+            LOGGER.atWarning().log("[MGHG|FARM] TemplateCopy skipped for %s: template path missing (%s).",
+                    worldName, templatePath);
+            return false;
+        }
+        if (CONFIG.isTemplateRequireValidConfig() && !isValidWorldDirectory(templatePath)) {
+            LOGGER.atWarning().log(
+                    "[MGHG|FARM] TemplateCopy skipped for %s: template has no valid world config (%s).",
+                    worldName,
+                    templatePath
+            );
+            return false;
+        }
+
+        Path targetWorldPath = resolveUniverseWorldPath(universe, worldName);
+        sanitizeWorldDirectory(templatePath);
+
+        int attempts = Math.max(1, CONFIG.getTemplateCopyRetries());
+        Exception lastError = null;
+        for (int attempt = 1; attempt <= attempts; attempt++) {
+            try {
+                if (Files.exists(targetWorldPath) && !isValidWorldDirectory(targetWorldPath)) {
+                    deleteRecursively(targetWorldPath);
+                }
+                copyDirectoryWithRetries(worldName, templatePath, targetWorldPath);
+                sanitizeWorldDirectory(targetWorldPath);
+                LOGGER.atInfo().log(
+                        "[MGHG|FARM] Initialized %s from template %s (attempt %d/%d).",
+                        worldName,
+                        templatePath,
+                        attempt,
+                        attempts
+                );
+                return true;
+            } catch (Exception e) {
+                lastError = e;
+                LOGGER.atWarning().log(
+                        "[MGHG|FARM] Template copy failed for %s (%d/%d): %s",
+                        worldName,
+                        attempt,
+                        attempts,
+                        e.getMessage()
+                );
+            }
+        }
+
+        if (lastError != null) {
+            LOGGER.atWarning().log(
+                    "[MGHG|FARM] TemplateCopy failed for %s after %d attempt(s): %s",
+                    worldName,
+                    attempts,
+                    lastError.getMessage()
+            );
+        }
+        return false;
+    }
+
+    private static @Nullable Path resolveTemplateWorldPath(Universe universe) {
+        String configured = CONFIG.getTemplateWorldPath();
+        if (configured == null || configured.isBlank()) {
+            return null;
+        }
+
+        Path rawPath = Path.of(configured.trim());
+        if (rawPath.isAbsolute()) {
+            return rawPath.toAbsolutePath().normalize();
+        }
+
+        Path universePath = universe.getPath() == null ? null : universe.getPath().toAbsolutePath().normalize();
+        Path serverRoot = universePath == null ? null : universePath.getParent();
+        if (serverRoot == null) {
+            serverRoot = Path.of(System.getProperty("user.dir", ".")).toAbsolutePath().normalize();
+        }
+        return serverRoot.resolve(rawPath).toAbsolutePath().normalize();
     }
 
     private static boolean isFarmWorldName(@Nullable String worldName) {

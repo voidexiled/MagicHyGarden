@@ -5,27 +5,33 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
-import com.hypixel.hytale.server.core.command.system.arguments.system.OptionalArg;
 import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
 import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
-import com.hypixel.hytale.server.core.command.system.basecommands.AbstractTargetPlayerCommand;
+import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.voidexiled.magichygarden.commands.farm.subcommands.admin.shared.FarmAdminCommandShared;
 import com.voidexiled.magichygarden.features.farming.economy.MghgEconomyManager;
+import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 
 import java.util.Locale;
+import java.util.UUID;
 
-public class FarmAdminEconomyAddSubCommand extends AbstractTargetPlayerCommand {
+public class FarmAdminEconomyAddSubCommand extends AbstractPlayerCommand {
+    private final RequiredArg<String> targetArg;
     private final RequiredArg<Integer> amountArg;
-
 
     public FarmAdminEconomyAddSubCommand() {
         super("add", "magichygarden.command.farm.admin.economy.add.description");
 
-        amountArg = withRequiredArg(
+        this.targetArg = withRequiredArg(
+                "target",
+                "magichygarden.command.farm.admin.economy.target.description",
+                ArgTypes.STRING
+        );
+        this.amountArg = withRequiredArg(
                 "amount",
                 "magichygarden.command.farm.admin.economy.add.args.amount.description",
                 ArgTypes.INTEGER
@@ -34,16 +40,23 @@ public class FarmAdminEconomyAddSubCommand extends AbstractTargetPlayerCommand {
 
     @Override
     protected void execute(@NonNull CommandContext commandContext,
-                           @Nullable Ref<EntityStore> ref,
-                           @NonNull Ref<EntityStore> ref1,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world,
-                           @NonNull Store<EntityStore> store) {
+                           @NonNull Store<EntityStore> store,
+                           @NonNull Ref<EntityStore> ref,
+                           @NonNull PlayerRef executor,
+                           @NonNull World world) {
+        MghgPlayerNameManager.remember(executor);
+        String targetToken = targetArg.get(commandContext);
+        UUID targetUuid = FarmAdminCommandShared.resolveUuid(executor, targetToken);
+        if (targetUuid == null) {
+            commandContext.sendMessage(Message.raw("Target invalido. Usa self, UUID o username cacheado/online."));
+            return;
+        }
         int amount = amountArg.get(commandContext);
 
-        MghgEconomyManager.deposit(playerRef.getUuid(), amount);
+        MghgEconomyManager.deposit(targetUuid, amount);
 
-        double updated = MghgEconomyManager.getBalance(playerRef.getUuid());
-        commandContext.sendMessage(Message.raw(String.format(Locale.ROOT, "Balance actualizado %s = $%.2f", playerRef.getUsername(), updated)));
+        double updated = MghgEconomyManager.getBalance(targetUuid);
+        String targetName = MghgPlayerNameManager.resolve(targetUuid);
+        commandContext.sendMessage(Message.raw(String.format(Locale.ROOT, "Balance actualizado %s = $%.2f", targetName, updated)));
     }
 }

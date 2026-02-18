@@ -1,9 +1,9 @@
 Group {
-  Anchor: (Height: 72);
+  Anchor: (Height: 76);
   LayoutMode: Left;
 
   Group #RowSlots {
-    Anchor: (Left: 0, Top: 0, Right: 0, Bottom: 0);
+    Anchor: (Left: 0, Top: 0, Right: 0, Height: 72);
     LayoutMode: Left;
   }
 }

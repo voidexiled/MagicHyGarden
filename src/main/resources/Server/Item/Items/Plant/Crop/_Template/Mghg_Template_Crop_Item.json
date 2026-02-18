@@ -2,17 +2,17 @@
   "TranslationProperties": {
     "Name": "server.items.Template_Crop.name"
   },
-  "Icon": "Icons/ItemsGenerated/Plant_Crop_Lettuce.png",
+  "Icon": "Icons/ItemsGenerated/Mghg_Template_Crop_Item.png",
   "IconProperties": {
     "Scale": 0.7,
-    "Translation": [
-      -3,
-      -7.8
-    ],
     "Rotation": [
       42.8,
       29.3,
       0
+    ],
+    "Translation": [
+      -3,
+      -7.8
     ]
   },
   "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",

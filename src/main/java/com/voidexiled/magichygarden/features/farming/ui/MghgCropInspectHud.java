@@ -13,6 +13,7 @@ public final class MghgCropInspectHud extends CustomUIHud {
     private static final String ROOT_DEFAULT = "#MghgCropInspectDefault";
     private static final String ROOT_GOLD = "#MghgCropInspectGold";
     private static final String ROOT_RAINBOW = "#MghgCropInspectRainbow";
+    private static final String FARM_INFO_ROOT = "#MghgFarmInfoPanel";
     private static final String[] ROOTS = new String[]{
             ROOT_DEFAULT,
             ROOT_GOLD,
@@ -92,7 +93,30 @@ public final class MghgCropInspectHud extends CustomUIHud {
         update(false, builder);
     }
 
-    public void hide() {
+    public void updateFarmInfo(
+            @Nullable String title,
+            @Nullable String balance,
+            @Nullable String fertileSoil,
+            @Nullable String sellMultiplier,
+            @Nullable String mutationMultiplier,
+            @Nullable String members
+    ) {
+        UICommandBuilder builder = new UICommandBuilder();
+        if (!appended) {
+            builder.append(UI_PATH);
+            appended = true;
+        }
+        builder.set(FARM_INFO_ROOT + ".Visible", true);
+        builder.set(FARM_INFO_ROOT + " #FarmInfoTitle.Text", title != null ? title : "");
+        builder.set(FARM_INFO_ROOT + " #FarmInfoBalance.Text", balance != null ? balance : "");
+        builder.set(FARM_INFO_ROOT + " #FarmInfoFertile.Text", fertileSoil != null ? fertileSoil : "");
+        builder.set(FARM_INFO_ROOT + " #FarmInfoSellMultiplier.Text", sellMultiplier != null ? sellMultiplier : "");
+        builder.set(FARM_INFO_ROOT + " #FarmInfoMutationMultiplier.Text", mutationMultiplier != null ? mutationMultiplier : "");
+        builder.set(FARM_INFO_ROOT + " #FarmInfoMembers.Text", members != null ? members : "");
+        update(false, builder);
+    }
+
+    public void hideInspect() {
         if (!appended) {
             return;
         }
@@ -110,5 +134,25 @@ public final class MghgCropInspectHud extends CustomUIHud {
             builder.set(root + " #PreviewSlot.Slots", new ItemGridSlot[0]);
         }
         update(false, builder);
+    }
+
+    public void hideFarmInfo() {
+        if (!appended) {
+            return;
+        }
+        UICommandBuilder builder = new UICommandBuilder();
+        builder.set(FARM_INFO_ROOT + ".Visible", false);
+        builder.set(FARM_INFO_ROOT + " #FarmInfoTitle.Text", "");
+        builder.set(FARM_INFO_ROOT + " #FarmInfoBalance.Text", "");
+        builder.set(FARM_INFO_ROOT + " #FarmInfoFertile.Text", "");
+        builder.set(FARM_INFO_ROOT + " #FarmInfoSellMultiplier.Text", "");
+        builder.set(FARM_INFO_ROOT + " #FarmInfoMutationMultiplier.Text", "");
+        builder.set(FARM_INFO_ROOT + " #FarmInfoMembers.Text", "");
+        update(false, builder);
+    }
+
+    public void hide() {
+        hideInspect();
+        hideFarmInfo();
     }
 }

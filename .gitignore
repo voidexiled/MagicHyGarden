@@ -1,5 +1,5 @@
 AssetsVanilla
-
+other-plugins-example
 .gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -35,3 +35,7 @@ build/
 
 ### Misc ###
 /run/
+*.tmp
+.tmp_*.log
+__pycache__/
+*.pyc

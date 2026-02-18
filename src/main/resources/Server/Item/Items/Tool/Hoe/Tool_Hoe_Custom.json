@@ -45,5 +45,8 @@
     ]
   },
   "DurabilityLossOnHit": 0,
-  "MaxDurability": 1000000000000
+  "MaxDurability": 1000000000000,
+  "Interactions": {
+    "Secondary": "Mghg_Hoe_Till"
+  }
 }

@@ -9,14 +9,16 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelBlocks;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelBounds;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.nio.file.Path;
 import java.util.UUID;
 
-public class FarmAdminParcelInfoShared {
+public final class FarmAdminParcelInfoShared {
+    private FarmAdminParcelInfoShared() {
+    }
 
-    public static void handleParcelInfo(@NotNull CommandContext ctx, @NotNull PlayerRef playerRef) {
+    public static void handleParcelInfo(@NonNull CommandContext ctx, @NonNull PlayerRef playerRef) {
         Universe universe = Universe.get();
         UUID owner = playerRef.getUuid();
 

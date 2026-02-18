@@ -16,15 +16,32 @@ import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayer
 import com.hypixel.hytale.server.core.entity.entities.BlockEntity;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.chunk.BlockChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.commands.shared.Targeting;
 import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
+import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
+import com.voidexiled.magichygarden.features.farming.events.MghgGlobalFarmEventState;
+import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
+import com.voidexiled.magichygarden.features.farming.state.MghgMutationContext;
+import com.voidexiled.magichygarden.features.farming.state.MghgMutationRule;
+import com.voidexiled.magichygarden.features.farming.state.MghgMutationRuleSet;
+import com.voidexiled.magichygarden.features.farming.state.MghgMutationRules;
+import com.voidexiled.magichygarden.features.farming.state.MghgWeatherResolver;
+import com.voidexiled.magichygarden.features.farming.state.MghgWeatherIdUtil;
+import com.voidexiled.magichygarden.features.farming.state.MutationEventType;
+import com.voidexiled.magichygarden.features.farming.state.MghgBlockIdUtil;
+import com.voidexiled.magichygarden.features.farming.state.MutationSlot;
 import org.jspecify.annotations.NonNull;
 
 import java.awt.*;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Collections;
+import java.util.Locale;
 
 public class CropDebugTargetCommand extends AbstractPlayerCommand {
     public CropDebugTargetCommand() {
@@ -65,6 +82,11 @@ public class CropDebugTargetCommand extends AbstractPlayerCommand {
         WorldChunk worldChunk = cs.getComponent(chunkRef, WorldChunk.getComponentType());
         if (worldChunk == null) {
             ctx.sendMessage(Message.raw("El chunk objetivo no tiene WorldChunk (estado inválido)."));
+            return;
+        }
+        BlockChunk blockChunk = cs.getComponent(chunkRef, BlockChunk.getComponentType());
+        if (blockChunk == null) {
+            ctx.sendMessage(Message.raw("El chunk objetivo no tiene BlockChunk (estado inválido)."));
             return;
         }
 
@@ -196,11 +218,189 @@ public class CropDebugTargetCommand extends AbstractPlayerCommand {
                     .insert(Message.raw(" | lastRegular=").color(Color.GRAY)).insert(Message.raw(String.valueOf(cropData.getLastRegularRoll())).color(Color.MAGENTA))
                     .insert(Message.raw(" | lastLunar=").color(Color.GRAY)).insert(Message.raw(String.valueOf(cropData.getLastLunarRoll())).color(Color.MAGENTA))
                     .insert(Message.raw(" | lastSpecial=").color(Color.GRAY)).insert(Message.raw(String.valueOf(cropData.getLastSpecialRoll()) + "\n").color(Color.MAGENTA));
+
+            appendMutationDiagnostics(msg, world, blockChunk, cropData, x, y, z, blockType, farmingBlock);
         } else {
             msg.insert(Message.raw("MGHG Data: ").color(Color.GRAY))
                     .insert(Message.raw("NO\n").color(Color.YELLOW));
         }
 
         ctx.sendMessage(msg);
+    }
+
+    private static void appendMutationDiagnostics(
+            Message msg,
+            World world,
+            BlockChunk blockChunk,
+            MghgCropData cropData,
+            int worldX,
+            int worldY,
+            int worldZ,
+            BlockType blockType,
+            FarmingBlock farmingBlock
+    ) {
+        if (world == null || blockChunk == null || cropData == null) {
+            return;
+        }
+        int localX = Math.floorMod(worldX, 16);
+        int localY = worldY;
+        int localZ = Math.floorMod(worldZ, 16);
+
+        Store<EntityStore> entityStore = world.getEntityStore().getStore();
+        int weatherId = MghgWeatherResolver.resolveWeatherId(entityStore, blockChunk, localX, localY, localZ, false);
+        int weatherIgnoreSky = MghgWeatherResolver.resolveWeatherId(entityStore, blockChunk, localX, localY, localZ, true);
+
+        Instant now = Instant.now();
+        MghgGlobalFarmEventState state = MghgFarmEventScheduler.getState();
+        boolean eventActive = state != null && state.isActive(now);
+        MutationEventType eventType = MutationEventType.WEATHER;
+        String eventWeather = "-";
+        if (eventActive && state != null) {
+            if (state.eventType() != null) {
+                eventType = state.eventType();
+            }
+            if (state.weatherId() != null && !state.weatherId().isBlank()) {
+                eventWeather = state.weatherId();
+            }
+        }
+        int weatherFromEvent = eventActive && state != null
+                ? MghgWeatherIdUtil.resolveWeatherIndex(state.weatherId())
+                : Integer.MIN_VALUE;
+        int effectiveWeather = weatherFromEvent != Integer.MIN_VALUE ? weatherFromEvent : weatherId;
+
+        boolean mature = isMature(blockType, farmingBlock);
+        boolean ownerOnline = MghgFarmEventScheduler.isFarmOwnerOnline(world);
+
+        MghgMutationContext context = new MghgMutationContext(
+                now,
+                eventType,
+                effectiveWeather,
+                weatherIgnoreSky,
+                mature,
+                ownerOnline,
+                Collections.emptySet(),
+                null,
+                world.getWorldConfig().getUuid(),
+                worldX,
+                worldY,
+                worldZ,
+                Byte.toUnsignedInt(blockChunk.getSkyLight(localX, localY, localZ)),
+                Short.toUnsignedInt(blockChunk.getBlockLight(localX, localY, localZ)),
+                Byte.toUnsignedInt(blockChunk.getBlockLightIntensity(localX, localY, localZ)),
+                Byte.toUnsignedInt(blockChunk.getRedBlockLight(localX, localY, localZ)),
+                Byte.toUnsignedInt(blockChunk.getGreenBlockLight(localX, localY, localZ)),
+                Byte.toUnsignedInt(blockChunk.getBlueBlockLight(localX, localY, localZ)),
+                -1,
+                -1.0d,
+                -1,
+                -1,
+                null,
+                null
+        );
+
+        MghgCropGrowthModifierAsset cfg = MghgCropGrowthModifierAsset.getLastLoaded();
+        MghgMutationRuleSet rules = MghgMutationRules.getActive(cfg);
+        int defaultCooldown = cfg == null ? 0 : Math.max(0, cfg.getMutationRollCooldownSeconds());
+
+        int climateRules = 0;
+        int eventMatched = 0;
+        int requirementsMatched = 0;
+        int cooldownReady = 0;
+        String firstRuleStatus = null;
+
+        if (rules != null && rules.getRules() != null) {
+            for (MghgMutationRule rule : rules.getRules()) {
+                if (rule == null) {
+                    continue;
+                }
+                if (rule.getSlot() != MutationSlot.CLIMATE) {
+                    continue;
+                }
+                climateRules++;
+                boolean eventOk = rule.matchesEvent(context);
+                if (eventOk) {
+                    eventMatched++;
+                }
+                boolean reqOk = eventOk && rule.matchesRequirements(cropData, context);
+                if (reqOk) {
+                    requirementsMatched++;
+                    if (isCooldownReady(cropData.getLastRegularRoll(), rule.getCooldownSecondsOrDefault(defaultCooldown), now)) {
+                        cooldownReady++;
+                    }
+                }
+                if (firstRuleStatus == null) {
+                    firstRuleStatus = String.format(
+                            Locale.ROOT,
+                            "%s[event=%s req=%s cd=%s]",
+                            rule.getId() == null ? "<no-id>" : rule.getId(),
+                            eventOk,
+                            reqOk,
+                            reqOk && isCooldownReady(cropData.getLastRegularRoll(), rule.getCooldownSecondsOrDefault(defaultCooldown), now)
+                    );
+                }
+            }
+        }
+
+        msg.insert(Message.raw("MutationDebug: ").color(Color.GRAY))
+                .insert(Message.raw(String.format(
+                        Locale.ROOT,
+                        "eventActive=%s eventType=%s eventWeather=%s\n",
+                        eventActive,
+                        eventType,
+                        eventWeather
+                )).color(Color.CYAN));
+        msg.insert(Message.raw("MutationWeather: ").color(Color.GRAY))
+                .insert(Message.raw(String.format(
+                        Locale.ROOT,
+                        "resolved=%d ignoreSky=%d fromEvent=%d effective=%d\n",
+                        weatherId,
+                        weatherIgnoreSky,
+                        weatherFromEvent,
+                        effectiveWeather
+                )).color(Color.CYAN));
+        msg.insert(Message.raw("MutationRules: ").color(Color.GRAY))
+                .insert(Message.raw(String.format(
+                        Locale.ROOT,
+                        "climateRules=%d eventMatched=%d reqMatched=%d cooldownReady=%d first=%s\n",
+                        climateRules,
+                        eventMatched,
+                        requirementsMatched,
+                        cooldownReady,
+                        firstRuleStatus == null ? "-" : firstRuleStatus
+                )).color(Color.CYAN));
+    }
+
+    private static boolean isCooldownReady(Instant lastRoll, int cooldownSeconds, Instant now) {
+        if (cooldownSeconds <= 0) {
+            return true;
+        }
+        if (lastRoll == null || now == null) {
+            return true;
+        }
+        Duration since = Duration.between(lastRoll, now);
+        if (since.isNegative()) {
+            return true;
+        }
+        return since.getSeconds() >= cooldownSeconds;
+    }
+
+    private static boolean isMature(BlockType blockType, FarmingBlock farmingBlock) {
+        if (blockType == null) {
+            return false;
+        }
+        BlockType base = MghgBlockIdUtil.resolveBaseBlockType(blockType);
+        if (farmingBlock != null
+                && base != null
+                && base.getFarming() != null
+                && base.getFarming().getStages() != null) {
+            String stageSet = farmingBlock.getCurrentStageSet();
+            FarmingStageData[] stages = stageSet == null ? null : base.getFarming().getStages().get(stageSet);
+            if (stages == null || stages.length == 0) {
+                return false;
+            }
+            return ((int) farmingBlock.getGrowthProgress()) >= stages.length - 1;
+        }
+        String id = blockType.getId();
+        return id != null && id.toLowerCase(Locale.ROOT).contains("_stagefinal");
     }
 }

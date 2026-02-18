@@ -19,15 +19,23 @@ import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.economy.MghgEconomyManager;
 import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
 import com.voidexiled.magichygarden.features.farming.interactions.MghgHarvestCropInteraction;
+import com.voidexiled.magichygarden.features.farming.interactions.MghgHoeTillInteraction;
 import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthModifierAsset;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelInviteService;
+import com.voidexiled.magichygarden.features.farming.perks.MghgFertileSoilReconcileService;
+import com.voidexiled.magichygarden.features.farming.perks.MghgFarmPerkManager;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopUiLogManager;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
+import com.voidexiled.magichygarden.features.farming.tooltips.MghgDynamicTooltipsManager;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
 import com.voidexiled.magichygarden.features.farming.systems.MghgApplyCropMetaOnItemSpawnSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgCropInspectHudSystem;
+import com.voidexiled.magichygarden.features.farming.systems.MghgFertileSoilBreakSystem;
+import com.voidexiled.magichygarden.features.farming.systems.MghgFertileSoilPlaceGuardSystem;
+import com.voidexiled.magichygarden.features.farming.systems.MghgFertileSoilUsePostSystem;
+import com.voidexiled.magichygarden.features.farming.systems.MghgFertileSoilUsePreSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgFarmShopHudRefreshSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgPreserveCropMetaOnBreakSystem;
 import com.voidexiled.magichygarden.features.farming.systems.MghgMatureCropMutationTickingSystem;
@@ -61,6 +69,8 @@ public class MagicHyGardenPlugin extends JavaPlugin {
     protected void setup() {
         this.getCodecRegistry(Interaction.CODEC)
                 .register("MGHG_HarvestCrop", MghgHarvestCropInteraction.class, MghgHarvestCropInteraction.CODEC);
+        this.getCodecRegistry(Interaction.CODEC)
+                .register("MGHG_HoeTill", MghgHoeTillInteraction.class, MghgHoeTillInteraction.CODEC);
 
         this.getAssetRegistry().register(
                 HytaleAssetStore.builder(MghgMutationRulesAsset.class, new DefaultAssetMap<>())
@@ -86,6 +96,8 @@ public class MagicHyGardenPlugin extends JavaPlugin {
     protected void start() {
         MghgParcelManager.load();
         MghgParcelInviteService.start();
+        MghgFarmPerkManager.load();
+        MghgFertileSoilReconcileService.start();
         MghgFarmWorldManager.load();
         MghgEconomyManager.load();
         MghgPlayerNameManager.load();
@@ -106,6 +118,8 @@ public class MagicHyGardenPlugin extends JavaPlugin {
         MghgMutationRules.reload();
         MghgFarmEventScheduler.start();
         MghgShopStockManager.start();
+        MghgDynamicTooltipsManager.tryRegister();
+        MghgDynamicTooltipsManager.refreshAllPlayers();
 
         // Farm Block Added System ChunkStore
         // minSize, maxSize, goldChance, rainbowChance
@@ -121,6 +135,10 @@ public class MagicHyGardenPlugin extends JavaPlugin {
         this.getEntityStoreRegistry().registerSystem(new MghgParcelPlaceGuardSystem());
         this.getEntityStoreRegistry().registerSystem(new MghgParcelBreakGuardSystem());
         this.getEntityStoreRegistry().registerSystem(new MghgParcelUseGuardSystem());
+        this.getEntityStoreRegistry().registerSystem(new MghgFertileSoilPlaceGuardSystem());
+        this.getEntityStoreRegistry().registerSystem(new MghgFertileSoilUsePreSystem());
+        this.getEntityStoreRegistry().registerSystem(new MghgFertileSoilUsePostSystem());
+        this.getEntityStoreRegistry().registerSystem(new MghgFertileSoilBreakSystem());
         this.getEntityStoreRegistry().registerSystem(new MghgShopBenchUseSystem());
 
         // 2) 🔥 IMPORTANT: rehydrate MGHG_Crop metadata onto placed blocks (decorative crop items)
@@ -154,6 +172,7 @@ public class MagicHyGardenPlugin extends JavaPlugin {
 
     @Override
     protected void shutdown() {
+        MghgFertileSoilReconcileService.stop();
         MghgFarmWorldManager.shutdown();
         MghgParcelInviteService.stop();
         MghgParcelManager.save();

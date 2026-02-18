@@ -25,6 +25,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.economy.MghgEconomyManager;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
+import com.voidexiled.magichygarden.features.farming.perks.MghgFarmPerkManager;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopAccessPolicy;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopConfig;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopPricing;
@@ -50,6 +51,8 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
 
     private static final String ACTION_SELECT_BUY_SLOT = "SelectBuySlot";
     private static final String ACTION_SELECT_SELL_SLOT = "SelectSellSlot";
+    private static final String ACTION_TAB_BUY = "TabBuy";
+    private static final String ACTION_TAB_SELL = "TabSell";
     private static final String ACTION_BUY = "Buy1";
     private static final String ACTION_BUY_10 = "Buy10";
     private static final String ACTION_BUY_MAX = "BuyMax";
@@ -67,10 +70,9 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
 
     @Nullable
     private String selectedShopId;
+    private ShopTab activeTab = ShopTab.BUY;
     private final LinkedHashSet<Integer> selectedSellInventorySlots = new LinkedHashSet<>();
     private final ArrayList<Integer> renderedSellInventorySlots = new ArrayList<>();
-    @Nullable
-    private String lastStatusMessage;
 
     public MghgFarmShopPage(@Nonnull PlayerRef playerRef) {
         super(playerRef, CustomPageLifetime.CanDismiss, EventPayload.CODEC);
@@ -154,7 +156,7 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
     public void handleDataEvent(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull EventPayload data) {
         World world = store.getExternalData().getWorld();
         if (world == null) {
-            playerRef.sendMessage(Message.raw("No pude resolver mundo para la shop."));
+            sendShopChatFeedback(false, "No pude resolver mundo para la shop.");
             close();
             return;
         }
@@ -164,8 +166,19 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
             close();
             return;
         }
+        if (ACTION_TAB_BUY.equalsIgnoreCase(action)) {
+            activeTab = ShopTab.BUY;
+            refresh(ref, store);
+            return;
+        }
+        if (ACTION_TAB_SELL.equalsIgnoreCase(action)) {
+            activeTab = ShopTab.SELL;
+            refresh(ref, store);
+            return;
+        }
 
         if (ACTION_SELECT_BUY_SLOT.equalsIgnoreCase(action)) {
+            activeTab = ShopTab.BUY;
             int clickedSlot = resolveClickedSlot(data);
             if (clickedSlot >= 0) {
                 List<MghgShopConfig.ShopItem> validItems = resolveValidItems();
@@ -177,11 +190,11 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
                 selectedShopId = data.shopId;
                 selectedSellInventorySlots.clear();
             }
-            lastStatusMessage = null;
             refresh(ref, store);
             return;
         }
         if (ACTION_SELECT_SELL_SLOT.equalsIgnoreCase(action)) {
+            activeTab = ShopTab.SELL;
             int clickedSlot = resolveClickedSlot(data);
             if (clickedSlot >= 0 && clickedSlot < renderedSellInventorySlots.size()) {
                 int inventorySlot = renderedSellInventorySlots.get(clickedSlot);
@@ -191,17 +204,18 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
                     selectedSellInventorySlots.add(inventorySlot);
                 }
             }
-            lastStatusMessage = null;
             refresh(ref, store);
             return;
         }
         if (ACTION_SELECT_ALL_SELL.equalsIgnoreCase(action)) {
+            activeTab = ShopTab.SELL;
             selectedSellInventorySlots.clear();
             selectedSellInventorySlots.addAll(renderedSellInventorySlots);
             refresh(ref, store);
             return;
         }
         if (ACTION_UNSELECT_ALL_SELL.equalsIgnoreCase(action)) {
+            activeTab = ShopTab.SELL;
             selectedSellInventorySlots.clear();
             refresh(ref, store);
             return;
@@ -209,12 +223,16 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
 
         MghgShopTransactionResult result;
         if (ACTION_BUY.equalsIgnoreCase(action)) {
+            activeTab = ShopTab.BUY;
             result = MghgShopTransactionService.buy(store, ref, playerRef, world, selectedShopId, 1);
         } else if (ACTION_BUY_10.equalsIgnoreCase(action)) {
+            activeTab = ShopTab.BUY;
             result = MghgShopTransactionService.buy(store, ref, playerRef, world, selectedShopId, 10);
         } else if (ACTION_BUY_MAX.equalsIgnoreCase(action)) {
+            activeTab = ShopTab.BUY;
             result = MghgShopTransactionService.buyMax(store, ref, playerRef, world, selectedShopId);
         } else if (ACTION_SELL.equalsIgnoreCase(action)) {
+            activeTab = ShopTab.SELL;
             if (!selectedSellInventorySlots.isEmpty()) {
                 int inventorySlot = selectedSellInventorySlots.iterator().next();
                 result = MghgShopTransactionService.sellSlot(
@@ -229,6 +247,7 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
                 result = MghgShopTransactionService.sell(store, ref, playerRef, world, selectedShopId, 1);
             }
         } else if (ACTION_SELL_SELECTED.equalsIgnoreCase(action)) {
+            activeTab = ShopTab.SELL;
             if (selectedSellInventorySlots.isEmpty()) {
                 result = MghgShopTransactionResult.fail("No hay items seleccionados.");
             } else {
@@ -242,13 +261,13 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
                 );
             }
         } else if (ACTION_SELL_ALL.equalsIgnoreCase(action)) {
+            activeTab = ShopTab.SELL;
             result = MghgShopTransactionService.sellAll(store, ref, playerRef, world, "all");
         } else {
             return;
         }
 
-        playerRef.sendMessage(Message.raw(result.message()));
-        lastStatusMessage = result.message();
+        sendShopChatFeedback(result.success(), result.message());
         if (result.success() && (ACTION_SELL.equalsIgnoreCase(action)
                 || ACTION_SELL_SELECTED.equalsIgnoreCase(action)
                 || ACTION_SELL_ALL.equalsIgnoreCase(action))) {
@@ -278,10 +297,14 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
     ) {
         World world = store.getExternalData().getWorld();
         Player player = store.getComponent(ref, Player.getComponentType());
+        applyTabState(commandBuilder);
+        applyLocalizedUiText(commandBuilder);
         if (world == null || player == null) {
-            commandBuilder.set(ROOT + " #Status.Text", "Shop unavailable.");
-            commandBuilder.set(ROOT + " #LastStatus.Text", "");
-            commandBuilder.set(ROOT + " #SellPotential.Text", "Potential value: $0.00");
+            commandBuilder.set(ROOT + " #StatusBalance.Text", tr("mghg.shop.ui.status.unavailable", "Shop unavailable."));
+            commandBuilder.set(ROOT + " #StatusRestock.Text", "");
+            commandBuilder.set(ROOT + " #BuySummary.Text", tr("mghg.shop.ui.buy.summary.none", "No seeds available."));
+            commandBuilder.set(ROOT + " #SellSummary.Text", tr("mghg.shop.ui.sell.summary.default", "Select crops from your inventory."));
+            commandBuilder.set(ROOT + " #SellPotential.Text", buildSellPotentialText(0.0d));
             clearDetail(commandBuilder);
             clearGridHosts(commandBuilder);
             return;
@@ -289,9 +312,11 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
 
         String accessError = MghgShopAccessPolicy.validateTransactionContext(store, ref, playerRef, world);
         if (accessError != null) {
-            commandBuilder.set(ROOT + " #Status.Text", accessError);
-            commandBuilder.set(ROOT + " #LastStatus.Text", "");
-            commandBuilder.set(ROOT + " #SellPotential.Text", "Potential value: $0.00");
+            commandBuilder.set(ROOT + " #StatusBalance.Text", accessError);
+            commandBuilder.set(ROOT + " #StatusRestock.Text", "");
+            commandBuilder.set(ROOT + " #BuySummary.Text", tr("mghg.shop.ui.buy.summary.none", "No seeds available."));
+            commandBuilder.set(ROOT + " #SellSummary.Text", tr("mghg.shop.ui.sell.summary.default", "Select crops from your inventory."));
+            commandBuilder.set(ROOT + " #SellPotential.Text", buildSellPotentialText(0.0d));
             clearDetail(commandBuilder);
             clearGridHosts(commandBuilder);
             bindStaticEvents(eventBuilder);
@@ -302,9 +327,11 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
         List<MghgShopConfig.ShopItem> validItems = resolveValidItems();
 
         if (validItems.isEmpty()) {
-            commandBuilder.set(ROOT + " #Status.Text", "Shop vacia.");
-            commandBuilder.set(ROOT + " #LastStatus.Text", "");
-            commandBuilder.set(ROOT + " #SellPotential.Text", "Potential value: $0.00");
+            commandBuilder.set(ROOT + " #StatusBalance.Text", tr("mghg.shop.ui.status.empty", "Shop empty."));
+            commandBuilder.set(ROOT + " #StatusRestock.Text", "");
+            commandBuilder.set(ROOT + " #BuySummary.Text", tr("mghg.shop.ui.buy.summary.none_cycle", "No seeds available this cycle."));
+            commandBuilder.set(ROOT + " #SellSummary.Text", tr("mghg.shop.ui.sell.summary.default", "Select crops from your inventory."));
+            commandBuilder.set(ROOT + " #SellPotential.Text", buildSellPotentialText(0.0d));
             clearDetail(commandBuilder);
             clearGridHosts(commandBuilder);
             bindStaticEvents(eventBuilder);
@@ -315,8 +342,9 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
             selectedShopId = validItems.get(0).getId();
         }
 
-        commandBuilder.set(ROOT + " #Status.Text", buildStatusText());
-        commandBuilder.set(ROOT + " #LastStatus.Text", buildLastStatusText());
+        commandBuilder.set(ROOT + " #StatusBalance.Text", buildStatusBalanceText());
+        commandBuilder.set(ROOT + " #StatusRestock.Text", buildStatusRestockText());
+        double sellMultiplier = MghgFarmPerkManager.resolveSellMultiplierForContext(playerRef.getUuid(), world);
 
         int buyCount = renderBuyGrid(commandBuilder, eventBuilder, playerRef, inventory, validItems);
 
@@ -325,12 +353,14 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
                 .findFirst()
                 .orElse(validItems.get(0));
         selectedShopId = selectedItem.getId();
+        commandBuilder.set(ROOT + " #BuySummary.Text", buildBuySummary(selectedItem));
+        commandBuilder.set(ROOT + " #SellSummary.Text", buildSellSummary(inventory, selectedItem));
         commandBuilder.set(
                 ROOT + " #SellPotential.Text",
-                "Potential value: $" + formatMoney(computeSelectedPotentialValue(inventory, selectedItem))
+                buildSellPotentialText(computeSelectedPotentialValue(inventory, selectedItem, sellMultiplier))
         );
-        renderDetail(commandBuilder, selectedItem, playerRef);
-        int sellCount = renderSellGrid(commandBuilder, eventBuilder, inventory, selectedItem);
+        renderDetail(commandBuilder, selectedItem);
+        int sellCount = renderSellGrid(commandBuilder, eventBuilder, inventory, selectedItem, sellMultiplier);
         if (buyCount <= 0) {
             commandBuilder.clear(ROOT + " #BuyGridSlots");
         }
@@ -347,32 +377,89 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
     ) {
         World world = store.getExternalData().getWorld();
         Player player = store.getComponent(ref, Player.getComponentType());
+        applyTabState(commandBuilder);
+        applyLocalizedUiText(commandBuilder);
         if (world == null || player == null) {
             return;
         }
         String accessError = MghgShopAccessPolicy.validateTransactionContext(store, ref, playerRef, world);
         if (accessError != null) {
-            commandBuilder.set(ROOT + " #Status.Text", accessError);
-            commandBuilder.set(ROOT + " #LastStatus.Text", "");
+            commandBuilder.set(ROOT + " #StatusBalance.Text", accessError);
+            commandBuilder.set(ROOT + " #StatusRestock.Text", "");
+            commandBuilder.set(ROOT + " #BuySummary.Text", tr("mghg.shop.ui.buy.summary.none", "No seeds available."));
+            commandBuilder.set(ROOT + " #SellSummary.Text", tr("mghg.shop.ui.sell.summary.default", "Select crops from your inventory."));
             return;
         }
         List<MghgShopConfig.ShopItem> validItems = resolveValidItems();
         if (validItems.isEmpty()) {
-            commandBuilder.set(ROOT + " #Status.Text", "Shop vacia.");
-            commandBuilder.set(ROOT + " #LastStatus.Text", "");
+            commandBuilder.set(ROOT + " #StatusBalance.Text", tr("mghg.shop.ui.status.empty", "Shop empty."));
+            commandBuilder.set(ROOT + " #StatusRestock.Text", "");
+            commandBuilder.set(ROOT + " #BuySummary.Text", tr("mghg.shop.ui.buy.summary.none_cycle", "No seeds available this cycle."));
+            commandBuilder.set(ROOT + " #SellSummary.Text", tr("mghg.shop.ui.sell.summary.default", "Select crops from your inventory."));
             return;
         }
-        commandBuilder.set(ROOT + " #Status.Text", buildStatusText());
-        commandBuilder.set(ROOT + " #LastStatus.Text", buildLastStatusText());
+        commandBuilder.set(ROOT + " #StatusBalance.Text", buildStatusBalanceText());
+        commandBuilder.set(ROOT + " #StatusRestock.Text", buildStatusRestockText());
+        double sellMultiplier = MghgFarmPerkManager.resolveSellMultiplierForContext(playerRef.getUuid(), world);
         MghgShopConfig.ShopItem selectedItem = resolveSelectedItem(validItems);
         if (selectedItem == null) {
             return;
         }
         ItemContainer inventory = player.getInventory().getCombinedStorageFirst();
+        commandBuilder.set(ROOT + " #BuySummary.Text", buildBuySummary(selectedItem));
+        commandBuilder.set(ROOT + " #SellSummary.Text", buildSellSummary(inventory, selectedItem));
         commandBuilder.set(
                 ROOT + " #SellPotential.Text",
-                "Potential value: $" + formatMoney(computeSelectedPotentialValue(inventory, selectedItem))
+                buildSellPotentialText(computeSelectedPotentialValue(inventory, selectedItem, sellMultiplier))
         );
+    }
+
+    private void sendShopChatFeedback(boolean success, @Nonnull String rawMessage) {
+        String[] lines = safeText(rawMessage, tr("mghg.shop.chat.default", "Operation completed."))
+                .replace('\r', '\n')
+                .split("\n");
+        String lineColor = success ? "#8fe388" : "#f6a2a2";
+        String prefix = tr("mghg.shop.chat.prefix", "[Farm Shop] ");
+        boolean sent = false;
+        for (String line : lines) {
+            String clean = line == null ? "" : line.trim();
+            if (clean.isEmpty()) {
+                continue;
+            }
+            Message feedback = Message.empty();
+            feedback.insert(Message.raw(prefix).bold(true).color("#f2d896"));
+            feedback.insert(Message.raw(clean).color(lineColor));
+            playerRef.sendMessage(feedback);
+            sent = true;
+        }
+        if (!sent) {
+            Message feedback = Message.empty();
+            feedback.insert(Message.raw(prefix).bold(true).color("#f2d896"));
+            feedback.insert(Message.raw(tr("mghg.shop.chat.default", "Operation completed.")).color(lineColor));
+            playerRef.sendMessage(feedback);
+        }
+    }
+
+    private void applyLocalizedUiText(@Nonnull UICommandBuilder commandBuilder) {
+        commandBuilder.set(ROOT + " #PageTitle.Text", tr("mghg.shop.ui.title", "Farm Shop"));
+        commandBuilder.set(ROOT + " #SessionTitle.Text", tr("mghg.shop.ui.session", "Session"));
+        commandBuilder.set(ROOT + " #BuyTitle.Text", tr("mghg.shop.ui.buy.title", "Buy Seeds"));
+        commandBuilder.set(ROOT + " #SellTitle.Text", tr("mghg.shop.ui.sell.title", "Sell From Inventory"));
+        commandBuilder.set(ROOT + " #BuyTab.TooltipText", tr("mghg.shop.ui.tab.buy", "Buy"));
+        commandBuilder.set(ROOT + " #SellTab.TooltipText", tr("mghg.shop.ui.tab.sell", "Sell"));
+        commandBuilder.set(ROOT + " #Buy1.Text", tr("mghg.shop.ui.button.buy1", "Buy 1"));
+        commandBuilder.set(ROOT + " #Buy10.Text", tr("mghg.shop.ui.button.buy10", "Buy 10"));
+        commandBuilder.set(ROOT + " #BuyMax.Text", tr("mghg.shop.ui.button.buy_max", "Buy Max"));
+        commandBuilder.set(ROOT + " #SellSelectAll.Text", tr("mghg.shop.ui.button.select_all", "Select all"));
+        commandBuilder.set(ROOT + " #SellUnselectAll.Text", tr("mghg.shop.ui.button.unselect_all", "Unselect all"));
+        commandBuilder.set(ROOT + " #Sell1.Text", tr("mghg.shop.ui.button.sell1", "Sell 1"));
+        commandBuilder.set(ROOT + " #SellSelected.Text", tr("mghg.shop.ui.button.sell_selected", "Sell selected"));
+        commandBuilder.set(ROOT + " #SellAll.Text", tr("mghg.shop.ui.button.sell_all", "Sell all"));
+        commandBuilder.set(ROOT + " #Close.Text", tr("mghg.shop.ui.button.close", "Close"));
+    }
+
+    private @Nonnull String buildSellPotentialText(double value) {
+        return tf("mghg.shop.ui.sell.potential", "Potential value: $%s", formatMoney(value));
     }
 
     private @Nullable MghgShopConfig.ShopItem resolveSelectedItem(@Nonnull List<MghgShopConfig.ShopItem> validItems) {
@@ -391,25 +478,47 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
         return validItems.get(0);
     }
 
-    private @Nonnull String buildStatusText() {
+    private @Nonnull String buildStatusBalanceText() {
         double balance = MghgEconomyManager.getBalance(playerRef.getUuid());
+        return tf("mghg.shop.ui.status.balance", "Balance: $%s", formatMoney(balance));
+    }
+
+    private @Nonnull String buildStatusRestockText() {
         long remaining = MghgShopStockManager.getRemainingRestockSeconds();
-        return String.format(
-                Locale.ROOT,
-                "Balance $%s. Restock in %s.",
-                formatMoney(balance),
-                formatDuration(remaining)
+        return tf("mghg.shop.ui.status.restock", "Next restock: %s", formatDuration(remaining));
+    }
+
+    private @Nonnull String buildBuySummary(@Nonnull MghgShopConfig.ShopItem item) {
+        String buyName = resolveItemDisplayName(item.resolveBuyItemId(), playerRef);
+        int personalStock = Math.max(0, MghgShopStockManager.getPlayerStock(playerRef.getUuid(), item.getId()));
+        return tf(
+                "mghg.shop.ui.buy.summary.selected",
+                "Selected: %s. Stock this cycle: %d. Buy price: $%s.",
+                buyName,
+                personalStock,
+                formatMoney(item.getBuyPrice())
         );
     }
 
-    private @Nonnull String buildLastStatusText() {
-        if (lastStatusMessage == null || lastStatusMessage.isBlank()) {
-            return "";
-        }
-        return compactStatus(lastStatusMessage);
+    private @Nonnull String buildSellSummary(
+            @Nonnull ItemContainer inventory,
+            @Nonnull MghgShopConfig.ShopItem item
+    ) {
+        int sellable = Math.max(0, MghgShopTransactionService.countSellable(inventory, item.resolveSellItemIds()));
+        int selectedStacks = computeSelectedSellStackCount(inventory, item);
+        int selectedItems = computeSelectedSellItemCount(inventory, item);
+        return tf(
+                "mghg.shop.ui.sell.summary",
+                "Matching crops: %d. Selected stacks: %d (%d items).",
+                sellable,
+                selectedStacks,
+                selectedItems
+        );
     }
 
     private static void bindStaticEvents(@Nonnull UIEventBuilder eventBuilder) {
+        eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, ROOT + " #BuyTab", new EventData().append("Action", ACTION_TAB_BUY), false);
+        eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, ROOT + " #SellTab", new EventData().append("Action", ACTION_TAB_SELL), false);
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, ROOT + " #Buy1", new EventData().append("Action", ACTION_BUY), false);
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, ROOT + " #Buy10", new EventData().append("Action", ACTION_BUY_10), false);
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, ROOT + " #BuyMax", new EventData().append("Action", ACTION_BUY_MAX), false);
@@ -419,6 +528,13 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, ROOT + " #SellSelected", new EventData().append("Action", ACTION_SELL_SELECTED), false);
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, ROOT + " #SellAll", new EventData().append("Action", ACTION_SELL_ALL), false);
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, ROOT + " #Close", new EventData().append("Action", ACTION_CLOSE), false);
+    }
+
+    private void applyTabState(@Nonnull UICommandBuilder commandBuilder) {
+        boolean buyActive = activeTab == ShopTab.BUY;
+        commandBuilder.set(ROOT + " #BuyPanel.Visible", buyActive);
+        commandBuilder.set(ROOT + " #SellPanel.Visible", !buyActive);
+        commandBuilder.set(ROOT + " #ShopTabs.SelectedTab", buyActive ? "BuyTab" : "SellTab");
     }
 
     private static List<MghgShopConfig.ShopItem> resolveValidItems() {
@@ -434,7 +550,8 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
 
     private double computeSelectedPotentialValue(
             @Nonnull ItemContainer inventory,
-            @Nonnull MghgShopConfig.ShopItem item
+            @Nonnull MghgShopConfig.ShopItem item,
+            double sellMultiplier
     ) {
         if (selectedSellInventorySlots.isEmpty()) {
             return 0.0d;
@@ -455,10 +572,58 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
                 continue;
             }
             MghgCropMeta meta = stack.getFromMetadataOrNull(MghgCropMeta.KEY);
-            double unit = MghgShopPricing.computeUnitSellPrice(item, meta);
+            double unit = MghgShopPricing.computeUnitSellPrice(item, meta) * sanitizeMultiplier(sellMultiplier);
             total += unit * quantity;
         }
         return total;
+    }
+
+    private int computeSelectedSellStackCount(
+            @Nonnull ItemContainer inventory,
+            @Nonnull MghgShopConfig.ShopItem item
+    ) {
+        int stacks = 0;
+        String[] sellIds = item.resolveSellItemIds();
+        short capacity = inventory.getCapacity();
+        for (int slot : selectedSellInventorySlots) {
+            if (slot < 0 || slot >= capacity) {
+                continue;
+            }
+            ItemStack stack = inventory.getItemStack((short) slot);
+            if (ItemStack.isEmpty(stack) || !matchesSellItem(stack, sellIds)) {
+                continue;
+            }
+            int quantity = Math.max(0, stack.getQuantity());
+            if (quantity <= 0) {
+                continue;
+            }
+            stacks++;
+        }
+        return stacks;
+    }
+
+    private int computeSelectedSellItemCount(
+            @Nonnull ItemContainer inventory,
+            @Nonnull MghgShopConfig.ShopItem item
+    ) {
+        int items = 0;
+        String[] sellIds = item.resolveSellItemIds();
+        short capacity = inventory.getCapacity();
+        for (int slot : selectedSellInventorySlots) {
+            if (slot < 0 || slot >= capacity) {
+                continue;
+            }
+            ItemStack stack = inventory.getItemStack((short) slot);
+            if (ItemStack.isEmpty(stack) || !matchesSellItem(stack, sellIds)) {
+                continue;
+            }
+            int quantity = Math.max(0, stack.getQuantity());
+            if (quantity <= 0) {
+                continue;
+            }
+            items += quantity;
+        }
+        return items;
     }
 
     private int renderBuyGrid(
@@ -527,14 +692,25 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
         root.insert(Message.raw(displayName).bold(true).color("#e7f3ff"));
         root.insert("\n");
         root.insert("\n");
-        root.insert(Message.raw("Buy price: ").color("#f2d896"));
+        root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.buy.price", "Seed price: ")).color("#f2d896"));
         root.insert(Message.raw("$" + formatMoney(item.getBuyPrice())).bold(true).color("#ffffff"));
         root.insert("\n");
-        root.insert(Message.raw("Cycle stock: ").color("#9fb6d1"));
+        root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.buy.stock", "Available this cycle: ")).color("#9fb6d1"));
         root.insert(Message.raw(Integer.toString(personal)).color("#d7e5f7"));
         root.insert("\n");
-        root.insert(Message.raw("Sellable in inventory: ").color("#9fb6d1"));
+        root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.buy.sellable", "Matching crops in inventory: ")).color("#9fb6d1"));
         root.insert(Message.raw(Integer.toString(sellable)).color("#d7e5f7"));
+        root.insert("\n");
+        root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.buy.base_sell", "Base sell value: ")).color("#9fb6d1"));
+        root.insert(Message.raw("$" + formatMoney(item.getSellPrice())).color("#d7e5f7"));
+        root.insert("\n");
+        root.insert(Message.raw(tr(
+                playerRef,
+                item.isEnableMetaSellPricing() ? "mghg.shop.tooltip.buy.dynamic_on" : "mghg.shop.tooltip.buy.dynamic_off",
+                item.isEnableMetaSellPricing()
+                        ? "Dynamic sell value is enabled (size/climate/lunar/rarity)."
+                        : "Dynamic sell value is disabled (flat base value)."
+        )).color("#9fb6d1"));
         return root;
     }
 
@@ -542,7 +718,8 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
             @Nonnull UICommandBuilder commandBuilder,
             @Nonnull UIEventBuilder eventBuilder,
             @Nonnull ItemContainer inventory,
-            @Nonnull MghgShopConfig.ShopItem item
+            @Nonnull MghgShopConfig.ShopItem item,
+            double sellMultiplier
     ) {
         commandBuilder.clear(ROOT + " #SellGridSlots");
         renderedSellInventorySlots.clear();
@@ -575,7 +752,7 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
 
             renderedSellInventorySlots.add((int) invSlot);
             MghgCropMeta meta = stack.getFromMetadataOrNull(MghgCropMeta.KEY);
-            double unit = MghgShopPricing.computeUnitSellPrice(item, meta);
+            double unit = MghgShopPricing.computeUnitSellPrice(item, meta) * sanitizeMultiplier(sellMultiplier);
             double total = unit * qty;
             double sizeMultiplier = meta == null ? 1.0d : MghgShopPricing.computeSizeMultiplier(item, meta.getSize());
             boolean selected = selectedSellInventorySlots.contains((int) invSlot);
@@ -625,15 +802,15 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
         root.insert(Message.raw(itemName + " x" + Math.max(1, quantity)).bold(true).color("#f6fbff"));
         root.insert("\n");
         root.insert("\n");
-        root.insert(Message.raw("Unit value: ").color("#f2d896"));
+        root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.sell.unit", "Unit value: ")).color("#f2d896"));
         root.insert(Message.raw("$" + formatMoney(unitPrice)).bold(true).color("#ffffff"));
         root.insert("\n");
-        root.insert(Message.raw("Stack value: ").color("#f2d896"));
+        root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.sell.stack", "Stack value: ")).color("#f2d896"));
         root.insert(Message.raw("$" + formatMoney(totalPrice)).bold(true).color("#ffffff"));
         if (meta == null) {
             root.insert("\n");
             root.insert("\n");
-            root.insert(Message.raw("No crop metadata.").color("#9fb6d1"));
+            root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.sell.no_meta", "No crop metadata.")).color("#9fb6d1"));
             return root;
         }
 
@@ -654,28 +831,32 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
 
         root.insert("\n");
         root.insert("\n");
-        root.insert(Message.raw("Multipliers").bold(true).color("#f2d896"));
+        root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.sell.multipliers", "Multipliers")).bold(true).color("#f2d896"));
         root.insert("\n");
-        root.insert(Message.raw("Size: ").color("#9fb6d1"));
+        root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.sell.size", "Size: ")).color("#9fb6d1"));
         root.insert(Message.raw(Integer.toString(meta.getSize()) + " ").color("#d7e5f7"));
         root.insert(Message.raw("(x" + formatMoney(sizeMultiplier) + ")").color(MghgMutationUiPalette.colorForMultiplier(sizeMultiplier)));
         root.insert("\n");
-        root.insert(Message.raw("Climate: ").color("#9fb6d1"));
+        root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.sell.climate", "Climate: ")).color("#9fb6d1"));
         root.insert(Message.raw(climateName + " ").color(climateNameColor));
         root.insert(Message.raw("(x" + formatMoney(climate) + ")").color(MghgMutationUiPalette.colorForMultiplier(climate)));
         root.insert("\n");
-        root.insert(Message.raw("Lunar: ").color("#9fb6d1"));
+        root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.sell.lunar", "Lunar: ")).color("#9fb6d1"));
         root.insert(Message.raw(lunarName + " ").color(lunarNameColor));
         root.insert(Message.raw("(x" + formatMoney(lunar) + ")").color(MghgMutationUiPalette.colorForMultiplier(lunar)));
         root.insert("\n");
-        root.insert(Message.raw("Rarity: ").color("#9fb6d1"));
+        root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.sell.rarity", "Rarity: ")).color("#9fb6d1"));
         root.insert(Message.raw(rarityName + " ").color(rarityNameColor));
         root.insert(Message.raw("(x" + formatMoney(rarity) + ")").color(MghgMutationUiPalette.colorForMultiplier(rarity)));
         root.insert("\n");
         root.insert("\n");
-        root.insert(Message.raw("Formula").bold(true).color("#f2d896"));
+        root.insert(Message.raw(tr(playerRef, "mghg.shop.tooltip.sell.formula", "Formula")).bold(true).color("#f2d896"));
         root.insert("\n");
-        root.insert(Message.raw("Base x Size x Climate x Lunar x Rarity").color("#9fb6d1"));
+        root.insert(Message.raw(tr(
+                playerRef,
+                "mghg.shop.tooltip.sell.formula_tokens",
+                "Base x Size x Climate x Lunar x Rarity"
+        )).color("#9fb6d1"));
         root.insert("\n");
         root.insert(Message.raw(
                 "$" + formatMoney(base)
@@ -701,10 +882,9 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
         return Math.max(0.0d, value);
     }
 
-    private static void renderDetail(
+    private void renderDetail(
             @Nonnull UICommandBuilder commandBuilder,
-            @Nonnull MghgShopConfig.ShopItem item,
-            @Nullable PlayerRef playerRef
+            @Nonnull MghgShopConfig.ShopItem item
     ) {
         String[] sellIds = item.resolveSellItemIds();
         String[] sellNames = new String[sellIds.length];
@@ -716,49 +896,56 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
             sellText = sellText.substring(0, 120) + "...";
         }
 
-        commandBuilder.set(ROOT + " #DetailTitle.Text", "Pricing details: " + resolveItemDisplayName(item.resolveBuyItemId(), playerRef));
+        commandBuilder.set(
+                ROOT + " #DetailTitle.Text",
+                tf("mghg.shop.ui.detail.title", "Pricing guide: %s", resolveItemDisplayName(item.resolveBuyItemId(), playerRef))
+        );
         commandBuilder.set(
                 ROOT + " #DetailLine1.Text",
-                String.format(
-                        Locale.ROOT,
-                        "Buy item: %s  |  Price: $%s",
-                        resolveItemDisplayName(safeText(item.resolveBuyItemId(), "-"), playerRef),
+                tf(
+                        "mghg.shop.ui.detail.line_buy",
+                        "Buy this seed for $%s each.",
                         formatMoney(item.getBuyPrice())
                 )
         );
-        commandBuilder.set(ROOT + " #DetailLine2.Text", "Sell targets: " + sellText);
+        commandBuilder.set(
+                ROOT + " #DetailLine2.Text",
+                tf("mghg.shop.ui.detail.line_targets", "You can sell: %s.", sellText)
+        );
         commandBuilder.set(
                 ROOT + " #DetailLine3.Text",
-                String.format(
-                        Locale.ROOT,
-                        "Base sell: $%s  |  Meta pricing: %s",
-                        formatMoney(item.getSellPrice()),
-                        item.isEnableMetaSellPricing() ? "ON" : "OFF"
+                tr(
+                        item.isEnableMetaSellPricing()
+                                ? "mghg.shop.ui.detail.line_dynamic_on"
+                                : "mghg.shop.ui.detail.line_dynamic_off",
+                        item.isEnableMetaSellPricing()
+                                ? "Dynamic pricing enabled: size, climate, lunar and rarity can modify sell value."
+                                : "Dynamic pricing disabled: all crops sell at base value."
                 )
         );
         commandBuilder.set(
                 ROOT + " #DetailLine4.Text",
-                "Formula: Unit = Base x Size x Climate x Lunar x Rarity"
+                tf("mghg.shop.ui.detail.line_base", "Base sell value: $%s per crop.", formatMoney(item.getSellPrice()))
         );
         commandBuilder.set(
                 ROOT + " #DetailLine5.Text",
-                String.format(
-                        Locale.ROOT,
-                        "Size x curve: size %.0f -> x%s, size %.0f -> x%s",
-                        item.getSellSizeMultiplierMinSize(),
+                tf(
+                        "mghg.shop.ui.detail.line_size_range",
+                        "Size factor: x%s at %s size, up to x%s at %s size.",
                         formatMoney(item.getSellSizeMultiplierAtMin()),
-                        item.getSellSizeMultiplierMaxSize(),
-                        formatMoney(item.getSellSizeMultiplierAtMax())
+                        formatMoney(item.getSellSizeMultiplierMinSize()),
+                        formatMoney(item.getSellSizeMultiplierAtMax()),
+                        formatMoney(item.getSellSizeMultiplierMaxSize())
                 )
         );
         commandBuilder.set(
                 ROOT + " #DetailLine6.Text",
-                "Hover sell items to view exact multipliers and final unit value."
+                tr("mghg.shop.ui.detail.line_tip", "Tip: hover crop slots in Sell tab to see exact final pricing.")
         );
     }
 
-    private static void clearDetail(@Nonnull UICommandBuilder commandBuilder) {
-        commandBuilder.set(ROOT + " #DetailTitle.Text", "Item Details");
+    private void clearDetail(@Nonnull UICommandBuilder commandBuilder) {
+        commandBuilder.set(ROOT + " #DetailTitle.Text", tr("mghg.shop.ui.detail.empty", "Select a seed to view pricing details."));
         commandBuilder.set(ROOT + " #DetailLine1.Text", "");
         commandBuilder.set(ROOT + " #DetailLine2.Text", "");
         commandBuilder.set(ROOT + " #DetailLine3.Text", "");
@@ -788,20 +975,50 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
         if (itemId == null || itemId.isBlank()) {
             return null;
         }
-        //LOGGER.atInfo().log(itemId);
-        /*String raw = itemId.trim();
+        String raw = itemId.trim();
+        if (raw.charAt(0) == '*') {
+            raw = raw.substring(1);
+        }
         int idx = raw.indexOf("_State_");
         if (idx > 0) {
-            return raw.charAt(0) == '*' ? (idx > 1 ? raw.substring(1, idx) : null) : raw.substring(0, idx);
+            raw = raw.substring(0, idx);
         }
-        return raw.charAt(0) == '*' ? raw.substring(1) : raw;
-        */
-        return itemId.trim();
+        return raw;
     }
 
     private static String safeDisplayItemId(@Nullable String itemId) {
         String normalized = normalizeItemId(itemId);
         return normalized == null ? "unknown" : normalized;
+    }
+
+    private @Nonnull String tr(@Nonnull String key, @Nonnull String fallback) {
+        return tr(playerRef, key, fallback);
+    }
+
+    private @Nonnull String tf(@Nonnull String key, @Nonnull String fallback, Object... args) {
+        return tf(playerRef, key, fallback, args);
+    }
+
+    private static @Nonnull String tr(@Nullable PlayerRef playerRef, @Nonnull String key, @Nonnull String fallback) {
+        String translated = translateKey(playerRef, key);
+        if (translated.equals(key) || translated.equals(LANG_PREFIX + key) || translated.isBlank()) {
+            return fallback;
+        }
+        return translated;
+    }
+
+    private static @Nonnull String tf(
+            @Nullable PlayerRef playerRef,
+            @Nonnull String key,
+            @Nonnull String fallback,
+            Object... args
+    ) {
+        String template = tr(playerRef, key, fallback);
+        try {
+            return String.format(Locale.ROOT, template, args);
+        } catch (Exception ignored) {
+            return String.format(Locale.ROOT, fallback, args);
+        }
     }
 
     private static String resolveMutationDisplay(
@@ -917,6 +1134,13 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
         return String.format(Locale.ROOT, "%.2f", Math.max(0.0d, value));
     }
 
+    private static double sanitizeMultiplier(double value) {
+        if (Double.isNaN(value) || Double.isInfinite(value)) {
+            return 1.0d;
+        }
+        return Math.max(0.0d, value);
+    }
+
     private static int parseSlot(@Nullable String input) {
         if (input == null || input.isBlank()) {
             return -1;
@@ -936,14 +1160,6 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
             return data.index;
         }
         return parseSlot(data.slot);
-    }
-
-    private static String compactStatus(@Nonnull String input) {
-        String value = input.trim().replace('\n', ' ');
-        if (value.length() <= 96) {
-            return value;
-        }
-        return value.substring(0, 96) + "...";
     }
 
     private static String normalize(@Nullable String value) {
@@ -992,5 +1208,10 @@ public final class MghgFarmShopPage extends InteractiveCustomUIPage<MghgFarmShop
         private String slot;
         private Integer slotIndex;
         private Integer index;
+    }
+
+    private enum ShopTab {
+        BUY,
+        SELL
     }
 }

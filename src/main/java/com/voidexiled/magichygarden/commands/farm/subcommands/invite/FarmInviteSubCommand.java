@@ -16,7 +16,7 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelAccess;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelInviteService;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelRole;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.UUID;
 
@@ -34,11 +34,11 @@ public class FarmInviteSubCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         MghgPlayerNameManager.remember(playerRef);
         String rawTarget = playerArg.get(ctx);
@@ -84,7 +84,7 @@ public class FarmInviteSubCommand extends AbstractPlayerCommand {
         ));
     }
 
-    private static String resolveOwnerName(@NonNull MghgParcel parcel) {
+    private static String resolveOwnerName(@Nonnull MghgParcel parcel) {
         PlayerRef ownerRef = com.hypixel.hytale.server.core.universe.Universe.get()
                 .getPlayer(parcel.getOwner());
         if (ownerRef != null && ownerRef.getUsername() != null && !ownerRef.getUsername().isBlank()) {

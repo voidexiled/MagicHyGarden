@@ -10,7 +10,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopConfig;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
@@ -21,11 +21,11 @@ public class FarmStockCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         MghgShopConfig.ShopItem[] items = MghgShopStockManager.getConfiguredItems();
         if (items.length == 0) {

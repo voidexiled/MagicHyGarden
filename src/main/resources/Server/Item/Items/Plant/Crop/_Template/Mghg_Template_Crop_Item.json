@@ -52,7 +52,7 @@
         "Weight": 1
       }
     ],
-    "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
+    "CustomModel": "Resources/Plants/Cabbage_flat.blockymodel",
     "Opacity": "Transparent",
     "BlockParticleSetId": "Flower",
     "RandomRotation": "YawStep1",

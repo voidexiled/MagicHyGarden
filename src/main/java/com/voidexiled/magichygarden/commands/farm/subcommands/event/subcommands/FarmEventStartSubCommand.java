@@ -14,7 +14,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.commands.farm.subcommands.event.shared.FarmEventCommandShared;
 import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
 import com.voidexiled.magichygarden.features.farming.state.MutationEventType;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 public class FarmEventStartSubCommand extends AbstractPlayerCommand {
     private final RequiredArg<String> typeArg;
@@ -46,11 +46,11 @@ public class FarmEventStartSubCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext commandContext,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> ref,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext commandContext,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> ref,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         MutationEventType type = FarmEventCommandShared.parseEventType(typeArg.get(commandContext));
         if (type == MutationEventType.ANY) {

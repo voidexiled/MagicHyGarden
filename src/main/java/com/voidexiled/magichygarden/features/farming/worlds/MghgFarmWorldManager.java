@@ -466,17 +466,20 @@ public final class MghgFarmWorldManager {
     }
 
     public static Transform resolveSafeSurfaceSpawn(World world, Transform preferred) {
+        LOGGER.atSevere().log("ResolveSafeSurfaceSpawn - 1");
         int centerX = (int) Math.floor(preferred.getPosition().x);
         int centerZ = (int) Math.floor(preferred.getPosition().z);
         Vector3f rotation = preferred.getRotation();
+        LOGGER.atSevere().log("ResolveSafeSurfaceSpawn - 2");
         int fallbackY = clampY((int) Math.floor(preferred.getPosition().y));
 
         int bestX = centerX;
         int bestZ = centerZ;
         int bestDistance = Integer.MAX_VALUE;
         int bestY = Integer.MIN_VALUE;
+        LOGGER.atSevere().log("ResolveSafeSurfaceSpawn - 3");
 
-        for (int radius = 0; radius <= SAFE_SPAWN_SEARCH_RADIUS_BLOCKS; radius++) {
+        /*for (int radius = 0; radius <= SAFE_SPAWN_SEARCH_RADIUS_BLOCKS; radius++) {
             for (int dx = -radius; dx <= radius; dx++) {
                 for (int dz = -radius; dz <= radius; dz++) {
                     if (Math.max(Math.abs(dx), Math.abs(dz)) != radius) {
@@ -500,10 +503,14 @@ public final class MghgFarmWorldManager {
             if (bestY != Integer.MIN_VALUE) {
                 break;
             }
-        }
+        }*/
+        LOGGER.atSevere().log("ResolveSafeSurfaceSpawn - 4");
 
         int resolvedY = bestY == Integer.MIN_VALUE ? fallbackY : bestY;
-        return new Transform(new Vector3d(bestX + 0.5, resolvedY, bestZ + 0.5), rotation);
+        LOGGER.atSevere().log("ResolveSafeSurfaceSpawn - 5");
+        //return new Transform(new Vector3d(bestX + 0.5, resolvedY, bestZ + 0.5), rotation);
+        // TODO: SOLVE THIS
+        return new Transform(new Vector3d(0, 3, 0), rotation);
     }
 
     private static Transform resolveRawSpawn(World world, UUID owner) {

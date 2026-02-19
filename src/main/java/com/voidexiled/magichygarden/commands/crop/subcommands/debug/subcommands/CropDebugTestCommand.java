@@ -11,7 +11,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 public class CropDebugTestCommand extends AbstractPlayerCommand {
     public CropDebugTestCommand() {
@@ -19,11 +19,11 @@ public class CropDebugTestCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
         ItemStack base = new ItemStack("Plant_Crop_Lettuce_Item");
         ItemStack rain = base.withState("mghg_rain")
                 .withMetadata(MghgCropMeta.KEY, MghgCropMeta.fromCropData(77, "RAIN", "NONE", 0.0));

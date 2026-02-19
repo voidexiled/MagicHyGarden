@@ -25,7 +25,7 @@
     "DrawType": "Model",
     "HitboxType": "Food_Medium",
     "CustomModel": "Resources/Ingredients/Cabbage.blockymodel",
-    "CustomModelScale": 0.7,
+    "CustomModelScale": 1,
     "CustomModelTexture": [
       {
         "Texture": "Resources/Ingredients/Cabbage_Lettuce.png",
@@ -61,7 +61,8 @@
           "Rarity": "None"
         }
       }
-    }
+    },
+    "Opacity": "Solid"
   },
   "DropOnDeath": true,
   "State": {

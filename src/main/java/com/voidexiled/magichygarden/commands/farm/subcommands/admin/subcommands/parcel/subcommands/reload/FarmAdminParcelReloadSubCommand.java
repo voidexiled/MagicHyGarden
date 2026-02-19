@@ -9,7 +9,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 public class FarmAdminParcelReloadSubCommand extends AbstractPlayerCommand {
     public FarmAdminParcelReloadSubCommand() {
@@ -17,15 +17,15 @@ public class FarmAdminParcelReloadSubCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
         handleParcelReload(commandContext);
     }
 
-    private static void handleParcelReload(@NonNull CommandContext ctx) {
+    private static void handleParcelReload(@Nonnull CommandContext ctx) {
         MghgParcelManager.load();
         ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Parcel store recargado desde disco."));
     }

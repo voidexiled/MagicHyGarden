@@ -14,7 +14,7 @@ import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventSchedul
 import com.voidexiled.magichygarden.features.farming.events.MghgGlobalFarmEventState;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.time.Instant;
 import java.util.Locale;
@@ -26,15 +26,15 @@ public class FarmAdminStatusSubCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
         sendStatus(commandContext);
     }
 
-    private static void sendStatus(@NonNull CommandContext ctx) {
+    private static void sendStatus(@Nonnull CommandContext ctx) {
         Universe universe = Universe.get();
         int totalWorlds = 0;
         int farmWorlds = 0;

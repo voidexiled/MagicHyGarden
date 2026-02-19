@@ -14,7 +14,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.items.MghgCropMeta;
 import org.bson.BsonDocument;
 import org.bson.BsonValue;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 public class CropDebugHeldCommand extends AbstractPlayerCommand {
 
     public CropDebugHeldCommand() {
@@ -22,11 +22,11 @@ public class CropDebugHeldCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext ctx,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext ctx,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
 
         Player player = store.getComponent(ref, Player.getComponentType());
         if (player == null) {

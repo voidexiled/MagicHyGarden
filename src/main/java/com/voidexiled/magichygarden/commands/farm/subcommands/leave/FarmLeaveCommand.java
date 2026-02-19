@@ -15,7 +15,7 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelAccess;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelRole;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -38,11 +38,11 @@ public class FarmLeaveCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         MghgPlayerNameManager.remember(playerRef);
         UUID playerId = playerRef.getUuid();
@@ -84,7 +84,7 @@ public class FarmLeaveCommand extends AbstractPlayerCommand {
         }
     }
 
-    private static void leaveFromOwner(@NonNull CommandContext ctx, @NonNull UUID playerId, @NonNull UUID ownerId) {
+    private static void leaveFromOwner(@Nonnull CommandContext ctx, @Nonnull UUID playerId, @Nonnull UUID ownerId) {
         MghgParcel parcel = MghgParcelManager.getByOwner(ownerId);
         if (parcel == null) {
             ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No existe una granja para ese owner."));
@@ -97,12 +97,12 @@ public class FarmLeaveCommand extends AbstractPlayerCommand {
         applyLeave(ctx, parcel, playerId);
     }
 
-    private static boolean canLeaveRole(@NonNull MghgParcel parcel, @NonNull UUID playerId) {
+    private static boolean canLeaveRole(@Nonnull MghgParcel parcel, @Nonnull UUID playerId) {
         MghgParcelRole role = MghgParcelAccess.resolveRole(parcel, playerId);
         return role == MghgParcelRole.MEMBER || role == MghgParcelRole.MANAGER;
     }
 
-    private static void applyLeave(@NonNull CommandContext ctx, @NonNull MghgParcel parcel, @NonNull UUID playerId) {
+    private static void applyLeave(@Nonnull CommandContext ctx, @Nonnull MghgParcel parcel, @Nonnull UUID playerId) {
         boolean removed = parcel.removeMember(playerId);
         if (!removed) {
             ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No se pudo salir de la granja."));
@@ -112,11 +112,11 @@ public class FarmLeaveCommand extends AbstractPlayerCommand {
         ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Saliste de la granja de " + resolveName(parcel.getOwner()) + "."));
     }
 
-    private static @Nullable UUID resolveOwner(@NonNull String rawOwner) {
+    private static @Nullable UUID resolveOwner(@Nonnull String rawOwner) {
         return MghgPlayerNameManager.resolveUuid(rawOwner);
     }
 
-    private static List<MghgParcel> resolveMemberships(@NonNull UUID playerId) {
+    private static List<MghgParcel> resolveMemberships(@Nonnull UUID playerId) {
         List<MghgParcel> result = new ArrayList<>();
         for (MghgParcel parcel : MghgParcelManager.all()) {
             if (parcel == null || parcel.getOwner() == null || playerId.equals(parcel.getOwner())) {
@@ -129,7 +129,7 @@ public class FarmLeaveCommand extends AbstractPlayerCommand {
         return result;
     }
 
-    private static String resolveName(@NonNull UUID owner) {
+    private static String resolveName(@Nonnull UUID owner) {
         return MghgPlayerNameManager.resolve(owner);
     }
 

@@ -14,7 +14,7 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
 import com.voidexiled.magichygarden.features.farming.storage.MghgStoragePaths;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.nio.file.Path;
 
@@ -25,15 +25,15 @@ public class FarmAdminPathsSubCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
         sendPaths(commandContext);
     }
 
-    private static void sendPaths(@NonNull CommandContext ctx) {
+    private static void sendPaths(@Nonnull CommandContext ctx) {
         Path root = MghgStoragePaths.dataRoot();
         Path parcelDir = MghgParcelManager.getStoreDirectory();
         Path invitePath = MghgParcelInviteService.getStorePath();

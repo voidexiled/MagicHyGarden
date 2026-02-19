@@ -14,7 +14,7 @@ import com.voidexiled.magichygarden.commands.farm.subcommands.event.shared.FarmE
 import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventConfig;
 import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
 import com.voidexiled.magichygarden.features.farming.state.MutationEventType;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 public class FarmEventListSubCommand extends AbstractPlayerCommand {
     private final DefaultArg<String> typeArg;
@@ -32,11 +32,11 @@ public class FarmEventListSubCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext commandContext,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> ref,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext commandContext,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> ref,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         MutationEventType type = FarmEventCommandShared.parseEventType(typeArg.get(commandContext));
         MghgFarmEventConfig cfg = MghgFarmEventScheduler.getConfig();

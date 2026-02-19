@@ -13,7 +13,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.commands.farm.subcommands.event.shared.FarmEventCommandShared;
 import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventScheduler;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
@@ -39,11 +39,11 @@ public class FarmEventGrowthSubCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext commandContext,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> ref,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext commandContext,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> ref,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         String ownerOfflineToken = FarmEventCommandShared.raw(ownerOfflineArg.get(commandContext));
         if ("reset".equals(FarmEventCommandShared.normalize(ownerOfflineToken))) {

@@ -3,7 +3,7 @@ package com.voidexiled.magichygarden.commands.farm.subcommands.admin.shared;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
@@ -17,7 +17,7 @@ public final class FarmAdminCommandShared {
         return value == null || value.isBlank();
     }
 
-    public static @Nullable UUID resolveUuid(@NonNull PlayerRef executor, @Nullable String token) {
+    public static @Nullable UUID resolveUuid(@Nonnull PlayerRef executor, @Nullable String token) {
         if (isBlank(token) || "self".equals(normalize(token))) {
             return executor.getUuid();
         }

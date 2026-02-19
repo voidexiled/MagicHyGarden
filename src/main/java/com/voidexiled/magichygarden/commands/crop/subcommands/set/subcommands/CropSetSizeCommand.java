@@ -23,7 +23,7 @@ import com.voidexiled.magichygarden.features.farming.components.MghgCropData;
 import com.voidexiled.magichygarden.features.farming.logic.MghgCropDataAccess;
 import com.voidexiled.magichygarden.features.farming.logic.MghgWeightUtil;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 public class CropSetSizeCommand extends AbstractPlayerCommand {
     private final DefaultArg<Integer> valueArg;
@@ -42,11 +42,11 @@ public class CropSetSizeCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         int size = valueArg.get(ctx);
 

@@ -23,7 +23,7 @@ import com.voidexiled.magichygarden.features.farming.events.MghgFarmEventSchedul
 import com.voidexiled.magichygarden.features.farming.logic.MghgCropDataSeeder;
 import com.voidexiled.magichygarden.features.farming.logic.MghgGrowthTimeUtil;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import javax.annotation.Nonnull;
 import java.time.Instant;
@@ -120,10 +120,10 @@ public class MghgOnFarmBlockAddedSystem extends RefSystem<ChunkStore> {
     }
 
     @Override
-    public void onEntityRemove(@NonNull Ref<ChunkStore> ref,
-                               @NonNull RemoveReason removeReason,
-                               @NonNull Store<ChunkStore> store,
-                               @NonNull CommandBuffer<ChunkStore> commandBuffer) {
+    public void onEntityRemove(@Nonnull Ref<ChunkStore> ref,
+                               @Nonnull RemoveReason removeReason,
+                               @Nonnull Store<ChunkStore> store,
+                               @Nonnull CommandBuffer<ChunkStore> commandBuffer) {
         if (commandBuffer.getExternalData() == null || commandBuffer.getExternalData().getWorld() == null) {
             return;
         }

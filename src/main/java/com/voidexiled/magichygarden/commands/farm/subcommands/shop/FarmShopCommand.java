@@ -24,7 +24,7 @@ import com.voidexiled.magichygarden.features.farming.tooltips.MghgDynamicTooltip
 import com.voidexiled.magichygarden.features.farming.ui.MghgFarmShopPage;
 import com.voidexiled.magichygarden.features.farming.ui.MghgFarmShopPageV2;
 import com.voidexiled.magichygarden.features.farming.ui.MghgFarmShopHud;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
@@ -51,11 +51,11 @@ public class FarmShopCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         String action = normalize(actionArg.get(ctx));
         if ("close".equals(action) || "hide".equals(action)) {
@@ -122,10 +122,10 @@ public class FarmShopCommand extends AbstractPlayerCommand {
     }
 
     public static @Nullable String openHudForPlayer(
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         String accessError = com.voidexiled.magichygarden.features.farming.shop.MghgShopAccessPolicy
                 .validateTransactionContext(store, playerEntityRef, playerRef, world);
@@ -149,19 +149,19 @@ public class FarmShopCommand extends AbstractPlayerCommand {
     }
 
     public static void refreshHudForPlayer(
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         refreshHudForPlayer(store, playerEntityRef, playerRef, world, true);
     }
 
     public static void refreshHudForPlayer(
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world,
             boolean fullPageRefresh
     ) {
         Player player = store.getComponent(playerEntityRef, Player.getComponentType());
@@ -207,7 +207,7 @@ public class FarmShopCommand extends AbstractPlayerCommand {
         );
     }
 
-    private static void sendTextView(@NonNull CommandContext ctx, double balance, long remaining, @NonNull String[] lines) {
+    private static void sendTextView(@Nonnull CommandContext ctx, double balance, long remaining, @Nonnull String[] lines) {
         ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(String.format(
                 Locale.ROOT,
                 "Farm Shop | balance=$%.2f | nextRestock=%s",
@@ -223,11 +223,11 @@ public class FarmShopCommand extends AbstractPlayerCommand {
     }
 
     private static void showHud(
-            @NonNull PlayerRef playerRef,
-            @NonNull Player player,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull Player player,
             double balance,
             long remaining,
-            @NonNull String[] lines
+            @Nonnull String[] lines
     ) {
         HudManager hudManager = player.getHudManager();
         CustomUIHud current = hudManager.getCustomHud();
@@ -245,9 +245,9 @@ public class FarmShopCommand extends AbstractPlayerCommand {
     }
 
     public static void closeHudForPlayer(
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef
     ) {
         closeLegacyHudForPlayer(store, playerEntityRef, playerRef);
         MghgFarmShopPage.closeForPlayer(store, playerEntityRef);
@@ -255,9 +255,9 @@ public class FarmShopCommand extends AbstractPlayerCommand {
     }
 
     public static void closeLegacyHudForPlayer(
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef
     ) {
         Player player = store.getComponent(playerEntityRef, Player.getComponentType());
         if (player == null) {
@@ -271,8 +271,8 @@ public class FarmShopCommand extends AbstractPlayerCommand {
     }
 
     private static String[] buildLines(
-            @NonNull PlayerRef playerRef,
-            @NonNull ItemContainer inventory,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull ItemContainer inventory,
             MghgShopConfig.ShopItem[] items
     ) {
         String[] lines = new String[MAX_LINES];
@@ -304,7 +304,7 @@ public class FarmShopCommand extends AbstractPlayerCommand {
         return lines;
     }
 
-    private static int countSellable(@NonNull ItemContainer inventory, @NonNull String[] sellIds) {
+    private static int countSellable(@Nonnull ItemContainer inventory, @Nonnull String[] sellIds) {
         int total = 0;
         short capacity = inventory.getCapacity();
         for (short slot = 0; slot < capacity; slot++) {
@@ -320,7 +320,7 @@ public class FarmShopCommand extends AbstractPlayerCommand {
         return total;
     }
 
-    private static double estimateSellValue(@NonNull ItemContainer inventory, MghgShopConfig.ShopItem item) {
+    private static double estimateSellValue(@Nonnull ItemContainer inventory, MghgShopConfig.ShopItem item) {
         String[] sellIds = item.resolveSellItemIds();
         double total = 0.0d;
         short capacity = inventory.getCapacity();
@@ -339,7 +339,7 @@ public class FarmShopCommand extends AbstractPlayerCommand {
         return total;
     }
 
-    private static boolean matchesSellItem(@NonNull ItemStack stack, @NonNull String[] acceptedItemIds) {
+    private static boolean matchesSellItem(@Nonnull ItemStack stack, @Nonnull String[] acceptedItemIds) {
         String current = normalizeItemId(stack.getItemId());
         for (String accepted : acceptedItemIds) {
             String normalizedAccepted = normalizeItemId(accepted);

@@ -20,7 +20,7 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelBounds;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -41,11 +41,11 @@ public class FarmVisitSubCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         MghgPlayerNameManager.remember(playerRef);
         String rawOwner = normalize(ownerArg.get(ctx));
@@ -97,11 +97,11 @@ public class FarmVisitSubCommand extends AbstractPlayerCommand {
                 });
     }
 
-    private static @Nullable UUID resolveOwner(@NonNull String rawOwner) {
+    private static @Nullable UUID resolveOwner(@Nonnull String rawOwner) {
         return MghgPlayerNameManager.resolveUuid(rawOwner);
     }
 
-    private static @NonNull String resolveName(@NonNull UUID owner, @Nullable PlayerRef ref) {
+    private static @Nonnull String resolveName(@Nonnull UUID owner, @Nullable PlayerRef ref) {
         if (ref != null && ref.getUsername() != null && !ref.getUsername().isBlank()) {
             MghgPlayerNameManager.remember(ref);
             return ref.getUsername();
@@ -109,7 +109,7 @@ public class FarmVisitSubCommand extends AbstractPlayerCommand {
         return MghgPlayerNameManager.resolve(owner);
     }
 
-    private static @NonNull String normalize(@Nullable String raw) {
+    private static @Nonnull String normalize(@Nullable String raw) {
         if (raw == null) {
             return "";
         }

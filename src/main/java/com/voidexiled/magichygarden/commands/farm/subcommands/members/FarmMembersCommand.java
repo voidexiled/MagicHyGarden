@@ -12,7 +12,7 @@ import com.voidexiled.magichygarden.commands.farm.FarmParcelCommandUtil;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcel;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelMember;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.UUID;
 
@@ -23,11 +23,11 @@ public class FarmMembersCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         MghgPlayerNameManager.remember(playerRef);
         MghgParcel parcel = FarmParcelCommandUtil.resolveManagedParcel(playerRef.getUuid(), world);
@@ -53,7 +53,7 @@ public class FarmMembersCommand extends AbstractPlayerCommand {
         }
     }
 
-    private static String resolveName(@NonNull UUID playerUuid) {
+    private static String resolveName(@Nonnull UUID playerUuid) {
         return MghgPlayerNameManager.resolve(playerUuid);
     }
 }

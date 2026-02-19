@@ -11,7 +11,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.commands.farm.subcommands.admin.shared.FarmAdminCommandShared;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,15 +26,15 @@ public class FarmAdminWorldStatusSubCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
         sendWorldStatus(commandContext);
     }
 
-    private static void sendWorldStatus(@NonNull CommandContext ctx) {
+    private static void sendWorldStatus(@Nonnull CommandContext ctx) {
         Universe universe = Universe.get();
         if (universe == null) {
             ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Universe no disponible."));

@@ -26,7 +26,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.TargetUtil;
 import com.voidexiled.magichygarden.features.farming.registry.MghgCropRegistry;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 public class CropGrowCommand extends AbstractPlayerCommand {
 
@@ -46,11 +46,11 @@ public class CropGrowCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> playerEntityRef,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> playerEntityRef,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
         int percent = percentArg.get(commandContext);
         if (percent < 0) percent = 0;
         if (percent > 100) percent = 100;

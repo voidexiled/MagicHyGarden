@@ -11,7 +11,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopUiLogManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 public final class FarmLogCommand extends AbstractPlayerCommand {
     private static final int DEFAULT_LIMIT = 30;
@@ -40,11 +40,11 @@ public final class FarmLogCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         String action = normalize(actionArg.get(ctx));
         if ("clear".equals(action)) {

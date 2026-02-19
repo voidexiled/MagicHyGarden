@@ -10,7 +10,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.commands.farm.subcommands.admin.subcommands.parcel.subcommands.info.shared.FarmAdminParcelInfoShared;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 public class FarmAdminParcelInfoOtherVariantCommand extends AbstractPlayerCommand {
     private final RequiredArg<PlayerRef> targetPlayerRefArg;
@@ -26,11 +26,11 @@ public class FarmAdminParcelInfoOtherVariantCommand extends AbstractPlayerComman
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
         PlayerRef targetPlayerRef = commandContext.get(this.targetPlayerRefArg);
 
         FarmAdminParcelInfoShared.handleParcelInfo(

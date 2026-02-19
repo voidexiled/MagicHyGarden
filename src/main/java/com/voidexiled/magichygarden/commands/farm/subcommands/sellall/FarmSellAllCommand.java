@@ -22,7 +22,7 @@ import com.voidexiled.magichygarden.features.farming.shop.MghgShopConfig;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopPricing;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -44,11 +44,11 @@ public class FarmSellAllCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         MghgPlayerNameManager.remember(playerRef);
         String accessError = MghgShopAccessPolicy.validateTransactionContext(store, playerEntityRef, playerRef, world);
@@ -115,7 +115,7 @@ public class FarmSellAllCommand extends AbstractPlayerCommand {
         FarmShopCommand.refreshHudForPlayer(store, playerEntityRef, playerRef, world);
     }
 
-    private static MghgShopConfig.ShopItem[] resolveSellTargets(@NonNull String selector) {
+    private static MghgShopConfig.ShopItem[] resolveSellTargets(@Nonnull String selector) {
         if ("all".equals(selector)) {
             ArrayList<MghgShopConfig.ShopItem> list = new ArrayList<>();
             for (MghgShopConfig.ShopItem item : MghgShopStockManager.getConfiguredItems()) {
@@ -136,9 +136,9 @@ public class FarmSellAllCommand extends AbstractPlayerCommand {
     }
 
     private static SellResult sellAllForItem(
-            @NonNull ItemContainer inventory,
+            @Nonnull ItemContainer inventory,
             MghgShopConfig.ShopItem item,
-            @NonNull ArrayList<ItemStack> rollbackStacks
+            @Nonnull ArrayList<ItemStack> rollbackStacks
     ) {
         String[] sellItemIds = item.resolveSellItemIds();
         if (sellItemIds.length == 0) {
@@ -179,7 +179,7 @@ public class FarmSellAllCommand extends AbstractPlayerCommand {
         return units <= 0 ? SellResult.empty() : SellResult.success(units, gain);
     }
 
-    private static boolean matchesSellItem(@NonNull ItemStack stack, @NonNull String[] acceptedItemIds) {
+    private static boolean matchesSellItem(@Nonnull ItemStack stack, @Nonnull String[] acceptedItemIds) {
         String current = normalizeItemId(stack.getItemId());
         for (String accepted : acceptedItemIds) {
             String normalizedAccepted = normalizeItemId(accepted);
@@ -208,7 +208,7 @@ public class FarmSellAllCommand extends AbstractPlayerCommand {
         return raw;
     }
 
-    private static void rollbackSell(@NonNull ItemContainer inventory, @NonNull ArrayList<ItemStack> rollbackStacks) {
+    private static void rollbackSell(@Nonnull ItemContainer inventory, @Nonnull ArrayList<ItemStack> rollbackStacks) {
         for (ItemStack stack : rollbackStacks) {
             if (ItemStack.isEmpty(stack)) {
                 continue;

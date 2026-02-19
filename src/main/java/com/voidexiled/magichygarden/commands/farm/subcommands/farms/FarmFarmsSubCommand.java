@@ -13,7 +13,7 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelAccess;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelRole;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.UUID;
 
@@ -24,11 +24,11 @@ public class FarmFarmsSubCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         MghgPlayerNameManager.remember(playerRef);
         UUID self = playerRef.getUuid();
@@ -64,7 +64,7 @@ public class FarmFarmsSubCommand extends AbstractPlayerCommand {
         ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Total granjas donde eres miembro: " + memberships));
     }
 
-    private static String resolveName(@NonNull UUID playerUuid) {
+    private static String resolveName(@Nonnull UUID playerUuid) {
         return MghgPlayerNameManager.resolve(playerUuid);
     }
 }

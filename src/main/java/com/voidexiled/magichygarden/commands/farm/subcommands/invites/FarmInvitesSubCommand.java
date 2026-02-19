@@ -9,7 +9,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelInviteService;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.time.Instant;
 import java.util.List;
@@ -21,11 +21,11 @@ public class FarmInvitesSubCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         List<MghgParcelInviteService.Invite> pending = MghgParcelInviteService.getPending(playerRef.getUuid());
         if (pending.isEmpty()) {

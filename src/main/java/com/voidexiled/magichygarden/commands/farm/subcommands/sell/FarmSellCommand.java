@@ -24,7 +24,7 @@ import com.voidexiled.magichygarden.features.farming.shop.MghgShopConfig;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopPricing;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -52,11 +52,11 @@ public class FarmSellCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         MghgPlayerNameManager.remember(playerRef);
         String accessError = MghgShopAccessPolicy.validateTransactionContext(store, playerEntityRef, playerRef, world);
@@ -139,7 +139,7 @@ public class FarmSellCommand extends AbstractPlayerCommand {
         FarmShopCommand.refreshHudForPlayer(store, playerEntityRef, playerRef, world);
     }
 
-    private static int countFound(@NonNull ItemContainer inventory, @NonNull String[] sellItemIds) {
+    private static int countFound(@Nonnull ItemContainer inventory, @Nonnull String[] sellItemIds) {
         int found = 0;
         short capacity = inventory.getCapacity();
         for (short slot = 0; slot < capacity; slot++) {
@@ -156,8 +156,8 @@ public class FarmSellCommand extends AbstractPlayerCommand {
     }
 
     private static ArrayList<SellSelection> collectSelections(
-            @NonNull ItemContainer inventory,
-            @NonNull String[] sellItemIds,
+            @Nonnull ItemContainer inventory,
+            @Nonnull String[] sellItemIds,
             MghgShopConfig.ShopItem item,
             int quantity
     ) {
@@ -185,7 +185,7 @@ public class FarmSellCommand extends AbstractPlayerCommand {
         return selections;
     }
 
-    private static boolean matchesSellItem(@NonNull ItemStack stack, @NonNull String[] acceptedItemIds) {
+    private static boolean matchesSellItem(@Nonnull ItemStack stack, @Nonnull String[] acceptedItemIds) {
         String current = normalizeItemId(stack.getItemId());
         for (String accepted : acceptedItemIds) {
             String normalizedAccepted = normalizeItemId(accepted);
@@ -214,7 +214,7 @@ public class FarmSellCommand extends AbstractPlayerCommand {
         return raw;
     }
 
-    private static void rollbackSell(@NonNull ItemContainer inventory, @NonNull ArrayList<ItemStack> rollbackStacks) {
+    private static void rollbackSell(@Nonnull ItemContainer inventory, @Nonnull ArrayList<ItemStack> rollbackStacks) {
         for (ItemStack stack : rollbackStacks) {
             if (ItemStack.isEmpty(stack)) {
                 continue;

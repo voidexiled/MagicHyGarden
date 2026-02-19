@@ -8,7 +8,7 @@ import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayer
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 public class FarmHelpCommand extends AbstractPlayerCommand {
     public FarmHelpCommand() {
@@ -18,11 +18,11 @@ public class FarmHelpCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Farm quick help:"));
         ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(" - /farm home | /farm lobby | /farm survival"));

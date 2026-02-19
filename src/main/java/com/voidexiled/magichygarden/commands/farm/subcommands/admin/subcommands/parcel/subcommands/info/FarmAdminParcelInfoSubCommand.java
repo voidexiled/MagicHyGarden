@@ -9,7 +9,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.commands.farm.subcommands.admin.subcommands.parcel.subcommands.info.shared.FarmAdminParcelInfoShared;
 import com.voidexiled.magichygarden.commands.farm.subcommands.admin.subcommands.parcel.subcommands.info.usageVariants.FarmAdminParcelInfoOtherVariantCommand;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 public class FarmAdminParcelInfoSubCommand extends AbstractPlayerCommand {
 
@@ -20,11 +20,11 @@ public class FarmAdminParcelInfoSubCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
 
         FarmAdminParcelInfoShared.handleParcelInfo(commandContext, playerRef);
     }

@@ -6,8 +6,8 @@ import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.util.BsonUtil;
 import com.voidexiled.magichygarden.features.farming.storage.MghgStoragePaths;
 import org.bson.BsonDocument;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -123,12 +123,12 @@ public final class MghgParcelInviteService {
     }
 
     public static synchronized void createInvite(
-            @NonNull UUID ownerId,
-            @NonNull String ownerName,
-            @NonNull UUID inviterId,
-            @NonNull String inviterName,
-            @NonNull UUID targetId,
-            @NonNull String targetName
+            @Nonnull UUID ownerId,
+            @Nonnull String ownerName,
+            @Nonnull UUID inviterId,
+            @Nonnull String inviterName,
+            @Nonnull UUID targetId,
+            @Nonnull String targetName
     ) {
         cleanupExpired(targetId);
         upsertInvite(targetId, new Invite(
@@ -143,7 +143,7 @@ public final class MghgParcelInviteService {
         saveSoon();
     }
 
-    public static synchronized @Nullable Invite acceptLatest(@NonNull UUID targetId) {
+    public static synchronized @Nullable Invite acceptLatest(@Nonnull UUID targetId) {
         Invite invite = pollLatest(targetId);
         if (invite == null) {
             return null;
@@ -152,7 +152,7 @@ public final class MghgParcelInviteService {
         return invite;
     }
 
-    public static synchronized @Nullable Invite denyLatest(@NonNull UUID targetId) {
+    public static synchronized @Nullable Invite denyLatest(@Nonnull UUID targetId) {
         Invite invite = pollLatest(targetId);
         if (invite == null) {
             return null;
@@ -161,7 +161,7 @@ public final class MghgParcelInviteService {
         return invite;
     }
 
-    public static synchronized boolean removeInvite(@NonNull UUID targetId, @NonNull UUID ownerId) {
+    public static synchronized boolean removeInvite(@Nonnull UUID targetId, @Nonnull UUID ownerId) {
         cleanupExpired(targetId);
         List<Invite> pending = PENDING_BY_TARGET.get(targetId);
         if (pending == null || pending.isEmpty()) {
@@ -177,7 +177,7 @@ public final class MghgParcelInviteService {
         return removed;
     }
 
-    public static synchronized @NonNull List<Invite> getPending(@NonNull UUID targetId) {
+    public static synchronized @Nonnull List<Invite> getPending(@Nonnull UUID targetId) {
         cleanupExpired(targetId);
         List<Invite> pending = PENDING_BY_TARGET.get(targetId);
         if (pending == null || pending.isEmpty()) {
@@ -210,7 +210,7 @@ public final class MghgParcelInviteService {
         return removed;
     }
 
-    private static void cleanupExpired(@NonNull UUID targetId) {
+    private static void cleanupExpired(@Nonnull UUID targetId) {
         List<Invite> pending = PENDING_BY_TARGET.get(targetId);
         if (pending == null || pending.isEmpty()) {
             return;
@@ -226,7 +226,7 @@ public final class MghgParcelInviteService {
         }
     }
 
-    private static @Nullable Invite pollLatest(@NonNull UUID targetId) {
+    private static @Nullable Invite pollLatest(@Nonnull UUID targetId) {
         cleanupExpired(targetId);
         List<Invite> pending = PENDING_BY_TARGET.get(targetId);
         if (pending == null || pending.isEmpty()) {
@@ -237,7 +237,7 @@ public final class MghgParcelInviteService {
                 .orElse(null);
     }
 
-    private static void upsertInvite(@NonNull UUID targetId, @NonNull Invite invite) {
+    private static void upsertInvite(@Nonnull UUID targetId, @Nonnull Invite invite) {
         List<Invite> pending = PENDING_BY_TARGET.computeIfAbsent(targetId, ignored -> new ArrayList<>());
         pending.removeIf(existing -> invite.ownerId.equals(existing.ownerId));
         pending.add(invite);
@@ -312,7 +312,7 @@ public final class MghgParcelInviteService {
         }, SAVE_DEBOUNCE_MILLIS, TimeUnit.MILLISECONDS);
     }
 
-    private static String safeName(@Nullable String name, @NonNull UUID fallbackId) {
+    private static String safeName(@Nullable String name, @Nonnull UUID fallbackId) {
         if (name == null || name.isBlank()) {
             return fallbackId.toString();
         }
@@ -323,7 +323,7 @@ public final class MghgParcelInviteService {
         return MghgStoragePaths.resolveInDataRoot("parcels", "invites.json");
     }
 
-    private static List<Path> legacyCandidates(@NonNull Path primary) {
+    private static List<Path> legacyCandidates(@Nonnull Path primary) {
         LinkedHashSet<Path> set = new LinkedHashSet<>();
         set.add(primary);
         set.addAll(MghgStoragePaths.legacyCandidates("parcels", "invites.json"));

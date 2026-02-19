@@ -18,7 +18,7 @@ import com.voidexiled.magichygarden.features.farming.perks.MghgFertileSoilReconc
 import com.voidexiled.magichygarden.features.farming.perks.MghgFarmPerkManager;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.UUID;
 
@@ -39,11 +39,11 @@ public class FarmAdminPerksRecalcSubCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext commandContext,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> ref,
-            @NonNull PlayerRef executor,
-            @NonNull World world
+            @Nonnull CommandContext commandContext,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> ref,
+            @Nonnull PlayerRef executor,
+            @Nonnull World world
     ) {
         UUID targetUuid = FarmAdminCommandShared.resolveUuid(executor, targetArg.get(commandContext));
         if (targetUuid == null) {

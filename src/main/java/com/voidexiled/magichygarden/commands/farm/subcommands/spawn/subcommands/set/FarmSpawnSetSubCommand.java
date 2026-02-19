@@ -13,7 +13,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcel;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -24,15 +24,15 @@ public class FarmSpawnSetSubCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
         setSpawn(commandContext, playerRef, world);
     }
 
-    public static void setSpawn(@NonNull CommandContext ctx, @NonNull PlayerRef playerRef, @NonNull World world) {
+    public static void setSpawn(@Nonnull CommandContext ctx, @Nonnull PlayerRef playerRef, @Nonnull World world) {
         UUID owner = MghgFarmWorldManager.getOwnerFromFarmWorld(world);
         if (owner == null || !owner.equals(playerRef.getUuid())) {
             ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Debes estar dentro de tu propia granja para usar /farm spawn set."));

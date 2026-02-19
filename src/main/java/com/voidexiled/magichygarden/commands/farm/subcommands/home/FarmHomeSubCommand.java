@@ -16,7 +16,7 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcel;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelBounds;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.awt.*;
 import java.util.concurrent.CompletionException;
@@ -35,47 +35,62 @@ public class FarmHomeSubCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         openAndTeleport(ctx, playerRef, world, 1);
     }
 
     // TODO redundant function with FarmVisitCommand
     private static Transform resolveParcelSpawn(World world, java.util.UUID uuid) {
+        LOGGER.atSevere().log("ResolveParcelSpawn - 1");
         Transform baseSpawn = MghgFarmWorldManager.resolveFarmSpawn(world, uuid);
+        LOGGER.atSevere().log("ResolveParcelSpawn - 2");
         MghgParcel parcel = MghgParcelManager.getByOwner(uuid);
+        LOGGER.atSevere().log("ResolveParcelSpawn - 3");
         if (parcel == null) {
+            LOGGER.atSevere().log("ResolveParcelSpawn - 4");
             int sizeX = MghgFarmWorldManager.getConfiguredParcelSizeX();
             int sizeY = MghgFarmWorldManager.getConfiguredParcelSizeY();
             int sizeZ = MghgFarmWorldManager.getConfiguredParcelSizeZ();
+            LOGGER.atSevere().log("ResolveParcelSpawn - 5");
             int originX = (int) Math.floor(baseSpawn.getPosition().x) - (sizeX / 2);
             int originY = ((int) Math.floor(baseSpawn.getPosition().y)) - 1;
             int originZ = (int) Math.floor(baseSpawn.getPosition().z) - (sizeZ / 2);
+            LOGGER.atSevere().log("ResolveParcelSpawn - 6");
             parcel = MghgParcelManager.getOrCreate(uuid, originX, originY, originZ);
+            LOGGER.atSevere().log("ResolveParcelSpawn - 7");
             parcel.setBounds(new MghgParcelBounds(originX, originY, originZ, sizeX, sizeY, sizeZ));
+            LOGGER.atSevere().log("ResolveParcelSpawn - 8");
             MghgParcelManager.save();
+            LOGGER.atSevere().log("ResolveParcelSpawn - 9");
         }
 
+        LOGGER.atSevere().log("ResolveParcelSpawn - 10");
         MghgParcelBounds bounds = parcel.getBounds();
+        LOGGER.atSevere().log("ResolveParcelSpawn - 11");
         if (bounds == null) {
+            LOGGER.atSevere().log("ResolveParcelSpawn - 12");
             return MghgFarmWorldManager.resolveSafeSurfaceSpawn(world, baseSpawn);
         }
+        LOGGER.atSevere().log("ResolveParcelSpawn - 13");
         double x = parcel.resolveSpawnX();
         double y = parcel.resolveSpawnY();
         double z = parcel.resolveSpawnZ();
+        LOGGER.atSevere().log("ResolveParcelSpawn - 14");
         Transform preferred = FarmTeleportUtil.createTransform(x, y, z, baseSpawn.getRotation());
+        LOGGER.atSevere().log("ResolveParcelSpawn - 15");
         return MghgFarmWorldManager.resolveSafeSurfaceSpawn(world, preferred);
     }
 
     private static void scheduleTeleport(
-            @NonNull CommandContext ctx,
-            @NonNull PlayerRef playerRef,
-            @NonNull World targetWorld,
-            @NonNull Transform spawn,
+            @Nonnull CommandContext ctx,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World targetWorld,
+            @Nonnull Transform spawn,
             int attempt
     ) {
 
@@ -111,10 +126,10 @@ public class FarmHomeSubCommand extends AbstractPlayerCommand {
     }
 
     private static void retryTeleport(
-            @NonNull CommandContext ctx,
-            @NonNull PlayerRef playerRef,
-            @NonNull World targetWorld,
-            @NonNull Transform spawn,
+            @Nonnull CommandContext ctx,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World targetWorld,
+            @Nonnull Transform spawn,
             int attempt
     ) {
         if (attempt >= TELEPORT_MAX_ATTEMPTS) {
@@ -129,9 +144,9 @@ public class FarmHomeSubCommand extends AbstractPlayerCommand {
     }
 
     private static void openAndTeleport(
-            @NonNull CommandContext ctx,
-            @NonNull PlayerRef playerRef,
-            @NonNull World callbackWorld,
+            @Nonnull CommandContext ctx,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World callbackWorld,
             int attempt
     ) {
         ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.format(
@@ -145,11 +160,14 @@ public class FarmHomeSubCommand extends AbstractPlayerCommand {
                             "Preparando teletransporte a tu granja..."
                     ));
                     Transform spawn = resolveParcelSpawn(targetWorld, playerRef.getUuid());
+                    LOGGER.atSevere().log("1");
                     scheduleTeleport(ctx, playerRef, targetWorld, spawn, 1);
+                    LOGGER.atSevere().log("2");
                 })
                 .exceptionally(error -> {
                     Throwable root = unwrap(error);
                     if (attempt < OPEN_WORLD_MAX_ATTEMPTS && isTransientOpenError(root)) {
+                        LOGGER.atSevere().log("3");
                         HytaleServer.SCHEDULED_EXECUTOR.schedule(
                                 () -> openAndTeleport(ctx, playerRef, callbackWorld, attempt + 1),
                                 OPEN_WORLD_RETRY_DELAY_MILLIS,
@@ -165,7 +183,7 @@ public class FarmHomeSubCommand extends AbstractPlayerCommand {
                 });
     }
 
-    private static boolean isTransientOpenError(@NonNull Throwable error) {
+    private static boolean isTransientOpenError(@Nonnull Throwable error) {
         String message = error.getMessage();
         if (error instanceof IllegalMonitorStateException) {
             return true;

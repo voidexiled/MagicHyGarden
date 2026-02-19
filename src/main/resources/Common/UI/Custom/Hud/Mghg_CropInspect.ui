@@ -9,9 +9,9 @@ $C = "../Common.ui";
 @PanelHeight = 136;
 @PanelBottomPad = 6;
 @BadgeRowGap = 8;
-@InfoPanelWidth = 230;
-@InfoPanelHeight = 140;
-@InfoPad = 12;
+@InfoPanelWidth = 256;
+@InfoPanelHeight = 180;
+@InfoPad = 14;
 
 Group {
   Anchor: (Left: 0, Top: 0, Right: 0, Bottom: 0);
@@ -315,69 +315,63 @@ Group {
     }
   }
 
-  Group #MghgFarmInfoPanel {
-    LayoutMode: Top;
-    Anchor: (Top: 80, Right: 20, Width: @InfoPanelWidth, Height: @InfoPanelHeight);
-    Padding: (Left: @InfoPad, Top: @InfoPad, Right: @InfoPad, Bottom: @InfoPad);
-    Background: (TexturePath: "../ItemQualities/Tooltips/ItemTooltipDefault.png", Border: 18);
+  $C.@Container #MghgFarmInfoPanel {
+    LayoutMode: Center;
+    Anchor: (Right: 20, Width: @InfoPanelWidth, Height: @InfoPanelHeight);
     HitTestVisible: false;
     Visible: false;
 
-    Label #FarmInfoTitle {
-      Style: (
-        FontSize: 17,
-        RenderBold: true,
-        TextColor: #f3f6fb
-      );
+    #Title {
+      Label #FarmInfoTitle {
+        Style: (
+          ...$C.@TitleStyle,
+          HorizontalAlignment: Center,
+        );
+      }
     }
 
-    Group {
-      Anchor: (Top: 8, Height: 1);
-      Background: #ffffff(0.08);
-    }
-
-    Group #FarmInfoBody {
+    #Content {
       LayoutMode: Top;
-      Anchor: (Top: 8);
 
-      Label #FarmInfoBalance {
-        Style: (
-          FontSize: 12,
-          TextColor: #9fc1e8
-        );
-      }
+      Group #FarmInfoBody {
+        LayoutMode: Top;
 
-      Label #FarmInfoFertile {
-        Anchor: (Top: 2);
-        Style: (
-          FontSize: 12,
-          TextColor: #9fc1e8
-        );
-      }
+        Label #FarmInfoBalance {
+          Style: (
+            FontSize: 12,
+            TextColor: #9fc1e8
+          );
+        }
 
-      Label #FarmInfoSellMultiplier {
-        Anchor: (Top: 2);
-        Style: (
-          FontSize: 12,
-          TextColor: #9fc1e8
-        );
-      }
+        Label #FarmInfoFertile {
+          Style: (
+            FontSize: 12,
+            TextColor: #9fc1e8
+          );
+        }
 
-      Label #FarmInfoMutationMultiplier {
-        Anchor: (Top: 2);
-        Style: (
-          FontSize: 12,
-          TextColor: #9fc1e8
-        );
-      }
+        Label #FarmInfoSellMultiplier {
+          Style: (
+            FontSize: 12,
+            TextColor: #9fc1e8
+          );
+        }
 
-      Label #FarmInfoMembers {
-        Anchor: (Top: 2);
-        Style: (
-          FontSize: 12,
-          TextColor: #9fc1e8
-        );
+        Label #FarmInfoMutationMultiplier {
+          Style: (
+            FontSize: 12,
+            TextColor: #9fc1e8
+          );
+        }
+
+        Label #FarmInfoMembers {
+          Style: (
+            FontSize: 12,
+            TextColor: #9fc1e8
+          );
+        }
       }
     }
+
   }
 }

@@ -12,7 +12,7 @@ import com.voidexiled.magichygarden.features.farming.modifiers.MghgCropGrowthMod
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationRule;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationRuleSet;
 import com.voidexiled.magichygarden.features.farming.state.MghgMutationRules;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -23,11 +23,11 @@ public class CropDebugRulesCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         MghgCropGrowthModifierAsset cfg = MghgCropGrowthModifierAsset.getLastLoaded();
         MghgMutationRuleSet rules = MghgMutationRules.getActive(cfg);

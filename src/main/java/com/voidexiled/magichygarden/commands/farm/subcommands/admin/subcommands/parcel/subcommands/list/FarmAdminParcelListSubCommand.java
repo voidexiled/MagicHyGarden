@@ -13,7 +13,7 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcel;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelBounds;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
@@ -23,16 +23,16 @@ public class FarmAdminParcelListSubCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
 
         handleParcelList(commandContext);
     }
 
-    private static void handleParcelList(@NonNull CommandContext ctx) {
+    private static void handleParcelList(@Nonnull CommandContext ctx) {
         int count = 0;
         for (MghgParcel parcel : MghgParcelManager.all()) {
             if (parcel == null || parcel.getOwner() == null) {

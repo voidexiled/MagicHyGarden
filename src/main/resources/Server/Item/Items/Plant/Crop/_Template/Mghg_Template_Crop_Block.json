@@ -2,7 +2,7 @@
   "TranslationProperties": {
     "Name": "server.items.Template_Crop.name"
   },
-  "Quality": "Technical",
+  "Quality": "Template",
   "Interactions": {
     "Primary": "Block_Primary",
     "Secondary": "Block_Secondary"

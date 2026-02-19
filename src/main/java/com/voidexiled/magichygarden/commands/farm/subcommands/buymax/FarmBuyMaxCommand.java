@@ -20,7 +20,7 @@ import com.voidexiled.magichygarden.features.farming.shop.MghgShopAccessPolicy;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopConfig;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
@@ -38,11 +38,11 @@ public class FarmBuyMaxCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         MghgPlayerNameManager.remember(playerRef);
         String accessError = MghgShopAccessPolicy.validateTransactionContext(store, playerEntityRef, playerRef, world);
@@ -129,7 +129,7 @@ public class FarmBuyMaxCommand extends AbstractPlayerCommand {
         FarmShopCommand.refreshHudForPlayer(store, playerEntityRef, playerRef, world);
     }
 
-    private static int resolveMaxInventoryFit(@NonNull ItemContainer inventory, @NonNull String itemId, int cap) {
+    private static int resolveMaxInventoryFit(@Nonnull ItemContainer inventory, @Nonnull String itemId, int cap) {
         if (cap <= 0) {
             return 0;
         }

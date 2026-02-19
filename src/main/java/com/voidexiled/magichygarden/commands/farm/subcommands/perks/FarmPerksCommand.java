@@ -15,7 +15,7 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcel;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.perks.MghgFarmPerkManager;
 import com.voidexiled.magichygarden.features.farming.ui.MghgFarmPerksPage;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
@@ -44,11 +44,11 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
 
     @Override
     protected void execute(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         String action = normalize(actionArg.get(ctx));
         switch (action) {
@@ -71,11 +71,11 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
     }
 
     private void openUi(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef,
-            @NonNull World world
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef,
+            @Nonnull World world
     ) {
         String error = MghgFarmPerksPage.openForPlayer(store, playerEntityRef, playerRef, world);
         if (error != null) {
@@ -85,11 +85,11 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
         ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Perks UI abierta. Usa /farm perks close para cerrar."));
     }
 
-    private void closeUi(@NonNull Store<EntityStore> store, @NonNull Ref<EntityStore> playerEntityRef) {
+    private void closeUi(@Nonnull Store<EntityStore> store, @Nonnull Ref<EntityStore> playerEntityRef) {
         MghgFarmPerksPage.closeForPlayer(store, playerEntityRef);
     }
 
-    private void sendStatus(@NonNull CommandContext ctx, @NonNull PlayerRef playerRef) {
+    private void sendStatus(@Nonnull CommandContext ctx, @Nonnull PlayerRef playerRef) {
         MghgParcel parcel = MghgParcelManager.getByOwner(playerRef.getUuid());
         if (parcel == null) {
             ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text(
@@ -143,10 +143,10 @@ public class FarmPerksCommand extends AbstractPlayerCommand {
     }
 
     private void handleUpgrade(
-            @NonNull CommandContext ctx,
-            @NonNull Store<EntityStore> store,
-            @NonNull Ref<EntityStore> playerEntityRef,
-            @NonNull PlayerRef playerRef
+            @Nonnull CommandContext ctx,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> playerEntityRef,
+            @Nonnull PlayerRef playerRef
     ) {
         String perkId = normalize(perkArg.get(ctx));
         if (!isKnownPerk(perkId)) {

@@ -12,7 +12,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.shop.MghgShopStockManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 public class FarmAdminStockSetSubCommand extends AbstractPlayerCommand {
     private final RequiredArg<String> shopIdArg;
@@ -35,18 +35,18 @@ public class FarmAdminStockSetSubCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
         String shopId = commandContext.get(shopIdArg);
         int qty = commandContext.get(qtyArg);
 
         handleStockSet(commandContext, shopId, qty);
     }
 
-    private void handleStockSet(@NonNull CommandContext ctx, @NonNull String shopId, int qty){
+    private void handleStockSet(@Nonnull CommandContext ctx, @Nonnull String shopId, int qty){
         boolean ok = MghgShopStockManager.setStock(shopId, qty);
         if (!ok) {
             ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No pude actualizar stock para '" + shopId + "'."));

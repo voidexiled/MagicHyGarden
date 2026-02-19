@@ -7,8 +7,8 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.util.BsonUtil;
 import org.bson.BsonDocument;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -105,7 +105,7 @@ public final class MghgPlayerNameManager {
         remember(playerRef.getUuid(), playerRef.getUsername());
     }
 
-    public static @NonNull String resolve(@Nullable UUID uuid) {
+    public static @Nonnull String resolve(@Nullable UUID uuid) {
         if (uuid == null) {
             return "unknown";
         }

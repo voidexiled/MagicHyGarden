@@ -5,7 +5,7 @@ import com.voidexiled.magichygarden.features.farming.parcels.MghgParcel;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelAccess;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelRole;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import java.util.UUID;
 

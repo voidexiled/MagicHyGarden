@@ -10,7 +10,7 @@ import com.voidexiled.magichygarden.features.farming.events.MghgGlobalFarmEventS
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
 import com.voidexiled.magichygarden.features.farming.state.MutationEventType;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import javax.annotation.Nullable;
 import java.time.Duration;
@@ -22,7 +22,7 @@ public final class FarmEventCommandShared {
     private FarmEventCommandShared() {
     }
 
-    public static void sendStatus(@NonNull CommandContext ctx) {
+    public static void sendStatus(@Nonnull CommandContext ctx) {
         Instant now = Instant.now();
         MghgGlobalFarmEventState state = MghgFarmEventScheduler.getState();
 
@@ -93,7 +93,7 @@ public final class FarmEventCommandShared {
         )));
     }
 
-    public static void sendWorlds(@NonNull CommandContext ctx) {
+    public static void sendWorlds(@Nonnull CommandContext ctx) {
         Universe universe = Universe.get();
         if (universe == null) {
             ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("Universe no disponible."));
@@ -141,8 +141,8 @@ public final class FarmEventCommandShared {
     }
 
     public static void sendEventGroupList(
-            @NonNull CommandContext ctx,
-            @NonNull String label,
+            @Nonnull CommandContext ctx,
+            @Nonnull String label,
             @Nullable MghgFarmEventConfig.EventGroup group
     ) {
         if (group == null || group.getEvents() == null || group.getEvents().length == 0) {
@@ -172,26 +172,26 @@ public final class FarmEventCommandShared {
         }
     }
 
-    public static long secondsBetween(@NonNull Instant now, @Nullable Instant target) {
+    public static long secondsBetween(@Nonnull Instant now, @Nullable Instant target) {
         if (target == null) {
             return 0L;
         }
         return Math.max(0L, Duration.between(now, target).getSeconds());
     }
 
-    public static @NonNull String normalize(@Nullable String raw) {
+    public static @Nonnull String normalize(@Nullable String raw) {
         return raw == null ? "" : raw.trim().toLowerCase(Locale.ROOT);
     }
 
-    public static @NonNull String raw(@Nullable String value) {
+    public static @Nonnull String raw(@Nullable String value) {
         return value == null ? "" : value.trim();
     }
 
-    public static @NonNull String fallback(@Nullable String raw, @NonNull String fallback) {
+    public static @Nonnull String fallback(@Nullable String raw, @Nonnull String fallback) {
         return (raw == null || raw.isBlank()) ? fallback : raw;
     }
 
-    public static @NonNull String formatDuration(long seconds) {
+    public static @Nonnull String formatDuration(long seconds) {
         if (seconds <= 0L) {
             return "0s";
         }
@@ -229,7 +229,7 @@ public final class FarmEventCommandShared {
         };
     }
 
-    public static @NonNull MutationEventType parseEventType(@Nullable String raw) {
+    public static @Nonnull MutationEventType parseEventType(@Nullable String raw) {
         String token = normalize(raw);
         return switch (token) {
             case "weather", "regular", "rain", "snow" -> MutationEventType.WEATHER;
@@ -251,7 +251,7 @@ public final class FarmEventCommandShared {
         }
     }
 
-    public static @NonNull String formatNullableBoolean(@Nullable Boolean value) {
+    public static @Nonnull String formatNullableBoolean(@Nullable Boolean value) {
         return value == null ? "default" : value.toString();
     }
 }

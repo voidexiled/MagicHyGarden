@@ -11,7 +11,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcel;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelBounds;
 import com.voidexiled.magichygarden.features.farming.parcels.MghgParcelManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
@@ -23,15 +23,15 @@ public class FarmSpawnStatusSubCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef playerRef,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef playerRef,
+                           @Nonnull World world) {
         showStatus(commandContext, playerRef);
     }
 
-    private static void showStatus(@NonNull CommandContext ctx, @NonNull PlayerRef playerRef) {
+    private static void showStatus(@Nonnull CommandContext ctx, @Nonnull PlayerRef playerRef) {
         MghgParcel parcel = MghgParcelManager.getByOwner(playerRef.getUuid());
         if (parcel == null) {
             ctx.sendMessage(com.voidexiled.magichygarden.utils.chat.MghgChat.text("No tienes parcela aun. Usa /farm home primero."));

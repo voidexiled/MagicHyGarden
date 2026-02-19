@@ -13,7 +13,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.voidexiled.magichygarden.commands.farm.subcommands.admin.shared.FarmAdminCommandShared;
 import com.voidexiled.magichygarden.features.farming.storage.MghgPlayerNameManager;
 import com.voidexiled.magichygarden.features.farming.worlds.MghgFarmWorldManager;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 import java.util.UUID;
 
@@ -31,11 +31,11 @@ public class FarmAdminWorldRestoreSubCommand extends AbstractPlayerCommand {
     }
 
     @Override
-    protected void execute(@NonNull CommandContext commandContext,
-                           @NonNull Store<EntityStore> store,
-                           @NonNull Ref<EntityStore> ref,
-                           @NonNull PlayerRef executor,
-                           @NonNull World world) {
+    protected void execute(@Nonnull CommandContext commandContext,
+                           @Nonnull Store<EntityStore> store,
+                           @Nonnull Ref<EntityStore> ref,
+                           @Nonnull PlayerRef executor,
+                           @Nonnull World world) {
         MghgPlayerNameManager.remember(executor);
         String targetToken = targetArg.get(commandContext);
         UUID targetUuid = FarmAdminCommandShared.resolveUuid(executor, targetToken);
@@ -47,8 +47,8 @@ public class FarmAdminWorldRestoreSubCommand extends AbstractPlayerCommand {
     }
 
     private static void forceWorldRestore(
-            @NonNull CommandContext ctx,
-            @NonNull UUID owner
+            @Nonnull CommandContext ctx,
+            @Nonnull UUID owner
     ) {
         String targetName = MghgPlayerNameManager.resolve(owner);
 

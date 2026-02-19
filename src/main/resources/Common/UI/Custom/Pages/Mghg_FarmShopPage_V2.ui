@@ -166,12 +166,12 @@ Group #MghgFarmShopPageV2 {
                 Text: "";
               }
 
-              $C.@SmallSecondaryTextButton #SellSelectAll {
+              $C.@SmallTertiaryTextButton #SellSelectAll {
                 @Text = "Select all";
                 @Anchor = (Width: 106, Height: 28, Left: 8);
               }
 
-              $C.@SmallSecondaryTextButton #SellClearSelection {
+              $C.@SmallTertiaryTextButton #SellClearSelection {
                 @Text = "Clear";
                 @Anchor = (Width: 96, Height: 28, Left: 8);
               }

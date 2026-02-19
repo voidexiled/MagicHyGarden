@@ -315,28 +315,22 @@ Group {
     }
   }
 
+
   $C.@Container #MghgFarmInfoPanel {
-    LayoutMode: Center;
-    Anchor: (Right: 20, Width: @InfoPanelWidth, Height: @InfoPanelHeight);
+    Anchor: (Right: 40, Width: @InfoPanelWidth, Height: @InfoPanelHeight);
     HitTestVisible: false;
     Visible: false;
 
     #Title {
-      Label #FarmInfoTitle {
-        Style: (
-          ...$C.@TitleStyle,
-          HorizontalAlignment: Center,
-        );
-      }
+      $C.@Title #FarmInfoTitle {}
     }
 
     #Content {
-      LayoutMode: Top;
-
       Group #FarmInfoBody {
         LayoutMode: Top;
 
         Label #FarmInfoBalance {
+          Anchor: (Top: 4);
           Style: (
             FontSize: 12,
             TextColor: #9fc1e8
@@ -344,6 +338,7 @@ Group {
         }
 
         Label #FarmInfoFertile {
+          Anchor: (Top: 4);
           Style: (
             FontSize: 12,
             TextColor: #9fc1e8
@@ -351,6 +346,7 @@ Group {
         }
 
         Label #FarmInfoSellMultiplier {
+          Anchor: (Top: 4);
           Style: (
             FontSize: 12,
             TextColor: #9fc1e8
@@ -358,6 +354,7 @@ Group {
         }
 
         Label #FarmInfoMutationMultiplier {
+          Anchor: (Top: 4);
           Style: (
             FontSize: 12,
             TextColor: #9fc1e8
@@ -365,6 +362,7 @@ Group {
         }
 
         Label #FarmInfoMembers {
+          Anchor: (Top: 4);
           Style: (
             FontSize: 12,
             TextColor: #9fc1e8
@@ -372,6 +370,6 @@ Group {
         }
       }
     }
-
   }
+
 }
